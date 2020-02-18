@@ -1,0 +1,29 @@
+     1                                          org     0x7c00
+     2 00000000 8CC8                            mov     ax, cs
+     3 00000002 8ED8                            mov     ds, ax
+     4 00000004 8EC0                            mov     es, ax
+     5 00000006 E80200                          call    DispStr
+     6 00000009 EBFE                            jmp     $                       ; infinite loop
+     7                                  
+     8                                  DispStr:
+     9 0000000B B80300                          mov     ax, 0x0003
+    10 0000000E CD10                            int     0x10                    ; clear screen
+    11 00000010 B8[2300]                        mov     ax, BootMessage
+    12 00000013 89C5                            mov     bp, ax                  ; string address
+    13 00000015 B91E00                          mov     cx, 14+2+14             ; string length
+    14 00000018 B80113                          mov     ax, 0x1301
+    15 0000001B BB0D00                          mov     bx, 0x000d              ; bh=00 (page), bl=0d (color)
+    16 0000001E B200                            mov     dl, 0
+    17 00000020 CD10                            int     0x10
+    18 00000022 C3                              ret
+    19                                  
+    20                                  BootMessage:            
+    21 00000023 48656C6C6F2C204C69-             db      "Hello, Litchi!"
+    21 0000002C 7463686921         
+    22 00000031 0D                              db      0x0d                    ; cl
+    23 00000032 0A                              db      0x0a                    ; rf
+    24 00000033 427567656E5A68616F-             db      "BugenZhao 2020"
+    24 0000003C 2032303230         
+    25                                  
+    26 00000041 00<rept>                times   510-($-$$)      db      0       ; fill blank
+    27 000001FE 55AA                    dw      0xaa55                          ; end (little endian)
