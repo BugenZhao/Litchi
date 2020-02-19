@@ -122,24 +122,24 @@ LABEL_ENTRY:
 	mov	es, ax
 	mov	ax, OffsetOfLoader
 	mov	bx, ax					; 临时把根目录文件信息放在这里
-	mov	di, [wSectorNo]
+	mov	di, [wSectorNo]				; Sector 序号 初始(0)
 	mov	cl, 1
-	call	ReadSector				; 读取根目录
-
+	call	ReadSector				; 读取根目录的一个 Sector
 	mov	si, LoaderFileName
 	mov	di, OffsetOfLoader
-	cld
+	cld						; clear df flag
 	mov	dx, 10h					; 该扇区条目计数器
-.RootSearchStart:
+
+.SectorSearchStart:
 	cmp	dx, 0
-	je	.NextSector				; 该扇区已经搜索完
+	je	.NextSector				; 该扇区已经搜索完?
 	dec	dx
 	mov	cx, 11					; 文件名比较计数器
 .CompareFileName:
 	cmp	cx, 0
-	je	.FileNameFound				; 字符全部匹配
+	je	.FileNameFound				; 字符全部匹配?
 	dec	cx
-	lodsb						; [ds:si] -> al
+	lodsb						; [ds:si] -> al; 由于 df=0, 递减 si 
 	cmp 	al, byte [es:di]
 	jne	.FileNameDifferent
 	inc	di
@@ -148,25 +148,26 @@ LABEL_ENTRY:
 	and	di, 0ffe0h				; di 指向条目开头
 	add	di, 20h					; 下一个条目
 	mov	si, LoaderFileName
-	jmp	.RootSearchStart
-
-.NextSector:
-	add	word [wSectorNo], 1
+	jmp	.SectorSearchStart
 
 .RootSearchUpdate:
+.NextSector:
+	add	word [wSectorNo], 1
 	dec	word [wRootDirSizeForLoop]
+
 .RootSearchTest:
 	cmp	word [wRootDirSizeForLoop], 0
 	je	.NoLoader
 	jmp	.RootSearchLoop
 
+
+.Result:
 .NoLoader:
 	mov	di, NoLoaderMessage
 	mov	si, LoaderFoundMessage
 	mov	dh, 8
 	call	DispStr
 	jmp	Fin
-
 .FileNameFound:
 	mov	di, LoaderFoundMessage
 	mov	si, MessageEnd
