@@ -28,6 +28,9 @@ BaseOfLoader		equ	0x9000		; Loader 加载基址
 OffsetOfLoader		equ	0x100		; Loader 加载偏移
 RootDirSectors		equ	14		; 根据根目录 224 项得到
 SectorNoOfRootDirectory	equ	19		; 根目录开始扇区号，第二个 FAT 表
+SectorNoOfFAT1		equ	1		; FAT1 的第一个扇区号 = BPB_RsvdSecCnt
+DeltaSectorNo		equ	17		; DeltaSectorNo = BPB_RsvdSecCnt + (BPB_NumFATs * FATSz) - 2
+						; 文件的开始Sector号 = DirEntry中的开始Sector号 + 根目录占用Sector数目 + DeltaSectorNo
 
 wRootDirSizeForLoop	dw	RootDirSectors	; Root Directory 占用的扇区数，
 						; 在循环中会递减至零.
@@ -35,43 +38,41 @@ wSectorNo		dw	0		; 要读取的扇区号
 bOdd			db	0		; 奇数还是偶数
 
 LoaderFileName		db	"LOADER  LIT", 0
+MessageLength		equ	12
+MessageTable:
+; HelloMessage:		db	"Hello, Litchi!", 0x0d, 0x0a, "BugenZhao 2020", 0x0d, 0x0a
+; HelloMessageEnd:
+NoLoaderMessage		db	"No loader   "
+LoaderFoundMessage	db	"Loader found"
+ReadyMessage		db	"Ready       "
+HelloMessage		db	"Bugen Litchi"
 
-MessageBegin:
-HelloMessage:		db	"Hello, Litchi!", 0x0d, 0x0a, "BugenZhao 2020", 0x0d, 0x0a
-BootMessage:		db	"Booting...", 0x0d, 0x0a
-NoLoaderMessage:	db	"Fatal: no loader.", 0x0d, 0x0a
-LoaderFoundMessage:	db	"Loader found!", 0x0d, 0x0a
-MessageEnd:
 
-
-
-ClearScreen:
-	mov	ax, 0x0003
-	int	10h					; clear screen
-	ret
 
 DispStr:
-	; message in di, end in si, row in dh
+	; message_index in di, row:col in dx
+	push	dx					; 坑啊
 	mov	ax, ds
-	mov	es, ax
-	mov	bp, di					; es:bp -> string address
-	mov	cx, si
-	sub	cx, di					; calculate string length
+	mov	es, ax					; es
+	mov	ax, MessageLength
+	mov	cx, ax					; calculate string length
+	mul	di					; dx:ax
+	add	ax, MessageTable
+	mov	bp, ax					; es:bp -> string address
 	mov	ax, 0x1301				; ah=0x13 (write string)
 	mov	bx, 0x000d				; bh=0x00 (page), bl=0x0d (color)
-	mov	dl, 0					; col = 0
+	pop	dx
 	int	10h
 	ret
 
 ReadSector:
-	; start_sector in di, size in cl, buf in es:bx
+	; start_sector in ax, size in cl, buf in es:bx
 	; 扇区号 x 除以 18（每个磁道的扇区），商 q，余 r
 	; 柱面 q >> 1, 磁头 q & 1, 起始扇区 r + 1
 	push	bp
 	mov	bp, sp					; 保存栈指针
 	sub	esp, 2					; 在栈上开辟 2 个字节
 	mov	byte [bp-2], cl
-	mov	ax, di					; 构造被除数
 	push	bx
 	mov	bl, [BPB_SecPerTrk]			; 构造除数 18
 	div	bl					; ax/bl (8 bits), q in al, r in ah
@@ -93,6 +94,53 @@ ReadSector:
 	pop	bp
 	ret
 
+;	找到序号为 ax 的 Sector 在 FAT 中的条目, 结果放在 ax 中
+;	需要注意的是, 中间需要读 FAT 的扇区到 es:bx 处, 所以函数一开始保存了 es 和 bx
+GetFATEntry:
+	push	es
+	push	bx
+	push	ax
+	mov	ax, BaseOfLoader; `.
+	sub	ax, 0100h	;  | 在 BaseOfLoader 后面留出 4K 空间用于存放 FAT
+	mov	es, ax		; /
+	pop	ax
+	mov	byte [bOdd], 0
+	mov	bx, 3
+	mul	bx					; dx:ax = ax * 3
+	mov	bx, 2
+	div	bx					; dx:ax / 2  ==>  ax <- 商, dx <- 余数
+	cmp	dx, 0
+	jz	LABEL_EVEN
+	mov	byte [bOdd], 1
+LABEL_EVEN:;偶数
+	; 现在 ax 中是 FATEntry 在 FAT 中的偏移量,下面来
+	; 计算 FATEntry 在哪个扇区中(FAT占用不止一个扇区)
+	xor	dx, dx			
+	mov	bx, [BPB_BytsPerSec]
+	div	bx ; dx:ax / BPB_BytsPerSec
+		   ;  ax <- 商 (FATEntry 所在的扇区相对于 FAT 的扇区号)
+		   ;  dx <- 余数 (FATEntry 在扇区内的偏移)。
+	push	dx
+	mov	bx, 0 ; bx <- 0 于是, es:bx = (BaseOfLoader - 100):00
+	add	ax, SectorNoOfFAT1 ; 此句之后的 ax 就是 FATEntry 所在的扇区号
+	mov	cl, 2
+	call	ReadSector ; 读取 FATEntry 所在的扇区, 一次读两个, 避免在边界
+			   ; 发生错误, 因为一个 FATEntry 可能跨越两个扇区
+	pop	dx
+	add	bx, dx
+	mov	ax, [es:bx]
+	cmp	byte [bOdd], 1
+	jnz	LABEL_EVEN_2
+	shr	ax, 4
+LABEL_EVEN_2:
+	and	ax, 0FFFh
+
+LABEL_GET_FAT_ENRY_OK:
+
+	pop	bx
+	pop	es
+	ret
+
 
 LABEL_ENTRY:
 	; 初始化堆栈
@@ -102,11 +150,12 @@ LABEL_ENTRY:
 	mov	ss, ax
 	mov	sp, BaseOfStack
 
-	call	ClearScreen
-	
-	mov	di, HelloMessage			; string
-	mov	si, NoLoaderMessage			; string end
-	mov	dh, 0					; row
+ClearScreen:
+	mov	ax, 0x0003
+	int	10h					; clear screen
+
+	mov	di, 3					; "Litchi"
+	mov	dx, 0x0000				; row
 	call	DispStr
 
 	xor	ah, ah
@@ -117,12 +166,13 @@ LABEL_ENTRY:
 	jmp	.RootSearchTest
 
 .RootSearchLoop:
+; outer loop (sector)
 	; start_sector in di, size in cl, buf in es:bx
 	mov	ax, BaseOfLoader
 	mov	es, ax
 	mov	ax, OffsetOfLoader
 	mov	bx, ax					; 临时把根目录文件信息放在这里
-	mov	di, [wSectorNo]				; Sector 序号 初始(0)
+	mov	ax, [wSectorNo]				; Sector 序号 初始(0)
 	mov	cl, 1
 	call	ReadSector				; 读取根目录的一个 Sector
 	mov	si, LoaderFileName
@@ -131,11 +181,13 @@ LABEL_ENTRY:
 	mov	dx, 10h					; 该扇区条目计数器
 
 .SectorSearchStart:
+; middle loop (entry)
 	cmp	dx, 0
 	je	.NextSector				; 该扇区已经搜索完?
 	dec	dx
 	mov	cx, 11					; 文件名比较计数器
 .CompareFileName:
+; inner loop (filename)
 	cmp	cx, 0
 	je	.FileNameFound				; 字符全部匹配?
 	dec	cx
@@ -163,18 +215,54 @@ LABEL_ENTRY:
 
 .Result:
 .NoLoader:
-	mov	di, NoLoaderMessage
-	mov	si, LoaderFoundMessage
-	mov	dh, 8
-	call	DispStr
-	jmp	Fin
-.FileNameFound:
-	mov	di, LoaderFoundMessage
-	mov	si, MessageEnd
-	mov	dh, 9					; row
+	mov	di, 0					; "No loader"
+	mov	dx, 0x0300				; col:row
 	call	DispStr
 	jmp	Fin
 
+.FileNameFound:
+	push	di
+	push	es
+	mov	di, 1					; "Loader found"
+	mov	dx, 0x0400				; row:col
+	call	DispStr
+	pop	es
+	pop	di
+.LoadFile:
+	mov	ax, RootDirSectors
+	and	di, 0FFE0h
+	add	di, 01Ah				; Loader 的首个 Sector 地址
+	mov	cx, word [es:di]
+	cmp	cx, 0					; Loader 为空
+	je	.NoLoader
+	push	cx					; 保存此 Sector 在 FAT 中的序号
+	add	cx, ax
+	add	cx, DeltaSectorNo			; cl <- LOADER.BIN的起始扇区号(0-based)
+	mov	ax, BaseOfLoader
+	mov	es, ax					; es <- BaseOfLoader
+	mov	bx, OffsetOfLoader			; bx <- OffsetOfLoader
+	mov	ax, cx					; ax <- Sector 号
+.LoadLoop:
+
+	mov	cl, 1
+	call	ReadSector
+	pop	ax					; 取出此 Sector 在 FAT 中的序号
+	call	GetFATEntry
+	cmp	ax, 0FFFh
+	jz	.FileLoaded
+	push	ax					; 保存 Sector 在 FAT 中的序号
+	mov	dx, RootDirSectors
+	add	ax, dx
+	add	ax, DeltaSectorNo
+	add	bx, [BPB_BytsPerSec]
+	jmp	.LoadLoop
+
+.FileLoaded:
+	mov	di, 2					; "Ready"
+	mov	dx, 0x0500				; row:col
+	call	DispStr
+
+	jmp	BaseOfLoader:OffsetOfLoader		; GO TO LOADER !!!
 Fin:
 	hlt
 	jmp	Fin
