@@ -44,18 +44,18 @@
     42                                  MessageTable:
     43                                  ; HelloMessage:		db	"Hello, Litchi!", 0x0d, 0x0a, "BugenZhao 2020", 0x0d, 0x0a
     44                                  ; HelloMessageEnd:
-    45 0000004F 4E6F206C6F61646572-     NoLoaderMessage		db	"No loader   "
-    45 00000058 202020             
+    45 0000004F 4E6F206C6F61646572-     NoLoaderMessage		db	"No loader  X"
+    45 00000058 202058             
     46 0000005B 4C6F6164657220666F-     LoaderFoundMessage	db	"Loader found"
     46 00000064 756E64             
-    47 00000067 526561647920202020-     ReadyMessage		db	"Ready       "
-    47 00000070 202020             
-    48 00000073 427567656E204C6974-     HelloMessage		db	"Bugen Litchi"
-    48 0000007C 636869             
+    47 00000067 426F6F742052656164-     ReadyMessage		db	"Boot Ready! "
+    47 00000070 792120             
+    48 00000073 4C697463686920426F-     HelloMessage		db	"Litchi Boot "
+    48 0000007C 6F7420             
     49                                  
     50                                  
     51                                  
-    52                                  DispStr:
+    52                                  BootDispStr:
     53                                  	; message_index in di, row:col in dx
     54 0000007F 52                      	push	dx					; 坑啊
     55 00000080 8CD8                    	mov	ax, ds
@@ -160,9 +160,9 @@
    154 00000126 B80300                  	mov	ax, 0x0003
    155 00000129 CD10                    	int	10h					; clear screen
    156                                  
-   157 0000012B BF0300                  	mov	di, 3					; "Litchi"
-   158 0000012E BA0000                  	mov	dx, 0x0000				; row
-   159 00000131 E84BFF                  	call	DispStr
+   157 0000012B BF0300                  	mov	di, 3					; "Litchi Boot"
+   158 0000012E BA0000                  	mov	dx, 0x0000				; row:col
+   159 00000131 E84BFF                  	call	BootDispStr
    160                                  
    161 00000134 30E4                    	xor	ah, ah
    162 00000136 30D2                    	xor	dl, dl
@@ -222,16 +222,16 @@
    216                                  .Result:
    217                                  .NoLoader:
    218 00000193 BF0000                  	mov	di, 0					; "No loader"
-   219 00000196 BA0003                  	mov	dx, 0x0300				; col:row
-   220 00000199 E8E3FE                  	call	DispStr
+   219 00000196 BA0C01                  	mov	dx, 0x010C				; row:col
+   220 00000199 E8E3FE                  	call	BootDispStr
    221 0000019C EB59                    	jmp	Fin
    222                                  
    223                                  .FileNameFound:
    224 0000019E 57                      	push	di
    225 0000019F 06                      	push	es
    226 000001A0 BF0100                  	mov	di, 1					; "Loader found"
-   227 000001A3 BA0004                  	mov	dx, 0x0400				; row:col
-   228 000001A6 E8D6FE                  	call	DispStr
+   227 000001A3 BA0001                  	mov	dx, 0x0100				; row:col
+   228 000001A6 E8D6FE                  	call	BootDispStr
    229 000001A9 07                      	pop	es
    230 000001AA 5F                      	pop	di
    231                                  .LoadFile:
@@ -265,8 +265,8 @@
    259                                  
    260                                  .FileLoaded:
    261 000001E9 BF0200                  	mov	di, 2					; "Ready"
-   262 000001EC BA0005                  	mov	dx, 0x0500				; row:col
-   263 000001EF E88DFE                  	call	DispStr
+   262 000001EC BA0002                  	mov	dx, 0x0200				; row:col
+   263 000001EF E88DFE                  	call	BootDispStr
    264                                  
    265 000001F2 EA00010090              	jmp	BaseOfLoader:OffsetOfLoader		; GO TO LOADER !!!
    266                                  Fin:

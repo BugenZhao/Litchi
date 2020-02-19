@@ -42,14 +42,14 @@ MessageLength		equ	12
 MessageTable:
 ; HelloMessage:		db	"Hello, Litchi!", 0x0d, 0x0a, "BugenZhao 2020", 0x0d, 0x0a
 ; HelloMessageEnd:
-NoLoaderMessage		db	"No loader   "
+NoLoaderMessage		db	"No loader  X"
 LoaderFoundMessage	db	"Loader found"
-ReadyMessage		db	"Ready       "
-HelloMessage		db	"Bugen Litchi"
+ReadyMessage		db	"Boot Ready! "
+HelloMessage		db	"Litchi Boot "
 
 
 
-DispStr:
+BootDispStr:
 	; message_index in di, row:col in dx
 	push	dx					; 坑啊
 	mov	ax, ds
@@ -154,9 +154,9 @@ ClearScreen:
 	mov	ax, 0x0003
 	int	10h					; clear screen
 
-	mov	di, 3					; "Litchi"
-	mov	dx, 0x0000				; row
-	call	DispStr
+	mov	di, 3					; "Litchi Boot"
+	mov	dx, 0x0000				; row:col
+	call	BootDispStr
 
 	xor	ah, ah
 	xor	dl, dl
@@ -216,16 +216,16 @@ ClearScreen:
 .Result:
 .NoLoader:
 	mov	di, 0					; "No loader"
-	mov	dx, 0x0300				; col:row
-	call	DispStr
+	mov	dx, 0x010C				; row:col
+	call	BootDispStr
 	jmp	Fin
 
 .FileNameFound:
 	push	di
 	push	es
 	mov	di, 1					; "Loader found"
-	mov	dx, 0x0400				; row:col
-	call	DispStr
+	mov	dx, 0x0100				; row:col
+	call	BootDispStr
 	pop	es
 	pop	di
 .LoadFile:
@@ -259,8 +259,8 @@ ClearScreen:
 
 .FileLoaded:
 	mov	di, 2					; "Ready"
-	mov	dx, 0x0500				; row:col
-	call	DispStr
+	mov	dx, 0x0200				; row:col
+	call	BootDispStr
 
 	jmp	BaseOfLoader:OffsetOfLoader		; GO TO LOADER !!!
 Fin:
