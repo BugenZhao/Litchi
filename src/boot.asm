@@ -56,14 +56,14 @@ DispStr:
 	ret
 
 ReadSector:
-	; start_sector in di, size in si, buf in es:bx
+	; start_sector in di, size in cl, buf in es:bx
 	; 扇区号 x 除以 18（每个磁道的扇区），商 q，余 r
 	; 柱面 q >> 1, 磁头 q & 1, 起始扇区 r + 1
 	push	bp
 	mov	bp, sp					; 保存栈指针
 	sub	esp, 2					; 在栈上开辟 2 个字节
-	mov	byte [bp-2], si
-	movq	ax, di					; 构造被除数
+	mov	byte [bp-2], cl
+	mov	ax, di					; 构造被除数
 	push	bx
 	mov	bl, [BPB_SecPerTrk]			; 构造除数 18
 	div	bl					; ax/bl (8 bits), q in al, r in ah
@@ -87,6 +87,7 @@ ReadSector:
 
 
 LABEL_ENTRY:
+	; 初始化堆栈
 	mov	ax, cs
 	mov	ds, ax
 	mov	es, ax
