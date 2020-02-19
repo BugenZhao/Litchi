@@ -2,6 +2,15 @@ IMG=out/litchi.img
 FLOPPY=/Volumes/BZLITCHIOS/
 LDR_BIN=out/LOADER.LIT
 
+OS=
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Linux)
+	OS = LINUX
+endif
+ifeq ($(UNAME_S), Darwin)
+	OS = MACOS
+endif
+
 all:
 	make init
 	make build
@@ -38,3 +47,11 @@ debug:
 clean:
 	rm -f out/*.bin out/*.lst out/*.LIT
 	rm -f out/*.img
+
+ifeq ($(OS), MACOS)
+os:
+	@echo macOS!
+else ifeq 
+os:
+	@echo GNU/Linux?
+endif
