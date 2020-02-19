@@ -1,8 +1,7 @@
 	org	0x7c00
-	jmp	LABEL_ENTRY
+	jmp 	LABEL_ENTRY			; 保证到这里有 3 个字节
 
 ; Standard FAT12 floppy code
-			DB 	0x90		; 固定
 BS_OEMName		DB 	'BZLITCHI'	; OEM String, 必须 8 个字节
 BPB_BytsPerSec		DW 	512		; 每扇区字节数
 BPB_SecPerClus		DB 	1		; 每簇多少扇区
@@ -15,13 +14,14 @@ BPB_FATSz16		DW 	9		; 每FAT扇区数
 BPB_SecPerTrk		DW 	18		; 每磁道扇区数
 BPB_NumHeads		DW 	2		; 磁头数(面数)
 BPB_HiddSec		DD 	0		; 隐藏扇区数
-BPB_TotSec32		DD 	0		; 如果 wTotalSectorCount 是 0 由这个值记录扇区数
+BPB_TotSec32		DD 	2880		; 如果 wTotalSectorCount 是 0 由这个值记录扇区数
 BS_DrvNum		DB 	0		; 中断 13 的驱动器号
 BS_Reserved1		DB 	0		; 未使用
 BS_BootSig		DB 	29h		; 扩展引导标记 (29h)
-BS_VolID		DD 	0		; 卷序列号
-BS_VolLab		DB 	'BZLITCHIOS '	; 卷标, 必须 11 个字节
-BS_FileSysType		DB 	'FAT12   '	; 文件系统类型, 必须 8个字节  
+BS_VolID		DD 	0xffffffff	; 卷序列号
+BS_VolLab		DB 	"BZLITCHIOS "	; 卷标, 必须 11 个字节
+BS_FileSysType		DB 	"FAT12   "	; 文件系统类型, 必须 8个字节  
+
 
 BaseOfStack		equ	0x7c00		; 栈底，向低地址生长
 BaseOfLoader		equ	0x9000		; Loader 加载基址
@@ -34,10 +34,16 @@ wRootDirSizeForLoop	dw	RootDirSectors	; Root Directory 占用的扇区数，
 wSectorNo		dw	0		; 要读取的扇区号
 bOdd			db	0		; 奇数还是偶数
 
+LoaderFileName		db	"LOADER  LIT", 0
+
 MessageBegin:
 HelloMessage:		db	"Hello, Litchi!", 0x0d, 0x0a, "BugenZhao 2020", 0x0d, 0x0a
-BootMessage:		db	"Booting..."
+BootMessage:		db	"Booting...", 0x0d, 0x0a
+NoLoaderMessage:	db	"Fatal: no loader.", 0x0d, 0x0a
+LoaderFoundMessage:	db	"Loader found!", 0x0d, 0x0a
 MessageEnd:
+
+
 
 ClearScreen:
 	mov	ax, 0x0003
@@ -45,13 +51,15 @@ ClearScreen:
 	ret
 
 DispStr:
-	; message in di, end in si
-	mov	bp, di					; string address
+	; message in di, end in si, row in dh
+	mov	ax, ds
+	mov	es, ax
+	mov	bp, di					; es:bp -> string address
 	mov	cx, si
 	sub	cx, di					; calculate string length
 	mov	ax, 0x1301				; ah=0x13 (write string)
 	mov	bx, 0x000d				; bh=0x00 (page), bl=0x0d (color)
-	xor	dl, dl					; row:col = 0:0
+	mov	dl, 0					; col = 0
 	int	10h
 	ret
 
@@ -94,16 +102,77 @@ LABEL_ENTRY:
 	mov	ss, ax
 	mov	sp, BaseOfStack
 
+	call	ClearScreen
+	
+	mov	di, HelloMessage			; string
+	mov	si, NoLoaderMessage			; string end
+	mov	dh, 0					; row
+	call	DispStr
+
 	xor	ah, ah
 	xor	dl, dl
 	int	13h					; 软驱复位
 
-	call	ClearScreen
-	mov	di, HelloMessage			; string
-	mov	si, BootMessage				; string end
+	mov	word [wSectorNo], SectorNoOfRootDirectory
+	jmp	.RootSearchTest
+
+.RootSearchLoop:
+	; start_sector in di, size in cl, buf in es:bx
+	mov	ax, BaseOfLoader
+	mov	es, ax
+	mov	ax, OffsetOfLoader
+	mov	bx, ax					; 临时把根目录文件信息放在这里
+	mov	di, [wSectorNo]
+	mov	cl, 1
+	call	ReadSector				; 读取根目录
+
+	mov	si, LoaderFileName
+	mov	di, OffsetOfLoader
+	cld
+	mov	dx, 10h					; 该扇区条目计数器
+.RootSearchStart:
+	cmp	dx, 0
+	je	.NextSector				; 该扇区已经搜索完
+	dec	dx
+	mov	cx, 11					; 文件名比较计数器
+.CompareFileName:
+	cmp	cx, 0
+	je	.FileNameFound				; 字符全部匹配
+	dec	cx
+	lodsb						; [ds:si] -> al
+	cmp 	al, byte [es:di]
+	jne	.FileNameDifferent
+	inc	di
+	jmp	.CompareFileName
+.FileNameDifferent:
+	and	di, 0ffe0h				; di 指向条目开头
+	add	di, 20h					; 下一个条目
+	mov	si, LoaderFileName
+	jmp	.RootSearchStart
+
+.NextSector:
+	add	word [wSectorNo], 1
+
+.RootSearchUpdate:
+	dec	word [wRootDirSizeForLoop]
+.RootSearchTest:
+	cmp	word [wRootDirSizeForLoop], 0
+	je	.NoLoader
+	jmp	.RootSearchLoop
+
+.NoLoader:
+	mov	di, NoLoaderMessage
+	mov	si, LoaderFoundMessage
+	mov	dh, 8
 	call	DispStr
+	jmp	Fin
 
-
+.FileNameFound:
+	mov	di, LoaderFoundMessage
+	mov	si, MessageEnd
+	mov	dh, 9					; row
+	call	DispStr
+	jmp	Fin
 
 Fin:
 	hlt

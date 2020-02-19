@@ -1,28 +1,28 @@
      1                                  	org	0x7c00
-     2 00000000 E9B600                  	jmp	LABEL_ENTRY
+     2 00000000 E9E900                  	jmp 	LABEL_ENTRY			; 保证到这里有 3 个字节
      3                                  
      4                                  ; Standard FAT12 floppy code
-     5 00000003 90                      			DB 	0x90		; 固定
-     6 00000004 425A4C4954434849        BS_OEMName		DB 	'BZLITCHI'	; OEM String, 必须 8 个字节
-     7 0000000C 0002                    BPB_BytsPerSec		DW 	512		; 每扇区字节数
-     8 0000000E 01                      BPB_SecPerClus		DB 	1		; 每簇多少扇区
-     9 0000000F 0100                    BPB_RsvdSecCnt		DW 	1		; Boot 记录占用多少扇区
-    10 00000011 02                      BPB_NumFATs		DB 	2		; 共有多少 FAT 表
-    11 00000012 E000                    BPB_RootEntCnt		DW 	224		; 根目录文件数最大值
-    12 00000014 400B                    BPB_TotSec16		DW 	2880		; 逻辑扇区总数
-    13 00000016 F0                      BPB_Media		DB 	0xF0		; 媒体描述符
-    14 00000017 0900                    BPB_FATSz16		DW 	9		; 每FAT扇区数
-    15 00000019 1200                    BPB_SecPerTrk		DW 	18		; 每磁道扇区数
-    16 0000001B 0200                    BPB_NumHeads		DW 	2		; 磁头数(面数)
-    17 0000001D 00000000                BPB_HiddSec		DD 	0		; 隐藏扇区数
-    18 00000021 00000000                BPB_TotSec32		DD 	0		; 如果 wTotalSectorCount 是 0 由这个值记录扇区数
-    19 00000025 00                      BS_DrvNum		DB 	0		; 中断 13 的驱动器号
-    20 00000026 00                      BS_Reserved1		DB 	0		; 未使用
-    21 00000027 29                      BS_BootSig		DB 	29h		; 扩展引导标记 (29h)
-    22 00000028 00000000                BS_VolID		DD 	0		; 卷序列号
-    23 0000002C 425A4C49544348494F-     BS_VolLab		DB 	'BZLITCHIOS '	; 卷标, 必须 11 个字节
-    23 00000035 5320               
-    24 00000037 4641543132202020        BS_FileSysType		DB 	'FAT12   '	; 文件系统类型, 必须 8个字节  
+     5 00000003 425A4C4954434849        BS_OEMName		DB 	'BZLITCHI'	; OEM String, 必须 8 个字节
+     6 0000000B 0002                    BPB_BytsPerSec		DW 	512		; 每扇区字节数
+     7 0000000D 01                      BPB_SecPerClus		DB 	1		; 每簇多少扇区
+     8 0000000E 0100                    BPB_RsvdSecCnt		DW 	1		; Boot 记录占用多少扇区
+     9 00000010 02                      BPB_NumFATs		DB 	2		; 共有多少 FAT 表
+    10 00000011 E000                    BPB_RootEntCnt		DW 	224		; 根目录文件数最大值
+    11 00000013 400B                    BPB_TotSec16		DW 	2880		; 逻辑扇区总数
+    12 00000015 F0                      BPB_Media		DB 	0xF0		; 媒体描述符
+    13 00000016 0900                    BPB_FATSz16		DW 	9		; 每FAT扇区数
+    14 00000018 1200                    BPB_SecPerTrk		DW 	18		; 每磁道扇区数
+    15 0000001A 0200                    BPB_NumHeads		DW 	2		; 磁头数(面数)
+    16 0000001C 00000000                BPB_HiddSec		DD 	0		; 隐藏扇区数
+    17 00000020 400B0000                BPB_TotSec32		DD 	2880		; 如果 wTotalSectorCount 是 0 由这个值记录扇区数
+    18 00000024 00                      BS_DrvNum		DB 	0		; 中断 13 的驱动器号
+    19 00000025 00                      BS_Reserved1		DB 	0		; 未使用
+    20 00000026 29                      BS_BootSig		DB 	29h		; 扩展引导标记 (29h)
+    21 00000027 FFFFFFFF                BS_VolID		DD 	0xffffffff	; 卷序列号
+    22 0000002B 425A4C49544348494F-     BS_VolLab		DB 	"BZLITCHIOS "	; 卷标, 必须 11 个字节
+    22 00000034 5320               
+    23 00000036 4641543132202020        BS_FileSysType		DB 	"FAT12   "	; 文件系统类型, 必须 8个字节  
+    24                                  
     25                                  
     26                                  BaseOfStack		equ	0x7c00		; 栈底，向低地址生长
     27                                  BaseOfLoader		equ	0x9000		; Loader 加载基址
@@ -30,86 +30,159 @@
     29                                  RootDirSectors		equ	14		; 根据根目录 224 项得到
     30                                  SectorNoOfRootDirectory	equ	19		; 根目录开始扇区号，第二个 FAT 表
     31                                  
-    32 0000003F 0E00                    wRootDirSizeForLoop	dw	RootDirSectors	; Root Directory 占用的扇区数，
+    32 0000003E 0E00                    wRootDirSizeForLoop	dw	RootDirSectors	; Root Directory 占用的扇区数，
     33                                  						; 在循环中会递减至零.
-    34 00000041 0000                    wSectorNo		dw	0		; 要读取的扇区号
-    35 00000043 00                      bOdd			db	0		; 奇数还是偶数
+    34 00000040 0000                    wSectorNo		dw	0		; 要读取的扇区号
+    35 00000042 00                      bOdd			db	0		; 奇数还是偶数
     36                                  
-    37                                  MessageBegin:
-    38 00000044 48656C6C6F2C204C69-     HelloMessage:		db	"Hello, Litchi!", 0x0d, 0x0a, "BugenZhao 2020", 0x0d, 0x0a
-    38 0000004D 74636869210D0A4275-
-    38 00000056 67656E5A68616F2032-
-    38 0000005F 3032300D0A         
-    39 00000064 426F6F74696E672E2E-     BootMessage:		db	"Booting..."
-    39 0000006D 2E                 
-    40                                  MessageEnd:
-    41                                  
-    42                                  ClearScreen:
-    43 0000006E B80300                  	mov	ax, 0x0003
-    44 00000071 CD10                    	int	10h					; clear screen
-    45 00000073 C3                      	ret
+    37 00000043 4C4F4144455220204C-     LoaderFileName		db	"LOADER  LIT", 0
+    37 0000004C 495400             
+    38                                  
+    39                                  MessageBegin:
+    40 0000004F 48656C6C6F2C204C69-     HelloMessage:		db	"Hello, Litchi!", 0x0d, 0x0a, "BugenZhao 2020", 0x0d, 0x0a
+    40 00000058 74636869210D0A4275-
+    40 00000061 67656E5A68616F2032-
+    40 0000006A 3032300D0A         
+    41 0000006F 426F6F74696E672E2E-     BootMessage:		db	"Booting...", 0x0d, 0x0a
+    41 00000078 2E0D0A             
+    42 0000007B 466174616C3A206E6F-     NoLoaderMessage:	db	"Fatal: no loader.", 0x0d, 0x0a
+    42 00000084 206C6F616465722E0D-
+    42 0000008D 0A                 
+    43 0000008E 4C6F6164657220666F-     LoaderFoundMessage:	db	"Loader found!", 0x0d, 0x0a
+    43 00000097 756E64210D0A       
+    44                                  MessageEnd:
+    45                                  
     46                                  
-    47                                  DispStr:
-    48                                  	; message in di, end in si
-    49 00000074 89FD                    	mov	bp, di					; string address
-    50 00000076 89F1                    	mov	cx, si
-    51 00000078 29F9                    	sub	cx, di					; calculate string length
-    52 0000007A B80113                  	mov	ax, 0x1301				; ah=0x13 (write string)
-    53 0000007D BB0D00                  	mov	bx, 0x000d				; bh=0x00 (page), bl=0x0d (color)
-    54 00000080 30D2                    	xor	dl, dl					; row:col = 0:0
-    55 00000082 CD10                    	int	10h
-    56 00000084 C3                      	ret
-    57                                  
-    58                                  ReadSector:
-    59                                  	; start_sector in di, size in cl, buf in es:bx
-    60                                  	; 扇区号 x 除以 18（每个磁道的扇区），商 q，余 r
-    61                                  	; 柱面 q >> 1, 磁头 q & 1, 起始扇区 r + 1
-    62 00000085 55                      	push	bp
-    63 00000086 89E5                    	mov	bp, sp					; 保存栈指针
-    64 00000088 6683EC02                	sub	esp, 2					; 在栈上开辟 2 个字节
-    65 0000008C 884EFE                  	mov	byte [bp-2], cl
-    66 0000008F 89F8                    	mov	ax, di					; 构造被除数
-    67 00000091 53                      	push	bx
-    68 00000092 8A1E[1900]              	mov	bl, [BPB_SecPerTrk]			; 构造除数 18
-    69 00000096 F6F3                    	div	bl					; ax/bl (8 bits), q in al, r in ah
-    70 00000098 FEC4                    	inc	ah					; r + 1
-    71 0000009A 88E1                    	mov	cl, ah					; cl -> 起始扇区号
-    72 0000009C 88C6                    	mov	dh, al					
-    73 0000009E 80E601                  	and	dh, 1					; dh -> 磁头
-    74 000000A1 88C5                    	mov	ch, al
-    75 000000A3 D0ED                    	shr	ch, 1					; ch -> 柱面
-    76 000000A5 5B                      	pop	bx
-    77 000000A6 8A16[2500]              	mov	dl, [BS_DrvNum]				; dl -> 驱动器号
-    78                                  .DoRead:
-    79 000000AA 8A46FE                  	mov	al, byte [bp-2]				; al -> 要读扇区数
-    80 000000AD B402                    	mov	ah, 2					; 要读了！
-    81 000000AF CD13                    	int	13h					; 读！错误时 CF 置 1
-    82 000000B1 72F7                    	jc	.DoRead					; 错误重试
-    83                                  
-    84 000000B3 6683C402                	add	esp, 2
-    85 000000B7 5D                      	pop	bp
-    86 000000B8 C3                      	ret
-    87                                  
-    88                                  
-    89                                  LABEL_ENTRY:
-    90                                  	; 初始化堆栈
-    91 000000B9 8CC8                    	mov	ax, cs
-    92 000000BB 8ED8                    	mov	ds, ax
-    93 000000BD 8EC0                    	mov	es, ax
-    94 000000BF 8ED0                    	mov	ss, ax
-    95 000000C1 BC007C                  	mov	sp, BaseOfStack
+    47                                  
+    48                                  ClearScreen:
+    49 0000009D B80300                  	mov	ax, 0x0003
+    50 000000A0 CD10                    	int	10h					; clear screen
+    51 000000A2 C3                      	ret
+    52                                  
+    53                                  DispStr:
+    54                                  	; message in di, end in si, row in dh
+    55 000000A3 8CD8                    	mov	ax, ds
+    56 000000A5 8EC0                    	mov	es, ax
+    57 000000A7 89FD                    	mov	bp, di					; es:bp -> string address
+    58 000000A9 89F1                    	mov	cx, si
+    59 000000AB 29F9                    	sub	cx, di					; calculate string length
+    60 000000AD B80113                  	mov	ax, 0x1301				; ah=0x13 (write string)
+    61 000000B0 BB0D00                  	mov	bx, 0x000d				; bh=0x00 (page), bl=0x0d (color)
+    62 000000B3 B200                    	mov	dl, 0					; col = 0
+    63 000000B5 CD10                    	int	10h
+    64 000000B7 C3                      	ret
+    65                                  
+    66                                  ReadSector:
+    67                                  	; start_sector in di, size in cl, buf in es:bx
+    68                                  	; 扇区号 x 除以 18（每个磁道的扇区），商 q，余 r
+    69                                  	; 柱面 q >> 1, 磁头 q & 1, 起始扇区 r + 1
+    70 000000B8 55                      	push	bp
+    71 000000B9 89E5                    	mov	bp, sp					; 保存栈指针
+    72 000000BB 6683EC02                	sub	esp, 2					; 在栈上开辟 2 个字节
+    73 000000BF 884EFE                  	mov	byte [bp-2], cl
+    74 000000C2 89F8                    	mov	ax, di					; 构造被除数
+    75 000000C4 53                      	push	bx
+    76 000000C5 8A1E[1800]              	mov	bl, [BPB_SecPerTrk]			; 构造除数 18
+    77 000000C9 F6F3                    	div	bl					; ax/bl (8 bits), q in al, r in ah
+    78 000000CB FEC4                    	inc	ah					; r + 1
+    79 000000CD 88E1                    	mov	cl, ah					; cl -> 起始扇区号
+    80 000000CF 88C6                    	mov	dh, al					
+    81 000000D1 80E601                  	and	dh, 1					; dh -> 磁头
+    82 000000D4 88C5                    	mov	ch, al
+    83 000000D6 D0ED                    	shr	ch, 1					; ch -> 柱面
+    84 000000D8 5B                      	pop	bx
+    85 000000D9 8A16[2400]              	mov	dl, [BS_DrvNum]				; dl -> 驱动器号
+    86                                  .DoRead:
+    87 000000DD 8A46FE                  	mov	al, byte [bp-2]				; al -> 要读扇区数
+    88 000000E0 B402                    	mov	ah, 2					; 要读了！
+    89 000000E2 CD13                    	int	13h					; 读！错误时 CF 置 1
+    90 000000E4 72F7                    	jc	.DoRead					; 错误重试
+    91                                  
+    92 000000E6 6683C402                	add	esp, 2
+    93 000000EA 5D                      	pop	bp
+    94 000000EB C3                      	ret
+    95                                  
     96                                  
-    97 000000C4 30E4                    	xor	ah, ah
-    98 000000C6 30D2                    	xor	dl, dl
-    99 000000C8 CD13                    	int	13h					; 软驱复位
-   100                                  
-   101 000000CA E8A1FF                  	call	ClearScreen
-   102 000000CD BF[4400]                	mov	di, HelloMessage			; string
-   103 000000D0 BE[6400]                	mov	si, BootMessage				; string end
-   104 000000D3 E89EFF                  	call	DispStr
-   105                                  
-   106                                  
-   107                                  
-   108                                  Fin:
-   109 000000D6 F4                      	hlt
-   110 000000D7 EBFD                    	jmp	Fin
+    97                                  LABEL_ENTRY:
+    98                                  	; 初始化堆栈
+    99 000000EC 8CC8                    	mov	ax, cs
+   100 000000EE 8ED8                    	mov	ds, ax
+   101 000000F0 8EC0                    	mov	es, ax
+   102 000000F2 8ED0                    	mov	ss, ax
+   103 000000F4 BC007C                  	mov	sp, BaseOfStack
+   104                                  
+   105 000000F7 E8A3FF                  	call	ClearScreen
+   106                                  	
+   107 000000FA BF[4F00]                	mov	di, HelloMessage			; string
+   108 000000FD BE[7B00]                	mov	si, NoLoaderMessage			; string end
+   109 00000100 B600                    	mov	dh, 0					; row
+   110 00000102 E89EFF                  	call	DispStr
+   111                                  
+   112 00000105 30E4                    	xor	ah, ah
+   113 00000107 30D2                    	xor	dl, dl
+   114 00000109 CD13                    	int	13h					; 软驱复位
+   115                                  
+   116 0000010B C706[4000]1300          	mov	word [wSectorNo], SectorNoOfRootDirectory
+   117 00000111 EB49                    	jmp	.RootSearchTest
+   118                                  
+   119                                  .RootSearchLoop:
+   120                                  	; start_sector in di, size in cl, buf in es:bx
+   121 00000113 B80090                  	mov	ax, BaseOfLoader
+   122 00000116 8EC0                    	mov	es, ax
+   123 00000118 B80001                  	mov	ax, OffsetOfLoader
+   124 0000011B 89C3                    	mov	bx, ax					; 临时把根目录文件信息放在这里
+   125 0000011D 8B3E[4000]              	mov	di, [wSectorNo]
+   126 00000121 B101                    	mov	cl, 1
+   127 00000123 E892FF                  	call	ReadSector				; 读取根目录
+   128                                  
+   129 00000126 BE[4300]                	mov	si, LoaderFileName
+   130 00000129 BF0001                  	mov	di, OffsetOfLoader
+   131 0000012C FC                      	cld
+   132 0000012D BA1000                  	mov	dx, 10h					; 该扇区条目计数器
+   133                                  .RootSearchStart:
+   134 00000130 83FA00                  	cmp	dx, 0
+   135 00000133 741E                    	je	.NextSector				; 该扇区已经搜索完
+   136 00000135 4A                      	dec	dx
+   137 00000136 B90B00                  	mov	cx, 11					; 文件名比较计数器
+   138                                  .CompareFileName:
+   139 00000139 83F900                  	cmp	cx, 0
+   140 0000013C 7434                    	je	.FileNameFound				; 字符全部匹配
+   141 0000013E 49                      	dec	cx
+   142 0000013F AC                      	lodsb						; [ds:si] -> al
+   143 00000140 263A05                  	cmp 	al, byte [es:di]
+   144 00000143 7503                    	jne	.FileNameDifferent
+   145 00000145 47                      	inc	di
+   146 00000146 EBF1                    	jmp	.CompareFileName
+   147                                  .FileNameDifferent:
+   148 00000148 83E7E0                  	and	di, 0ffe0h				; di 指向条目开头
+   149 0000014B 83C720                  	add	di, 20h					; 下一个条目
+   150 0000014E BE[4300]                	mov	si, LoaderFileName
+   151 00000151 EBDD                    	jmp	.RootSearchStart
+   152                                  
+   153                                  .NextSector:
+   154 00000153 8306[4000]01            	add	word [wSectorNo], 1
+   155                                  
+   156                                  .RootSearchUpdate:
+   157 00000158 FF0E[3E00]              	dec	word [wRootDirSizeForLoop]
+   158                                  .RootSearchTest:
+   159 0000015C 833E[3E00]00            	cmp	word [wRootDirSizeForLoop], 0
+   160 00000161 7402                    	je	.NoLoader
+   161 00000163 EBAE                    	jmp	.RootSearchLoop
+   162                                  
+   163                                  .NoLoader:
+   164 00000165 BF[7B00]                	mov	di, NoLoaderMessage
+   165 00000168 BE[8E00]                	mov	si, LoaderFoundMessage
+   166 0000016B B608                    	mov	dh, 8
+   167 0000016D E833FF                  	call	DispStr
+   168 00000170 EB0D                    	jmp	Fin
+   169                                  
+   170                                  .FileNameFound:
+   171 00000172 BF[8E00]                	mov	di, LoaderFoundMessage
+   172 00000175 BE[9D00]                	mov	si, MessageEnd
+   173 00000178 B609                    	mov	dh, 9					; row
+   174 0000017A E826FF                  	call	DispStr
+   175 0000017D EB00                    	jmp	Fin
+   176                                  
+   177                                  Fin:
+   178 0000017F F4                      	hlt
+   179 00000180 EBFD                    	jmp	Fin
