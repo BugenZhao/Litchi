@@ -1,5 +1,5 @@
-#ifndef INCLUDE_TYPES_H_
-#define INCLUDE_TYPES_H_
+#ifndef LITCHI_TYPES_H
+#define LITCHI_TYPES_H
 
 #ifndef NULL
 #define NULL 0
@@ -17,4 +17,4 @@ typedef short          int16_t;
 typedef unsigned char  uint8_t;
 typedef char           int8_t;
 
-#endif // INCLUDE_TYPES_H_
+#endif // LITCHI_TYPES_H

@@ -1,4 +1,12 @@
 {
     "editor.tabSize": 8,
-    "editor.insertSpaces": false
+    "editor.insertSpaces": false,
+    "files.associations": {
+        "types.h": "c",
+        "print.h": "c",
+        "*.s": "asm"
+    },
+    "C_Cpp.default.includePath": [
+        "src/include"
+    ]
 }

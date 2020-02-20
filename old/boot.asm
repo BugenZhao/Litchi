@@ -17,7 +17,7 @@ wRootDirSizeForLoop	dw	RootDirSectors	; Root Directory 占用的扇区数，
 wSectorNo		dw	0		; 要读取的扇区号
 bOdd			db	0		; 奇数还是偶数
 
-LoaderFileName		db	"LOADER  LIT", 0
+LoaderFileName		db	"NLOADER LIT", 0
 MessageLength		equ	12
 MessageTable:
 NoLoaderMessage		db	"No loader  X"
