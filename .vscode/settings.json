@@ -1,6 +1,4 @@
 {
-    "editor.tabSize": 8,
-    "editor.insertSpaces": false,
     "files.associations": {
         "types.h": "c",
         "print.h": "c",

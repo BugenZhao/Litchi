@@ -51,4 +51,8 @@ debug:
 	make -C out/ debug
 
 clean:
-	rm -f $(C_OBJECTS) $(S_OBJECTS) $(LITBIN) $(IMG) out/*.log
+	rm -f $(C_OBJECTS) $(S_OBJECTS) $(LITBIN) out/*.log
+
+clean_all:
+	make clean
+	rm -f $(IMG)
