@@ -22,20 +22,24 @@ init:
 build:
 	make boot
 	make loader
+	make kernel
 	make image
 
 boot:
-	nasm src/boot.asm -o out/boot.bin -l out/boot.lst 
+	nasm src/boot.asm -i src/ -o out/boot.bin -l out/boot.lst 
 	nasm src/bootable.asm -o out/bootable.bin
 
 loader:
 	nasm src/loader.asm -i src/ -o out/LOADER.LIT -l out/loader.lst
 
+kernel:
+	nasm src/kernel.asm -i src/ -o out/KERNEL.LIT -l out/kernel.lst
+
 image: 
 	dd if=out/bootable.bin of=$(IMG) bs=512 count=1 conv=notrunc
 	dd if=out/boot.bin of=$(IMG) bs=512 count=1 conv=notrunc
 	hdiutil mount $(IMG) 
-	cp -v $(LDR_BIN) $(FLOPPY)
+	cp -v out/*.LIT $(FLOPPY)
 	hdiutil detach $(FLOPPY)
 
 run:
