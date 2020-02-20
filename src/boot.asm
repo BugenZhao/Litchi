@@ -1,7 +1,11 @@
 	org	0x7c00
-	jmp 	LABEL_ENTRY			; 保证到这里有 3 个字节
+	jmp 	short 	LABEL_PRE_ENTRY			; 保证到这里有 3 个字节
+	nop
 
 %include	"fat12.inc"
+
+LABEL_PRE_ENTRY:
+	jmp	LABEL_ENTRY
 
 BaseOfLoader		equ	0x9000		; Loader 加载基址
 OffsetOfLoader		equ	0x100		; Loader 加载偏移
@@ -20,7 +24,6 @@ NoLoaderMessage		db	"No loader  X"
 LoaderFoundMessage	db	"Loader found"
 ReadyMessage		db	"Boot ready !"
 HelloMessage		db	"Litchi Boot "
-
 
 ;	找到序号为 ax 的 Sector 在 FAT 中的条目, 结果放在 ax 中
 ;	需要注意的是, 中间需要读 FAT 的扇区到 es:bx 处, 所以函数一开始保存了 es 和 bx

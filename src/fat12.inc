@@ -11,7 +11,7 @@ BPB_FATSz16		DW 	9		; 每FAT扇区数
 BPB_SecPerTrk		DW 	18		; 每磁道扇区数
 BPB_NumHeads		DW 	2		; 磁头数(面数)
 BPB_HiddSec		DD 	0		; 隐藏扇区数
-BPB_TotSec32		DD 	2880		; 如果 wTotalSectorCount 是 0 由这个值记录扇区数
+BPB_TotSec32		DD 	0		; 如果 wTotalSectorCount 是 0 由这个值记录扇区数
 BS_DrvNum		DB 	0		; 中断 13 的驱动器号
 BS_Reserved1		DB 	0		; 未使用
 BS_BootSig		DB 	29h		; 扩展引导标记 (29h)

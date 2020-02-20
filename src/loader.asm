@@ -442,6 +442,8 @@ PMEntry:
 	mov	[gs:edi], dx
 	mov	[gs:edi + 2], ax
 
+	jmp	BaseOfKernel:OffsetOfKernel
+
 Fin:
 	hlt
 	jmp	Fin
