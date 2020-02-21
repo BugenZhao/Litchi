@@ -50,16 +50,11 @@ static void test_console() {
     console_print_oct(0xffffeeee);
     console_put_char(' ');
     console_print_oct(0x1234ABCD);
-    console_put_char('\n');
-
+    console_put_char(' ');
     console_print_dec(0xffffffff);
     console_put_char(' ');
     console_print_dec(12345678);
     console_put_char('\n');
-
-    for (int i = 0; i < 4; ++i) {
-        console_print_str_c("TEST\n", BLACK, BGREEN);
-    }
 }
 
 static void test_printl() {
@@ -70,8 +65,8 @@ static void test_printl() {
     char buffer[100];
     sprintl(buffer, format0, 'c', "Litchi\0OS", 0, 0x80000000, 0x80000001, 0x7fffffff, 8, 0x12ab,
             0x34cd, 0xffffffff);
-    assert(strcmp(buffer, answer), "printl");
     printl_c(BLACK, BCYAN, answer);
     printl_c(BLACK, BPURPLE, format0, 'c', "Litchi\0OS", 0, 0x80000000, 0x80000001, 0x7fffffff, 8,
              0x12ab, 0x34cd, 0xffffffff);
+    assert(strcmp(buffer, answer), "printl");
 }
