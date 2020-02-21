@@ -1,3 +1,7 @@
+;
+; Created by Bugen Zhao on 2020/2/20.
+;
+
 MBOOT_HEADER_MAGIC	equ	0x1BADB002				; Magic number
 MBOOT_PAGE_ALIGN	equ	1 << 0					; 引导模块 4KB 对齐
 MBOOT_MEM_INFO		equ	1 << 1					; 需要内存信息
@@ -19,8 +23,7 @@ dd	MBOOT_CHECKSUM
 
 start:
 
-	; 关中断
-	cli
+	cli					; 关中断
 
 	mov	esp, STACK_TOP
 	mov	ebp, 0				; 初始化帧指针
@@ -29,9 +32,9 @@ start:
 
 	call	kernel_entry
 
-Fin:
+fin:
 	hlt
-	jmp	Fin
+	jmp	fin
 
 
 section	.bss
@@ -41,5 +44,3 @@ glb_mboot_ptr:
 	resb	4
 
 STACK_TOP	equ	$ - stack - 1
-
-; section	.data
