@@ -2,7 +2,7 @@
 // Created by Bugen Zhao on 2020/2/20.
 //
 
-#include "print.h"
+#include "console.h"
 
 inline void print_pos(void *_vram, int8_t row, int8_t col, const char *str,
                       color_t color) {

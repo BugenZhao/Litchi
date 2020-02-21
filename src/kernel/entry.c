@@ -2,7 +2,7 @@
 // Created by Bugen Zhao on 2020/2/20.
 //
 
-#include "print.h"
+#include "console.h"
 #include "types.h"
 
 int kernel_entry() {
