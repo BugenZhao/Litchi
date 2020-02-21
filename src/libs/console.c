@@ -37,7 +37,7 @@ void console_clear() {
 }
 
 void console_scroll() {
-    uint16_t blank = get_attr(' ', BLACK, BLACK);
+    uint16_t blank = get_attr(' ', BLACK, WHITE);
     if (cr >= 25) {
         for (int i = 0; i < 24 * 80; ++i) {
             vram[i] = vram[i + 80];
@@ -62,6 +62,7 @@ void console_put_char_c(char c, color_t back, color_t fore) {
         cc -= 80;
         cr++;
     }
+    console_scroll();
     move_cursor();
 }
 
