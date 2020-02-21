@@ -5,6 +5,17 @@
 #ifndef LITCHI_TEST_H
 #define LITCHI_TEST_H
 
+#include "printl.h"
+
+#define test(cond, msg)                                                                            \
+    do {                                                                                           \
+        if (!(cond)) {                                                                               \
+            printl_c(BLACK, RED, "%s failed\n", msg);                                              \
+        } else {                                                                                   \
+            printl_c(BLACK, BGREEN, "%s passed\n", msg);                                           \
+        }                                                                                          \
+    } while (0)
+
 void test_all();
 
 static void test_mem();

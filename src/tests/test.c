@@ -22,25 +22,25 @@ static void test_mem() {
     uint32_t b[5];
     b[4] = 0x88888888;
     memset(a, 0x10, sizeof(a));
-    assert(a[0] == 0x1010 && a[7] == 0x1010, "memset");
+    test(a[0] == 0x1010 && a[7] == 0x1010, "memset");
     memcpy(b, a, sizeof(a));
-    assert(b[0] == 0x10101010 && b[3] == 0x10101010 && b[4] == 0x88888888, "memcpy");
+    test(b[0] == 0x10101010 && b[3] == 0x10101010 && b[4] == 0x88888888, "memcpy");
 }
 
 static void test_str() {
     console_print_str_c("Testing str funcs...\n", BLACK, GREEN);
-    assert(strlen("BugenZhao") == 9, "strlen");
+    test(strlen("BugenZhao") == 9, "strlen");
     char a[] = "bz\0h";
     char b[] = "bz";
     char c[] = "by";
     char d[] = "b";
-    assert(strcmp(d, c) < 0 && strcmp(c, b) < 0 && strcmp(b, a) == 0, "strcmp");
+    test(strcmp(d, c) < 0 && strcmp(c, b) < 0 && strcmp(b, a) == 0, "strcmp");
     char e[20] = "bugenz\0hao";
     char f[20] = "litchi\0os";
-    assert(strcmp(strcpy(f, e), "bugenz") == 0, "strcpy");
+    test(strcmp(strcpy(f, e), "bugenz") == 0, "strcpy");
     char g[30] = "bugen \0zhao";
     char h[20] = "litchi\0 os";
-    assert(strcmp(strcat(g, h), "bugen litchi") == 0, "strcat");
+    test(strcmp(strcat(g, h), "bugen litchi") == 0, "strcat");
 }
 
 static void test_console() {
@@ -68,5 +68,5 @@ static void test_printl() {
     printl_c(BLACK, BCYAN, answer);
     printl_c(BLACK, BPURPLE, format0, 'c', "Litchi\0OS", 0, 0x80000000, 0x80000001, 0x7fffffff, 8,
              0x12ab, 0x34cd, 0xffffffff);
-    assert(strcmp(buffer, answer), "printl");
+    test(strcmp(buffer, answer), "printl");
 }

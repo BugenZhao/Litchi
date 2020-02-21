@@ -5,6 +5,6 @@
 #ifndef LITCHI_ASSERT_H
 #define LITCHI_ASSERT_H
 
-void assert(int cond, const char *msg);
+// void assert(int cond, const char *msg);
 
 #endif // LITCHI_ASSERT_H

@@ -12,7 +12,7 @@ int kernel_entry() {
         "\nHello, Litchi!!\n\nThis is the kernel of Bugen's tiny OS -- Litchi OS.\n"
         "Version v0.%d.%d, Build 20%o\n\n(C) %s 2020\n";
     console_clear_c(BLACK, BYELLOW);
-    printl_c(BLACK, BYELLOW, msg, 2, 4, 0x91, "BugenZhao");
+    printl_c(BLACK, BYELLOW, msg, 2, 5, 0x91, "BugenZhao");
 
     test_all();
 
