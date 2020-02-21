@@ -79,6 +79,34 @@ void console_print_str(const char *str) {
     console_print_str_c(str, BLACK, WHITE);
 }
 
+void console_print_oct(uint32_t num) {
+    char fs[8];
+    int  i = 0;
+    while (i != 8) {
+        uint8_t tmp = num & 0xfU;
+        fs[i++]     = (tmp >= 10) ? 'A' + tmp - 10 : '0' + tmp;
+        num >>= 4U;
+    }
+    while (i--)
+        console_put_char(fs[i]);
+}
+
+void console_print_dec(uint32_t num) {
+    if (!num) {
+        console_put_char('0');
+        return;
+    }
+    char fs[10];
+    int  i = 0;
+    while (num) {
+        uint8_t tmp = num % 10;
+        fs[i++]     = '0' + tmp;
+        num /= 10;
+    }
+    while (i--)
+        console_put_char(fs[i]);
+}
+
 void move_cursor() {
     uint16_t pos = 80 * cr + cc;
     out_byte(0x3d4, 14);

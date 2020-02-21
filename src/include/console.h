@@ -31,9 +31,9 @@ void console_print_str_c(const char *str, color_t back, color_t fore);
 
 void console_print_str(const char *str);
 
-void console_print_oct();
+void console_print_oct(uint32_t num);
 
-void console_print_dec();
+void console_print_dec(uint32_t num);
 
 void move_cursor();
 
