@@ -6,15 +6,21 @@ MBOOT_HEADER_MAGIC	equ	0x1BADB002				; Magic number
 MBOOT_PAGE_ALIGN	equ	1 << 0					; 引导模块 4KB 对齐
 MBOOT_MEM_INFO		equ	1 << 1					; 需要内存信息
 MBOOT_HEADER_FLAGS	equ	MBOOT_PAGE_ALIGN | MBOOT_MEM_INFO
-MBOOT_CHECKSUM		equ	-(MBOOT_HEADER_MAGIC+MBOOT_HEADER_FLAGS); Checksum 保证和为 0
+MBOOT_CHECKSUM		equ	-(MBOOT_HEADER_MAGIC + MBOOT_HEADER_FLAGS); Checksum 保证和为 0
+
+; https://wiki.osdev.org/Grub_Error_13
+; 使用独立的 section 保证内核较大时 multiboot header 也能位于第一个 8KB 内
+section .__mbHeader
+align 0x4
+
+dd	MBOOT_HEADER_MAGIC
+dd	MBOOT_HEADER_FLAGS
+dd	MBOOT_CHECKSUM
 
 
 [BITS	32]
 section	.text
 
-dd	MBOOT_HEADER_MAGIC
-dd	MBOOT_HEADER_FLAGS
-dd	MBOOT_CHECKSUM
 
 [GLOBAL	start]		; 入口
 [GLOBAL	glb_mboot_ptr]	; 暴露 grub 汇报的内存信息

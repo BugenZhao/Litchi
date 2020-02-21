@@ -2,11 +2,11 @@ cmake_minimum_required(VERSION 3.13)
 project(Litchi C ASM_NASM)
 set(LITCHI_BIN LITCHI.LIT)
 
-#set(CMAKE_VERBOSE_MAKEFILE 1)
+set(CMAKE_VERBOSE_MAKEFILE 1)
 
 # C
 set(CMAKE_C_COMPILER gcc)
-set(CMAKE_C_FLAGS "-c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-pic -fno-builtin -fno-stack-protector")
+set(CMAKE_C_FLAGS "-c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector")
 # NASM
 set(CMAKE_ASM_NASM_COMPILER nasm)
 set(CMAKE_ASM_NASM_OBJECT_FORMAT elf)
@@ -38,6 +38,7 @@ add_custom_target(image
         COMMAND sudo mkdir -p ${FLOPPY}
         COMMAND sudo mount -o loop ${TMP_IMG} ${FLOPPY}
         COMMAND sudo cp -v ${LITCHI_BIN} ${FLOPPY}
+        COMMAND sleep 1
         COMMAND sudo umount ${FLOPPY}
         COMMAND cp -v ${TMP_IMG} ${IMG}
         DEPENDS ${LITCHI_BIN}

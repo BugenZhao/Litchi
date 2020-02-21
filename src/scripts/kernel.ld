@@ -4,6 +4,11 @@ SECTIONS
     /* 段起始位置 */
 
     . = 0x100000;
+
+    .__mbHeader : {
+          *(.__mbHeader)
+       }
+
     .text :
     {
         *(.text)
