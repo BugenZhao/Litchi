@@ -19,3 +19,6 @@ inline uint16_t in_word(uint16_t port) {
     asm volatile("inw %1, %0" : "=a"(ret) : "dN"(port));
     return ret;
 }
+
+void sleep(uint32_t ms) {
+}
