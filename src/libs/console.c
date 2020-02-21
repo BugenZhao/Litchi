@@ -5,20 +5,6 @@
 #include "console.h"
 #include "common.h"
 
-inline void bz_write_pos(void *_vram, int8_t row, int8_t col, const char *str, color_t color) {
-    uint8_t *__vram = _vram;
-    uint16_t offset = (80 * row + col) * 2;
-    while (*str != '\0') {
-        if (*str == '\n') {
-            offset = (offset / 160 + 1) * 160;
-            str++;
-            continue;
-        }
-        *(__vram + (offset++)) = *(str++);
-        *(__vram + (offset++)) = color;
-    }
-}
-
 inline uint16_t get_attr(char c, color_t back, color_t fore) {
     return ((back << 4U | fore) << 8U) | c;
 }

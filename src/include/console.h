@@ -13,8 +13,6 @@ static vram_t  vram = (vram_t) 0xb8000;
 static uint8_t cr   = 0;
 static uint8_t cc   = 0;
 
-void bz_write_pos(void *_vram, int8_t row, int8_t col, const char *str, color_t color);
-
 uint16_t get_attr(char c, color_t back, color_t fore);
 
 void console_clear_c(color_t back, color_t cursor);

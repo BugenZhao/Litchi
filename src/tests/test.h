@@ -13,4 +13,6 @@ static void test_str();
 
 static void test_console();
 
+static void test_printl();
+
 #endif // LITCHI_TEST_H

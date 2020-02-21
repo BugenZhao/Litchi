@@ -5,6 +5,7 @@
 #include "test.h"
 #include "assert.h"
 #include "console.h"
+#include "printl.h"
 #include "string.h"
 #include "types.h"
 
@@ -12,6 +13,7 @@ void test_all() {
     test_console();
     test_mem();
     test_str();
+    test_printl();
 }
 
 static void test_mem() {
@@ -58,4 +60,18 @@ static void test_console() {
     for (int i = 0; i < 4; ++i) {
         console_print_str_c("TEST\n", BLACK, BGREEN);
     }
+}
+
+static void test_printl() {
+    console_print_str_c("Testing printl...\n", BLACK, GREEN);
+    static char format0[] = "c:%c, s:%s, d:%d %d %d, i:%i, o:%o, x:%x, X:%X, u:%u, %z%%%z\n";
+    static char answer[]  = "c:c, s:Litchi, d:0 -2147483648 -2147483647, i:2147483647, o:010, "
+                           "x:0x12ab, X:0X34CD, u:4294967295, %z%%%z\n";
+    char buffer[100];
+    sprintl(buffer, format0, 'c', "Litchi\0OS", 0, 0x80000000, 0x80000001, 0x7fffffff, 8, 0x12ab,
+            0x34cd, 0xffffffff);
+    assert(strcmp(buffer, answer), "printl");
+    printl_c(BLACK, BCYAN, answer);
+    printl_c(BLACK, BPURPLE, format0, 'c', "Litchi\0OS", 0, 0x80000000, 0x80000001, 0x7fffffff, 8,
+             0x12ab, 0x34cd, 0xffffffff);
 }
