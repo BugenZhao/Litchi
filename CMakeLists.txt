@@ -7,7 +7,7 @@ set(CMAKE_VERBOSE_MAKEFILE 1)
 # C
 set(CMAKE_C_COMPILER gcc)
 set(CMAKE_C_FLAGS "-c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector")
-# NASM
+# NASM (Cmake's nasm module is buggy. We cannot set correct object format only by setting CMAKE_ASM_NASM_OBJECT_FORMAT.)
 set(CMAKE_ASM_NASM_COMPILER nasm)
 set(CMAKE_ASM_NASM_OBJECT_FORMAT elf)
 set(CMAKE_ASM_NASM_FLAGS "-g -F stabs")
@@ -41,5 +41,6 @@ add_custom_target(image
         COMMAND sleep 1
         COMMAND sudo umount ${FLOPPY}
         COMMAND cp -v ${TMP_IMG} ${IMG}
+        COMMAND cp -v ${PROJECT_BINARY_DIR}/${LITCHI_BIN} ${PROJECT_SOURCE_DIR}/out/${LITCHI_BIN}
         DEPENDS ${LITCHI_BIN}
 )
