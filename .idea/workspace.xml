@@ -67,6 +67,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="add_unversioned_files" value="true" />
     <property name="cf.advertisement.text.has.clang-format" value="true" />
     <property name="cf.advertisement.text.overridden" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/include" />
@@ -266,11 +267,11 @@
     </state>
     <state x="586" y="290" key="#qemu-nox-gdb/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585126370553" />
     <state x="586" y="290" key="#qemu/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585135807348" />
-    <state x="413" y="78" key="CommitChangelistDialog2" timestamp="1585145918039">
+    <state x="413" y="78" key="CommitChangelistDialog2" timestamp="1585146136458">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="413" y="78" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1582296236917" />
-    <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585145918039" />
+    <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585146136458" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
