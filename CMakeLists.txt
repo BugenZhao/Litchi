@@ -1,46 +1,115 @@
-cmake_minimum_required(VERSION 3.13)
-project(Litchi C ASM_NASM)
-set(LITCHI_BIN LITCHI.LIT)
+# BUGEN'S LITCHI CMAKE CONFIGURATION
 
+cmake_minimum_required(VERSION 3.13)
+
+# Set NONE to avoid CMake choosing compilers itself
+project(Litchi LANGUAGES NONE)
+
+# Toolchains prefix
+set(TP i386-jos-elf-)
+set(QEMU qemu-system-i386)
+
+# Object name constants
+set(LITCHI_BIN litchi)
+set(BOOT_BIN boot)
+set(IMG ${PROJECT_SOURCE_DIR}/out/litchi.img)
+
+# Flag constants
+set(C_OR_ASM_FLAGS "-pipe -nostdinc -O1 -fno-builtin -MD -fno-omit-frame-pointer -std=gnu99 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs")
+
+# Other constants
+set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
+set(GDB_PORT 10188)
+
+# Make CMake verbose or not
 set(CMAKE_VERBOSE_MAKEFILE 1)
 
+# BUGENC:
+# CMake will try to compile a simple test program, but it is to fail when cross-compiling
+# After setting this, CMake will try to compile a static library and avoid running it
+# https://stackoverflow.com/questions/53633705/cmake-the-c-compiler-is-not-able-to-compile-a-simple-test-program
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
+
 # C
-set(CMAKE_C_COMPILER gcc)
-set(CMAKE_C_FLAGS "-c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector")
-# NASM (Cmake's nasm module is buggy. We cannot set correct object format only by setting CMAKE_ASM_NASM_OBJECT_FORMAT.)
-set(CMAKE_ASM_NASM_COMPILER nasm)
-set(CMAKE_ASM_NASM_OBJECT_FORMAT elf)
-set(CMAKE_ASM_NASM_FLAGS "-g -F stabs")
-set(CMAKE_ASM_NASM_COMPILE_OBJECT "<CMAKE_ASM_NASM_COMPILER> <INCLUDES> <FLAGS> -f ${CMAKE_ASM_NASM_OBJECT_FORMAT} -o <OBJECT> <SOURCE>")
+set(CMAKE_C_COMPILER ${TP}gcc)
+set(CMAKE_C_FLAGS ${C_OR_ASM_FLAGS})
+# Find libgcc.a
+execute_process(COMMAND ${CMAKE_C_COMPILER} --print-libgcc-file-name OUTPUT_VARIABLE LIBGCC OUTPUT_STRIP_TRAILING_WHITESPACE)
+message(STATUS "libgcc.a found.")
+
+# ASM
+set(CMAKE_ASM_COMPILER ${TP}gcc)
+set(CMAKE_ASM-ATT_COMPILER ${TP}gcc)
+set(CMAKE_ASM_FLAGS ${C_OR_ASM_FLAGS})
+
+# Objdump
+set(CMAKE_OBJDUMP ${TP}objdump)
+
 # Link
-set(CMAKE_C_LINK_EXECUTABLE "ld <LINK_FLAGS> <OBJECTS> -o <TARGET> <LINK_LIBRARIES>")
-set(LD_SCRIPT ${PROJECT_SOURCE_DIR}/src/scripts/kernel.ld)
+set(CMAKE_C_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
+#set(CMAKE_C_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES> -b binary")
+
+# NASM - just for 0x55AA !?
+set(NASM_COMPILER nasm)
+
+# Now we can enable languages
+enable_language(C ASM ASM-ATT)
+
+
+# Include
+include_directories(.)
 
 # Sources
-aux_source_directory(src/kernel KERNEL_SRC)
-aux_source_directory(src/libs LIBS_SRC)
-aux_source_directory(src/tests TESTS_SRC)
-set(ASM_SRC src/loader/nloader.asm)
-# Include
-include_directories(src/include src/tests)
+set(BOOT_SRC
+        boot/boot.S
+        boot/main.c)
 
-# Target
-add_executable(${LITCHI_BIN} ${KERNEL_SRC} ${LIBS_SRC} ${TESTS_SRC} ${ASM_SRC})
-set_target_properties(${LITCHI_BIN} PROPERTIES LINK_FLAGS "-T ${LD_SCRIPT} -m elf_i386 -nostdlib")
+set(LIB_SRC
+        lib/string.c)
 
-# Image
-set(IMG ${PROJECT_SOURCE_DIR}/out/litchi.img)
-set(TMP_IMG /tmp/litchi.img)
-set(GRUB_IMG ${PROJECT_SOURCE_DIR}/grub.img)
-set(FLOPPY /mnt/litchi)
-add_custom_target(image
-        COMMAND cp -v ${GRUB_IMG} ${TMP_IMG}
-        COMMAND sudo mkdir -p ${FLOPPY}
-        COMMAND sudo mount -o loop ${TMP_IMG} ${FLOPPY}
-        COMMAND sudo cp -v ${LITCHI_BIN} ${FLOPPY}
-        COMMAND sleep 1
-        COMMAND sudo umount ${FLOPPY}
-        COMMAND cp -v ${TMP_IMG} ${IMG}
-        COMMAND cp -v ${PROJECT_BINARY_DIR}/${LITCHI_BIN} ${PROJECT_SOURCE_DIR}/out/${LITCHI_BIN}
-        DEPENDS ${LITCHI_BIN}
+set(KERNEL_SRC
+        kernel/entry.S
+        kernel/init.c
+        kernel/entrypgdir.c
+        kernel/console.c
+        ${LIB_SRC})
+
+
+# Target - kernel
+add_executable(${LITCHI_BIN} ${KERNEL_SRC} ${LIBS_SRC})
+set_target_properties(${LITCHI_BIN} PROPERTIES LINK_FLAGS "-m elf_i386 -T ${LD_SCRIPT} -nostdlib")
+target_link_libraries(${LITCHI_BIN} ${LIBGCC})
+
+# Target - boot.out
+add_executable(${BOOT_BIN} ${BOOT_SRC})
+set_target_properties(${BOOT_BIN} PROPERTIES LINK_FLAGS "-Ttext 0x7C00 -m elf_i386 -N -e start")
+
+# Target - boot (binary, only .text)
+#add_custom_target(${BOOT_BIN}
+#        COMMAND ${TP}objcopy -S -O binary -j .text ${PROJECT_BINARY_DIR}/${BOOT_BIN}.out ${PROJECT_BINARY_DIR}/${BOOT_BIN}
+#        DEPENDS ${BOOT_BIN}.out)
+
+add_custom_command(
+        TARGET ${BOOT_BIN}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E rename ${PROJECT_BINARY_DIR}/${BOOT_BIN} ${PROJECT_BINARY_DIR}/${BOOT_BIN}.out
+        COMMAND ${TP}objcopy -S -O binary -j .text ${PROJECT_BINARY_DIR}/${BOOT_BIN}.out ${PROJECT_BINARY_DIR}/${BOOT_BIN}
+        COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan "Objcopy done!"
 )
+
+# Target - Image
+add_custom_target(image
+        COMMAND ${NASM_COMPILER} ${PROJECT_SOURCE_DIR}/bootable/bootable.nasm -o ${PROJECT_BINARY_DIR}/bootable
+        COMMAND dd if=/dev/zero of=${IMG} count=10000
+        COMMAND dd if=${PROJECT_BINARY_DIR}/bootable of=${IMG} conv=notrunc
+        COMMAND dd if=${PROJECT_BINARY_DIR}/${BOOT_BIN} of=${IMG} conv=notrunc
+        COMMAND dd if=${PROJECT_BINARY_DIR}/${LITCHI_BIN} of=${IMG} seek=1 conv=notrunc
+        DEPENDS ${LITCHI_BIN} ${BOOT_BIN})
+
+add_custom_target(qemu-gdb-cmake
+        ${QEMU} -drive file=${IMG},index=0,media=disk,format=raw -serial mon:stdio -gdb tcp::${GDB_PORT} -S
+        DEPENDS image)
+
+add_custom_target(qemu-cmake
+        ${QEMU} -drive file=${IMG},index=0,media=disk,format=raw -serial mon:stdio
+        DEPENDS image)
