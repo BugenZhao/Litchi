@@ -94,7 +94,9 @@ relocated:
 	call	litchi_i386_init
 
 	# Should never get here, but in case we do, just spin.
-spin:	jmp	spin
+spin:
+	hlt
+	jmp	spin
 
 
 .data

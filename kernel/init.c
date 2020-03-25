@@ -18,8 +18,6 @@ void litchi_i386_init(void) {
     // This ensures that all static/global variables start out zero.
     memset(edata, 0, end - edata);
     hello();
-
-    while (1);
 }
 
 void hello() {
@@ -33,4 +31,5 @@ void hello() {
     for (i = 0; i < len; i++) {
         vmem[10 * CRT_COLS + i] = 0x0700 | HELLO_STR[i];
     }
+    vmem[11 * CRT_COLS - 1] = 0x0c00 | 'D';
 }
