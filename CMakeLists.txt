@@ -106,11 +106,11 @@ set(GDB_PORT 10188)
 set(QEMU_GDB_OPTIONS -gdb tcp::${GDB_PORT} -S) # -S: stop at entry
 
 add_custom_target(qemu-nox-gdb
-        COMMAND ${QEMU} -nographic ${QEMU_OPTIONS} ${GDB_OPTIONS}
+        COMMAND ${QEMU} -nographic ${QEMU_OPTIONS} ${QEMU_GDB_OPTIONS}
         DEPENDS image)
 
 add_custom_target(qemu-gdb
-        COMMAND ${QEMU} ${QEMU_OPTIONS} ${GDB_OPTIONS}
+        COMMAND ${QEMU} ${QEMU_OPTIONS} ${QEMU_GDB_OPTIONS}
         DEPENDS image)
 
 add_custom_target(qemu
