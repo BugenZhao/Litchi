@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Debug Litchi" type="CLion_Remote" singleton="false" remoteCommand="localhost:10188" symbolFile="$PROJECT_DIR$/cmake-build-default/litchi" sysroot="">
+    <method v="2" />
+  </configuration>
+</component>

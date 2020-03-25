@@ -1,3 +1,4 @@
+# For cli gdb
 # Adopt from JOS/xv6
 
 set $lastcs = -1
@@ -20,10 +21,4 @@ define hook-stop
   end
   set $lastcs = $cs
 end
-
-echo + target remote localhost:10188\n
-target remote localhost:10188
-
-echo + symbol-file cmake-build-default/litchi\n
-symbol-file cmake-build-default/litchi
 

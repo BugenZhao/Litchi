@@ -116,3 +116,6 @@ add_custom_target(qemu-gdb
 add_custom_target(qemu
         COMMAND ${QEMU} ${QEMU_OPTIONS}
         DEPENDS image)
+
+add_custom_target(cgdb-cli
+        COMMAND cgdb -n -x .gdbinit.cli)

@@ -1,5 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Debug Boot" type="CLion_Remote" singleton="false" remoteCommand="localhost:25501" symbolFile="$PROJECT_DIR$/cmake-build-default/boot" sysroot="">
-    <method v="2" />
-  </configuration>
-</component>
