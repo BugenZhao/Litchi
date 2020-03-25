@@ -19,7 +19,6 @@ set(C_OR_ASM_FLAGS "-pipe -nostdinc -O1 -fno-builtin -MD -fno-omit-frame-pointer
 
 # Other constants
 set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
-set(GDB_PORT 10188)
 
 # Make CMake verbose or not
 set(CMAKE_VERBOSE_MAKEFILE 1)
@@ -33,7 +32,7 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 # C
 set(CMAKE_C_COMPILER ${TP}gcc)
 set(CMAKE_C_FLAGS ${C_OR_ASM_FLAGS})
-# Find libgcc.a
+# Find libgcc.a for operations like '%' or '/'
 execute_process(COMMAND ${CMAKE_C_COMPILER} --print-libgcc-file-name OUTPUT_VARIABLE LIBGCC OUTPUT_STRIP_TRAILING_WHITESPACE)
 message(STATUS "libgcc.a found.")
 
@@ -80,15 +79,10 @@ add_executable(${LITCHI_BIN} ${KERNEL_SRC} ${LIBS_SRC})
 set_target_properties(${LITCHI_BIN} PROPERTIES LINK_FLAGS "-m elf_i386 -T ${LD_SCRIPT} -nostdlib")
 target_link_libraries(${LITCHI_BIN} ${LIBGCC})
 
-# Target - boot.out
+# Target - boot
 add_executable(${BOOT_BIN} ${BOOT_SRC})
 set_target_properties(${BOOT_BIN} PROPERTIES LINK_FLAGS "-Ttext 0x7C00 -m elf_i386 -N -e start")
-
-# Target - boot (binary, only .text)
-#add_custom_target(${BOOT_BIN}
-#        COMMAND ${TP}objcopy -S -O binary -j .text ${PROJECT_BINARY_DIR}/${BOOT_BIN}.out ${PROJECT_BINARY_DIR}/${BOOT_BIN}
-#        DEPENDS ${BOOT_BIN}.out)
-
+# post-build command: objcopy (binary, only .text)
 add_custom_command(
         TARGET ${BOOT_BIN}
         POST_BUILD
@@ -106,10 +100,19 @@ add_custom_target(image
         COMMAND dd if=${PROJECT_BINARY_DIR}/${LITCHI_BIN} of=${IMG} seek=1 conv=notrunc
         DEPENDS ${LITCHI_BIN} ${BOOT_BIN})
 
-add_custom_target(qemu-gdb-cmake
-        ${QEMU} -drive file=${IMG},index=0,media=disk,format=raw -serial mon:stdio -gdb tcp::${GDB_PORT} -S
+# Options for qemu and gdb
+set(QEMU_OPTIONS -drive file=${IMG},index=0,media=disk,format=raw -serial mon:stdio)
+set(GDB_PORT 10188)
+set(QEMU_GDB_OPTIONS -gdb tcp::${GDB_PORT} -S) # -S: stop at entry
+
+add_custom_target(qemu-nox-gdb
+        COMMAND ${QEMU} -nographic ${QEMU_OPTIONS} ${GDB_OPTIONS}
         DEPENDS image)
 
-add_custom_target(qemu-cmake
-        ${QEMU} -drive file=${IMG},index=0,media=disk,format=raw -serial mon:stdio
+add_custom_target(qemu-gdb
+        COMMAND ${QEMU} ${QEMU_OPTIONS} ${GDB_OPTIONS}
+        DEPENDS image)
+
+add_custom_target(qemu
+        COMMAND ${QEMU} ${QEMU_OPTIONS}
         DEPENDS image)
