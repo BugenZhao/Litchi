@@ -22,7 +22,11 @@ enum color_t {
     LIGHT_MAGENTA,
     YELLOW,
     WHITE,
-    COLOR_COUNT
+    COLOR_COUNT,
+    DEF_FORE = GRAY,
+    DEF_BACK = BLACK
 };
+
+#define COLOR_CHAR(c, fore, back) ( ((c)&0xffu) | ((fore)<<8u) | ((back)<<12u) )
 
 #endif //LITCHI_COLOR_H
