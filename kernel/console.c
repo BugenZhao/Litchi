@@ -49,7 +49,14 @@ static void cgaInit(void) {
     crtPos = pos;
 }
 
-void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor) {
+static inline void cgaCursorRefresh(void) {
+    outb(addr_6845, 14);
+    outb(addr_6845 + 1, crtPos >> 8);
+    outb(addr_6845, 15);
+    outb(addr_6845 + 1, crtPos);
+}
+
+static void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor) {
     c = (c & 0xff) | (foreColor << 8) | (backColor << 12);
 
     // Print the character
@@ -63,11 +70,11 @@ void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor) {
             cgaPutChar(' ', foreColor, backColor);
             cgaPutChar(' ', foreColor, backColor);
             break;
-        case '\r':
-            crtPos = crtPos / CRT_COLS * CRT_COLS;
-            break;
         case '\n':
             crtPos += CRT_COLS;
+            // LF only
+        case '\r':
+            crtPos = crtPos / CRT_COLS * CRT_COLS;
             break;
         default:
             crtBuffer[crtPos++] = c;
@@ -76,7 +83,7 @@ void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor) {
     // Scroll the screen
     if (crtPos == CRT_SIZE) {
         for (int i = 0; i < CRT_ROWS - 1; ++i) {
-            memoryCopy(crtBuffer + i * CRT_COLS, crtBuffer + (i + 1) * CRT_COLS, CRT_COLS);
+            memoryCopy(crtBuffer + i * CRT_COLS, crtBuffer + (i + 1) * CRT_COLS, CRT_COLS * sizeof(uint16_t));
         }
         for (int j = CRT_SIZE - CRT_COLS; j < CRT_SIZE; ++j) {
             crtBuffer[j] = (c & ~0xff) | ' ';
@@ -85,11 +92,17 @@ void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor) {
     }
 
     // Move the cursor
-    outb(addr_6845, 14);
-    outb(addr_6845 + 1, crtPos >> 8);
-    outb(addr_6845, 15);
-    outb(addr_6845 + 1, crtPos);
+    cgaCursorRefresh();
 }
+
+static void cgaClear(void) {
+    for (int i = 0; i < CRT_SIZE; ++i) {
+        crtBuffer[i] = (GRAY << 8) | ' ';
+    }
+    crtPos = 0;
+    cgaCursorRefresh();
+}
+
 
 void consoleInit(void) {
     // Litchi will only print to display now
@@ -97,5 +110,9 @@ void consoleInit(void) {
 }
 
 void consolePutChar(int c) {
-    cgaPutChar(c, GRAY, BROWN);
+    cgaPutChar(c, GRAY, BLACK);
+}
+
+void consoleClear(void) {
+    cgaClear();
 }

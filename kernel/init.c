@@ -4,8 +4,8 @@
 
 #include <include/string.h>
 #include <kernel/console.h>
+#include <include/stdio.h>
 
-static const char *HELLO_STR = "Hello, Litchi!\r\n(C) Bugen Zhao 2020";
 
 static void hello();
 
@@ -22,11 +22,6 @@ void i386InitLitchi(void) {
 }
 
 void hello() {
-    size_t i;
-    size_t len;
-    len = stringLength(HELLO_STR);
-
-    for (i = 0; i < len; i++) {
-        cgaPutChar(HELLO_STR[i], (DARK_GRAY + i) % 8 + 8, BLACK);
-    }
+    consoleClear();
+    consolePrintFmt("%s%c %s\nBugenZhao %d%03x", "Hello", ',', "Litchi!", 2, 0x20);
 }

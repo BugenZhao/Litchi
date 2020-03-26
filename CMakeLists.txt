@@ -64,13 +64,15 @@ set(BOOT_SRC
         boot/main.c)
 
 set(LIB_SRC
-        lib/string.c)
+        lib/string.c
+        lib/printfmt.c)
 
 set(KERNEL_SRC
         kernel/entry.S
         kernel/init.c
         kernel/entrypgdir.c
         kernel/console.c
+        kernel/printf.c
         ${LIB_SRC})
 
 

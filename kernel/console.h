@@ -23,10 +23,14 @@
 
 static void cgaInit(void);
 
-void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor);
+static void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor);
+
+static void cgaClear(void);
 
 void consoleInit(void);
 
 void consolePutChar(int c);
+
+void consoleClear(void);
 
 #endif //LITCHI_CONSOLE_H
