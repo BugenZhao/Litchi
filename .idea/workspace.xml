@@ -18,17 +18,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/include/assert.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kernel/assert.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdio.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdio.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/printf.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/printfmt.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/printfmt.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old/boot.asm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old/bootable.asm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old/fat12.inc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old/kernel.asm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old/loader.asm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old/pm.inc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/.clang-format" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/grub.img" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/out/LITCHI.LIT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/out/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/out/litchi.img" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/ref/registers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/include/assert.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/include/common.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/include/console.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/include/printl.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/include/string.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/include/types.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/include/vargs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/kernel/common.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/kernel/entry.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/libs/assert.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/libs/console.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/libs/printl.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/libs/string.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/loader/nloader.asm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/scripts/kernel.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/tests/test.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old_litchis/old2/src/tests/test.h" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +174,7 @@
       <workItem from="1585138401751" duration="3218000" />
       <workItem from="1585141851405" duration="2812000" />
       <workItem from="1585144769305" duration="4223000" />
-      <workItem from="1585182290051" duration="26965000" />
+      <workItem from="1585182290051" duration="27141000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -330,7 +351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585230884603</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Basic panic(), warning() and assert()">
+      <created>1585234783637</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1585234783638</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -367,7 +395,8 @@
     <MESSAGE value="Color extension for printFmt" />
     <MESSAGE value="Minimal printFmt library" />
     <MESSAGE value="Add version info, resize image" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add version info, resize image" />
+    <MESSAGE value="Basic panic(), warning() and assert()" />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic panic(), warning() and assert()" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1585201608100">
@@ -414,11 +443,11 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="799" y="238" key="#xdebugger.XInspectDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148669239" />
-    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1585230884417">
+    <state x="413" y="78" key="CommitChangelistDialog2" timestamp="1585234783376">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585230884417" />
-    <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585201365936" />
+    <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585234783376" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -470,11 +499,11 @@
     <state x="567" y="63" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1582267087558" />
     <state x="567" y="63" key="SettingsEditor/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585141873910" />
     <state x="567" y="63" key="SettingsEditor/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585141958936" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585228674647">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585234785060">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585228674647" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585201368229" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585234785060" />
     <state x="742" y="271" key="com.jetbrains.plugins.webDeployment.ui.UploadBeforeRunTaskDialog" timestamp="1582278516732">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
