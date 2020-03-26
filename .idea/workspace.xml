@@ -18,14 +18,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gdbinit" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/Debug_Litchi.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gdbinit.cli" beforeDir="false" afterPath="$PROJECT_DIR$/.gdbinit.cli" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Debug_Boot.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/color.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/vargs.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/entry.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/entry.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,6 +38,7 @@
     <option name="myScale" value="1.0" />
     <option name="myDirectoryToSave" value="$USER_HOME$/Documents/屏幕快照" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Default" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -80,25 +79,25 @@
     <property name="add_unversioned_files" value="true" />
     <property name="cf.advertisement.text.has.clang-format" value="true" />
     <property name="cf.advertisement.text.overridden" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/include" />
     <property name="settings.editor.selected.configurable" value="screenshoter" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/include" />
-      <recent name="$PROJECT_DIR$/bootable" />
-      <recent name="$PROJECT_DIR$/inc" />
-      <recent name="$PROJECT_DIR$/kernel" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/old_litchis" />
       <recent name="$PROJECT_DIR$/old2" />
       <recent name="$PROJECT_DIR$/src/include" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/include" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/bootable" />
+      <recent name="$PROJECT_DIR$/inc" />
+      <recent name="$PROJECT_DIR$/kernel" />
+    </key>
   </component>
-  <component name="RunManager" selected="GDB Remote Debug.Debug Litchi">
-    <configuration name="cgdb-cli" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="cgdb-cli" CONFIG_NAME="Default">
+  <component name="RunManager" selected="CMake Application.qemu">
+    <configuration name="cgdb-cli" type="CMakeRunConfiguration" factoryName="Application" singleton="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="cgdb-cli" CONFIG_NAME="Default">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -146,7 +145,8 @@
       <workItem from="1585131831575" duration="6479000" />
       <workItem from="1585138401751" duration="3218000" />
       <workItem from="1585141851405" duration="2812000" />
-      <workItem from="1585144769305" duration="3944000" />
+      <workItem from="1585144769305" duration="4223000" />
+      <workItem from="1585182290051" duration="5082000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -267,7 +267,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585147043783</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Update CMake and GDB configuration">
+      <created>1585148764517</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1585148764517</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Kernel will halt now">
+      <created>1585148805113</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1585148805113</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -297,17 +311,19 @@
     <MESSAGE value="Add CLion project configuration files" />
     <MESSAGE value="Rearrange old Litchi files" />
     <MESSAGE value="Update CMake configurations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update CMake configurations" />
+    <MESSAGE value="Update CMake and GDB configuration" />
+    <MESSAGE value="Kernel will halt now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Kernel will halt now" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#Other_File_Types" timestamp="1582291296856">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="225" key="#Other_File_Types/0.0.1792.1120@0.0.1792.1120" timestamp="1582291296856" />
-    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585147177250">
+    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585187038877">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1582267393336" />
+    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1585187038877" />
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585147177250" />
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585147204410">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -315,10 +331,10 @@
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1792.1120@0.0.1792.1120" timestamp="1582293729507" />
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585147204410" />
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585131838326" />
-    <state x="585" y="289" key="#image" timestamp="1582287636872">
+    <state x="604" y="290" key="#image" timestamp="1585187122698">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="585" y="289" key="#image/0.0.1792.1120@0.0.1792.1120" timestamp="1582287636872" />
+    <state x="604" y="290" key="#image/0.0.1792.1120@0.0.1792.1120" timestamp="1585187122698" />
     <state x="841" y="353" key="#org.exbin.bined.intellij.debug.DebugViewBinaryAction" timestamp="1585148693289">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -339,51 +355,55 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="799" y="238" key="#xdebugger.XInspectDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148669239" />
-    <state x="413" y="78" key="CommitChangelistDialog2" timestamp="1585148764301">
+    <state x="413" y="78" key="CommitChangelistDialog2" timestamp="1585148804885">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="413" y="78" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1582296236917" />
-    <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148764301" />
+    <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148804885" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1582267263078" />
     <state x="100" y="59" width="1592" height="1061" key="DirDiffDialog/0.23.1792.1043@0.23.1792.1043" timestamp="1582266276928" />
-    <state width="1750" height="738" key="GridCell.Tab.0.bottom" timestamp="1585148731683">
+    <state width="1750" height="388" key="GridCell.Tab.0.bottom" timestamp="1585194254500">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="299" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1582293689574" />
+    <state width="1750" height="388" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1585194254500" />
     <state width="1750" height="738" key="GridCell.Tab.0.bottom/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148731683" />
-    <state width="1750" height="738" key="GridCell.Tab.0.center" timestamp="1585148731682">
+    <state width="1750" height="388" key="GridCell.Tab.0.center" timestamp="1585194254499">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="299" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1582293689573" />
+    <state width="1750" height="388" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1585194254499" />
     <state width="1750" height="738" key="GridCell.Tab.0.center/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148731682" />
-    <state width="1750" height="738" key="GridCell.Tab.0.left" timestamp="1585148731681">
+    <state width="1750" height="388" key="GridCell.Tab.0.left" timestamp="1585194254498">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="299" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1582293689573" />
+    <state width="1750" height="388" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1585194254498" />
     <state width="1750" height="738" key="GridCell.Tab.0.left/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148731681" />
-    <state width="1750" height="738" key="GridCell.Tab.0.right" timestamp="1585148731682">
+    <state width="1750" height="388" key="GridCell.Tab.0.right" timestamp="1585194254500">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="299" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1582293689574" />
+    <state width="1750" height="388" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1585194254500" />
     <state width="1750" height="738" key="GridCell.Tab.0.right/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148731682" />
-    <state width="1750" height="738" key="GridCell.Tab.1.bottom" timestamp="1585148731685">
+    <state width="1750" height="388" key="GridCell.Tab.1.bottom" timestamp="1585194254503">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="388" key="GridCell.Tab.1.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1585194254503" />
     <state width="1750" height="738" key="GridCell.Tab.1.bottom/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148731685" />
-    <state width="1750" height="738" key="GridCell.Tab.1.center" timestamp="1585148731684">
+    <state width="1750" height="388" key="GridCell.Tab.1.center" timestamp="1585194254502">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="388" key="GridCell.Tab.1.center/0.0.1792.1120@0.0.1792.1120" timestamp="1585194254502" />
     <state width="1750" height="738" key="GridCell.Tab.1.center/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148731684" />
-    <state width="1750" height="738" key="GridCell.Tab.1.left" timestamp="1585148731684">
+    <state width="1750" height="388" key="GridCell.Tab.1.left" timestamp="1585194254501">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="388" key="GridCell.Tab.1.left/0.0.1792.1120@0.0.1792.1120" timestamp="1585194254501" />
     <state width="1750" height="738" key="GridCell.Tab.1.left/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148731684" />
-    <state width="1750" height="738" key="GridCell.Tab.1.right" timestamp="1585148731685">
+    <state width="1750" height="388" key="GridCell.Tab.1.right" timestamp="1585194254502">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="388" key="GridCell.Tab.1.right/0.0.1792.1120@0.0.1792.1120" timestamp="1585194254502" />
     <state width="1750" height="738" key="GridCell.Tab.1.right/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148731685" />
     <state x="567" y="63" width="1192" height="722" key="SettingsEditor" timestamp="1585141958936">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -391,11 +411,11 @@
     <state x="567" y="63" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1582267087558" />
     <state x="567" y="63" key="SettingsEditor/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585141873910" />
     <state x="567" y="63" key="SettingsEditor/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585141958936" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585146216448">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585148806792">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1582296278462" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585146216448" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148806792" />
     <state x="742" y="271" key="com.jetbrains.plugins.webDeployment.ui.UploadBeforeRunTaskDialog" timestamp="1582278516732">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>

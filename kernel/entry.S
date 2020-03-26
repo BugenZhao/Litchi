@@ -78,8 +78,8 @@ entry:
 	# C code.
 	mov	$relocated, %eax
 	jmp	*%eax
-# BUGENC: now our codes are running at high (virtual) addresses, too
-
+# BUGENC: now our codes are running at high (virtual) addresses,
+# BUGENC:  and the debugger can locate the code by the address in Elf
 relocated:
 
 	# Clear the frame pointer register (EBP)

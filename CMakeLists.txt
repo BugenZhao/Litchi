@@ -15,7 +15,7 @@ set(BOOT_BIN boot)
 set(IMG ${PROJECT_SOURCE_DIR}/out/litchi.img)
 
 # Flag constants
-set(C_OR_ASM_FLAGS "-pipe -nostdinc -O1 -fno-builtin -MD -fno-omit-frame-pointer -std=gnu99 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs")
+set(C_OR_ASM_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu99 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -gstabs")
 
 # Other constants
 set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
@@ -77,12 +77,17 @@ set(KERNEL_SRC
 # Target - kernel
 add_executable(${LITCHI_BIN} ${KERNEL_SRC} ${LIBS_SRC})
 set_target_properties(${LITCHI_BIN} PROPERTIES LINK_FLAGS "-m elf_i386 -T ${LD_SCRIPT} -nostdlib")
+    # ${CMAKE_CXX_COMPILER} ${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS} -o foo.o -c foo.cc
+    # Use -Og for a better kernel debugging experience
+set_target_properties(${LITCHI_BIN} PROPERTIES COMPILE_FLAGS "-Og")
 target_link_libraries(${LITCHI_BIN} ${LIBGCC})
 
 # Target - boot
 add_executable(${BOOT_BIN} ${BOOT_SRC})
 set_target_properties(${BOOT_BIN} PROPERTIES LINK_FLAGS "-Ttext 0x7C00 -m elf_i386 -N -e start")
-# post-build command: objcopy (binary, only .text)
+    # Use optimization to limit the binary size to 512 bytes
+set_target_properties(${BOOT_BIN} PROPERTIES COMPILE_FLAGS "-O1")
+    # post-build command: objcopy (binary, only .text)
 add_custom_command(
         TARGET ${BOOT_BIN}
         POST_BUILD
