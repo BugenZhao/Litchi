@@ -23,5 +23,6 @@ void i386InitLitchi(void) {
 
 void hello() {
     consoleClear();
-    consolePrintFmt("%s%c %s\nBugenZhao %d%03x", "Hello", ',', "Litchi!", 2, 0x20);
+    consolePrintFmt("%<%s%c %<%s!\n%<BugenZhao %d%03x",
+                    YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", DEF_FORE, 2, 0x20);
 }

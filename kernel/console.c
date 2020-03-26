@@ -56,8 +56,10 @@ static inline void cgaCursorRefresh(void) {
     outb(addr_6845 + 1, crtPos);
 }
 
-static void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor) {
-    c = (c & 0xff) | (foreColor << 8) | (backColor << 12);
+// Put char into cga, explicit colors will be used only if no color info in c
+static void cgaPutChar(int c, enum color_t defForeColor, enum color_t defBackColor) {
+    if ((c & 0xff00) == 0) // no color in c
+        c = COLOR_CHAR(c, defForeColor, defBackColor);
 
     // Print the character
     switch (c & 0xff) {
@@ -65,10 +67,10 @@ static void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor) {
             if (crtPos > 0) crtBuffer[--crtPos] = (c & ~0xff) | ' ';
             break;
         case '\t':
-            cgaPutChar(' ', foreColor, backColor);
-            cgaPutChar(' ', foreColor, backColor);
-            cgaPutChar(' ', foreColor, backColor);
-            cgaPutChar(' ', foreColor, backColor);
+            cgaPutChar(' ', defForeColor, defBackColor);
+            cgaPutChar(' ', defForeColor, defBackColor);
+            cgaPutChar(' ', defForeColor, defBackColor);
+            cgaPutChar(' ', defForeColor, defBackColor);
             break;
         case '\n':
             crtPos += CRT_COLS;
@@ -97,7 +99,7 @@ static void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor) {
 
 static void cgaClear(void) {
     for (int i = 0; i < CRT_SIZE; ++i) {
-        crtBuffer[i] = (GRAY << 8) | ' ';
+        crtBuffer[i] = (DEF_FORE << 8) | ' ';
     }
     crtPos = 0;
     cgaCursorRefresh();
@@ -110,7 +112,7 @@ void consoleInit(void) {
 }
 
 void consolePutChar(int c) {
-    cgaPutChar(c, GRAY, BLACK);
+    cgaPutChar(c, DEF_FORE, DEF_BACK);
 }
 
 void consoleClear(void) {

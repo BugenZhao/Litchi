@@ -5,6 +5,7 @@
 #include <include/stdio.h>
 #include <include/ctype.h>
 #include <include/string.h>
+#include <include/color.h>
 
 static unsigned long long _getUIntVa(va_list *ap, int longFlag) {
     unsigned long long num;
@@ -26,19 +27,24 @@ static long long _getIntVa(va_list *ap, int longFlag) {
     return num;
 }
 
+//
 void _gePrintNumber(_gePutCharFunction putChar, void *putdat, unsigned long long num, unsigned base, int width,
-                    int paddingChar, bool capital) {
+                    int paddingChar, bool capital, enum color_t fore, enum color_t back) {
     if (num >= base) {
-        _gePrintNumber(putChar, putdat, num / base, base, width - 1, paddingChar, capital);
+        _gePrintNumber(putChar, putdat, num / base, base, width - 1, paddingChar, capital, fore, back);
     } else {
         // Print padding char
-        while (--width > 0) putChar(paddingChar, putdat);
+        while (--width > 0) putChar(COLOR_CHAR(paddingChar, fore, back), putdat);
     }
-    if (capital) putChar("0123456789ABCDEF"[num % base], putdat);
-    else putChar("0123456789abcdef"[num % base], putdat);
+    if (capital) putChar(COLOR_CHAR("0123456789ABCDEF"[num % base], fore, back), putdat);
+    else putChar(COLOR_CHAR("0123456789abcdef"[num % base], fore, back), putdat);
 }
 
+// Generic vargs printFmt with color extension
 void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va_list ap) {
+
+#define putColorChar(c, fore, back, p) do { putChar(COLOR_CHAR(c, fore, back), p); } while (0)
+
     int ch;
     unsigned long long num;
     char paddingChar;
@@ -47,11 +53,14 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
     int longFlag;
     bool capital;
     size_t len;
+    enum color_t fore = DEF_FORE, back = DEF_BACK;
 
     while (1) {
         while ((ch = *(fmt++)) != '%') {
-            if (ch == '\0') return;
-            else putChar(ch, putdat);
+            if (ch == '\0')
+                return;
+            else
+                putColorChar(ch, fore, back, putdat);
         }
         // *fmt is now '%'
 
@@ -91,27 +100,27 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
                 // Number types
             case 'u':
                 num = _getUIntVa(&ap, longFlag);
-                _gePrintNumber(putChar, putdat, num, 10, width, paddingChar, capital);
+                _gePrintNumber(putChar, putdat, num, 10, width, paddingChar, capital, fore, back);
                 break;
             case 'd':
                 num = _getIntVa(&ap, longFlag);
                 if ((long long) num < 0) {
-                    putChar('-', putdat);
+                    putColorChar('-', fore, back, putdat);
                     num = -(long long) num;
                 }
-                _gePrintNumber(putChar, putdat, num, 10, width, paddingChar, capital);
+                _gePrintNumber(putChar, putdat, num, 10, width, paddingChar, capital, fore, back);
                 break;
             case 'X':
                 capital = true;
             case 'x':
                 num = _getUIntVa(&ap, longFlag);
-                _gePrintNumber(putChar, putdat, num, 16, width, paddingChar, capital);
+                _gePrintNumber(putChar, putdat, num, 16, width, paddingChar, capital, fore, back);
                 break;
             case 'O':
                 capital = true;
             case 'o':
                 num = _getUIntVa(&ap, longFlag);
-                _gePrintNumber(putChar, putdat, num, 8, width, paddingChar, capital);
+                _gePrintNumber(putChar, putdat, num, 8, width, paddingChar, capital, fore, back);
                 break;
 
                 // Other types
@@ -119,24 +128,35 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
                 str = va_arg(ap, char *);
                 if (str == NULL) str = "(null)";
                 len = stringLength(str);
-                for (width -= len; width > 0; width--) putChar(paddingChar, putdat);
-                for (str; *str != '\0'; str++) putChar(*str, putdat);
+                for (width -= len; width > 0; width--) putColorChar(paddingChar, fore, back, putdat);
+                for (str; *str != '\0'; str++) putColorChar(*str, fore, back, putdat);
                 break;
             case 'c':
-                putChar(va_arg(ap, int), putdat); // Char in va_list takes 4 Bytes
+                putColorChar(va_arg(ap,
+                                     int), fore, back, putdat); // Char in va_list takes 4 Bytes
+                break;
+
+                // Colors
+            case '<':
+                fore = va_arg(ap, enum color_t);
+                break;
+            case '>':
+                back = va_arg(ap, enum color_t);
                 break;
 
                 // "%%"
             case '%':
-                putChar(ch, putdat);
+                putColorChar(ch, fore, back, putdat);
                 break;
                 // "%??"
             default:
-                putChar('%', putdat);
-                putChar(ch, putdat);
+                putColorChar('%', fore, back, putdat);
+                putColorChar(ch, fore, back, putdat);
+                break;
         }
-
     }
+
+#undef putColorChar
 }
 
 void _gePrintFmt(_gePutCharFunction putChar, void *putdat, const char *fmt, ...) {

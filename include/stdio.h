@@ -8,6 +8,7 @@
 #include <include/types.h>
 #include <kernel/console.h>
 #include <include/vargs.h>
+#include <include/color.h>
 
 typedef void (*_gePutCharFunction)(int, void *);
 
@@ -25,7 +26,7 @@ int consolePrintFmt(const char *fmt, ...);
 // printfmt.c
 
 void _gePrintNumber(_gePutCharFunction putChar, void *putdat, unsigned long long num, unsigned base, int width,
-                    int paddingChar, bool capital);
+                    int paddingChar, bool capital, enum color_t fore, enum color_t back);
 
 void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va_list ap);
 

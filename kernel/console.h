@@ -23,7 +23,7 @@
 
 static void cgaInit(void);
 
-static void cgaPutChar(int c, enum color_t foreColor, enum color_t backColor);
+static void cgaPutChar(int c, enum color_t defForeColor, enum color_t defBackColor);
 
 static void cgaClear(void);
 

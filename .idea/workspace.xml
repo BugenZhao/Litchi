@@ -17,17 +17,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/include/ctype.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/stdio.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kernel/printf.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/printfmt.c" afterDir="false" />
+    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Minimal printFmt library">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/vargs.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/vargs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/color.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/color.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/stdio.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdio.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/printf.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/printfmt.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/printfmt.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -153,7 +151,7 @@
       <workItem from="1585138401751" duration="3218000" />
       <workItem from="1585141851405" duration="2812000" />
       <workItem from="1585144769305" duration="4223000" />
-      <workItem from="1585182290051" duration="17588000" />
+      <workItem from="1585182290051" duration="21086000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -302,7 +300,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585201366286</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Minimal printFmt library">
+      <created>1585225254554</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1585225254554</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -336,7 +341,8 @@
     <MESSAGE value="Kernel will halt now" />
     <MESSAGE value="Port some headers from old Litchi" />
     <MESSAGE value="Basic crtPutChar() and renaming" />
-    <option name="LAST_COMMIT_MESSAGE" value="Basic crtPutChar() and renaming" />
+    <MESSAGE value="Minimal printFmt library" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minimal printFmt library" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1585201608100">
@@ -382,10 +388,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="799" y="238" key="#xdebugger.XInspectDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148669239" />
-    <state x="413" y="78" key="CommitChangelistDialog2" timestamp="1585201365936">
+    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1585228648250">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585196747141" />
+    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585228648250" />
     <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585201365936" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -438,10 +444,10 @@
     <state x="567" y="63" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1582267087558" />
     <state x="567" y="63" key="SettingsEditor/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585141873910" />
     <state x="567" y="63" key="SettingsEditor/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585141958936" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585201368229">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585228650129">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585196749184" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585228650129" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585201368229" />
     <state x="742" y="271" key="com.jetbrains.plugins.webDeployment.ui.UploadBeforeRunTaskDialog" timestamp="1582278516732">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -451,15 +457,15 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="801" y="217" key="ftp.server.browser/0.0.1792.1120@0.0.1792.1120" timestamp="1582257314261" />
-    <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1585224680945">
+    <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1585227273218">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1585224680945" />
+    <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1585227273218" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585207367726" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1585200163749">
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1585228520696">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1582276287803" />
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585228520696" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585200163749" />
   </component>
 </project>
