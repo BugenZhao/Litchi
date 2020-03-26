@@ -10,17 +10,20 @@
 #include <include/vargs.h>
 #include <include/color.h>
 
+// Generic printFmt oriented putChar func pointer
 typedef void (*_gePutCharFunction)(int, void *);
 
 // printf.c
 
-// Generic consolePutChar function for printFormat
 static void _geConsolePutChar(int c, int *cnt);
 
-// For va_list
 int consolePrintFmtVa(const char *fmt, va_list ap);
 
 int consolePrintFmt(const char *fmt, ...);
+
+void consoleErrorPrintFmtVa(const char *fmt, va_list ap);
+
+void consoleErrorPrintFmt(const char *fmt, ...);
 
 
 // printfmt.c
@@ -28,7 +31,8 @@ int consolePrintFmt(const char *fmt, ...);
 void _gePrintNumber(_gePutCharFunction putChar, void *putdat, unsigned long long num, unsigned base, int width,
                     int paddingChar, bool capital, enum color_t fore, enum color_t back);
 
-void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va_list ap);
+void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va_list ap, enum color_t defFore,
+                   enum color_t defBack);
 
 void _gePrintFmt(_gePutCharFunction putChar, void *putdat, const char *fmt, ...);
 

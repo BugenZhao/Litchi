@@ -73,6 +73,7 @@ set(KERNEL_SRC
         kernel/entrypgdir.c
         kernel/console.c
         kernel/printf.c
+        kernel/assert.c
         ${LIB_SRC})
 
 

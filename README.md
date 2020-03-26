@@ -6,6 +6,7 @@ Bugen's toy kernel.
 - [ ] Port old Litchi codes
 - [ ] Kernel level standard output
 - [ ] Color output in console
+- [ ] Basic debugging information
 - [ ] Kernel level standard input
 - [ ] Basic kernel commmands
 - [ ] ...

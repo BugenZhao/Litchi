@@ -6,6 +6,7 @@
 #include <include/stdio.h>
 #include <kernel/console.h>
 #include <kernel/version.h>
+#include <include/assert.h>
 
 
 static void hello();
@@ -20,6 +21,7 @@ void i386InitLitchi(void) {
     memorySet(edata, 0, end - edata);
     consoleInit();
     hello();
+    kernelWarning("Just %s", "joking...");
 }
 
 void hello() {

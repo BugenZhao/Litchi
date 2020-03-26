@@ -7,6 +7,7 @@
 #include <include/string.h>
 #include <include/color.h>
 
+// Get unsigned int in different length from va_list
 static unsigned long long _getUIntVa(va_list *ap, int longFlag) {
     unsigned long long num;
 
@@ -17,6 +18,7 @@ static unsigned long long _getUIntVa(va_list *ap, int longFlag) {
     return num;
 }
 
+// Get signed int in different length from va_list
 static long long _getIntVa(va_list *ap, int longFlag) {
     unsigned long long num;
 
@@ -27,7 +29,7 @@ static long long _getIntVa(va_list *ap, int longFlag) {
     return num;
 }
 
-//
+// Generic print number with color extension
 void _gePrintNumber(_gePutCharFunction putChar, void *putdat, unsigned long long num, unsigned base, int width,
                     int paddingChar, bool capital, enum color_t fore, enum color_t back) {
     if (num >= base) {
@@ -41,7 +43,8 @@ void _gePrintNumber(_gePutCharFunction putChar, void *putdat, unsigned long long
 }
 
 // Generic vargs printFmt with color extension
-void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va_list ap) {
+void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va_list ap, enum color_t defFore,
+                   enum color_t defBack) {
 
 #define putColorChar(c, fore, back, p) do { putChar(COLOR_CHAR(c, fore, back), p); } while (0)
 
@@ -53,7 +56,7 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
     int longFlag;
     bool capital;
     size_t len;
-    enum color_t fore = DEF_FORE, back = DEF_BACK;
+    enum color_t fore = defFore, back = defBack;
 
     while (1) {
         while ((ch = *(fmt++)) != '%') {
@@ -148,6 +151,7 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
             case '%':
                 putColorChar(ch, fore, back, putdat);
                 break;
+
                 // "%??"
             default:
                 putColorChar('%', fore, back, putdat);
@@ -159,9 +163,10 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
 #undef putColorChar
 }
 
+// Generic printFmt with color extension
 void _gePrintFmt(_gePutCharFunction putChar, void *putdat, const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
-    _gePrintFmtVa(putChar, putdat, fmt, ap);
+    _gePrintFmtVa(putChar, putdat, fmt, ap, DEF_FORE, DEF_BACK);
     va_end(ap);
 }

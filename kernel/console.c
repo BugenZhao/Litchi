@@ -4,8 +4,8 @@
 
 #include <include/x86.h>
 #include <include/memlayout.h>
-#include <kernel/console.h>
 #include <include/string.h>
+#include <kernel/console.h>
 
 // Stupid I/O delay routine necessitated by historical PC design flaws
 static void
@@ -19,7 +19,7 @@ delay(void) {
 /***** Text-mode CGA/VGA display output *****/
 
 static unsigned addr_6845;
-static uint16_t *crtBuffer;
+static uint16_t *crtBuffer; // CRT vram
 static uint16_t crtPos;     // The next position to put char
 
 // CGA initialization, adopted from JOS/xv6
@@ -49,6 +49,7 @@ static void cgaInit(void) {
     crtPos = pos;
 }
 
+// Refresh CGA cursor to next text position
 static inline void cgaCursorRefresh(void) {
     outb(addr_6845, 14);
     outb(addr_6845 + 1, crtPos >> 8);
@@ -56,7 +57,7 @@ static inline void cgaCursorRefresh(void) {
     outb(addr_6845 + 1, crtPos);
 }
 
-// Put char into cga, explicit colors will be used only if no color info in c
+// Put char into cga. Explicit colors will be used only if no color info in c
 static void cgaPutChar(int c, enum color_t defForeColor, enum color_t defBackColor) {
     if ((c & 0xff00) == 0) // no color in c
         c = COLOR_CHAR(c, defForeColor, defBackColor);
@@ -97,6 +98,7 @@ static void cgaPutChar(int c, enum color_t defForeColor, enum color_t defBackCol
     cgaCursorRefresh();
 }
 
+// CGA clear screen
 static void cgaClear(void) {
     for (int i = 0; i < CRT_SIZE; ++i) {
         crtBuffer[i] = (DEF_FORE << 8) | ' ';
@@ -105,16 +107,18 @@ static void cgaClear(void) {
     cgaCursorRefresh();
 }
 
-
+// Console I/O initialization
 void consoleInit(void) {
     // Litchi will only print to display now
     cgaInit();
 }
 
+// Console putChar
 void consolePutChar(int c) {
     cgaPutChar(c, DEF_FORE, DEF_BACK);
 }
 
+// Console clear screen
 void consoleClear(void) {
     cgaClear();
 }
