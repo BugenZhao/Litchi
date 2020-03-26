@@ -21,11 +21,10 @@ void i386InitLitchi(void) {
     memorySet(edata, 0, end - edata);
     consoleInit();
     hello();
-    kernelWarning("Just %s", "joking...");
+    kernelWarning("Calm down, just %s", "joking...");
 }
 
 void hello() {
-    consoleClear();
-    consolePrintFmt("%<%s%c %<%s!\n%<Version %s\n\n%<BugenZhao %d%03x\n",
+    consolePrintFmt("%<%s%c %<%s!\n%<Kernel version %s\n\n%<(C) BugenZhao %d%03x\n",
                     YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, DEF_FORE, 2, 0x20);
 }

@@ -7,6 +7,7 @@
 
 #include <kernel/knlast.inc>
 
-const char *LITCHI_VERSION = "0.30";
+#define LITCHI_VERSION "0.31"
+#define LITCHI_LDR_INFO "=> Litchi Loader v0.31\r\n\n"
 
 #endif //LITCHI_VERSION_H

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="Litchi" targetName="boot" />
       <config projectName="Litchi" targetName="litchi" />
+      <config projectName="Litchi" targetName="boot" />
       <config projectName="Litchi" targetName="qemu" />
       <config projectName="Litchi" targetName="qemu-nox-gdb" />
       <config projectName="Litchi" targetName="cgdb-cli" />
@@ -17,8 +17,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="">
+    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Show message in Litchi Loader">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boot/boot.S" beforeDir="false" afterPath="$PROJECT_DIR$/boot/boot.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,9 +60,6 @@
       </set>
     </option>
   </component>
-  <component name="OCResolveContextSettings">
-    <option name="configuration" value="0-Default-litchi" />
-  </component>
   <component name="ProjectId" id="1Y6J60xVvRbNht7m6oxrB0wzjsc" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -93,13 +94,13 @@
       <recent name="$PROJECT_DIR$/kernel" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.boot">
+  <component name="RunManager" selected="CMake Application.qemu">
     <configuration name="boot" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cgdb-cli" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="cgdb-cli" CONFIG_NAME="Default">
+    <configuration name="cgdb-cli" type="CMakeRunConfiguration" factoryName="Application" singleton="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="cgdb-cli" CONFIG_NAME="Default">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -154,6 +155,7 @@
       <workItem from="1585141851405" duration="2812000" />
       <workItem from="1585144769305" duration="4223000" />
       <workItem from="1585182290051" duration="27285000" />
+      <workItem from="1585235055365" duration="4196000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -344,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585234938313</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Merge exp with master">
+      <created>1585235130314</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1585235130314</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -383,22 +392,24 @@
     <MESSAGE value="Add version info, resize image" />
     <MESSAGE value="Basic panic(), warning() and assert()" />
     <MESSAGE value="Update progress" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update progress" />
+    <MESSAGE value="Merge exp with master" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge exp with master" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1585201608100">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="225" key="#New_File_Extensions/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585201608100" />
-    <state x="496" y="225" key="#Other_File_Types" timestamp="1582291296856">
+    <state x="496" y="225" key="#Other_File_Types" timestamp="1585235923926">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="225" key="#Other_File_Types/0.0.1792.1120@0.0.1792.1120" timestamp="1582291296856" />
-    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585187038877">
+    <state x="496" y="225" key="#Other_File_Types/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585235923926" />
+    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585237690923">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1585187038877" />
-    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585147177250" />
+    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585237690923" />
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585228986487">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -430,11 +441,11 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="799" y="238" key="#xdebugger.XInspectDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148669239" />
-    <state x="413" y="78" key="CommitChangelistDialog2" timestamp="1585234938063">
+    <state x="413" y="78" key="CommitChangelistDialog2" timestamp="1585239303848">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585230884417" />
-    <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585234938063" />
+    <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585239303848" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -480,17 +491,21 @@
     </state>
     <state width="1750" height="388" key="GridCell.Tab.1.right/0.0.1792.1120@0.0.1792.1120" timestamp="1585194254502" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585235040198" />
+    <state x="696" y="193" key="RollbackChangesDialog" timestamp="1585236889081">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="696" y="193" key="RollbackChangesDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585236889081" />
     <state x="567" y="63" width="1192" height="722" key="SettingsEditor" timestamp="1585141958936">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="567" y="63" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1582267087558" />
     <state x="567" y="63" key="SettingsEditor/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585141873910" />
     <state x="567" y="63" key="SettingsEditor/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585141958936" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585234940628">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585235276201">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585228674647" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585234940628" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585235276201" />
     <state x="742" y="271" key="com.jetbrains.plugins.webDeployment.ui.UploadBeforeRunTaskDialog" timestamp="1582278516732">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
