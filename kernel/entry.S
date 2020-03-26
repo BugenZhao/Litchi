@@ -1,4 +1,4 @@
-# Adopt from JOS/xv6
+# Adopted from JOS/xv6
 
 /* See COPYRIGHT for copyright information. */
 
@@ -91,7 +91,7 @@ relocated:
 	movl	$(bootstacktop),%esp
 
 	# now to C code
-	call	litchi_i386_init
+	call	i386InitLitchi
 
 	# Should never get here, but in case we do, just spin.
 spin:

@@ -1,4 +1,4 @@
-# Adopt from JOS/xv6
+# Adopted from JOS/xv6
 
 #include <include/mmu.h>
 

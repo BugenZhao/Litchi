@@ -18,12 +18,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/color.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/vargs.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boot/boot.S" beforeDir="false" afterPath="$PROJECT_DIR$/boot/boot.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boot/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/boot/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootable/bootable.nasm" beforeDir="false" afterPath="$PROJECT_DIR$/bootable/bootable.nasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/color.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/color.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/elf.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/elf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/memlayout.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/mmu.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/mmu.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/string.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/string.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/entry.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/entry.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/entrypgdir.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/entrypgdir.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/string.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/string.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,6 +71,9 @@
         <option value="https://github.com/BugenZhao/Litchi.git" />
       </set>
     </option>
+  </component>
+  <component name="OCResolveContextSettings">
+    <option name="configuration" value="0-Default-litchi" />
   </component>
   <component name="ProjectId" id="1Y6J60xVvRbNht7m6oxrB0wzjsc" />
   <component name="ProjectViewState">
@@ -146,7 +159,7 @@
       <workItem from="1585138401751" duration="3218000" />
       <workItem from="1585141851405" duration="2812000" />
       <workItem from="1585144769305" duration="4223000" />
-      <workItem from="1585182290051" duration="5082000" />
+      <workItem from="1585182290051" duration="9630000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -281,7 +294,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585148805113</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Port some headers from old Litchi">
+      <created>1585196747400</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1585196747400</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -313,7 +333,8 @@
     <MESSAGE value="Update CMake configurations" />
     <MESSAGE value="Update CMake and GDB configuration" />
     <MESSAGE value="Kernel will halt now" />
-    <option name="LAST_COMMIT_MESSAGE" value="Kernel will halt now" />
+    <MESSAGE value="Port some headers from old Litchi" />
+    <option name="LAST_COMMIT_MESSAGE" value="Port some headers from old Litchi" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#Other_File_Types" timestamp="1582291296856">
@@ -355,10 +376,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="799" y="238" key="#xdebugger.XInspectDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148669239" />
-    <state x="413" y="78" key="CommitChangelistDialog2" timestamp="1585148804885">
+    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1585196747141">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="413" y="78" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1582296236917" />
+    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585196747141" />
     <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148804885" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -411,10 +432,10 @@
     <state x="567" y="63" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1582267087558" />
     <state x="567" y="63" key="SettingsEditor/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585141873910" />
     <state x="567" y="63" key="SettingsEditor/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585141958936" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585148806792">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585196749184">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1582296278462" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585196749184" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148806792" />
     <state x="742" y="271" key="com.jetbrains.plugins.webDeployment.ui.UploadBeforeRunTaskDialog" timestamp="1582278516732">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -424,24 +445,15 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="801" y="217" key="ftp.server.browser/0.0.1792.1120@0.0.1792.1120" timestamp="1582257314261" />
-    <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1582292041285">
+    <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1585199662590">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1582292041285" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1582276287803">
+    <state x="658" y="198" key="refactoring.ChangeSignatureDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585199662590" />
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1585200163749">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1582276287803" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/kernel/init.c</url>
-          <line>33</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585200163749" />
   </component>
 </project>

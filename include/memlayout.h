@@ -1,4 +1,4 @@
-// Adopt from JOS/xv6
+// Adopted from JOS/xv6
 
 #ifndef JOS_INC_MEMLAYOUT_H
 #define JOS_INC_MEMLAYOUT_H

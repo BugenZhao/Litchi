@@ -21,7 +21,8 @@ enum color_t {
     LIGHT_RED,
     LIGHT_MAGENTA,
     YELLOW,
-    WHITE
+    WHITE,
+    COLOR_COUNT
 };
 
 #endif //LITCHI_COLOR_H
