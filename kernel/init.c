@@ -3,8 +3,9 @@
 //
 
 #include <include/string.h>
-#include <kernel/console.h>
 #include <include/stdio.h>
+#include <kernel/console.h>
+#include <kernel/version.h>
 
 
 static void hello();
@@ -23,6 +24,6 @@ void i386InitLitchi(void) {
 
 void hello() {
     consoleClear();
-    consolePrintFmt("%<%s%c %<%s!\n%<BugenZhao %d%03x",
-                    YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", DEF_FORE, 2, 0x20);
+    consolePrintFmt("%<%s%c %<%s!\n%<Version %s\n\n%<BugenZhao %d%03x\n",
+                    YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, DEF_FORE, 2, 0x20);
 }

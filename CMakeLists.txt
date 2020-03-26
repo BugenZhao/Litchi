@@ -101,7 +101,7 @@ add_custom_command(
 # Target - Image
 add_custom_target(image
         COMMAND ${NASM_COMPILER} ${PROJECT_SOURCE_DIR}/bootable/bootable.nasm -o ${PROJECT_BINARY_DIR}/bootable
-        COMMAND dd if=/dev/zero of=${IMG} count=10000
+        COMMAND dd if=/dev/zero of=${IMG} bs=512 count=2880
         COMMAND dd if=${PROJECT_BINARY_DIR}/bootable of=${IMG} conv=notrunc
         COMMAND dd if=${PROJECT_BINARY_DIR}/${BOOT_BIN} of=${IMG} conv=notrunc
         COMMAND dd if=${PROJECT_BINARY_DIR}/${LITCHI_BIN} of=${IMG} seek=1 conv=notrunc

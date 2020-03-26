@@ -17,15 +17,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Minimal printFmt library">
+    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/kernel/knlast.inc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/color.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/color.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdio.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdio.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/printf.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/printfmt.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/printfmt.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,9 +61,6 @@
         <option value="https://github.com/BugenZhao/Litchi.git" />
       </set>
     </option>
-  </component>
-  <component name="OCResolveContextSettings">
-    <option name="configuration" value="0-Default-litchi" />
   </component>
   <component name="ProjectId" id="1Y6J60xVvRbNht7m6oxrB0wzjsc" />
   <component name="ProjectViewState">
@@ -151,7 +146,7 @@
       <workItem from="1585138401751" duration="3218000" />
       <workItem from="1585141851405" duration="2812000" />
       <workItem from="1585144769305" duration="4223000" />
-      <workItem from="1585182290051" duration="21086000" />
+      <workItem from="1585182290051" duration="23124000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -307,7 +302,21 @@
       <option name="project" value="LOCAL" />
       <updated>1585225254554</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Color extension for printFmt">
+      <created>1585228648417</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1585228648418</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Minimal printFmt library">
+      <created>1585228672920</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1585228672920</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -341,6 +350,7 @@
     <MESSAGE value="Kernel will halt now" />
     <MESSAGE value="Port some headers from old Litchi" />
     <MESSAGE value="Basic crtPutChar() and renaming" />
+    <MESSAGE value="Color extension for printFmt" />
     <MESSAGE value="Minimal printFmt library" />
     <option name="LAST_COMMIT_MESSAGE" value="Minimal printFmt library" />
   </component>
@@ -358,10 +368,10 @@
     </state>
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1585187038877" />
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585147177250" />
-    <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585147204410">
+    <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585228986487">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1792.1120@0.0.1792.1120" timestamp="1582293729507" />
+    <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1792.1120@0.0.1792.1120" timestamp="1585228986487" />
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585147204410" />
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585131838326" />
     <state x="604" y="290" key="#image" timestamp="1585187122698">
@@ -372,7 +382,7 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="841" y="353" key="#org.exbin.bined.intellij.debug.DebugViewBinaryAction/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148693289" />
-    <state x="586" y="290" key="#qemu" timestamp="1585148355492">
+    <state x="586" y="290" key="#qemu" timestamp="1585229937908">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="586" y="290" key="#qemu-cmake" timestamp="1585140679027">
@@ -383,15 +393,16 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="586" y="290" key="#qemu-nox-gdb/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585126370553" />
+    <state x="586" y="290" key="#qemu/0.0.1792.1120@0.0.1792.1120" timestamp="1585229937908" />
     <state x="586" y="290" key="#qemu/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148355492" />
     <state x="799" y="238" key="#xdebugger.XInspectDialog" timestamp="1585148669239">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="799" y="238" key="#xdebugger.XInspectDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585148669239" />
-    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1585228648250">
+    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1585228672709">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585228648250" />
+    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585228672709" />
     <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585201365936" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -444,10 +455,10 @@
     <state x="567" y="63" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1582267087558" />
     <state x="567" y="63" key="SettingsEditor/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585141873910" />
     <state x="567" y="63" key="SettingsEditor/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585141958936" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585228650129">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585228674647">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585228650129" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585228674647" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585201368229" />
     <state x="742" y="271" key="com.jetbrains.plugins.webDeployment.ui.UploadBeforeRunTaskDialog" timestamp="1582278516732">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -462,10 +473,10 @@
     </state>
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1585227273218" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585207367726" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1585228520696">
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1585228929287">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585228520696" />
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585228929287" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585200163749" />
   </component>
 </project>

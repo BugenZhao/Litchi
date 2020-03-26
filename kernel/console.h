@@ -5,9 +5,7 @@
 #ifndef LITCHI_CONSOLE_H
 #define LITCHI_CONSOLE_H
 
-#ifndef LITCHI_KERNEL
-#error "User programs are not allowed to #include Litchi kernel headers."
-#endif
+#include <kernel/knlast.inc>
 
 #include <include/types.h>
 #include <include/color.h>
