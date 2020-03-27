@@ -7,6 +7,8 @@
 
 #include <kernel/knlast.inc>
 
+int monitorEcho(int argc, char **argv);
+
 int monitorHelp(int argc, char **argv);
 
 int monitorUname(int argc, char **argv);

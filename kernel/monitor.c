@@ -8,6 +8,11 @@
 #include <kernel/system.h>
 #include <include/string.h>
 
+// 16 args at most, with command name
+#define MAX_ARGS 16
+
+static int lastRet = 0;
+
 struct command_t {
     const char *cmd;
     const char *desc;
@@ -16,6 +21,11 @@ struct command_t {
 };
 
 struct command_t commands[] = {
+        {
+                .cmd = "echo",
+                .desc = "Write colorful arguments to the standard output",
+                .func = monitorEcho
+        },
         {
                 .cmd = "help",
                 .desc = "Show this help message",
@@ -38,6 +48,14 @@ struct command_t commands[] = {
         }
 };
 
+int monitorEcho(int argc, char **argv) {
+    for (int i = 1; i < argc; ++i) {
+        consolePrintFmt("%<%s ", (i + stringLength(argv[i])) % 15 + BLUE, argv[i]);
+    }
+    consolePrintFmt("\n");
+    return 0;
+}
+
 int monitorHelp(int argc, char **argv) {
     for (int i = 0; i < ARRAY_SIZE(commands); ++i) {
         consolePrintFmt("%<%8s%<: %s\n", WHITE, commands[i].cmd, DEF_FORE, commands[i].desc);
@@ -46,14 +64,31 @@ int monitorHelp(int argc, char **argv) {
 }
 
 int monitorUname(int argc, char **argv) {
-    consolePrintFmt("Litchi v%s by BugenZhao\n", LITCHI_VERSION);
+    if (argc >= 2 && stringCompare(argv[1], "-a") == 0)
+        consolePrintFmt("Litchi v%s by BugenZhao\n", LITCHI_VERSION);
+    else consolePrintFmt("Litchi\n", LITCHI_VERSION);
     return 0;
 }
 
 int parseCmd(char *cmd) {
+    char *argv[MAX_ARGS + 2];
+    int argc = stringSplitWS(cmd, argv, MAX_ARGS + 2);
+
+//    consolePrintFmt("argc: %d, argv:\n", argc);
+//    for (int j = 0; j <= argc; ++j) {
+//        consolePrintFmt("[%d]: %s\n", j, argv[j]);
+//    }
+
+    if (argc == MAX_ARGS + 1) {
+        consoleErrorPrintFmt("Too many arguments\n");
+        return -1;
+    } else if (argc == -1) {
+        consoleErrorPrintFmt("Bad syntax\n");
+        return -2;
+    }
     for (int i = 0; i < ARRAY_SIZE(commands); ++i) {
-        if (stringCompare(cmd, commands[i].cmd) == 0) {
-            return commands[i].func(0, NULL);
+        if (stringCompare(argv[0], commands[i].cmd) == 0) {
+            return commands[i].func(argc, argv);
         }
     }
     consoleErrorPrintFmt("Bad command: %s\n", cmd);
@@ -62,8 +97,10 @@ int parseCmd(char *cmd) {
 
 int monitor(void) {
     char *cmd;
-    while (true) {
-        cmd = consoleReadline("%<Litchi> ", LIGHT_MAGENTA);
-        if (*cmd) parseCmd(cmd);
+    while (lastRet != 0x80000000) {
+        if (lastRet == 0) cmd = consoleReadline("%<Litchi%<> ", LIGHT_MAGENTA, DEF_FORE);
+        else cmd = consoleReadline("%<Litchi%<> ", LIGHT_MAGENTA, RED);
+        if (*cmd && cmd[0]) lastRet = parseCmd(cmd);
     }
+    return lastRet;
 }

@@ -21,33 +21,10 @@ char *stringCopy(char *dest, const char *src);
 
 int stringCompare(const char *lhs, const char *rhs);
 
+char *stringFindChar(const char *str, char c);
 
-static struct memory_p {
-    void *(*set)(void *dest, uint8_t val, size_t count);
+int stringSplit(char *str, const char *delimiters, char **resultBuf, size_t bufCount, bool ignoreQuo);
 
-    void *(*copy)(void *dest, const void *src, size_t count);
-
-    void (*zero)(void *dest, size_t count);
-} Memory = {
-        .set = memorySet,
-        .copy = memoryCopy,
-        .zero = memoryZero
-};
-
-
-static struct string_p {
-    size_t (*length)(const char *str);
-
-    char *(*append)(char *dest, const char *src);
-
-    char *(*copy)(char *dest, const char *src);
-
-    int (*compare)(const char *lhs, const char *rhs);
-} String = {
-        .length=stringLength,
-        .append=stringAppend,
-        .copy=stringCopy,
-        .compare=stringCompare
-};
+int stringSplitWS(char *str, char **resultBuf, size_t bufCount);
 
 #endif //LITCHI_STRING_H
