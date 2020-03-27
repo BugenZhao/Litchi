@@ -42,3 +42,11 @@ void consoleErrorPrintFmt(const char *fmt, ...) {
     consoleErrorPrintFmtVa(fmt, ap);
     va_end(ap);
 }
+
+void filePrintFmtVa(int fd, const char *fmt, va_list ap){
+    // Not implemented
+}
+
+void filePrintFmt(int fd, const char *fmt, ...){
+    // Not implemented
+}

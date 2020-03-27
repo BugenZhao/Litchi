@@ -21,7 +21,11 @@ void i386InitLitchi(void) {
     memorySet(edata, 0, end - edata);
     consoleInit();
     hello();
-    kernelWarning("Calm down, just %s", "joking...");
+    int c;
+    while (1) {
+        c = consoleGetChar();
+        consolePrintFmt("%c", c);
+    }
 }
 
 void hello() {

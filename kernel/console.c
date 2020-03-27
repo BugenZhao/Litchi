@@ -6,6 +6,7 @@
 #include <include/memlayout.h>
 #include <include/string.h>
 #include <kernel/console.h>
+#include <include/pckbd.h>
 
 // Stupid I/O delay routine necessitated by historical PC design flaws
 static void
@@ -111,11 +112,19 @@ static void cgaClear(void) {
 void consoleInit(void) {
     // Litchi will only print to display now
     cgaInit();
+    kbdInit();
 }
 
-// Console putChar
+// Put a char to console
 void consolePutChar(int c) {
     cgaPutChar(c, DEF_FORE, DEF_BACK);
+}
+
+// Get a char from console (keyboard)
+int consoleGetChar(void) {
+    int c;
+    while ((c = kbdGetNextChar()) == 0);
+    return c;
 }
 
 // Console clear screen
