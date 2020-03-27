@@ -120,7 +120,7 @@ void consolePutChar(int c) {
     cgaPutChar(c, DEF_FORE, DEF_BACK);
 }
 
-// Get a char from console (keyboard)
+// Get a non-zero char from console
 int consoleGetChar(void) {
     int c;
     while ((c = kbdGetNextChar()) == 0);

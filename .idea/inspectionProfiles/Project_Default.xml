@@ -5,10 +5,5 @@
     <inspection_tool class="OCUnusedMacro" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="OCUnusedMethod" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="OCUnusedStruct" enabled="false" level="WARNING" enabled_by_default="false" />
-    <inspection_tool class="SpellCheckingInspection" enabled="true" level="TYPO" enabled_by_default="true">
-      <option name="processCode" value="false" />
-      <option name="processLiterals" value="true" />
-      <option name="processComments" value="true" />
-    </inspection_tool>
   </profile>
 </component>

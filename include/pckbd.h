@@ -197,6 +197,8 @@ static struct {
 } kbdBuffer;
 
 // kernel/pckbd.c
+
+
 static int _kbdProcessData(void);
 
 void kbdInit(void);

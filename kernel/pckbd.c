@@ -6,20 +6,23 @@
 #include <include/x86.h>
 #include <include/stdout.h>
 
-
+// Read status and data from keyboard register
 static int _kbdProcessData(void) {
     // Adopted from JOS/xv6
     int c;
     uint8_t stat, data;
     static uint32_t shift;
 
+    // Read keyboard status
     stat = inb(KBSTATP);
+    // Read data in keyboard buffer
     if ((stat & KBS_DIB) == 0)
         return -1;
     // Ignore data from mouse.
     if (stat & KBS_TERR)
         return -1;
 
+    // Read keyboard data
     data = inb(KBDATAP);
 
     if (data == 0xE0) {
@@ -58,15 +61,19 @@ static int _kbdProcessData(void) {
     return c;
 }
 
+// Init keyboard buffer (unnecessary since static) and try to read
 void kbdInit(void) {
     kbdBuffer.readPos = 0;
     kbdBuffer.writePos = 0;
-    consolePrintFmt("Keyboard initialized.\n");
+    consolePrintFmt("Keyboard initializing...");
+    // Try to read a char
+    _kbdProcessData();
+    consolePrintFmt("Done\n\n");
 }
 
+// Fake keyboard interrupt currently ~
 static void kbdIntr(void) {
     int c;
-    // Fake interrupt-driven currently ~
     while (true) {
         c = _kbdProcessData();
         if (c == -1) return;
@@ -76,7 +83,8 @@ static void kbdIntr(void) {
     }
 }
 
-int kbdGetNextChar(void){
+// Get next char from keyboard, 0 if none
+int kbdGetNextChar(void) {
     int c;
     kbdIntr();
     if (kbdBuffer.writePos != kbdBuffer.readPos) {

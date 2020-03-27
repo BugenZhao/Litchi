@@ -8,7 +8,12 @@ Bugen's toy kernel.
 - [x] Color output in console
 - [x] Kernel panic and warning
 - [x] Programmed keyboard support
-- [ ] Kernel level standard input
+- [x] Kernel level standard input
 - [ ] Basic debugging information
-- [ ] Basic kernel commmands
+- [x] Basic kernel commands
+
+
+- [ ] Paging and allocator
+- [ ] User mode
+- [ ] Shell
 - [ ] ...

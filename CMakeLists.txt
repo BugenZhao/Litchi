@@ -75,6 +75,9 @@ set(KERNEL_SRC
         kernel/printf.c
         kernel/assert.c
         kernel/pckbd.c
+        kernel/readline.c
+        kernel/monitor.c
+        kernel/system.c
         ${LIB_SRC})
 
 

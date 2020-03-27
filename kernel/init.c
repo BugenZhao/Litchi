@@ -8,27 +8,20 @@
 #include <kernel/version.h>
 #include <include/assert.h>
 
-
-static void hello();
+extern int monitor();
 
 void i386InitLitchi(void) {
+    // Clear .BSS section
     // Variable 'edata' and 'end' are from link scripts.
     extern char edata[], end[];
-
-    // Before doing anything else, complete the ELF loading process.
-    // Clear the uninitialized global data (BSS) section of our program.
-    // This ensures that all static/global variables start out zero.
     memorySet(edata, 0, end - edata);
-    consoleInit();
-    hello();
-    int c;
-    while (1) {
-        c = consoleGetChar();
-        consolePrintFmt("%c", c);
-    }
-}
 
-void hello() {
-    consolePrintFmt("%<%s%c %<%s!\n%<Kernel version %s\n\n%<(C) BugenZhao %d%03x\n",
-                    YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, DEF_FORE, 2, 0x20);
+    // Init the console for I/O and print welcome message
+    consoleInit();
+    consolePrintFmt("%<%s%c %<%s!\n%<Kernel version %s\n(C) BugenZhao %d%03x\n\n",
+                    YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
+
+    // Go to the monitor
+    int errno = monitor();
+    kernelPanic("Monitor dead with errno %d", errno);
 }
