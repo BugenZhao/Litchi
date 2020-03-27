@@ -16,16 +16,6 @@
 start:
   .code16                     # Assemble for 16-bit mode
 
-  mov     $msg, %si           # loads the address of msg into si
-  mov     $0xe, %ah           # loads 0xe (function number for int 0x10) into ah
-printChar:
-  lodsb                       # loads the byte from the address in si into al and increments si
-  cmp     $0, %al             # compares content in AL with zero
-  je      realStart           # if al == 0, go to "done"
-  int     $0x10               # prints the character in al to screen
-  jmp     printChar
-
-realStart:
   cli                         # Disable interrupts
   cld                         # String operations increment
 
@@ -35,11 +25,21 @@ realStart:
   movw    %ax,%es             # -> Extra Segment
   movw    %ax,%ss             # -> Stack Segment
 
+  # Hello message
+  mov     $msg, %si           # loads the address of msg into si
+  mov     $0xe, %ah           # loads 0xe (function number for int 0x10) into ah
+printChar:
+  lodsb                       # loads the byte from the address in si into al and increments si
+  cmp     $0, %al             # compares content in AL with zero
+  je      done                # if al == 0, go to "done"
+  int     $0x10               # prints the character in al to screen
+  jmp     printChar
+
+done:
   # Enable A20:
   #   For backwards compatibility with the earliest PCs, physical
   #   address line 20 is tied low, so that addresses higher than
   #   1MB wrap around to zero by default.  This code undoes this.
-
   # BUGENC: a simpler method to enable A20
   inb	  $0x92, %al
   orb	  $0x02, %al
@@ -81,15 +81,15 @@ testa20:
   jne      a20on
 
 a20fail:
-  movw    $0x0c46, %eax           # Red 'F'
-  movl    $0xb809e, %ebx
+  movw    $0x0c41, %eax           # Red 'A'
+  movl    $0xb809c, %ebx
   movw    %eax, (%ebx)
   jmp     spin
 
 a20on:
-  # A20 is on, print a green 'P' on the screen
-  movw    $0x0a50, %eax
-  movl    $0xb809e, %ebx
+  # A20 is on, print a green 'A' on the screen
+  movw    $0x0a41, %eax
+  movl    $0xb809c, %ebx
   movw    %eax, (%ebx)
   # Set up the stack pointer and call into C.
   movl    $start, %esp

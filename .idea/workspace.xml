@@ -17,17 +17,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Basic kernel commands with arguments">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Debug_Litchi.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Debug_Litchi.xml" afterDir="false" />
+    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/boot/boot.S" beforeDir="false" afterPath="$PROJECT_DIR$/boot/boot.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ctype.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ctype.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boot/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/boot/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +159,7 @@
       <workItem from="1585182290051" duration="27285000" />
       <workItem from="1585235055365" duration="4287000" />
       <workItem from="1585240105417" duration="13788000" />
-      <workItem from="1585290805463" duration="5989000" />
+      <workItem from="1585290805463" duration="8977000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -391,7 +385,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585289730767</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Add tests to ensure A20 line is enabled">
+      <created>1585320159039</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1585320159039</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -408,7 +409,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Console bug fixes" />
     <MESSAGE value="Add string library and tests" />
     <MESSAGE value="Add printf-like funcs" />
     <MESSAGE value="Grub error 13 bug fixes" />
@@ -433,7 +433,8 @@
     <MESSAGE value="Programmed keyboard support" />
     <MESSAGE value="Basic kernel commands" />
     <MESSAGE value="Basic kernel commands with arguments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Basic kernel commands with arguments" />
+    <MESSAGE value="Add tests to ensure A20 line is enabled" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add tests to ensure A20 line is enabled" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1585201608100">
@@ -485,10 +486,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="636" y="420" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585284964442" />
-    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1585317287050">
+    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1585320158867">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585317287050" />
+    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585320158867" />
     <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289730507" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -553,10 +554,14 @@
     <state x="567" y="63" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1582267087558" />
     <state x="567" y="63" key="SettingsEditor/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585284751078" />
     <state x="567" y="63" key="SettingsEditor/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585141958936" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585289732379">
+    <state width="500" height="445" key="SwitcherDM" timestamp="1585321749200">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585228674647" />
+    <state width="500" height="445" key="SwitcherDM/0.0.1792.1120@0.0.1792.1120" timestamp="1585321749200" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1585320162861">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585320162861" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289732379" />
     <state x="742" y="271" key="com.jetbrains.plugins.webDeployment.ui.UploadBeforeRunTaskDialog" timestamp="1582278516732">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -571,10 +576,10 @@
     </state>
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1585299419694" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585288303603" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1585232899644">
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1585320642307">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585228929287" />
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585320642307" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585232899644" />
   </component>
   <component name="XDebuggerManager">
