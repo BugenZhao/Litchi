@@ -128,6 +128,7 @@ int consoleGetChar(void) {
 }
 
 // Console clear screen
-void consoleClear(void) {
+int consoleClear(void) {
     cgaClear();
+    return 0;
 }

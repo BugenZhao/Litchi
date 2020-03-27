@@ -7,8 +7,17 @@
 #include <kernel/console.h>
 #include <kernel/version.h>
 #include <include/assert.h>
+#include <include/memlayout.h>
 
 extern int monitor();
+
+int checkA20(void) {
+    char *e = (char *) (0x012345 + KERNBASE);
+    char *o = (char *) (0x112345 + KERNBASE);
+    *e = 'e', *o = 'o';
+    if (*e == *o) kernelPanic("A20 line test failed");
+    return 0;
+}
 
 void i386InitLitchi(void) {
     // Clear .BSS section
@@ -18,6 +27,7 @@ void i386InitLitchi(void) {
 
     // Init the console for I/O and print welcome message
     consoleInit();
+    checkA20();
     consolePrintFmt("%<%s%c %<%s!\n%<Kernel version %s\n(C) BugenZhao %d%03x\n\n",
                     YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
 

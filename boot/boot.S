@@ -42,7 +42,7 @@ realStart:
 
   # BUGENC: a simpler method to enable A20
   inb	  $0x92, %al
-  orb	  0x02, %al
+  orb	  $0x02, %al
   out	  %al, $0x92
 
   # Switch from real to protected mode, using a bootstrap GDT
@@ -56,6 +56,7 @@ realStart:
 
   # Jump to next instruction, but in 32-bit code segment.
   # Switches processor into 32-bit mode.
+  # BUGENC: set %cs
   ljmp    $PROT_MODE_CSEG, $protcseg
 
   .code32                     # Assemble for 32-bit mode
@@ -68,13 +69,35 @@ protcseg:
   movw    %ax, %gs                # -> GS
   movw    %ax, %ss                # -> SS: Stack Segment
 
+testa20:
+  # Test if high memory wrap now
+  pushal
+  movl    $0x112345, %edi         # Odd MB
+  movl    $0x012345, %esi         # Even MB
+  movl    %esi, (%esi)
+  movl    %edi, (%edi)
+  cmpsd
+  popal
+  jne      a20on
+
+a20fail:
+  movw    $0x0c46, %eax           # Red 'F'
+  movl    $0xb809e, %ebx
+  movw    %eax, (%ebx)
+  jmp     spin
+
+a20on:
+  # A20 is on, print a green 'P' on the screen
+  movw    $0x0a50, %eax
+  movl    $0xb809e, %ebx
+  movw    %eax, (%ebx)
   # Set up the stack pointer and call into C.
   movl    $start, %esp
-  call bootmain
+  call    bootmain
 
   # If bootmain returns (it shouldn't), loop.
 spin:
-  jmp spin
+  jmp     spin
 
 msg:
 .string LITCHI_LDR_INFO

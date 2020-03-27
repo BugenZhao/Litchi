@@ -11,8 +11,7 @@ Bugen's toy kernel.
 - [x] Kernel level standard input
 - [ ] Basic debugging information
 - [x] Basic kernel commands
-
-
+---
 - [ ] Paging and allocator
 - [ ] User mode
 - [ ] Shell

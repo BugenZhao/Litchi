@@ -31,6 +31,6 @@ void consolePutChar(int c);
 
 int consoleGetChar(void);
 
-void consoleClear(void);
+int consoleClear(void);
 
 #endif //LITCHI_CONSOLE_H

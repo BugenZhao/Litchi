@@ -67,6 +67,8 @@ int monitorUname(int argc, char **argv) {
     if (argc >= 2 && stringCompare(argv[1], "-a") == 0)
         consolePrintFmt("Litchi v%s by BugenZhao\n", LITCHI_VERSION);
     else consolePrintFmt("Litchi\n", LITCHI_VERSION);
+
+
     return 0;
 }
 
@@ -86,6 +88,9 @@ int parseCmd(char *cmd) {
         consoleErrorPrintFmt("Bad syntax\n");
         return -2;
     }
+
+    if (stringCompare(argv[0], "fuck") == 0) return 0x80000000u;
+
     for (int i = 0; i < ARRAY_SIZE(commands); ++i) {
         if (stringCompare(argv[0], commands[i].cmd) == 0) {
             return commands[i].func(argc, argv);
@@ -97,9 +102,9 @@ int parseCmd(char *cmd) {
 
 int monitor(void) {
     char *cmd;
-    while (lastRet != 0x80000000) {
-        if (lastRet == 0) cmd = consoleReadline("%<Litchi%<> ", LIGHT_MAGENTA, DEF_FORE);
-        else cmd = consoleReadline("%<Litchi%<> ", LIGHT_MAGENTA, RED);
+    while (lastRet != 0x80000000u) {
+        if (lastRet == 0) cmd = consoleReadline("%<LitchiK%<> ", LIGHT_MAGENTA, DEF_FORE);
+        else cmd = consoleReadline("%<LitchiK%<> ", LIGHT_MAGENTA, RED);
         if (*cmd && cmd[0]) lastRet = parseCmd(cmd);
     }
     return lastRet;
