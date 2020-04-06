@@ -7,12 +7,15 @@ Bugen's toy kernel.
 - [x] Kernel level standard output
 - [x] Color output in console
 - [x] Kernel panic and warning
-- [x] Programmed keyboard support
+- [x] Programmed keyboard I/O support
 - [x] Kernel level standard input
 - [x] Basic debugging information
 - [x] Basic kernel commands
+- [x] Physical memory detection
+- [ ] Physical memory management
+- [ ] Virtual memory
+- [ ] Kernel address space
 ---
-- [ ] Paging and allocator
 - [ ] User mode
 - [ ] Shell
 - [ ] ...

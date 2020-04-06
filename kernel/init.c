@@ -7,6 +7,7 @@
 #include <kernel/console.h>
 #include <kernel/version.h>
 #include <include/assert.h>
+#include <kernel/pmap.h>
 
 extern int monitor();
 
@@ -16,15 +17,13 @@ void i386InitLitchi(void) {
     extern char edata[], end[];
     memorySet(edata, 0, end - edata);
 
-    // Init the console for I/O and print welcome message
+    // Init the console for I/O, and print welcome message
     consoleInit();
     consolePrintFmt("%<%s%c %<%s!\n%<Kernel version %s\n(C) BugenZhao %d%03x\n\n",
                     YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
 
-    // Show kernel memory info
-    extern char kernStart[], kernEnd[];
-    consolePrintFmt("Kernel at 0x%08X -- 0x%08X: %d KB in memory\n",
-                    kernStart, kernEnd, (kernEnd - kernStart + 1023) / 1024);
+    // Init memory
+    memoryInit();
 
     // Go to the monitor
     int errno = monitor();

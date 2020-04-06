@@ -25,7 +25,7 @@ char *consoleReadlineVa(const char *promptFmt, va_list ap) {
     int idx = 0;
 
     if (promptFmt) consolePrintFmtVa(promptFmt, ap);
-        while (true) {
+    while (true) {
         c = consoleGetChar();
         if (c < 0) {
             kernelPanic("Illegal input: 0x%x", c);

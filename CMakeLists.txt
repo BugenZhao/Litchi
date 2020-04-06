@@ -95,6 +95,7 @@ set(KERNEL_SRC
         kernel/monitor.c
         kernel/system.c
         kernel/kdebug.c
+        kernel/pmap.c
         ${LIB_SRC})
 
 
@@ -131,7 +132,7 @@ add_custom_target(image
         DEPENDS ${LITCHI_BIN} ${BOOT_BIN})
 
 # Options for qemu and gdb
-set(QEMU_OPTIONS -drive file=${IMG},index=0,media=disk,format=raw -serial mon:stdio)
+set(QEMU_OPTIONS -drive file=${IMG},index=0,media=disk,format=raw -m 256 -serial mon:stdio)
 set(GDB_PORT 10188)
 set(QEMU_GDB_OPTIONS -gdb tcp::${GDB_PORT} -S) # -S: stop at entry
 
