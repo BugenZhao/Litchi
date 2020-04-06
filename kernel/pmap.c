@@ -61,7 +61,7 @@ void pageDirInit() {
 }
 
 // Initialize pageInfoList
-void pageInfoInit() {
+void pageInit() {
     // Create page info list
     pageInfoArray = (struct PageInfo *) bootAlloc(sizeof(struct PageInfo) * nPages);
     memoryZero(pageInfoArray, sizeof(struct PageInfo) * nPages);
@@ -73,11 +73,11 @@ void pageInfoInit() {
 
     // 2. Mark pages used by kernel as used
     size_t nextFreePage = (physaddr_t) PHY_ADDR(bootAlloc(0)) / PGSIZE;
-    for (i; i < nextFreePage; ++i)
+    for (; i < nextFreePage; ++i)
         pageInfoArray[i].refCount = 1;
 
     // 3. Mark remaining pages as free
-    for (i; i < nPages; ++i) {
+    for (; i < nPages; ++i) {
         pageInfoArray[i].refCount = 0;
         pageInfoArray[i].nextFree = pageFreeList;
         pageFreeList = pageInfoArray + i;
@@ -87,6 +87,40 @@ void pageInfoInit() {
     assert(phyToPage(0xb8000)->refCount > 0);
     assert(phyToPage(PHY_ADDR(pageInfoArray))->refCount > 0);
     assert(phyToPage((totalMem - 4) * 1024u)->refCount == 0);
+}
+
+
+// Allocate a physical page
+struct PageInfo *pageAlloc(bool zero) {
+    struct PageInfo *pp = pageFreeList;
+    if (pp == NULL) {
+        // Out of free memory
+        return NULL;
+    }
+    pageFreeList = pageFreeList->nextFree;
+    pp->nextFree = NULL;
+    if (zero) {
+        void *va = pageToKernV(pp);
+        memoryZero(va, PGSIZE);
+    }
+    return pp;
+}
+
+
+// Free a physical page
+void pageFree(struct PageInfo *pp) {
+    if (pp == NULL) return;
+    if (pp->refCount != 0 || pp->nextFree != NULL) {
+        kernelPanic("pageFree: cannot free page #%d", pp - pageInfoArray);
+    }
+    pp->nextFree = pageFreeList;
+    pageFreeList = pp;
+}
+
+// Dec refCount and free it if refCount is 0
+void pageDecRef(struct PageInfo *pp) {
+    if (pp == NULL) return;
+    if (--pp->refCount <= 0) pageFree(pp);
 }
 
 // Initialize memory
@@ -101,5 +135,5 @@ void memoryInit() {
                     totalMem, (totalMem + 1023) / 1024);
 
     pageDirInit();
-    pageInfoInit();
+    pageInit();
 }

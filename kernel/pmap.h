@@ -79,7 +79,7 @@ static inline struct PageInfo *phyToPage(physaddr_t pa) {
 }
 
 // Convert a PageInfo to kernel virtual address
-static inline void *pageToKern(struct PageInfo *pp) {
+static inline void *pageToKernV(struct PageInfo *pp) {
     return KERN_ADDR(pageToPhy(pp));
 }
 

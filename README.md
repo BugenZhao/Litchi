@@ -12,7 +12,7 @@ Bugen's toy kernel.
 - [x] Basic debugging information
 - [x] Basic kernel commands
 - [x] Physical memory detection
-- [ ] Physical memory management
+- [x] Physical memory management
 - [ ] Virtual memory
 - [ ] Kernel address space
 ---
