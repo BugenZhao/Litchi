@@ -17,12 +17,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="">
+    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="panic(), warning(), and assert() will show relative path now">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boot/boot.S" beforeDir="false" afterPath="$PROJECT_DIR$/boot/boot.S" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/boot/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/boot/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/assert.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/assert.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/kernel.ld" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/kernel.ld" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +81,7 @@
     <property name="cf.advertisement.text.overridden" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/include" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="zielu.gittoolbox.app.config" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -130,11 +132,11 @@
     <list>
       <item itemvalue="CMake Application.boot" />
       <item itemvalue="CMake Application.cgdb-cli" />
-      <item itemvalue="CMake Application.image" />
       <item itemvalue="CMake Application.litchi" />
-      <item itemvalue="CMake Application.qemu" />
       <item itemvalue="CMake Application.qemu-gdb" />
       <item itemvalue="CMake Application.qemu-nox-gdb" />
+      <item itemvalue="CMake Application.qemu" />
+      <item itemvalue="CMake Application.image" />
       <item itemvalue="GDB Remote Debug.Debug Litchi" />
     </list>
   </component>
@@ -159,7 +161,14 @@
       <workItem from="1585182290051" duration="27285000" />
       <workItem from="1585235055365" duration="4287000" />
       <workItem from="1585240105417" duration="13788000" />
-      <workItem from="1585290805463" duration="8977000" />
+      <workItem from="1585290805463" duration="9016000" />
+      <workItem from="1585328201385" duration="1437000" />
+      <workItem from="1585370599270" duration="196000" />
+      <workItem from="1585376404222" duration="922000" />
+      <workItem from="1585707863211" duration="1018000" />
+      <workItem from="1585735904029" duration="620000" />
+      <workItem from="1585811947526" duration="4000" />
+      <workItem from="1586152812305" duration="1108000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -392,7 +401,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585320159039</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Add tests to ensure kernel is correctly loaded">
+      <created>1585325301322</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1585325301322</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -409,7 +425,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add string library and tests" />
     <MESSAGE value="Add printf-like funcs" />
     <MESSAGE value="Grub error 13 bug fixes" />
     <MESSAGE value="Update kernel info and tests" />
@@ -434,7 +449,8 @@
     <MESSAGE value="Basic kernel commands" />
     <MESSAGE value="Basic kernel commands with arguments" />
     <MESSAGE value="Add tests to ensure A20 line is enabled" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add tests to ensure A20 line is enabled" />
+    <MESSAGE value="Add tests to ensure kernel is correctly loaded" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add tests to ensure kernel is correctly loaded" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1585201608100">
@@ -486,61 +502,62 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="636" y="420" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585284964442" />
-    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1585320158867">
+    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1586153913525">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585320158867" />
+    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585325301166" />
     <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289730507" />
+    <state x="714" y="87" key="CommitChangelistDialog2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586153913525" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1582267263078" />
     <state x="100" y="59" width="1592" height="1061" key="DirDiffDialog/0.23.1792.1043@0.23.1792.1043" timestamp="1582266276928" />
-    <state width="1750" height="388" key="GridCell.Tab.0.bottom" timestamp="1585314771524">
+    <state width="1750" height="388" key="GridCell.Tab.0.bottom" timestamp="1585325307525">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1585314771524" />
+    <state width="1750" height="388" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1585325307525" />
     <state width="1750" height="388" key="GridCell.Tab.0.bottom/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279437" />
-    <state width="1750" height="388" key="GridCell.Tab.0.center" timestamp="1585314771523">
+    <state width="1750" height="388" key="GridCell.Tab.0.center" timestamp="1585325307524">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1585314771523" />
+    <state width="1750" height="388" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1585325307524" />
     <state width="1750" height="388" key="GridCell.Tab.0.center/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279434" />
-    <state width="1750" height="388" key="GridCell.Tab.0.left" timestamp="1585314771522">
+    <state width="1750" height="388" key="GridCell.Tab.0.left" timestamp="1585325307523">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1585314771522" />
+    <state width="1750" height="388" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1585325307523" />
     <state width="1750" height="388" key="GridCell.Tab.0.left/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279433" />
-    <state width="1750" height="388" key="GridCell.Tab.0.right" timestamp="1585314771523">
+    <state width="1750" height="388" key="GridCell.Tab.0.right" timestamp="1585325307525">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1585314771523" />
+    <state width="1750" height="388" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1585325307525" />
     <state width="1750" height="388" key="GridCell.Tab.0.right/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279436" />
-    <state width="1750" height="388" key="GridCell.Tab.1.bottom" timestamp="1585314771526">
+    <state width="1750" height="388" key="GridCell.Tab.1.bottom" timestamp="1585325307527">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.1.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1585314771526" />
+    <state width="1750" height="388" key="GridCell.Tab.1.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1585325307527" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom/0.23.1792.1043@0.23.1792.1043" timestamp="1585291860852" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279440" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom/1792.0.1112.834/0.23.1792.1043@0.23.1792.1043" timestamp="1585289169539" />
-    <state width="1750" height="388" key="GridCell.Tab.1.center" timestamp="1585314771525">
+    <state width="1750" height="388" key="GridCell.Tab.1.center" timestamp="1585325307526">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.1.center/0.0.1792.1120@0.0.1792.1120" timestamp="1585314771525" />
+    <state width="1750" height="388" key="GridCell.Tab.1.center/0.0.1792.1120@0.0.1792.1120" timestamp="1585325307526" />
     <state width="1750" height="388" key="GridCell.Tab.1.center/0.23.1792.1043@0.23.1792.1043" timestamp="1585291860852" />
     <state width="1750" height="388" key="GridCell.Tab.1.center/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279439" />
     <state width="1750" height="388" key="GridCell.Tab.1.center/1792.0.1112.834/0.23.1792.1043@0.23.1792.1043" timestamp="1585289169538" />
-    <state width="1750" height="388" key="GridCell.Tab.1.left" timestamp="1585314771525">
+    <state width="1750" height="388" key="GridCell.Tab.1.left" timestamp="1585325307526">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.1.left/0.0.1792.1120@0.0.1792.1120" timestamp="1585314771525" />
+    <state width="1750" height="388" key="GridCell.Tab.1.left/0.0.1792.1120@0.0.1792.1120" timestamp="1585325307526" />
     <state width="1750" height="388" key="GridCell.Tab.1.left/0.23.1792.1043@0.23.1792.1043" timestamp="1585291860851" />
     <state width="1750" height="388" key="GridCell.Tab.1.left/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279438" />
     <state width="1750" height="388" key="GridCell.Tab.1.left/1792.0.1112.834/0.23.1792.1043@0.23.1792.1043" timestamp="1585289169537" />
-    <state width="1750" height="388" key="GridCell.Tab.1.right" timestamp="1585314771526">
+    <state width="1750" height="388" key="GridCell.Tab.1.right" timestamp="1585325307527">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.1.right/0.0.1792.1120@0.0.1792.1120" timestamp="1585314771526" />
+    <state width="1750" height="388" key="GridCell.Tab.1.right/0.0.1792.1120@0.0.1792.1120" timestamp="1585325307527" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/0.23.1792.1043@0.23.1792.1043" timestamp="1585291860852" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279439" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/1792.0.1112.834/0.23.1792.1043@0.23.1792.1043" timestamp="1585289169539" />
@@ -548,10 +565,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="696" y="193" key="RollbackChangesDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585236889081" />
-    <state x="567" y="63" width="1192" height="722" key="SettingsEditor" timestamp="1585284751078">
+    <state x="556" y="290" width="1192" height="722" key="SettingsEditor" timestamp="1585376919285">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="567" y="63" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1582267087558" />
+    <state x="556" y="290" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1585376919285" />
     <state x="567" y="63" key="SettingsEditor/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585284751078" />
     <state x="567" y="63" key="SettingsEditor/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585141958936" />
     <state width="500" height="445" key="SwitcherDM" timestamp="1585321749200">
@@ -576,10 +593,14 @@
     </state>
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1585299419694" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585288303603" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1585320642307">
+    <state x="561" y="265" key="run.anything.popup" timestamp="1585370793593">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585320642307" />
+    <state x="561" y="265" key="run.anything.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585370793593" />
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1585377146825">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585377146825" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585232899644" />
   </component>
   <component name="XDebuggerManager">

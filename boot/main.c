@@ -42,7 +42,7 @@ void
 bootmain(void) {
     struct Proghdr *ph, *eph;
 
-    // read 1st page off disk
+    // read 1st page off disk into scratch space to get the header
     readseg((uint32_t) ELFHDR, SECTSIZE * 8, 0);
 
     // is this a valid ELF?

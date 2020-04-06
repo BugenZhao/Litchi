@@ -9,12 +9,15 @@ ENTRY(_start)
 
 SECTIONS
 {
-	/* BUGENC：link address */
+	/* BUGENC：VMA / link address */
 	/* Link the kernel at this address: "." means the current address */
 	. = 0xF0100000;
 
+	PROVIDE(kernStart = .);
+
 	/* AT(...) gives the load address of this section, which tells
 	   the boot loader where to load the kernel in physical memory */
+	/* BUGENC: LMA */
 	.text : AT(0x100000) {
 		*(.text .stub .text.* .gnu.linkonce.t.*)
 	}
@@ -56,7 +59,7 @@ SECTIONS
 		PROVIDE(end = .);
 		BYTE(0)
 	}
-
+	PROVIDE(kernEnd = .);
 
 	/DISCARD/ : {
 		*(.eh_frame .note.GNU-stack)

@@ -23,16 +23,21 @@ set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
 # Make CMake verbose or not
 set(CMAKE_VERBOSE_MAKEFILE 1)
 
+# Get the length of source path to minimize macro __FILE__ by using __FILE__ + SOURCE_PATH_FILE
+# https://stackoverflow.com/questions/8487986/file-macro-shows-full-path
+string(LENGTH "${CMAKE_SOURCE_DIR}/" SOURCE_PATH_SIZE)
+add_definitions("-DSOURCE_PATH_SIZE=${SOURCE_PATH_SIZE}")
+
 # BUGENC:
-# CMake will try to compile a simple test program, but it is to fail when cross-compiling
-# After setting this, CMake will try to compile a static library and avoid running it
+# CMake will try to compile and run a simple test program, but it is to fail when cross-compiling
+# After setting this, CMake will try to compile a static library and do not run it
 # https://stackoverflow.com/questions/53633705/cmake-the-c-compiler-is-not-able-to-compile-a-simple-test-program
 set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 
 # C
 set(CMAKE_C_COMPILER ${TP}gcc)
 set(CMAKE_C_FLAGS ${C_OR_ASM_FLAGS})
-# Find libgcc.a for operations like '%' or '/'
+# Find libgcc.a for operations like '%' or '/', then save its path to ${LIBGCC}
 execute_process(COMMAND ${CMAKE_C_COMPILER} --print-libgcc-file-name OUTPUT_VARIABLE LIBGCC OUTPUT_STRIP_TRAILING_WHITESPACE)
 message(STATUS "libgcc.a found.")
 
