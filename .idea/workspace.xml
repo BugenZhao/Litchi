@@ -17,15 +17,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Added physical memory detection">
-      <change afterPath="$PROJECT_DIR$/kernel/pmap.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kernel/pmap.h" afterDir="false" />
+    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/readline.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/memlayout.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitor.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/pmap.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/pmap.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,7 +83,7 @@
     <property name="cf.advertisement.text.overridden" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/include" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="zielu.gittoolbox.app.config" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -173,7 +170,7 @@
       <workItem from="1585707863211" duration="1018000" />
       <workItem from="1585735904029" duration="620000" />
       <workItem from="1585811947526" duration="4000" />
-      <workItem from="1586152812305" duration="7378000" />
+      <workItem from="1586152812305" duration="13104000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -427,7 +424,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586157643364</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Added physical memory detection">
+      <created>1586160213294</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1586160213294</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -522,12 +526,12 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="636" y="420" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585284964442" />
-    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1586160200577">
+    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1586160213169">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585325301166" />
     <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289730507" />
-    <state x="714" y="87" key="CommitChangelistDialog2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160200577" />
+    <state x="714" y="87" key="CommitChangelistDialog2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160213169" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -585,11 +589,12 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="696" y="193" key="RollbackChangesDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585236889081" />
-    <state x="556" y="290" width="1192" height="722" key="SettingsEditor" timestamp="1585376919285">
+    <state x="556" y="290" width="1192" height="722" key="SettingsEditor" timestamp="1586160896729">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="556" y="290" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1585376919285" />
     <state x="567" y="63" key="SettingsEditor/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585284751078" />
+    <state x="556" y="290" key="SettingsEditor/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160896729" />
     <state x="567" y="63" key="SettingsEditor/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585141958936" />
     <state width="500" height="445" key="SwitcherDM" timestamp="1585321749200">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -609,21 +614,22 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="801" y="217" key="ftp.server.browser/0.0.1792.1120@0.0.1792.1120" timestamp="1582257314261" />
-    <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1586155554461">
+    <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1586161693140">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1585299419694" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585288303603" />
-    <state x="658" y="198" key="refactoring.ChangeSignatureDialog/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586155554461" />
+    <state x="658" y="198" key="refactoring.ChangeSignatureDialog/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586161693140" />
     <state x="561" y="265" key="run.anything.popup" timestamp="1585370793593">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="561" y="265" key="run.anything.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585370793593" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1585377146825">
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1586162873379">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585377146825" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585232899644" />
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586162873379" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

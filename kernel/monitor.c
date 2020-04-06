@@ -14,14 +14,14 @@
 
 static int lastRet = 0;
 
-struct command_t {
+struct Command {
     const char *cmd;
     const char *desc;
 
     int (*func)(int argc, char **argv);
 };
 
-struct command_t commands[] = {
+struct Command commands[] = {
         {
                 .cmd = "echo",
                 .desc = "Write colorful arguments to the standard output",

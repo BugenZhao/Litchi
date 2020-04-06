@@ -7,7 +7,11 @@
 
 #include <kernel/knlast.inc>
 #include <include/x86.h>
+#include <include/assert.h>
+#include <include/memlayout.h>
 
+extern size_t nPages;
+extern struct PageInfo *pageInfoArray;
 
 // Adopted from JOS/xv6
 
@@ -37,6 +41,46 @@ static int nvram_read(int r) {
     return mc146818_read(r) | (mc146818_read(r + 1) << 8);
 }
 
+// End
+
+
 void memoryInit();
+
+// Convert a kernel virtual address to physical
+#define PHY_ADDR(kernva) _paddr(__RFILE__, __LINE__, kernva)
+
+static inline physaddr_t _paddr(const char *file, int line, void *kernva) {
+    if ((uintptr_t) kernva < KERNBASE)
+        _kernelPanic(file, line, "PADDR: cannot convert 0x%08lX to pa", kernva);
+    return (physaddr_t) kernva - KERNBASE;
+}
+
+// Convert a physical address to kernel virtual address
+#define KERN_ADDR(pa) _kaddr(__RFILE__, __LINE__, pa)
+
+static inline void *_kaddr(const char *file, int line, physaddr_t pa) {
+    // Out of available memory
+    if (PGNUM(pa) >= nPages || nPages == 0)
+        _kernelPanic(file, line, "KADDR: cannot convert 0x%08lX to kva", pa);
+    return (void *) (pa + KERNBASE);
+}
+
+// Convert a PageInfo to physical address
+static inline physaddr_t pageToPhy(struct PageInfo *pp) {
+    // Shift by 12
+    return (pp - pageInfoArray) << PGSHIFT;
+}
+
+// Convert a physical address to its PageInfo
+static inline struct PageInfo *phyToPage(physaddr_t pa) {
+    if (PGNUM(pa) >= nPages || nPages == 0)
+        kernelPanic("phyToPage: cannot convert 0x%08lX to PageInfo", pa);
+    return pageInfoArray + PGNUM(pa);
+}
+
+// Convert a PageInfo to kernel virtual address
+static inline void *pageToKern(struct PageInfo *pp) {
+    return KERN_ADDR(pageToPhy(pp));
+}
 
 #endif //LITCHI_PMAP_H
