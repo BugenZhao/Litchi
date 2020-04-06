@@ -85,10 +85,10 @@ int parseCmd(char *cmd) {
     char *argv[MAX_ARGS + 2];
     int argc = stringSplitWS(cmd, argv, MAX_ARGS + 2);
 
-    consolePrintFmt("argc: %d, argv:\n", argc);
-    for (int j = 0; j <= argc; ++j) {
-        consolePrintFmt("[%d]: %s\n", j, argv[j]);
-    }
+//    consolePrintFmt("argc: %d, argv:\n", argc);
+//    for (int j = 0; j <= argc; ++j) {
+//        consolePrintFmt("[%d]: %s\n", j, argv[j]);
+//    }
 
     if (argc == MAX_ARGS + 1) {
         consoleErrorPrintFmt("Too many arguments\n");
