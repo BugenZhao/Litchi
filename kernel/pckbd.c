@@ -68,7 +68,7 @@ void kbdInit(void) {
     consolePrintFmt("Keyboard initializing...");
     // Try to read a char
     _kbdProcessData();
-    consolePrintFmt("Done\n\n");
+    consolePrintFmt("Done\n");
 }
 
 // Fake keyboard interrupt currently ~

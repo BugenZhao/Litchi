@@ -25,6 +25,7 @@ void i386InitLitchi(void) {
     // Init memory
     memoryInit();
 
+    consolePrintFmt("\n");
     // Go to the monitor
     int errno = monitor();
     kernelPanic("Monitor dead with errno %d", errno);

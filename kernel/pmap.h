@@ -102,7 +102,7 @@ void pageDecRef(struct PageInfo *pp);
 // Virtual Memory
 //
 
-void pageDirInit();
+void pageDirAlloc();
 
 pte_t *pageDirFindPte(pde_t *pageDir, const void *va, bool create);
 
@@ -111,5 +111,8 @@ struct PageInfo *pageDirFindInfo(pde_t *pageDir, const void *va, pte_t **pteStor
 void pageDirRemove(pde_t *pageDir, void *va);
 
 int pageDirInsert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm);
+
+
+static void pageDirSetup();
 
 #endif //LITCHI_PMAP_H

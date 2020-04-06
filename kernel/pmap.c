@@ -63,8 +63,16 @@ void memoryInit() {
     consolePrintFmt("Available physical memory: %d KB = %d MB\n",
                     totalMem, (totalMem + 1023) / 1024);
 
-    pageDirInit();
+    // Allocate space for kernelPageDir
+    pageDirAlloc();
+
+    // Build pageInfoArray for all pages
     pageInit();
+
+    // Setup and load kernelPageDir
+    consolePrintFmt("Setting up kernel page directory...");
+    pageDirSetup();
+    consolePrintFmt("Done\n");
 }
 
 
@@ -84,13 +92,23 @@ void pageInit() {
     for (i = 0; i < EXTPHYSMEM / PGSIZE; ++i)
         pageInfoArray[i].refCount = 1;
 
-    // 2. Mark pages used by kernel as used
+    // 2. Mark pages where kernel resides as used
     size_t nextFreePage = (physaddr_t) PHY_ADDR(bootAlloc(0)) / PGSIZE;
     for (; i < nextFreePage; ++i)
         pageInfoArray[i].refCount = 1;
 
-    // 3. Mark remaining pages as free
-    for (; i < nPages; ++i) {
+    size_t j;
+    // 3. Mark [4MB, total] as free
+    for (j = 4 * 1024 * 1024 / PGSIZE; j < nPages; ++j) {
+        pageInfoArray[j].refCount = 0;
+        pageInfoArray[j].nextFree = pageFreeList;
+        pageFreeList = pageInfoArray + j;
+    }
+
+    // CRITICAL:
+    // 4. Mark [nextFreePage * PGSIZE, 4MB) as free **AT LAST**,
+    //    since we cannot touch higher memory now when we are using entry_pgdir
+    for (; i < 4 * 1024 * 1024 / PGSIZE; ++i) {
         pageInfoArray[i].refCount = 0;
         pageInfoArray[i].nextFree = pageFreeList;
         pageFreeList = pageInfoArray + i;
@@ -100,6 +118,8 @@ void pageInit() {
     assert(phyToPage(0xb8000)->refCount > 0);
     assert(phyToPage(PHY_ADDR(pageInfoArray))->refCount > 0);
     assert(phyToPage((totalMem - 4) * 1024u)->refCount == 0);
+    // Make sure we are about to alloc page below 4MB !!!
+    assert(PDX(pageToPhy(pageFreeList)) == 0);
 }
 
 
@@ -141,8 +161,8 @@ void pageDecRef(struct PageInfo *pp) {
 // Virtual Memory
 //
 
-// Initialize kernelPageDir
-void pageDirInit() {
+// Allocate kernelPageDir
+void pageDirAlloc() {
     // Create kernel page dir
     kernelPageDir = (pde_t *) bootAlloc(PGSIZE);
     memoryZero(kernelPageDir, PGSIZE);
@@ -243,6 +263,49 @@ static void bootMap(pde_t *pageDir, uintptr_t va, size_t size, physaddr_t pa, in
         tlbInvalidate(pageDir, (void *) (va + offset));
         offset += PGSIZE;
     }
+}
+
+static void pageDirSetup() {
+    extern char bootstack[], bootstacktop[]; // from entry.S
+
+    // Map pageInfoArray at va UPAGES for user (read-only)
+    bootMap(kernelPageDir, UPAGES, PTSIZE, PHY_ADDR(pageInfoArray), PTE_U);
+    // Map kernel stack at va KSTACKTOP-KSTKSIZE
+    bootMap(kernelPageDir, KSTACKTOP - KSTKSIZE, KSTKSIZE, PHY_ADDR(bootstack), PTE_W);
+    // Map all of physical memory in [0, 2^32 - KERNBASE) at va KERNBASE
+    bootMap(kernelPageDir, KERNBASE, ~KERNBASE, 0, PTE_W);
+
+    // Actually load page dir
+    lcr3(PHY_ADDR(kernelPageDir));
+
+    // Set other cr0 flags
+    uint32_t cr0 = rcr0();
+    cr0 |= CR0_PE | CR0_PG | CR0_AM | CR0_WP | CR0_NE | CR0_MP;
+    cr0 &= ~(CR0_TS | CR0_EM);
+    lcr0(cr0);
+
+    // Do some checks
+    assert(*(uint64_t *) UPAGES == *(uint64_t *) pageInfoArray);
+    assert(*(uint32_t *) (KSTACKTOP - (bootstacktop - (char *) &cr0)) == cr0);
+
+    struct PageInfo *pp0, *pp1;
+    void *va2gb = (void *) 0x80000000;
+
+    assert(pp0 = pageAlloc(false));
+    memorySet(pageToKernV(pp0), 0x18, PGSIZE);
+    pageDirInsert(kernelPageDir, pp0, va2gb, PTE_W);
+    assert(pp0->refCount == 1);
+    assert(*(int64_t *) va2gb == 0x1818181818181818);
+
+    assert(pp1 = pageAlloc(false));
+    memorySet(pageToKernV(pp1), 0x10, PGSIZE);
+    pageDirInsert(kernelPageDir, pp1, va2gb, PTE_W);
+    assert(pp0->refCount == 0);
+    assert(pp0->nextFree != NULL);
+    assert(*(int64_t *) va2gb == 0x1010101010101010);
+    pageDirRemove(kernelPageDir, va2gb);
+    assert(pp1->refCount == 0);
+    assert(pp1->nextFree != NULL);
 }
 
 
