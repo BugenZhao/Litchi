@@ -44,8 +44,6 @@ static int nvram_read(int r) {
 // End
 
 
-void memoryInit();
-
 // Convert a kernel virtual address to physical
 #define PHY_ADDR(kernva) _paddr(__RFILE__, __LINE__, kernva)
 
@@ -82,5 +80,36 @@ static inline struct PageInfo *phyToPage(physaddr_t pa) {
 static inline void *pageToKernV(struct PageInfo *pp) {
     return KERN_ADDR(pageToPhy(pp));
 }
+
+
+void tlbInvalidate(pde_t *pageDir, void *va);
+
+void memoryInit();
+
+//
+// Physical Page Management
+//
+
+void pageInit();
+
+struct PageInfo *pageAlloc(bool zero);
+
+void pageFree(struct PageInfo *pp);
+
+void pageDecRef(struct PageInfo *pp);
+
+//
+// Virtual Memory
+//
+
+void pageDirInit();
+
+pte_t *pageDirFindPte(pde_t *pageDir, const void *va, bool create);
+
+struct PageInfo *pageDirFindInfo(pde_t *pageDir, const void *va, pte_t **pteStore);
+
+void pageDirRemove(pde_t *pageDir, void *va);
+
+int pageDirInsert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm);
 
 #endif //LITCHI_PMAP_H

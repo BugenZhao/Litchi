@@ -142,6 +142,9 @@
       <item itemvalue="GDB Remote Debug.Debug Litchi" />
     </list>
   </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -170,7 +173,7 @@
       <workItem from="1585707863211" duration="1018000" />
       <workItem from="1585735904029" duration="620000" />
       <workItem from="1585811947526" duration="4000" />
-      <workItem from="1586152812305" duration="14386000" />
+      <workItem from="1586152812305" duration="16901000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -438,7 +441,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586166033950</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Physical page management">
+      <created>1586170946435</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1586170946435</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -455,7 +465,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add test macro" />
     <MESSAGE value="Remastered Litchi inspired by JOS/xv6 !" />
     <MESSAGE value="Add CLion project configuration files" />
     <MESSAGE value="Rearrange old Litchi files" />
@@ -480,7 +489,8 @@
     <MESSAGE value="Basic debugging information" />
     <MESSAGE value="Added physical memory detection" />
     <MESSAGE value="Physical page management 3/5" />
-    <option name="LAST_COMMIT_MESSAGE" value="Physical page management 3/5" />
+    <MESSAGE value="Physical page management" />
+    <option name="LAST_COMMIT_MESSAGE" value="Physical page management" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1585201608100">
@@ -533,12 +543,12 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="636" y="420" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585284964442" />
-    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1586170926529">
+    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1586173439157">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585325301166" />
     <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289730507" />
-    <state x="714" y="87" key="CommitChangelistDialog2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586170926529" />
+    <state x="714" y="87" key="CommitChangelistDialog2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586173439157" />
     <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -607,12 +617,12 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state width="500" height="445" key="SwitcherDM/0.0.1792.1120@0.0.1792.1120" timestamp="1585321749200" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1586166035312">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1586170947780">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585320162861" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289732379" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586166035312" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586170947780" />
     <state x="742" y="271" key="com.jetbrains.plugins.webDeployment.ui.UploadBeforeRunTaskDialog" timestamp="1582278516732">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -631,12 +641,12 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="561" y="265" key="run.anything.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585370793593" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1586162873379">
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1586171905856">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1585377146825" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585232899644" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586162873379" />
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586171905856" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

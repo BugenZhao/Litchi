@@ -13,7 +13,7 @@ Bugen's toy kernel.
 - [x] Basic kernel commands
 - [x] Physical memory detection
 - [x] Physical memory management
-- [ ] Virtual memory
+- [x] Virtual memory
 - [ ] Kernel address space
 ---
 - [ ] User mode

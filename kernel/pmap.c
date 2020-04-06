@@ -51,14 +51,27 @@ static void memoryDetect() {
     nPagesBaseMem = baseMem / (PGSIZE / 1024);
 }
 
-// Initialize kernelPageDir
-void pageDirInit() {
-    // Create kernel page dir
-    kernelPageDir = (pde_t *) bootAlloc(PGSIZE);
-    memoryZero(kernelPageDir, PGSIZE);
-    // Map itself to va: UVPT (user virtual page table)
-    kernelPageDir[PDX(UVPT)] = PHY_ADDR(kernelPageDir) | PTE_U | PTE_P;
+
+// Main initialization of memory
+void memoryInit() {
+    // Print kernel memory info
+    consolePrintFmt("Kernel at 0x%08X -- 0x%08X: %d KB in memory\n",
+                    kernStart, kernEnd, (kernEnd - kernStart + 1023) / 1024);
+
+    // Detect total memory and the number of pages in need
+    memoryDetect();
+    consolePrintFmt("Available physical memory: %d KB = %d MB\n",
+                    totalMem, (totalMem + 1023) / 1024);
+
+    pageDirInit();
+    pageInit();
 }
+
+
+//
+// Physical Page Management
+//
+
 
 // Initialize pageInfoList
 void pageInit() {
@@ -123,17 +136,123 @@ void pageDecRef(struct PageInfo *pp) {
     if (--pp->refCount <= 0) pageFree(pp);
 }
 
-// Initialize memory
-void memoryInit() {
-    // Print kernel memory info
-    consolePrintFmt("Kernel at 0x%08X -- 0x%08X: %d KB in memory\n",
-                    kernStart, kernEnd, (kernEnd - kernStart + 1023) / 1024);
 
-    // Detect total memory and the number of pages in need
-    memoryDetect();
-    consolePrintFmt("Available physical memory: %d KB = %d MB\n",
-                    totalMem, (totalMem + 1023) / 1024);
+//
+// Virtual Memory
+//
 
-    pageDirInit();
-    pageInit();
+// Initialize kernelPageDir
+void pageDirInit() {
+    // Create kernel page dir
+    kernelPageDir = (pde_t *) bootAlloc(PGSIZE);
+    memoryZero(kernelPageDir, PGSIZE);
+    // Map itself to va: UVPT (user virtual page table)
+    kernelPageDir[PDX(UVPT)] = PHY_ADDR(kernelPageDir) | PTE_U | PTE_P;
+}
+
+// Find the page table entry of va
+// If not exist but create == true, func will create one page table / page dir entry
+pte_t *pageDirFindPte(pde_t *pageDir, const void *va, bool create) {
+    uint32_t pdx = PDX(va);     // Page directory index
+    uint32_t ptx = PTX(va);     // Page table index
+    pde_t *pde = pageDir + pdx; // Page directory entry
+
+    if ((*pde) & PTE_P) {
+        // Entry present
+        // Clear the least significant 10 bits (flags) to get the pt address,
+        //  then convert it to virtual address in order to access
+        pte_t *pageTable = KERN_ADDR(PTE_ADDR(*pde));
+        return pageTable + ptx;
+    } else if (!create) {
+        return NULL;
+    } else {
+        // Allocate a new page table page's info
+        struct PageInfo *pp = pageAlloc(true);
+        if (pp == NULL) { return NULL; }    // Allocation fails
+        pp->refCount++;
+
+        // TODO: virtual here?
+        memoryZero(pageToKernV(pp), PGSIZE); // Clear the real page
+
+        // Actually insert the page table page into pageDir+idx (*pde)
+        *pde = pageToPhy(pp) | PTE_P | PTE_U | PTE_W; // Set permissive flags
+
+        tlbInvalidate(pageDir, (void *) va);
+
+        pte_t *pageTable = KERN_ADDR(PTE_ADDR(*pde));
+        return pageTable + ptx;
+    }
+}
+
+
+// Lookup physical page mapped at va, and store pte if pteStore is not NULL
+struct PageInfo *pageDirFindInfo(pde_t *pageDir, const void *va, pte_t **pteStore) {
+    pte_t *pte = pageDirFindPte(pageDir, va, 0);
+    // No page or page not present
+    if (pte == NULL || !((*pte) & PTE_P)) return NULL;
+    if (pteStore) *pteStore = pte;
+    // Get pa from pte, then get page info from pa
+    return phyToPage(PTE_ADDR(*pte));
+}
+
+
+// Remove physical page mapped at va
+void pageDirRemove(pde_t *pageDir, void *va) {
+    pte_t *pte;
+    struct PageInfo *pp = pageDirFindInfo(pageDir, va, &pte);
+    if (pp && (*pte) & PTE_P) {
+        // Dec the ref, and mark the physical page free if necessary
+        pageDecRef(pp);
+        // Clear page table entry
+        *pte = 0;
+        // Invalidate TLB since we removed an entry
+        tlbInvalidate(pageDir, va);
+    }
+}
+
+
+// Map the physical page 'pp' at va, with permission bits 'perm'
+int pageDirInsert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm) {
+    pte_t *pte = pageDirFindPte(pageDir, va, 1);
+    if (pte == NULL) { return -1; }
+
+    // First, inc refCount of pp
+    pp->refCount++;
+    if ((*pte) & PTE_P) {
+        // Entry already present
+        // Corner-case won't cause bug since we've already inc the ref count,
+        //  then it (pp) won't be freed.
+        pageDirRemove(pageDir, va);
+    }
+    *pte = pageToPhy(pp) | perm | PTE_P;
+    // Invalidate TLB since we may have updated an entry
+    tlbInvalidate(pageDir, va);
+    return 0;
+}
+
+// Statically map [va, va+size) to [pa, pa+size)
+// It will not make changes on pageInfoArray
+static void bootMap(pde_t *pageDir, uintptr_t va, size_t size, physaddr_t pa, int perm) {
+    uint32_t offset = 0;
+    // There might be multiple pte's to find and set
+    while (offset < size) {
+        // Get the page table entry
+        pte_t *pte = pageDirFindPte(pageDir, (const void *) (va + offset), 1);
+        // Actually set the pte to map the page
+        *pte = (pa + offset) | PTE_P | perm;
+        tlbInvalidate(pageDir, (void *) (va + offset));
+        offset += PGSIZE;
+    }
+}
+
+
+// Adopted from xv6/JOS
+//
+// Invalidate a TLB entry, but only if the page tables being
+// edited are the ones currently in use by the processor.
+//
+void tlbInvalidate(pde_t *pageDir, void *va) {
+    // Flush the entry only if we're modifying the current address space.
+    // For now, there is only one address space, so always invalidate.
+    invlpg(va);
 }
