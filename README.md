@@ -9,7 +9,7 @@ Bugen's toy kernel.
 - [x] Kernel panic and warning
 - [x] Programmed keyboard support
 - [x] Kernel level standard input
-- [ ] Basic debugging information
+- [x] Basic debugging information
 - [x] Basic kernel commands
 ---
 - [ ] Paging and allocator

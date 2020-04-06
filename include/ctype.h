@@ -9,5 +9,6 @@
 
 #define isDigit(ch) (('0' <= (ch)) && ((ch) <= '9'))
 #define isSimpleChar(ch) ((0x20 <= (ch)) && ((ch) <= 0x7e))
+#define isCapital(ch) (('A' <= (ch)) && ((ch) <= 'Z'))
 
 #endif //LITCHI_CTYPE_H

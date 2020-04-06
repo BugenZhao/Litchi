@@ -21,6 +21,8 @@ char *stringCopy(char *dest, const char *src);
 
 int stringCompare(const char *lhs, const char *rhs);
 
+int stringCaseCompare(const char *lhs, const char *rhs);
+
 char *stringFindChar(const char *str, char c);
 
 int stringSplit(char *str, const char *delimiters, char **resultBuf, size_t bufCount, bool ignoreQuo);

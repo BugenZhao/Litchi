@@ -7,6 +7,7 @@
 #include <kernel/version.h>
 #include <kernel/system.h>
 #include <include/string.h>
+#include <kernel/kdebug.h>
 
 // 16 args at most, with command name
 #define MAX_ARGS 16
@@ -45,6 +46,11 @@ struct command_t commands[] = {
                 .cmd = "reboot",
                 .desc = "Restart the system",
                 .func = (int (*)(int, char **)) reboot
+        },
+        {
+                .cmd = "backtr",
+                .desc = "Print backtrace",
+                .func = monitorBacktrace
         }
 };
 
@@ -67,8 +73,11 @@ int monitorUname(int argc, char **argv) {
     if (argc >= 2 && stringCompare(argv[1], "-a") == 0)
         consolePrintFmt("Litchi v%s by BugenZhao\n", LITCHI_VERSION);
     else consolePrintFmt("Litchi\n", LITCHI_VERSION);
+    return 0;
+}
 
-
+int monitorBacktrace(int argc, char **argv) {
+    backtracePrint();
     return 0;
 }
 
@@ -76,10 +85,10 @@ int parseCmd(char *cmd) {
     char *argv[MAX_ARGS + 2];
     int argc = stringSplitWS(cmd, argv, MAX_ARGS + 2);
 
-//    consolePrintFmt("argc: %d, argv:\n", argc);
-//    for (int j = 0; j <= argc; ++j) {
-//        consolePrintFmt("[%d]: %s\n", j, argv[j]);
-//    }
+    consolePrintFmt("argc: %d, argv:\n", argc);
+    for (int j = 0; j <= argc; ++j) {
+        consolePrintFmt("[%d]: %s\n", j, argv[j]);
+    }
 
     if (argc == MAX_ARGS + 1) {
         consoleErrorPrintFmt("Too many arguments\n");
@@ -89,10 +98,10 @@ int parseCmd(char *cmd) {
         return -2;
     }
 
-    if (stringCompare(argv[0], "fuck") == 0) return 0x80000000u;
+    if (stringCaseCompare(argv[0], "fuck") == 0) return 0x80000000u;
 
     for (int i = 0; i < ARRAY_SIZE(commands); ++i) {
-        if (stringCompare(argv[0], commands[i].cmd) == 0) {
+        if (stringCaseCompare(argv[0], commands[i].cmd) == 0) {
             return commands[i].func(argc, argv);
         }
     }

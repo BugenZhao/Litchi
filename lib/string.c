@@ -6,6 +6,7 @@
 
 #include <include/string.h>
 #include <include/types.h>
+#include <include/ctype.h>
 
 #define WHITESPACE "\t\r\n "
 
@@ -52,6 +53,17 @@ inline char *stringCopy(char *dest, const char *src) {
 inline int stringCompare(const char *lhs, const char *rhs) {
     while (*lhs && *rhs && *lhs == *rhs)
         lhs++, rhs++;
+    return *lhs - *rhs;
+}
+
+int stringCaseCompare(const char *lhs, const char *rhs) {
+    char a, b;
+    while (*lhs && *rhs) {
+        a = isCapital(*lhs) ? ((*lhs) - 'A' + 'a') : *lhs;
+        b = isCapital(*rhs) ? ((*rhs) - 'A' + 'a') : *rhs;
+        if (a != b) return a - b;
+        lhs++, rhs++;
+    }
     return *lhs - *rhs;
 }
 

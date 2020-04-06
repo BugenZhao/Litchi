@@ -6,6 +6,7 @@
 #include <include/vargs.h>
 #include <include/stdio.h>
 #include <kernel/console.h>
+#include <kernel/kdebug.h>
 
 static bool PANIC = false;
 
@@ -20,7 +21,9 @@ void _kernelPanic(const char *file, int line, const char *fmt, ...) {
     va_start(ap, fmt);
     consoleErrorPrintFmt("********\nKERNEL PANIC AT %s:%d =>\n  ", file, line);
     consoleErrorPrintFmtVa(fmt, ap);
-    consoleErrorPrintFmt("\n********\n");
+    consoleErrorPrintFmt("\n");
+    backtracePrint();
+    consoleErrorPrintFmt("********\n");
     va_end(ap);
 
     spin:
