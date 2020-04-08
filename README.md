@@ -10,7 +10,8 @@ Now at **_very early_** development stage.
 - [x] CMake build support
 - [x] Kernel level standard output
 - [x] Color output in console
-- [ ] Serial port output
+- [x] Serial port output
+- [ ] Serial port input
 - [x] Kernel panic and warning
 - [x] Programmed keyboard input support
 - [x] Kernel level standard input
