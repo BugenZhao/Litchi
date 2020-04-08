@@ -15,17 +15,20 @@ Now at **_very early_** development stage.
 - [x] Programmed keyboard input support
 - [x] Kernel level standard input
 - [ ] Input with format
+    - [x] `stringToLong`
+    - [ ] `scanFmt`
 - [x] Basic debugging information
 - [ ] Basic kernel commands
     - [x] `help`
     - [x] `echo`
-    - [ ] `vm-*`
+    - [x] `vm-*`
     - [ ] `...`
 - [x] Physical memory detection
 - [x] Physical memory management
 - [x] Virtual memory
 - [x] Kernel address space
 ---
+- [ ] Test for standard library
 - [ ] Interrupt based keyboard input
 - [ ] User level environment
 - [ ] Process
@@ -39,5 +42,5 @@ Now at **_very early_** development stage.
 1. [JOS / xv6](https://pdos.csail.mit.edu/6.828/2018/schedule.html)
 2. [Stack Overflow](https://stackoverflow.com)
 3. [Hurlex](http://hurlex.0xffffff.org)
-4. [Orange'S:一个操作系统的实现](https://book.douban.com/subject/3735649/)
+4. [Orange'S: 一个操作系统的实现](https://book.douban.com/subject/3735649/)
 5. [OSDev.org](https://wiki.osdev.org)

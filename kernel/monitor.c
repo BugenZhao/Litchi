@@ -8,6 +8,7 @@
 #include <kernel/system.h>
 #include <include/string.h>
 #include <kernel/kdebug.h>
+#include <kernel/pmap.h>
 
 // 16 args at most, with command name
 #define MAX_ARGS 16
@@ -51,6 +52,11 @@ struct Command commands[] = {
                 .cmd = "backtr",
                 .desc = "Print backtrace",
                 .func = monitorBacktrace
+        },
+        {
+                .cmd = "vmmap",
+                .desc = "Show memory map at virtual address [%1, %2)",
+                .func = monitorVmMap
         }
 };
 
@@ -78,6 +84,17 @@ int monitorUname(int argc, char **argv) {
 
 int monitorBacktrace(int argc, char **argv) {
     backtracePrint();
+    return 0;
+}
+
+int monitorVmMap(int argc, char **argv) {
+    if (argc <= 1) {
+        consoleErrorPrintFmt("vmmap: Invalid argument\n");
+        return -1;
+    }
+    void *beginV = (void *) (stringToLong(argv[1], 0));
+    void *endV = (argc >= 3) ? (void *) (stringToLong(argv[2], 0)) : beginV;
+    vmemoryShow(kernelPageDir, beginV, endV);
     return 0;
 }
 
@@ -111,6 +128,11 @@ int parseCmd(char *cmd) {
 
 int monitor(void) {
     char *cmd;
+//    consolePrintFmt("%d %d 0x%08X 0x%08X\n",
+//                    stringToLong("+2020", 0),
+//                    stringToLong("-2147483648", 10),
+//                    stringToLong("     0x3abcdefzz", 0),
+//                    stringToLong("400  ", 16));
     while (lastRet != 0x80000000u) {
         if (lastRet == 0) cmd = consoleReadline("%<LitchiK%<> ", LIGHT_MAGENTA, DEF_FORE);
         else cmd = consoleReadline("%<LitchiK%<> ", LIGHT_MAGENTA, RED);

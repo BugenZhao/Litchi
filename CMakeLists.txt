@@ -81,7 +81,7 @@ set(BOOT_SRC
 
 set(LIB_SRC
         lib/string.c
-        lib/printfmt.c)
+        lib/printfmt.c lib/strtol.c lib/ctype.c)
 
 set(KERNEL_SRC
         kernel/entry.S

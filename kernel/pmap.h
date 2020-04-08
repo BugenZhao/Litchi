@@ -12,6 +12,7 @@
 
 extern size_t nPages;
 extern struct PageInfo *pageInfoArray;
+extern pte_t *kernelPageDir;
 
 // Adopted from JOS/xv6
 
@@ -84,7 +85,9 @@ static inline void *pageToKernV(struct PageInfo *pp) {
 
 void tlbInvalidate(pde_t *pageDir, void *va);
 
-void memoryInit();
+void vmemoryInit();
+
+void vmemoryShow(pte_t *pageDir, void *beginV, void *endV);
 
 //
 // Physical Page Management
@@ -111,7 +114,6 @@ struct PageInfo *pageDirFindInfo(pde_t *pageDir, const void *va, pte_t **pteStor
 void pageDirRemove(pde_t *pageDir, void *va);
 
 int pageDirInsert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm);
-
 
 static void pageDirSetup();
 

@@ -34,7 +34,7 @@ static void *bootAlloc(size_t size) {
 }
 
 // Detect available memory from NVRAM
-static void memoryDetect() {
+static void vmemoryDetect() {
     size_t baseMem, extMem, ext16Mem;
 
     // Get memory count from NVRAM in KB
@@ -53,13 +53,13 @@ static void memoryDetect() {
 
 
 // Main initialization of memory
-void memoryInit() {
+void vmemoryInit() {
     // Print kernel memory info
     consolePrintFmt("Kernel at 0x%08X -- 0x%08X: %d KB in memory\n",
                     kernStart, kernEnd, (kernEnd - kernStart + 1023) / 1024);
 
     // Detect total memory and the number of pages in need
-    memoryDetect();
+    vmemoryDetect();
     consolePrintFmt("Available physical memory: %d KB = %d MB\n",
                     totalMem, (totalMem + 1023) / 1024);
 
@@ -318,4 +318,18 @@ void tlbInvalidate(pde_t *pageDir, void *va) {
     // Flush the entry only if we're modifying the current address space.
     // For now, there is only one address space, so always invalidate.
     invlpg(va);
+}
+
+
+void vmemoryShow(pte_t *pageDir, void *beginV, void *endV) {
+    beginV = ROUNDDOWN(beginV, PGSIZE);
+    endV = ROUNDDOWN(endV, PGSIZE);
+    void *va;
+    consolePrintFmt("Virtual  -> Physical\n");
+    for (va = beginV; va <= endV; va += PGSIZE) {
+        consolePrintFmt("%08lX -> ", va);
+        pte_t *pte = pageDirFindPte(pageDir, va, 0);
+        if (pte == NULL) consolePrintFmt("<NOT MAPPED>\n");
+        else consolePrintFmt("%08lX\n", PTE_ADDR(*pte));
+    }
 }

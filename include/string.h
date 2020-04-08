@@ -29,4 +29,6 @@ int stringSplit(char *str, const char *delimiters, char **resultBuf, size_t bufC
 
 int stringSplitWS(char *str, char **resultBuf, size_t bufCount);
 
+long stringToLong(const char *ptr, int base);
+
 #endif //LITCHI_STRING_H

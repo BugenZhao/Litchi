@@ -8,7 +8,6 @@
 #include <include/types.h>
 #include <include/ctype.h>
 
-#define WHITESPACE "\t\r\n "
 
 inline void *memorySet(void *dest, uint8_t val, size_t count) {
     uint8_t *_dest = (uint8_t *) dest;

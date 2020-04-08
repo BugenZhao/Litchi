@@ -23,7 +23,7 @@ void i386InitLitchi(void) {
                     YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
 
     // Init memory
-    memoryInit();
+    vmemoryInit();
 
     consolePrintFmt("\n");
     // Go to the monitor
