@@ -30,6 +30,7 @@ Now at **_very early_** development stage.
 - [x] Physical memory management
 - [x] Virtual memory
 - [x] Kernel address space
+- [ ] Kernel heap management
 ---
 - [ ] Test for standard library
 - [ ] Interrupt based keyboard input

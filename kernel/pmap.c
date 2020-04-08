@@ -22,12 +22,16 @@ static struct PageInfo *pageFreeList;
 // Kernel memory boundary from linker
 extern char kernStart[], kernEnd[];
 
+static bool bootAllocForbidden = false;
+
 // Allocate after 'kernEnd'
 static void *bootAlloc(size_t size) {
     static char *next = NULL;
     // First time -> set next at kernEnd
     if (next == NULL) next = ROUNDUP((char *) kernEnd, PGSIZE);
+    if (size == 0) return next;
 
+    assert(bootAllocForbidden == false);
     char *result = next;
     next = ROUNDUP(next + size, PGSIZE);
     return result;
@@ -54,25 +58,27 @@ static void vmemoryDetect() {
 
 // Main initialization of memory
 void vmemoryInit() {
-    // Print kernel memory info
-    consolePrintFmt("Kernel at 0x%08X -- 0x%08X: %d KB in memory\n",
-                    kernStart, kernEnd, (kernEnd - kernStart + 1023) / 1024);
-
     // Detect total memory and the number of pages in need
     vmemoryDetect();
     consolePrintFmt("Available physical memory: %d KB = %d MB\n",
                     totalMem, (totalMem + 1023) / 1024);
 
+    consolePrintFmt("Setting up virtual memory...");
     // Allocate space for kernelPageDir
     pageDirAlloc();
 
     // Build pageInfoArray for all pages
     pageInit();
+    bootAllocForbidden = true;
 
     // Setup and load kernelPageDir
-    consolePrintFmt("Setting up kernel page directory...");
     pageDirSetup();
     consolePrintFmt("Done\n");
+
+    // Print kernel memory info
+    char *kernEndCurrent = bootAlloc(0);
+    consolePrintFmt("Kernel at 0x%08X->0x%08X->0x%08X: %d KB in memory\n",
+                    kernStart, kernEnd, kernEndCurrent, (kernEndCurrent - kernStart + 1023) / 1024);
 }
 
 
@@ -120,6 +126,8 @@ void pageInit() {
     assert(phyToPage((totalMem - 4) * 1024u)->refCount == 0);
     // Make sure we are about to alloc page below 4MB !!!
     assert(PDX(pageToPhy(pageFreeList)) == 0);
+
+
 }
 
 
@@ -168,6 +176,7 @@ void pageDirAlloc() {
     memoryZero(kernelPageDir, PGSIZE);
     // Map itself to va: UVPT (user virtual page table)
     kernelPageDir[PDX(UVPT)] = PHY_ADDR(kernelPageDir) | PTE_U | PTE_P;
+
 //    consoleErrorPrintFmt("%08X %08X\n", UVPT, PHY_ADDR(kernelPageDir));
 }
 
