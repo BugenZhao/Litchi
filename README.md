@@ -22,6 +22,8 @@ Now at **_very early_** development stage.
     - [x] `help`
     - [x] `echo`
     - [x] `vm-*`
+        - [x] `map`
+        - [x] `dump`
     - [ ] `...`
 - [x] Physical memory detection
 - [x] Physical memory management

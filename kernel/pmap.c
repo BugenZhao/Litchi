@@ -168,6 +168,7 @@ void pageDirAlloc() {
     memoryZero(kernelPageDir, PGSIZE);
     // Map itself to va: UVPT (user virtual page table)
     kernelPageDir[PDX(UVPT)] = PHY_ADDR(kernelPageDir) | PTE_U | PTE_P;
+//    consoleErrorPrintFmt("%08X %08X\n", UVPT, PHY_ADDR(kernelPageDir));
 }
 
 // Find the page table entry of va
@@ -310,7 +311,6 @@ static void pageDirSetup() {
 
 
 // Adopted from xv6/JOS
-//
 // Invalidate a TLB entry, but only if the page tables being
 // edited are the ones currently in use by the processor.
 //
@@ -321,6 +321,7 @@ void tlbInvalidate(pde_t *pageDir, void *va) {
 }
 
 
+// Show memory map at va: [beginV, endV]
 void vmemoryShow(pte_t *pageDir, void *beginV, void *endV) {
     beginV = ROUNDDOWN(beginV, PGSIZE);
     endV = ROUNDDOWN(endV, PGSIZE);
@@ -331,5 +332,46 @@ void vmemoryShow(pte_t *pageDir, void *beginV, void *endV) {
         pte_t *pte = pageDirFindPte(pageDir, va, 0);
         if (pte == NULL) consolePrintFmt("<NOT MAPPED>\n");
         else consolePrintFmt("%08lX\n", PTE_ADDR(*pte));
+    }
+}
+
+// Show memory map at va: [beginV, endV]
+void vmemoryDumpV(pte_t *pageDir, void *beginV, void *endV) {
+    beginV = ROUNDDOWN(beginV, 16);
+    endV = ROUNDUP(endV, 16);
+    consolePrintFmt("VIRTUAL   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
+    for (void *row = beginV; row <= endV; row += 16) {
+        consolePrintFmt("%08lX", row);
+        pte_t *pte = pageDirFindPte(pageDir, row, 0);
+        if (pte == NULL) {
+            consoleErrorPrintFmt("  <INVALID>\n");
+            return;
+        } else if (!(*pte & PTE_P)) {
+            consoleErrorPrintFmt("  <NOT PRESENT>\n");
+            return;
+        }
+        for (uint8_t *va = row; (void *) va <= row + 15; ++va) {
+            consolePrintFmt(" %02X", (uint32_t) *va);
+        }
+        consolePrintFmt("\n");
+    }
+}
+
+// Show memory map at pa: [beginP, endP]
+void vmemoryDumpP(pte_t *pageDir, physaddr_t beginP, physaddr_t endP) {
+    beginP = ROUNDDOWN(beginP, 16);
+    endP = ROUNDUP(endP, 16);
+    const size_t _totalMem = totalMem * 1024u;
+    consolePrintFmt("PHYSICAL  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
+    for (physaddr_t row = beginP; row <= endP; row += 16) {
+        consolePrintFmt("%08lX", row);
+        for (physaddr_t pa = row; pa <= row + 15; ++pa) {
+            if (pa >= _totalMem) {
+                consoleErrorPrintFmt("  <INVALID>\n");
+                return;
+            }
+            consolePrintFmt(" %02X", (uint32_t) (*(uint8_t *) KERN_ADDR(pa)));
+        }
+        consolePrintFmt("\n");
     }
 }

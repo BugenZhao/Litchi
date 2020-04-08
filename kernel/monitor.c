@@ -55,8 +55,18 @@ struct Command commands[] = {
         },
         {
                 .cmd = "vmmap",
-                .desc = "Show memory map at virtual address [%1, %2)",
-                .func = monitorVmMap
+                .desc = "Show memory map at virtual address [%1, %2]",
+                .func = monitorVmmap
+        },
+        {
+                .cmd  = "vmdumpv",
+                .desc = "Dump the contents at virtual address [%1, %2]",
+                .func = monitorVmdumpv
+        },
+        {
+                .cmd  = "vmdumpp",
+                .desc = "Dump the contents at physical address [%1, %2]",
+                .func = monitorVmdumpp
         }
 };
 
@@ -87,9 +97,9 @@ int monitorBacktrace(int argc, char **argv) {
     return 0;
 }
 
-int monitorVmMap(int argc, char **argv) {
+int monitorVmmap(int argc, char **argv) {
     if (argc <= 1) {
-        consoleErrorPrintFmt("vmmap: Invalid argument\n");
+        consoleErrorPrintFmt("%s: Invalid argument\n", argv[0]);
         return -1;
     }
     void *beginV = (void *) (stringToLong(argv[1], 0));
@@ -97,6 +107,29 @@ int monitorVmMap(int argc, char **argv) {
     vmemoryShow(kernelPageDir, beginV, endV);
     return 0;
 }
+
+int monitorVmdumpv(int argc, char **argv) {
+    if (argc <= 1) {
+        consoleErrorPrintFmt("%s: Invalid argument\n", argv[0]);
+        return -1;
+    }
+    void *beginV = (void *) (stringToLong(argv[1], 0));
+    void *endV = (argc >= 3) ? (void *) (stringToLong(argv[2], 0)) : beginV;
+    vmemoryDumpV(kernelPageDir, beginV, endV);
+    return 0;
+}
+
+int monitorVmdumpp(int argc, char **argv) {
+    if (argc <= 1) {
+        consoleErrorPrintFmt("%s: Invalid argument\n", argv[0]);
+        return -1;
+    }
+    physaddr_t beginP = (stringToLong(argv[1], 0));
+    physaddr_t endP = (argc >= 3) ? (stringToLong(argv[2], 0)) : beginP;
+    vmemoryDumpP(kernelPageDir, beginP, endP);
+    return 0;
+}
+
 
 int parseCmd(char *cmd) {
     char *argv[MAX_ARGS + 2];

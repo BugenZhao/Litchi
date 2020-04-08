@@ -89,6 +89,10 @@ void vmemoryInit();
 
 void vmemoryShow(pte_t *pageDir, void *beginV, void *endV);
 
+void vmemoryDumpV(pte_t *pageDir, void *beginV, void *endV);
+
+void vmemoryDumpP(pte_t *pageDir, physaddr_t beginP, physaddr_t endP);
+
 //
 // Physical Page Management
 //

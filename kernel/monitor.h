@@ -15,6 +15,10 @@ int monitorUname(int argc, char **argv);
 
 int monitorBacktrace(int argc, char **argv);
 
-int monitorVmMap(int argc, char **argv);
+int monitorVmmap(int argc, char **argv);
+
+int monitorVmdumpv(int argc, char **argv);
+
+int monitorVmdumpp(int argc, char **argv);
 
 #endif //LITCHI_MONITOR_H
