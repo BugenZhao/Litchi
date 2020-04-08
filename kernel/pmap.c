@@ -326,12 +326,15 @@ void vmemoryShow(pte_t *pageDir, void *beginV, void *endV) {
     beginV = ROUNDDOWN(beginV, PGSIZE);
     endV = ROUNDDOWN(endV, PGSIZE);
     void *va;
-    consolePrintFmt("Virtual  -> Physical\n");
+    consolePrintFmt("VIRTUAL     PHYSICAL  RC\n");
     for (va = beginV; va <= endV; va += PGSIZE) {
         consolePrintFmt("%08lX -> ", va);
         pte_t *pte = pageDirFindPte(pageDir, va, 0);
-        if (pte == NULL) consolePrintFmt("<NOT MAPPED>\n");
-        else consolePrintFmt("%08lX\n", PTE_ADDR(*pte));
+        if (pte == NULL) consoleErrorPrintFmt("<NOT MAPPED>\n");
+        else {
+            physaddr_t phy = PTE_ADDR(*pte);
+            consolePrintFmt("%08lX  %d\n", phy, phyToPage(phy)->refCount);
+        }
     }
 }
 
