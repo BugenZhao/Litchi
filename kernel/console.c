@@ -69,18 +69,34 @@ static void serialInit(void) {
     (void) inb(COM1 + COM_RX);
 }
 
+static inline void serialOut(int c) {
+//    int i;
+//    for (i = 0;
+//         !(inb(COM1 + COM_LSR) & COM_LSR_TXRDY) && i < 12800;
+//         i++)
+//        delay();
+    outb(COM1 + COM_TX, c);
+}
 
 static void serialPutChar(int c, enum color_t defForeColor, enum color_t defBackColor) {
-    if ((c & 0xff00) == 0) // no color in c
-        c = COLOR_CHAR(c, defForeColor, defBackColor);
-
-    int i;
-    for (i = 0;
-         !(inb(COM1 + COM_LSR) & COM_LSR_TXRDY) && i < 12800;
-         i++)
-        delay();
-
-    outb(COM1 + COM_TX, c);
+    if (serialExists) {
+        enum color_t foreColor = FORE_COLOR(c) ? FORE_COLOR(c) : defForeColor;
+        enum color_t backColor = BACK_COLOR(c) ? BACK_COLOR(c) : defBackColor;
+        const char *foreCode = ansiForeCode[foreColor];
+        const char *backCode = ansiBackCode[backColor];
+        serialOut('\x1b');
+        serialOut('[');
+        while (*foreCode) serialOut(*(foreCode++));
+        serialOut(';');
+        while (*backCode) serialOut(*(backCode++));
+        serialOut('m');
+        serialOut(c);
+//    serialOut('\x1b');
+//    serialOut('[');
+//    serialOut('3');
+//    serialOut('9');
+//    serialOut('m');
+    }
 }
 
 
