@@ -93,6 +93,8 @@ void vmemoryDumpV(pte_t *pageDir, void *beginV, void *endV);
 
 void vmemoryDumpP(pte_t *pageDir, physaddr_t beginP, physaddr_t endP);
 
+char *pageFlagsToStr(pte_t *entry, char *buf);
+
 //
 // Physical Page Management
 //

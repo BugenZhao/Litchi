@@ -335,14 +335,19 @@ void vmemoryShow(pte_t *pageDir, void *beginV, void *endV) {
     beginV = ROUNDDOWN(beginV, PGSIZE);
     endV = ROUNDDOWN(endV, PGSIZE);
     void *va;
-    consolePrintFmt("VIRTUAL     PHYSICAL  RC\n");
+    char flagsBuf[13];
+    consolePrintFmt("VIRTUAL     PHYSICAL  RC  FLAGS\n");
     for (va = beginV; va <= endV; va += PGSIZE) {
         consolePrintFmt("%08lX -> ", va);
         pte_t *pte = pageDirFindPte(pageDir, va, 0);
         if (pte == NULL) consoleErrorPrintFmt("<NOT MAPPED>\n");
         else {
             physaddr_t phy = PTE_ADDR(*pte);
-            consolePrintFmt("%08lX  %d\n", phy, phyToPage(phy)->refCount);
+            if (PGNUM(phy) >= nPages)
+                consoleErrorPrintFmt("<NOT EXIST>\n");
+            else
+                consolePrintFmt("%08lX  %2d  %s\n", phy, phyToPage(phy)->refCount,
+                                pageFlagsToStr(pte, flagsBuf));
         }
     }
 }
@@ -386,4 +391,16 @@ void vmemoryDumpP(pte_t *pageDir, physaddr_t beginP, physaddr_t endP) {
         }
         consolePrintFmt("\n");
     }
+}
+
+
+char *pageFlagsToStr(pte_t *entry, char *buf) {
+    if (entry == NULL) return NULL;
+    static const char *str[] = {"_________SR_", "AVLGPDACTUWP"};
+    int i;
+    for (i = 0; i < 12; ++i) {
+        buf[i] = str[((*entry) >> (11 - i)) & 0x1][i];
+    }
+    buf[i] = '\0';
+    return buf;
 }

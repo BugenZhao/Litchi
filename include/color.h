@@ -27,6 +27,9 @@ enum color_t {
     DEF_BACK = BLACK
 };
 
+
+// ANSI color codes for serial output
+// https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 static const char *ansiForeCode[] = {
         [BLACK] = "30",
         [RED] = "31",
@@ -65,9 +68,12 @@ static const char *ansiBackCode[] = {
         [WHITE] = "107"
 };
 
+// Generate a colored char for cga output
 #define COLOR_CHAR(c, fore, back) ( ((c)&0xffu) | ((fore)<<8u) | ((back)<<12u) )
 
+// Import fore color from ch
 #define FORE_COLOR(ch) ((enum color_t) ((ch>>8u) & 0xfu))
+// Import back color from ch
 #define BACK_COLOR(ch) ((enum color_t) ((ch>>12u) & 0xfu))
 
 #endif //LITCHI_COLOR_H

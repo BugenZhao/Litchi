@@ -11,11 +11,16 @@
 
 extern int monitor();
 
-void i386InitLitchi(void) {
-    // Clear .BSS section
+static void bssInit() {
     // Variable 'edata' and 'end' are from link scripts.
     extern char edata[], end[];
     memorySet(edata, 0, end - edata);
+}
+
+
+void i386InitLitchi(void) {
+    // Clear .BSS section
+    bssInit();
 
     // Init the console for I/O, and print welcome message
     consoleInit();
@@ -25,7 +30,7 @@ void i386InitLitchi(void) {
     // Init memory
     vmemoryInit();
 
-    consolePrintFmt("\n");
+
     // Go to the monitor
     int errno = monitor();
     kernelPanic("Monitor dead with errno %d", errno);

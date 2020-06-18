@@ -13,8 +13,6 @@
 // 16 args at most, with command name
 #define MAX_ARGS 16
 
-static int lastRet = 0;
-
 struct Command {
     const char *cmd;
     const char *desc;
@@ -54,9 +52,9 @@ struct Command commands[] = {
                 .func = monitorBacktrace
         },
         {
-                .cmd = "vmmap",
+                .cmd = "vmshow",
                 .desc = "Show memory map at virtual address [%1, %2]",
-                .func = monitorVmmap
+                .func = monitorVmshow
         },
         {
                 .cmd  = "vmdumpv",
@@ -97,7 +95,7 @@ int monitorBacktrace(int argc, char **argv) {
     return 0;
 }
 
-int monitorVmmap(int argc, char **argv) {
+int monitorVmshow(int argc, char **argv) {
     if (argc <= 1) {
         consoleErrorPrintFmt("%s: Invalid argument\n", argv[0]);
         return -1;
@@ -161,6 +159,8 @@ int parseCmd(char *cmd) {
 
 int monitor(void) {
     char *cmd;
+    long lastRet = 0;
+    consolePrintFmt("\n");
 //    consolePrintFmt("%d %d 0x%08X 0x%08X\n",
 //                    stringToLong("+2020", 0),
 //                    stringToLong("-2147483648", 10),

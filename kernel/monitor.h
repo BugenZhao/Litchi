@@ -15,7 +15,7 @@ int monitorUname(int argc, char **argv);
 
 int monitorBacktrace(int argc, char **argv);
 
-int monitorVmmap(int argc, char **argv);
+int monitorVmshow(int argc, char **argv);
 
 int monitorVmdumpv(int argc, char **argv);
 

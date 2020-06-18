@@ -11,7 +11,7 @@ SECTIONS
 {
 	/* BUGENC：VMA / link address */
 	/* Link the kernel at this address: "." means the current address */
-	. = 0xF0100000;
+	. = 0xE0100000;
 
 	PROVIDE(kernStart = .);
 
