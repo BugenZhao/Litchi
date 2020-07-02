@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.13)
 project(Litchi LANGUAGES NONE)
 
 # Toolchains prefix
-set(TP i386-jos-elf-)
+set(TP i386-litchi-elf-)
 set(QEMU qemu-system-i386)
 
 # Object name constants
@@ -28,6 +28,7 @@ endmacro(add_asm_dump)
 
 # Flag constants
 set(C_OR_ASM_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu11 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
+set(CXX_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=c++17 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
 
 # Other constants
 set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
@@ -52,6 +53,10 @@ set(CMAKE_C_FLAGS ${C_OR_ASM_FLAGS})
 execute_process(COMMAND ${CMAKE_C_COMPILER} --print-libgcc-file-name OUTPUT_VARIABLE LIBGCC OUTPUT_STRIP_TRAILING_WHITESPACE)
 message(STATUS "libgcc.a found.")
 
+# CXX
+set(CMAKE_CXX_COMPILER ${TP}g++)
+set(CMAKE_CXX_FLAGS ${CXX_FLAGS})
+
 # ASM
 set(CMAKE_ASM_COMPILER ${TP}gcc)
 set(CMAKE_ASM-ATT_COMPILER ${TP}gcc)
@@ -68,7 +73,7 @@ set(CMAKE_C_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LI
 set(NASM_COMPILER nasm)
 
 # Now we can enable languages
-enable_language(C ASM ASM-ATT)
+enable_language(C ASM ASM-ATT CXX)
 
 
 # Include

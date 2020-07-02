@@ -20,13 +20,13 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="Litchi" targetName="qemu-nox-gdb" />
-      <config projectName="Litchi" targetName="qemu" />
       <config projectName="Litchi" targetName="litchi" />
       <config projectName="Litchi" targetName="boot" />
+      <config projectName="Litchi" targetName="qemu" />
+      <config projectName="Litchi" targetName="qemu-nox-gdb" />
+      <config projectName="Litchi" targetName="cgdb-cli" />
       <config projectName="Litchi" targetName="image" />
       <config projectName="Litchi" targetName="qemu-gdb" />
-      <config projectName="Litchi" targetName="cgdb-cli" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -36,19 +36,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/boot.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/image.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/litchi.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/color.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/color.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/memlayout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pmap.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pmap.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitor.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cxx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/kernel.ld" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/kernel.ld" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,9 +97,15 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="org.ziglang.project.ui.ZigConfigurableImpl" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/kernel" />
+      <recent name="$PROJECT_DIR$/old_litchis" />
+      <recent name="$PROJECT_DIR$/old2" />
+      <recent name="$PROJECT_DIR$/src/include" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/include" />
       <recent name="$PROJECT_DIR$" />
@@ -116,14 +113,8 @@
       <recent name="$PROJECT_DIR$/inc" />
       <recent name="$PROJECT_DIR$/kernel" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/kernel" />
-      <recent name="$PROJECT_DIR$/old_litchis" />
-      <recent name="$PROJECT_DIR$/old2" />
-      <recent name="$PROJECT_DIR$/src/include" />
-    </key>
   </component>
-  <component name="RunManager" selected="CMake Application.boot">
+  <component name="RunManager" selected="CMake Application.qemu">
     <configuration name="boot" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -204,6 +195,11 @@
       <workItem from="1586489560734" duration="1811000" />
       <workItem from="1588261827632" duration="874000" />
       <workItem from="1591633079564" duration="426000" />
+      <workItem from="1592483440211" duration="72000" />
+      <workItem from="1592626293961" duration="349000" />
+      <workItem from="1593257878913" duration="418000" />
+      <workItem from="1593258317939" duration="229000" />
+      <workItem from="1593681697400" duration="753000" />
     </task>
     <task id="LOCAL-00001" summary="Switch to CMake">
       <created>1582267308132</created>
@@ -541,7 +537,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586332685534</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Updated memory commands">
+      <created>1592483482253</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1592483482253</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,7 +563,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Minimal printFmt library" />
     <MESSAGE value="Add version info, resize image" />
     <MESSAGE value="Basic panic(), warning() and assert()" />
     <MESSAGE value="Update progress" />
@@ -585,7 +587,8 @@
     <MESSAGE value="Serial port output support" />
     <MESSAGE value="Serial port color output support" />
     <MESSAGE value="Added bootAlloc() protection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added bootAlloc() protection" />
+    <MESSAGE value="Updated memory commands" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated memory commands" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1585201608100">
@@ -595,7 +598,6 @@
     <state x="496" y="225" key="#Other_File_Types" timestamp="1585235923926">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="225" key="#Other_File_Types/0.0.1792.1120@0.0.1792.1120" timestamp="1582291296856" />
     <state x="496" y="225" key="#Other_File_Types/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585235923926" />
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588261951060">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -644,39 +646,34 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="636" y="420" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585284964442" />
-    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1586332685383">
+    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1592483481471">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1585325301166" />
+    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1592483481471" />
     <state x="413" y="78" key="CommitChangelistDialog2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289730507" />
     <state x="714" y="87" key="CommitChangelistDialog2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586332685383" />
-    <state x="240" y="132" width="1233" height="792" key="DirDiffDialog" timestamp="1582267263078">
+    <state width="1750" height="318" key="GridCell.Tab.0.bottom" timestamp="1592626313645">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="240" y="132" width="1233" height="792" key="DirDiffDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1582267263078" />
-    <state x="100" y="59" width="1592" height="1061" key="DirDiffDialog/0.23.1792.1043@0.23.1792.1043" timestamp="1582266276928" />
-    <state width="1750" height="388" key="GridCell.Tab.0.bottom" timestamp="1586611022631">
-      <screen x="0" y="0" width="1792" height="1120" />
-    </state>
-    <state width="1750" height="388" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1586611022631" />
+    <state width="1750" height="318" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1592626313645" />
     <state width="1750" height="388" key="GridCell.Tab.0.bottom/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279437" />
     <state width="1750" height="388" key="GridCell.Tab.0.bottom/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588877" />
-    <state width="1750" height="388" key="GridCell.Tab.0.center" timestamp="1586611022629">
+    <state width="1750" height="318" key="GridCell.Tab.0.center" timestamp="1592626313644">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1586611022629" />
+    <state width="1750" height="318" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1592626313644" />
     <state width="1750" height="388" key="GridCell.Tab.0.center/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279434" />
     <state width="1750" height="388" key="GridCell.Tab.0.center/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588876" />
-    <state width="1750" height="388" key="GridCell.Tab.0.left" timestamp="1586611022628">
+    <state width="1750" height="318" key="GridCell.Tab.0.left" timestamp="1592626313644">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1586611022628" />
+    <state width="1750" height="318" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1592626313644" />
     <state width="1750" height="388" key="GridCell.Tab.0.left/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279433" />
     <state width="1750" height="388" key="GridCell.Tab.0.left/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588875" />
-    <state width="1750" height="388" key="GridCell.Tab.0.right" timestamp="1586611022630">
+    <state width="1750" height="318" key="GridCell.Tab.0.right" timestamp="1592626313645">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="388" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1586611022630" />
+    <state width="1750" height="318" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1592626313645" />
     <state width="1750" height="388" key="GridCell.Tab.0.right/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289279436" />
     <state width="1750" height="388" key="GridCell.Tab.0.right/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588877" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom" timestamp="1586611022633">
@@ -719,10 +716,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="696" y="193" key="RollbackChangesDialog/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585236889081" />
-    <state x="556" y="290" width="1192" height="722" key="SettingsEditor" timestamp="1586160896729">
+    <state x="446" y="290" width="1192" height="722" key="SettingsEditor" timestamp="1593258489545">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="556" y="290" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1585376919285" />
+    <state x="446" y="290" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1593258489545" />
     <state x="567" y="63" key="SettingsEditor/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585284751078" />
     <state x="556" y="290" key="SettingsEditor/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160896729" />
     <state x="567" y="63" key="SettingsEditor/1792.23.1112.811/0.0.1792.1120@0.0.1792.1120" timestamp="1585141958936" />
@@ -730,20 +727,12 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state width="500" height="445" key="SwitcherDM/0.0.1792.1120@0.0.1792.1120" timestamp="1585321749200" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1586332687373">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1592483483650">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1585320162861" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1592483483650" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289732379" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586332687373" />
-    <state x="742" y="271" key="com.jetbrains.plugins.webDeployment.ui.UploadBeforeRunTaskDialog" timestamp="1582278516732">
-      <screen x="0" y="0" width="1792" height="1120" />
-    </state>
-    <state x="742" y="271" key="com.jetbrains.plugins.webDeployment.ui.UploadBeforeRunTaskDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1582278516732" />
-    <state x="801" y="217" key="ftp.server.browser" timestamp="1582257314261">
-      <screen x="0" y="0" width="1792" height="1120" />
-    </state>
-    <state x="801" y="217" key="ftp.server.browser/0.0.1792.1120@0.0.1792.1120" timestamp="1582257314261" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1586343465438">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -778,5 +767,14 @@
         <watch expression="pte-pageDir" language="ObjectiveC" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="Litchi" type="b2602c69:ProjectViewProjectNode" />
+        <item name="Litchi" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
   </component>
 </project>
