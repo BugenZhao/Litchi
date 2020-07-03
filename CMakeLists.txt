@@ -27,8 +27,8 @@ macro(add_asm_dump TARGET)
 endmacro(add_asm_dump)
 
 # Flag constants
-set(C_OR_ASM_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu11 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
-set(CXX_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=c++17 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
+set(C_OR_ASM_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu17 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
+set(CXX_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=c++20 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
 
 # Other constants
 set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
@@ -67,6 +67,7 @@ set(CMAKE_OBJDUMP ${TP}objdump)
 
 # Link
 set(CMAKE_C_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
+set(CMAKE_CXX_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
 #set(CMAKE_C_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES> -b binary")
 
 # NASM - just for 0x55AA !?
@@ -101,7 +102,8 @@ set(KERNEL_SRC
         kernel/system.c
         kernel/kdebug.c
         kernel/pmap.c
-        ${LIB_SRC})
+        kernel/monitorxx.cpp
+        ${LIB_SRC} kernel/color.c)
 
 
 # Target - kernel

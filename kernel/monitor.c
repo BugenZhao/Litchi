@@ -65,6 +65,11 @@ struct Command commands[] = {
                 .cmd  = "vmdumpp",
                 .desc = "Dump the contents at physical address [%1, %2]",
                 .func = monitorVmdumpp
+        },
+        {
+                .cmd="count",
+                .desc="",
+                .func=monitorCount
         }
 };
 

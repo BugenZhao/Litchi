@@ -5,6 +5,10 @@
 #ifndef LITCHI_STRING_H
 #define LITCHI_STRING_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <include/types.h>
 
 void *memorySet(void *dest, uint8_t val, size_t count);
@@ -30,5 +34,9 @@ int stringSplit(char *str, const char *delimiters, char **resultBuf, size_t bufC
 int stringSplitWS(char *str, char **resultBuf, size_t bufCount);
 
 long stringToLong(const char *ptr, int base);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //LITCHI_STRING_H

@@ -5,6 +5,10 @@
 #ifndef LITCHI_COLOR_H
 #define LITCHI_COLOR_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 enum color_t {
     BLACK = 0b0000,
     BLUE,
@@ -30,43 +34,8 @@ enum color_t {
 
 // ANSI color codes for serial output
 // https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
-static const char *ansiForeCode[] = {
-        [BLACK] = "30",
-        [RED] = "31",
-        [GREEN] = "32",
-        [BROWN] = "33",
-        [BLUE] = "34",
-        [MAGENTA] = "35",
-        [CYAN] = "36",
-        [GRAY] = "37",
-        [DARK_GRAY] = "90",
-        [LIGHT_RED] = "91",
-        [LIGHT_GREEN] = "92",
-        [YELLOW] = "93",
-        [LIGHT_BLUE] = "94",
-        [LIGHT_MAGENTA] = "95",
-        [LIGHT_CYAN] = "96",
-        [WHITE] = "97"
-};
-
-static const char *ansiBackCode[] = {
-        [BLACK] = "40",
-        [RED] = "41",
-        [GREEN] = "42",
-        [BROWN] = "43",
-        [BLUE] = "44",
-        [MAGENTA] = "45",
-        [CYAN] = "46",
-        [GRAY] = "47",
-        [DARK_GRAY] = "100",
-        [LIGHT_RED] = "101",
-        [LIGHT_GREEN] = "102",
-        [YELLOW] = "103",
-        [LIGHT_BLUE] = "104",
-        [LIGHT_MAGENTA] = "105",
-        [LIGHT_CYAN] = "106",
-        [WHITE] = "107"
-};
+extern const char *ansiForeCode[];
+extern const char *ansiBackCode[];
 
 // Generate a colored char for cga output
 #define COLOR_CHAR(c, fore, back) ( ((c)&0xffu) | ((fore)<<8u) | ((back)<<12u) )
@@ -75,5 +44,9 @@ static const char *ansiBackCode[] = {
 #define FORE_COLOR(ch) ((enum color_t) ((ch>>8u) & 0xfu))
 // Import back color from ch
 #define BACK_COLOR(ch) ((enum color_t) ((ch>>12u) & 0xfu))
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //LITCHI_COLOR_H
