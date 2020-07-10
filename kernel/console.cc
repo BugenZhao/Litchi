@@ -172,7 +172,7 @@ namespace console {
             // Scroll the screen
             if (crtPos == CRT_SIZE) {
                 for (int i = 0; i < CRT_ROWS - 1; ++i) {
-                    memoryCopy(crtBuffer + i * CRT_COLS, crtBuffer + (i + 1) * CRT_COLS, CRT_COLS * sizeof(uint16_t));
+                    mem::copy(crtBuffer + i * CRT_COLS, crtBuffer + (i + 1) * CRT_COLS, CRT_COLS * sizeof(uint16_t));
                 }
                 for (int j = CRT_SIZE - CRT_COLS; j < CRT_SIZE; ++j) {
                     crtBuffer[j] = (c & ~0xff) | ' ';

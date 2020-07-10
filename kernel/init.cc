@@ -13,7 +13,7 @@
 static void bssInit() {
     // Variable 'edata' and 'end' are from link scripts.
     extern char edata[], end[];
-    memorySet(edata, 0, end - edata);
+    mem::set(edata, 0, end - edata);
 }
 
 extern "C" {

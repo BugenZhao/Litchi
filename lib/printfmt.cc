@@ -7,6 +7,8 @@
 #include <include/string.h>
 #include <include/color.h>
 
+constexpr char NULL_FMT[] = "(null)";
+
 // Get unsigned int in different length from va_list
 static unsigned long long _getUIntVa(va_list *ap, int longFlag) {
     unsigned long long num;
@@ -129,8 +131,8 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
                 // Other types
             case 's':
                 str = va_arg(ap, char *);
-                if (str == NULL) str = "(null)";
-                len = stringLength(str);
+                if (str == NULL) str = const_cast<char *>(NULL_FMT);
+                len = str::count(str);
                 for (width -= len; width > 0; width--) putColorChar(paddingChar, fore, back, putdat);
                 for (str; *str != '\0'; str++) putColorChar(*str, fore, back, putdat);
                 break;

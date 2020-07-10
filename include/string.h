@@ -5,30 +5,34 @@
 #ifndef LITCHI_STRING_H
 #define LITCHI_STRING_H
 
-#include <include/types.h>
+#include <types.h>
 
-void *memorySet(void *dest, uint8_t val, size_t count);
+namespace mem {
+    void *set(void *dest, uint8_t val, size_t count);
 
-void *memoryCopy(void *dest, const void *src, size_t count);
+    void *copy(void *dest, const void *src, size_t count);
 
-void memoryZero(void *dest, size_t count);
+    void clear(void *dest, size_t count);
+}
 
-size_t stringLength(const char *str);
+namespace str {
+    size_t count(const char *str);
 
-char *stringAppend(char *dest, const char *src);
+    char *append(char *dest, const char *src);
 
-char *stringCopy(char *dest, const char *src);
+    char *copy(char *dest, const char *src);
 
-int stringCompare(const char *lhs, const char *rhs);
+    int cmp(const char *lhs, const char *rhs);
 
-int stringCaseCompare(const char *lhs, const char *rhs);
+    int cmpCase(const char *lhs, const char *rhs);
 
-char *stringFindChar(const char *str, char c);
+    char *find(const char *str, char c);
 
-int stringSplit(char *str, const char *delimiters, char **resultBuf, size_t bufCount, bool ignoreQuo);
+    int split(char *str, const char *delimiters, char **resultBuf, size_t bufCount, bool ignoreQuo);
 
-int stringSplitWS(char *str, char **resultBuf, size_t bufCount);
+    int splitWs(char *str, char **resultBuf, size_t bufCount);
 
-long stringToLong(const char *ptr, int base);
+    long toLong(const char *ptr, int base);
+}
 
 #endif //LITCHI_STRING_H

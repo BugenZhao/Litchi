@@ -74,7 +74,7 @@ namespace monitor {
 
     int parseCmd(char *cmd) {
         char *argv[MAX_ARGS + 2];
-        int argc = stringSplitWS(cmd, argv, MAX_ARGS + 2);
+        int argc = str::splitWs(cmd, argv, MAX_ARGS + 2);
 
     //    printFmt("argc: %d, argv:\n", argc);
     //    for (int j = 0; j <= argc; ++j) {
@@ -89,10 +89,10 @@ namespace monitor {
             return -2;
         }
 
-        if (stringCaseCompare(argv[0], "fuck") == 0) return 0x80000000u;
+        if (str::cmpCase(argv[0], "fuck") == 0) return 0x80000000;
 
-        for (int i = 0; i < ARRAY_SIZE(commands); ++i) {
-            if (stringCaseCompare(argv[0], commands[i].cmd) == 0) {
+        for (size_t i = 0; i < ARRAY_SIZE(commands); ++i) {
+            if (str::cmpCase(argv[0], commands[i].cmd) == 0) {
                 return commands[i].func(argc, argv);
             }
         }
@@ -102,9 +102,9 @@ namespace monitor {
 
     int main() {
         char *cmd;
-        long lastRet = 0;
+        int lastRet = 0;
         console::out::printFmt("\n");
-        while (lastRet != 0x80000000u) {
+        while (lastRet != (int)0x80000000) {
             if (lastRet == 0) cmd = console::in::readline("%<LitchiK%<> ", LIGHT_MAGENTA, DEF_FORE);
             else cmd = console::in::readline("%<LitchiK%<> ", LIGHT_MAGENTA, RED);
             if (*cmd && cmd[0]) lastRet = parseCmd(cmd);
@@ -116,21 +116,21 @@ namespace monitor {
 namespace monitor {
     int echo(int argc, char **argv) {
         for (int i = 1; i < argc; ++i) {
-            console::out::printFmt("%<%s ", (i + stringLength(argv[i])) % 15 + BLUE, argv[i]);
+            console::out::printFmt("%<%s ", (i + str::count(argv[i])) % 15 + BLUE, argv[i]);
         }
         console::out::printFmt("\n");
         return 0;
     }
 
     int help(int argc, char **argv) {
-        for (int i = 0; i < ARRAY_SIZE(commands); ++i) {
+        for (size_t i = 0; i < ARRAY_SIZE(commands); ++i) {
             console::out::printFmt("%<%8s%<: %s\n", WHITE, commands[i].cmd, DEF_FORE, commands[i].desc);
         }
         return 0;
     }
 
     int uname(int argc, char **argv) {
-        if (argc >= 2 && stringCompare(argv[1], "-a") == 0)
+        if (argc >= 2 && str::cmp(argv[1], "-a") == 0)
             console::out::printFmt("Litchi v%s by BugenZhao\n", LITCHI_VERSION);
         else console::out::printFmt("Litchi\n", LITCHI_VERSION);
         return 0;
@@ -146,8 +146,8 @@ namespace monitor {
             console::err::printFmt("%s: Invalid argument\n", argv[0]);
             return -1;
         }
-        void *beginV = (void *) (stringToLong(argv[1], 0));
-        void *endV = (argc >= 3) ? (void *) (stringToLong(argv[2], 0)) : beginV;
+        void *beginV = (void *) (str::toLong(argv[1], 0));
+        void *endV = (argc >= 3) ? (void *) (str::toLong(argv[2], 0)) : beginV;
         vmemoryShow(kernelPageDir, beginV, endV);
         return 0;
     }
@@ -157,8 +157,8 @@ namespace monitor {
             console::err::printFmt("%s: Invalid argument\n", argv[0]);
             return -1;
         }
-        void *beginV = (void *) (stringToLong(argv[1], 0));
-        void *endV = (argc >= 3) ? (void *) (stringToLong(argv[2], 0)) : beginV;
+        void *beginV = (void *) (str::toLong(argv[1], 0));
+        void *endV = (argc >= 3) ? (void *) (str::toLong(argv[2], 0)) : beginV;
         vmemoryDumpV(kernelPageDir, beginV, endV);
         return 0;
     }
@@ -168,8 +168,8 @@ namespace monitor {
             console::err::printFmt("%s: Invalid argument\n", argv[0]);
             return -1;
         }
-        physaddr_t beginP = (stringToLong(argv[1], 0));
-        physaddr_t endP = (argc >= 3) ? (stringToLong(argv[2], 0)) : beginP;
+        physaddr_t beginP = (str::toLong(argv[1], 0));
+        physaddr_t endP = (argc >= 3) ? (str::toLong(argv[2], 0)) : beginP;
         vmemoryDumpP(kernelPageDir, beginP, endP);
         return 0;
     }

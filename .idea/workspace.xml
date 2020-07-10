@@ -35,21 +35,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: console namespace">
+    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/assert.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/assert.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ctype.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ctype.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/string.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/string.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/kdebug.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/kdebug.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitorxx.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/system.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/system.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/pmap.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/printfmt.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/printfmt.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/string.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/string.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/strtol.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/strtol.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,9 +88,6 @@
   <component name="MacroExpansionManager">
     <option name="directoryName" value="pnplu9c8" />
   </component>
-  <component name="OCResolveContextSettings">
-    <option name="configuration" value="0-Default-litchi" />
-  </component>
   <component name="ProjectId" id="1Y6J60xVvRbNht7m6oxrB0wzjsc" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -117,12 +111,6 @@
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/kernel" />
-      <recent name="$PROJECT_DIR$/old_litchis" />
-      <recent name="$PROJECT_DIR$/old2" />
-      <recent name="$PROJECT_DIR$/src/include" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/include" />
       <recent name="$PROJECT_DIR$" />
@@ -130,8 +118,14 @@
       <recent name="$PROJECT_DIR$/inc" />
       <recent name="$PROJECT_DIR$/kernel" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/kernel" />
+      <recent name="$PROJECT_DIR$/old_litchis" />
+      <recent name="$PROJECT_DIR$/old2" />
+      <recent name="$PROJECT_DIR$/src/include" />
+    </key>
   </component>
-  <component name="RunManager" selected="CMake Application.qemu">
+  <component name="RunManager" selected="CMake Application.image">
     <configuration name="boot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot.elf" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -219,14 +213,7 @@
       <workItem from="1593681697400" duration="983000" />
       <workItem from="1593739548633" duration="3904000" />
       <workItem from="1594363107470" duration="7633000" />
-      <workItem from="1594370880181" duration="640000" />
-    </task>
-    <task id="LOCAL-00005" summary="Console bug fixes">
-      <created>1582274605716</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1582274605716</updated>
+      <workItem from="1594370880181" duration="1553000" />
     </task>
     <task id="LOCAL-00006" summary="Add string library and tests">
       <created>1582278748142</created>
@@ -564,7 +551,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594367537729</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Updated: kdebug &amp; system namespace">
+      <created>1594371586571</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1594371586571</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -583,8 +577,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Programmed keyboard support" />
-    <MESSAGE value="Basic kernel commands" />
     <MESSAGE value="Basic kernel commands with arguments" />
     <MESSAGE value="Add tests to ensure A20 line is enabled" />
     <MESSAGE value="Add tests to ensure kernel is correctly loaded" />
@@ -608,7 +600,9 @@
     <MESSAGE value="Switch to C++" />
     <MESSAGE value="Added C++ toolchains" />
     <MESSAGE value="Updated: console namespace" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated: console namespace" />
+    <MESSAGE value="Updated: kdebug &amp; system namespace" />
+    <MESSAGE value="Updated: str &amp; mem namespace" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated: str &amp; mem namespace" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1593740878452">
@@ -706,11 +700,15 @@
     </state>
     <state x="474" y="301" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594368148320" />
     <state x="556" y="290" key="SettingsEditor/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160896729" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594367540760">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594371588232">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594367540760" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594371588232" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586332687373" />
+    <state x="100" y="100" width="1592" height="920" key="dock-window-1" timestamp="1594372306544">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="100" y="100" width="1592" height="920" key="dock-window-1/0.0.1792.1120@0.0.1792.1120" timestamp="1594372306544" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1586343465438">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>

@@ -13,7 +13,7 @@
 #define isLittle(ch) (('a' <= (ch)) && ((ch) <= 'z'))
 #define isAlphabet(ch) (isCapital(ch) || isLittle(ch))
 
-#define WHITESPACE " \t\n\v\f\r"
+constexpr char WHITESPACE[] = " \t\n\v\f\r";
 
 bool isWhiteSpace(char ch);
 

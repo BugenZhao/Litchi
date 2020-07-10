@@ -91,7 +91,7 @@ void vmemoryInit() {
 void pageInit() {
     // Create page info list
     pageInfoArray = (struct PageInfo *) bootAlloc(sizeof(struct PageInfo) * nPages);
-    memoryZero(pageInfoArray, sizeof(struct PageInfo) * nPages);
+    mem::clear(pageInfoArray, sizeof(struct PageInfo) * nPages);
 
     // 1. Mark all pages below 1MB as used
     size_t i;
@@ -142,7 +142,7 @@ struct PageInfo *pageAlloc(bool zero) {
     pp->nextFree = NULL;
     if (zero) {
         void *va = pageToKernV(pp);
-        memoryZero(va, PGSIZE);
+        mem::clear(va, PGSIZE);
     }
     return pp;
 }
@@ -173,7 +173,7 @@ void pageDecRef(struct PageInfo *pp) {
 void pageDirAlloc() {
     // Create kernel page dir
     kernelPageDir = (pde_t *) bootAlloc(PGSIZE);
-    memoryZero(kernelPageDir, PGSIZE);
+    mem::clear(kernelPageDir, PGSIZE);
     // Map itself to va: UVPT (user virtual page table)
     kernelPageDir[PDX(UVPT)] = PHY_ADDR(kernelPageDir) | PTE_U | PTE_P;
 
@@ -202,7 +202,7 @@ pte_t *pageDirFindPte(pde_t *pageDir, const void *va, bool create) {
         pp->refCount++;
 
         // TODO: virtual here?
-        memoryZero(pageToKernV(pp), PGSIZE); // Clear the real page
+        mem::clear(pageToKernV(pp), PGSIZE); // Clear the real page
 
         // Actually insert the page table page into pageDir+idx (*pde)
         *pde = pageToPhy(pp) | PTE_P | PTE_U | PTE_W; // Set permissive flags
@@ -302,13 +302,13 @@ static void pageDirSetup() {
     void *va2gb = (void *) 0x80000000;
 
     assert(pp0 = pageAlloc(false));
-    memorySet(pageToKernV(pp0), 0x18, PGSIZE);
+    mem::set(pageToKernV(pp0), 0x18, PGSIZE);
     pageDirInsert(kernelPageDir, pp0, va2gb, PTE_W);
     assert(pp0->refCount == 1);
     assert(*(int64_t *) va2gb == 0x1818181818181818);
 
     assert(pp1 = pageAlloc(false));
-    memorySet(pageToKernV(pp1), 0x10, PGSIZE);
+    mem::set(pageToKernV(pp1), 0x10, PGSIZE);
     pageDirInsert(kernelPageDir, pp1, va2gb, PTE_W);
     assert(pp0->refCount == 0);
     assert(pp0->nextFree != NULL);
