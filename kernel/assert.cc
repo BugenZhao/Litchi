@@ -22,7 +22,7 @@ void _kernelPanic(const char *file, int line, const char *fmt, ...) {
     console::err::printFmt("********\nKERNEL PANIC AT %s:%d =>\n  ", file, line);
     console::err::printFmtVa(fmt, ap);
     console::err::printFmt("\n");
-    backtracePrint();
+    kdebug::backtrace();
     console::err::printFmt("********\n");
     va_end(ap);
 

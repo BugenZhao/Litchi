@@ -26,6 +26,4 @@ namespace monitor {
     int main();
 }
 
-int monitorCount(int argc, char** argv);
-
 #endif //LITCHI_MONITOR_H

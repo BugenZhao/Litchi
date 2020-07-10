@@ -102,7 +102,6 @@ set(KERNEL_SRC
         kernel/system.cc
         kernel/kdebug.cc
         kernel/pmap.cc
-        kernel/monitorxx.cc
         kernel/color.c)
 
 

@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include <assert.h>
 #include <vargs.h>
+#include "console.h"
 
 #define READLINE_BUF_SIZE 8192
 namespace console::in {

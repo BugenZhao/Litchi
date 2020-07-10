@@ -7,6 +7,6 @@
 
 #include <kernel/knlast.inc>
 
-void backtracePrint();
+namespace kdebug { void backtrace(); }
 
 #endif //LITCHI_KDEBUG_H

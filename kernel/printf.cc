@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <cstdout.h>
+#include "console.h"
 
 
 namespace console {

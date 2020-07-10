@@ -9,6 +9,9 @@
 #include <string.h>
 #include <kernel/kdebug.h>
 #include <kernel/pmap.h>
+#include "console.h"
+#include "kdebug.h"
+#include "system.h"
 
 namespace monitor {
     // 16 args at most, with command name
@@ -45,7 +48,7 @@ namespace monitor {
             {
                     .cmd = "reboot",
                     .desc = "Restart the system",
-                    .func = (int (*)(int, char **)) reboot
+                    .func = (int (*)(int, char **)) system::reboot
             },
             {
                     .cmd = "backtr",
@@ -66,11 +69,6 @@ namespace monitor {
                     .cmd  = "vmdumpp",
                     .desc = "Dump the contents at physical address [%1, %2]",
                     .func = vmdumpp
-            },
-            {
-                    .cmd="count",
-                    .desc="",
-                    .func=monitorCount
             }
     };
 
@@ -139,7 +137,7 @@ namespace monitor {
     }
 
     int backtrace(int argc, char **argv) {
-        backtracePrint();
+        kdebug::backtrace();
         return 0;
     }
 

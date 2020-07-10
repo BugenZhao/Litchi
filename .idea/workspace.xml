@@ -35,23 +35,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Added C++ toolchains">
-      <change afterPath="$PROJECT_DIR$/include/cstdout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: console namespace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdin.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdin.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/stdout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdout.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/assert.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/assert.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/kdebug.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/kdebug.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/monitor.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitorxx.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitorxx.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pckbd.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pckbd.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pmap.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitorxx.cc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/system.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.cc" afterDir="false" />
@@ -225,6 +219,7 @@
       <workItem from="1593681697400" duration="983000" />
       <workItem from="1593739548633" duration="3904000" />
       <workItem from="1594363107470" duration="7633000" />
+      <workItem from="1594370880181" duration="640000" />
     </task>
     <task id="LOCAL-00005" summary="Console bug fixes">
       <created>1582274605716</created>
@@ -611,9 +606,9 @@
     <MESSAGE value="Added: CXX support" />
     <MESSAGE value="Cleanup: boot loader" />
     <MESSAGE value="Switch to C++" />
-    <MESSAGE value="Updated: console namespace" />
     <MESSAGE value="Added C++ toolchains" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added C++ toolchains" />
+    <MESSAGE value="Updated: console namespace" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated: console namespace" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1593740878452">
@@ -702,6 +697,10 @@
     <state width="1750" height="388" key="GridCell.Tab.1.right/0.23.1792.1043@0.23.1792.1043" timestamp="1586490176162" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588879" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/1792.23.1440.877/0.0.1792.1066@0.0.1792.1066" timestamp="1586325131408" />
+    <state x="694" y="269" key="RollbackChangesDialog" timestamp="1594371157331">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="694" y="269" key="RollbackChangesDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1594371157331" />
     <state x="474" y="301" width="1192" height="722" key="SettingsEditor" timestamp="1594368148320">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>

@@ -4,10 +4,11 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <assert.h>
 #include "console.h"
 #include "version.h"
-#include <assert.h>
 #include "pmap.h"
+#include "monitor.h"
 
 static void bssInit() {
     // Variable 'edata' and 'end' are from link scripts.

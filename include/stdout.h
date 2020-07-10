@@ -6,7 +6,6 @@
 #define LITCHI_STDOUT_H
 
 #include <types.h>
-#include "console.h"
 #include <vargs.h>
 #include <color.h>
 
