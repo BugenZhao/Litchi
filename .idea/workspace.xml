@@ -20,12 +20,12 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="Litchi" targetName="litchi" />
-      <config projectName="Litchi" targetName="boot" />
       <config projectName="Litchi" targetName="qemu" />
       <config projectName="Litchi" targetName="qemu-nox-gdb" />
       <config projectName="Litchi" targetName="cgdb-cli" />
+      <config projectName="Litchi" targetName="boot.elf" />
       <config projectName="Litchi" targetName="image" />
+      <config projectName="Litchi" targetName="litchi.elf" />
       <config projectName="Litchi" targetName="qemu-gdb" />
     </generated>
   </component>
@@ -36,18 +36,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Added C++ toolchains">
-      <change afterPath="$PROJECT_DIR$/kernel/color.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kernel/monitorxx.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/color.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/color.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pckbd.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pckbd.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdio.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdio.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/string.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/string.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/types.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/types.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pckbd.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pckbd.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootable/bootable.nasm" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,6 +76,9 @@
         <option value="https://github.com/BugenZhao/Litchi.git" />
       </set>
     </option>
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="pnplu9c8" />
   </component>
   <component name="OCResolveContextSettings">
     <option name="configuration" value="0-Default-litchi" />
@@ -127,7 +121,7 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.qemu">
-    <configuration name="boot" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot">
+    <configuration name="boot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot.elf" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -142,7 +136,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="litchi" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="litchi" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="litchi">
+    <configuration name="litchi.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="litchi.elf" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="litchi.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -163,10 +157,10 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.boot" />
+      <item itemvalue="CMake Application.boot.elf" />
       <item itemvalue="CMake Application.cgdb-cli" />
       <item itemvalue="CMake Application.image" />
-      <item itemvalue="CMake Application.litchi" />
+      <item itemvalue="CMake Application.litchi.elf" />
       <item itemvalue="CMake Application.qemu-gdb" />
       <item itemvalue="CMake Application.qemu-nox-gdb" />
       <item itemvalue="CMake Application.qemu" />
@@ -212,14 +206,8 @@
       <workItem from="1593257878913" duration="418000" />
       <workItem from="1593258317939" duration="229000" />
       <workItem from="1593681697400" duration="983000" />
-      <workItem from="1593739548633" duration="3837000" />
-    </task>
-    <task id="LOCAL-00002" summary="Switch to CMake">
-      <created>1582267341756</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1582267341756</updated>
+      <workItem from="1593739548633" duration="3904000" />
+      <workItem from="1594363107470" duration="1930000" />
     </task>
     <task id="LOCAL-00003" summary="Add console functions">
       <created>1582272685358</created>
@@ -557,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593682663695</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Added: CXX support">
+      <created>1593743778884</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1593743778884</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -576,7 +571,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Basic panic(), warning() and assert()" />
     <MESSAGE value="Update progress" />
     <MESSAGE value="Merge exp with master" />
     <MESSAGE value="Show message in Litchi Loader" />
@@ -601,7 +595,8 @@
     <MESSAGE value="Added bootAlloc() protection" />
     <MESSAGE value="Updated memory commands" />
     <MESSAGE value="Added C++ toolchains" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added C++ toolchains" />
+    <MESSAGE value="Added: CXX support" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added: CXX support" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1593740878452">
@@ -749,10 +744,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state width="500" height="445" key="SwitcherDM/0.0.1792.1120@0.0.1792.1120" timestamp="1585321749200" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1593682665144">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1593743780479">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1593682665144" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1593743780479" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1112.834/0.0.1792.1120@0.0.1792.1120" timestamp="1585289732379" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586332687373" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1586343465438">
