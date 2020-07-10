@@ -145,10 +145,5 @@
 typedef uint32_t pte_t;
 typedef uint32_t pde_t;
 
-struct PageInfo {
-    struct PageInfo *nextFree;
-    uint16_t refCount;
-};
-
 #endif /* !__ASSEMBLER__ */
 #endif /* !JOS_INC_MEMLAYOUT_H */

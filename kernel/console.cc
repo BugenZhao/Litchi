@@ -8,8 +8,6 @@
 #include <pckbd.h>
 #include "console.h"
 
-
-
 namespace console {
     namespace serial {
         /***** Serial I/O *****/
@@ -36,67 +34,71 @@ namespace console {
 #define COM_LSR_TXRDY  0x20    // Transmit buffer avail
 #define COM_LSR_TSRE   0x40    // Transmitter off
 
+        constexpr bool colored = false;
+
         // Stupid I/O delay routine necessitated by historical PC design flaws
         static void delay(void) {
-            inb(0x84);
-            inb(0x84);
-            inb(0x84);
-            inb(0x84);
+            x86::inb(0x84);
+            x86::inb(0x84);
+            x86::inb(0x84);
+            x86::inb(0x84);
         }
 
         static bool exists;
 
         static void init(void) {
             // Turn off the FIFO
-            outb(COM1 + COM_FCR, 0);
+            x86::outb(COM1 + COM_FCR, 0);
 
             // Set speed; requires DLAB latch
-            outb(COM1 + COM_LCR, COM_LCR_DLAB);
-            outb(COM1 + COM_DLL, (uint8_t) (115200 / 9600));
-            outb(COM1 + COM_DLM, 0);
+            x86::outb(COM1 + COM_LCR, COM_LCR_DLAB);
+            x86::outb(COM1 + COM_DLL, (uint8_t) (115200 / 9600));
+            x86::outb(COM1 + COM_DLM, 0);
 
             // 8 data bits, 1 stop bit, parity off; turn off DLAB latch
-            outb(COM1 + COM_LCR, COM_LCR_WLEN8 & ~COM_LCR_DLAB);
+            x86::outb(COM1 + COM_LCR, COM_LCR_WLEN8 & ~COM_LCR_DLAB);
 
             // No modem controls
-            outb(COM1 + COM_MCR, 0);
+            x86::outb(COM1 + COM_MCR, 0);
             // Enable rcv interrupts
-            outb(COM1 + COM_IER, COM_IER_RDI);
+            x86::outb(COM1 + COM_IER, COM_IER_RDI);
 
             // Clear any preexisting overrun indications and interrupts
             // Serial port doesn't exist if COM_LSR returns 0xFF
-            exists = (inb(COM1 + COM_LSR) != 0xFF);
-            (void) inb(COM1 + COM_IIR);
-            (void) inb(COM1 + COM_RX);
+            exists = (x86::inb(COM1 + COM_LSR) != 0xFF);
+            (void) x86::inb(COM1 + COM_IIR);
+            (void) x86::inb(COM1 + COM_RX);
         }
 
         static inline void sout(int c) {
-            //    int i;
-            //    for (i = 0;
-            //         !(inb(COM1 + COM_LSR) & COM_LSR_TXRDY) && i < 12800;
-            //         i++)
-            //        delay();
-            outb(COM1 + COM_TX, c);
+            // int i;
+            // for (i = 0;
+            //      !(inb(COM1 + COM_LSR) & COM_LSR_TXRDY) && i < 12800;
+            //      i++)
+            //     delay();
+            x86::outb(COM1 + COM_TX, c);
         }
 
         static void putChar(int c, enum color_t defForeColor, enum color_t defBackColor) {
             if (exists) {
-                enum color_t foreColor = FORE_COLOR(c) ? FORE_COLOR(c) : defForeColor;
-                enum color_t backColor = BACK_COLOR(c) ? BACK_COLOR(c) : defBackColor;
-                const char *foreCode = ansiForeCode[foreColor];
-                const char *backCode = ansiBackCode[backColor];
-                sout('\x1b');
-                sout('[');
-                while (*foreCode) sout(*(foreCode++));
-                sout(';');
-                while (*backCode) sout(*(backCode++));
-                sout('m');
+                if (colored) {
+                    enum color_t foreColor = FORE_COLOR(c) ? FORE_COLOR(c) : defForeColor;
+                    enum color_t backColor = BACK_COLOR(c) ? BACK_COLOR(c) : defBackColor;
+                    const char *foreCode = ansiForeCode[foreColor];
+                    const char *backCode = ansiBackCode[backColor];
+                    sout('\x1b');
+                    sout('[');
+                    while (*foreCode) sout(*(foreCode++));
+                    sout(';');
+                    while (*backCode) sout(*(backCode++));
+                    sout('m');
+                }
                 sout(c);
-                //    sout('\x1b');
-                //    sout('[');
-                //    sout('3');
-                //    sout('9');
-                //    sout('m');
+                // sout('\x1b');
+                // sout('[');
+                // sout('3');
+                // sout('9');
+                // sout('m');
             }
         }
     }
@@ -105,14 +107,14 @@ namespace console {
         /***** Text-mode CGA/VGA display output *****/
 
         static unsigned addr_6845;
-        static uint16_t *crtBuffer;
-        static uint16_t crtPos;
+        static uint16_t *buffer;
+        static uint16_t pos;
 
         // CGA initialization, adopted from JOS/xv6
         static void init(void) {
             volatile uint16_t *cp;
             uint16_t was;
-            unsigned pos;
+            unsigned npos;
 
             cp = (uint16_t *) (KERNBASE + CGA_BUF);
             was = *cp;
@@ -126,21 +128,21 @@ namespace console {
             }
 
             // Get cursor position
-            outb(addr_6845, 14);
-            pos = inb(addr_6845 + 1) << 8;
-            outb(addr_6845, 15);
-            pos |= inb(addr_6845 + 1);
+            x86::outb(addr_6845, 14);
+            npos = x86::inb(addr_6845 + 1) << 8;
+            x86::outb(addr_6845, 15);
+            npos |= x86::inb(addr_6845 + 1);
 
-            crtBuffer = (uint16_t *) cp;
-            crtPos = pos;
+            buffer = (uint16_t *) cp;
+            pos = npos;
         }
 
         // Refresh CGA cursor to next text position
-        static inline void cgaCursorRefresh(void) {
-            outb(addr_6845, 14);
-            outb(addr_6845 + 1, crtPos >> 8);
-            outb(addr_6845, 15);
-            outb(addr_6845 + 1, crtPos);
+        static inline void cursorRefresh(void) {
+            x86::outb(addr_6845, 14);
+            x86::outb(addr_6845 + 1, pos >> 8);
+            x86::outb(addr_6845, 15);
+            x86::outb(addr_6845 + 1, pos);
         }
 
         // Put char into cga. Explicit colors will be used only if no color info in c
@@ -151,7 +153,7 @@ namespace console {
             // Print the character
             switch (c & 0xff) {
                 case '\b':
-                    if (crtPos > 0) crtBuffer[--crtPos] = (c & ~0xff) | ' ';
+                    if (pos > 0) buffer[--pos] = (c & ~0xff) | ' ';
                     break;
                 case '\t':
                     putChar(' ', defForeColor, defBackColor);
@@ -160,37 +162,37 @@ namespace console {
                     putChar(' ', defForeColor, defBackColor);
                     break;
                 case '\n':
-                    crtPos += CRT_COLS;
+                    pos += CRT_COLS;
                     // LF only
                 case '\r':
-                    crtPos = crtPos / CRT_COLS * CRT_COLS;
+                    pos = pos / CRT_COLS * CRT_COLS;
                     break;
                 default:
-                    crtBuffer[crtPos++] = c;
+                    buffer[pos++] = c;
             }
 
             // Scroll the screen
-            if (crtPos == CRT_SIZE) {
+            if (pos == CRT_SIZE) {
                 for (int i = 0; i < CRT_ROWS - 1; ++i) {
-                    mem::copy(crtBuffer + i * CRT_COLS, crtBuffer + (i + 1) * CRT_COLS, CRT_COLS * sizeof(uint16_t));
+                    mem::copy(buffer + i * CRT_COLS, buffer + (i + 1) * CRT_COLS, CRT_COLS * sizeof(uint16_t));
                 }
                 for (int j = CRT_SIZE - CRT_COLS; j < CRT_SIZE; ++j) {
-                    crtBuffer[j] = (c & ~0xff) | ' ';
+                    buffer[j] = (c & ~0xff) | ' ';
                 }
-                crtPos -= CRT_COLS;
+                pos -= CRT_COLS;
             }
 
             // Move the cursor
-            cgaCursorRefresh();
+            cursorRefresh();
         }
 
         // CGA clear screen
         static void clear(void) {
             for (int i = 0; i < CRT_SIZE; ++i) {
-                crtBuffer[i] = (DEF_FORE << 8) | ' ';
+                buffer[i] = (DEF_FORE << 8) | ' ';
             }
-            crtPos = 0;
-            cgaCursorRefresh();
+            pos = 0;
+            cursorRefresh();
         }
     }
 
@@ -200,7 +202,7 @@ namespace console {
         console::cga::init();
         serial::init();
         // Input
-        kbdInit();
+        kbd::init();
     }
 
     // Put a char to console
@@ -212,7 +214,7 @@ namespace console {
     // Get a non-zero char from console
     int getChar(void) {
         int c;
-        while ((c = kbdGetNextChar()) == 0);
+        while ((c = kbd::getNextChar()) == 0);
         return c;
     }
 

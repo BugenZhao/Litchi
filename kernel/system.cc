@@ -8,7 +8,7 @@
 
 namespace system {
     [[noreturn]] void reboot() {
-        outb(0x92, 0x1);
+        x86::outb(0x92, 0x1);
         while (1);
     }
 

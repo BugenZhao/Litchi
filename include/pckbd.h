@@ -32,6 +32,16 @@ int kbdGetNextChar(void);
 
 #ifdef __cplusplus
 }
+
+namespace kbd {
+    inline static void init() {
+        kbdInit();
+    }
+
+    inline static int getNextChar() {
+        return kbdGetNextChar();
+    }
+}
 #endif
 
 #endif //LITCHI_PCKBD_H

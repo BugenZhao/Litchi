@@ -10,16 +10,11 @@
 #include "pmap.h"
 #include "monitor.h"
 
-static void bssInit() {
-    // Variable 'edata' and 'end' are from link scripts.
-    extern char edata[], end[];
-    mem::set(edata, 0, end - edata);
-}
-
 extern "C" {
 void i386InitLitchi(void) {
     // Clear .BSS section
-    bssInit();
+    extern char edata[], end[];
+    mem::set(edata, 0, end - edata);
 
     // Init the console for I/O, and print welcome message
     console::init();
@@ -27,7 +22,7 @@ void i386InitLitchi(void) {
                         YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
 
     // Init memory
-    vmemoryInit();
+    vmem::init();
 
     // Go to the monitor
     int errno = monitor::main();

@@ -9,7 +9,7 @@
 namespace kdebug {
     void backtrace() {
         uint32_t ebp, eip;
-        ebp = read_ebp();
+        ebp = x86::read_ebp();
 
         console::err::print("Backtrace:\n  ebp\t\t\beip\t\t\bargs\n");
         while (ebp) {

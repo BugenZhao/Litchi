@@ -12,6 +12,7 @@
 #include "console.h"
 #include "kdebug.h"
 #include "system.h"
+#include "pmap.h"
 
 namespace monitor {
     // 16 args at most, with command name
@@ -154,7 +155,7 @@ namespace monitor {
         }
         void *beginV = (void *) (str::toLong(argv[1], 0));
         void *endV = (argc >= 3) ? (void *) (str::toLong(argv[2], 0)) : beginV;
-        vmemoryShow(kernelPageDir, beginV, endV);
+        vmem::utils::show(vmem::kernelPageDir, beginV, endV);
         return 0;
     }
 
@@ -165,7 +166,7 @@ namespace monitor {
         }
         void *beginV = (void *) (str::toLong(argv[1], 0));
         void *endV = (argc >= 3) ? (void *) (str::toLong(argv[2], 0)) : beginV;
-        vmemoryDumpV(kernelPageDir, beginV, endV);
+        vmem::utils::dumpV(vmem::kernelPageDir, beginV, endV);
         return 0;
     }
 
@@ -176,7 +177,7 @@ namespace monitor {
         }
         physaddr_t beginP = (str::toLong(argv[1], 0));
         physaddr_t endP = (argc >= 3) ? (str::toLong(argv[2], 0)) : beginP;
-        vmemoryDumpP(kernelPageDir, beginP, endP);
+        vmem::utils::dumpP(vmem::kernelPageDir, beginP, endP);
         return 0;
     }
 }

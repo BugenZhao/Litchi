@@ -9,11 +9,10 @@
 #include <include/x86.h>
 #include <include/assert.h>
 #include <include/memlayout.h>
+#include "x86.h"
 
-extern size_t nPages;
-extern struct PageInfo *pageInfoArray;
-extern pte_t *kernelPageDir;
-
+// NVRAM
+namespace nvram {
 // Adopted from JOS/xv6
 
 #define    MC_NVRAM_START    0xe    /* start of NVRAM: offset 14 */
@@ -33,94 +32,103 @@ extern pte_t *kernelPageDir;
 
 #define    IO_RTC        0x070        /* RTC port */
 
-static unsigned mc146818_read(unsigned reg) {
-    outb(IO_RTC, reg);
-    return inb(IO_RTC + 1);
+    static unsigned mc146818_read(unsigned reg) {
+        x86::outb(IO_RTC, reg);
+        return x86::inb(IO_RTC + 1);
+    }
+
+    static int read(int r) {
+        return mc146818_read(r) | (mc146818_read(r + 1) << 8);
+    }
 }
 
-static int nvram_read(int r) {
-    return mc146818_read(r) | (mc146818_read(r + 1) << 8);
-}
+// Global
+namespace vmem {
+    struct PageInfo {
+        struct PageInfo *nextFree;
+        uint16_t refCount;
+    };
 
-// End
+    extern size_t nPages;
+    extern struct PageInfo *pageInfoArray;
+    extern pte_t *kernelPageDir;
 
+    void init();
 
 // Convert a kernel virtual address to physical
 #define PHY_ADDR(kernva) _paddr(__RFILE__, __LINE__, kernva)
 
-static inline physaddr_t _paddr(const char *file, int line, void *kernva) {
-    if ((uintptr_t) kernva < KERNBASE)
-        _kernelPanic(file, line, "PADDR: cannot convert 0x%08lX to pa", kernva);
-    return (physaddr_t) kernva - KERNBASE;
-}
+    static inline physaddr_t _paddr(const char *file, int line, void *kernva) {
+        if ((uintptr_t) kernva < KERNBASE)
+            _kernelPanic(file, line, "PADDR: cannot convert 0x%08lX to pa", kernva);
+        return (physaddr_t) kernva - KERNBASE;
+    }
 
 // Convert a physical address to kernel virtual address
 #define KERN_ADDR(pa) _kaddr(__RFILE__, __LINE__, pa)
 
-static inline void *_kaddr(const char *file, int line, physaddr_t pa) {
-    // Out of available memory
-    if (PGNUM(pa) >= nPages || nPages == 0)
-        _kernelPanic(file, line, "KADDR: cannot convert 0x%08lX to kva", pa);
-    return (void *) (pa + KERNBASE);
+    static inline void *_kaddr(const char *file, int line, physaddr_t pa) {
+        // Out of available memory
+        if (PGNUM(pa) >= nPages || nPages == 0)
+            _kernelPanic(file, line, "KADDR: cannot convert 0x%08lX to kva", pa);
+        return (void *) (pa + KERNBASE);
+    }
 }
 
-// Convert a PageInfo to physical address
-static inline physaddr_t pageToPhy(struct PageInfo *pp) {
-    // Shift by 12
-    return (pp - pageInfoArray) << PGSHIFT;
+// Utilities
+namespace vmem::utils {
+    void show(pte_t *pageDir, void *beginV, void *endV);
+
+    void dumpV(pte_t *pageDir, void *beginV, void *endV);
+
+    void dumpP(pte_t *pageDir, physaddr_t beginP, physaddr_t endP);
+
+    char *flagStr(pte_t *entry, char *buf);
 }
 
-// Convert a physical address to its PageInfo
-static inline struct PageInfo *phyToPage(physaddr_t pa) {
-    if (PGNUM(pa) >= nPages || nPages == 0)
-        kernelPanic("phyToPage: cannot convert 0x%08lX to PageInfo", pa);
-    return pageInfoArray + PGNUM(pa);
-}
-
-// Convert a PageInfo to kernel virtual address
-static inline void *pageToKernV(struct PageInfo *pp) {
-    return KERN_ADDR(pageToPhy(pp));
-}
-
-
-void tlbInvalidate(pde_t *pageDir, void *va);
-
-void vmemoryInit();
-
-void vmemoryShow(pte_t *pageDir, void *beginV, void *endV);
-
-void vmemoryDumpV(pte_t *pageDir, void *beginV, void *endV);
-
-void vmemoryDumpP(pte_t *pageDir, physaddr_t beginP, physaddr_t endP);
-
-char *pageFlagsToStr(pte_t *entry, char *buf);
-
-//
 // Physical Page Management
-//
+namespace vmem::page {
+    void init();
 
-void pageInit();
+    struct PageInfo *alloc(bool zero);
 
-struct PageInfo *pageAlloc(bool zero);
+    void free(struct PageInfo *pp);
 
-void pageFree(struct PageInfo *pp);
+    void decRef(struct PageInfo *pp);
 
-void pageDecRef(struct PageInfo *pp);
+    // Convert a PageInfo to physical address
+    static inline physaddr_t toPhy(struct PageInfo *pp) {
+        return (pp - pageInfoArray) << PGSHIFT;
+    }
 
-//
+    // Convert a PageInfo to kernel virtual address
+    static inline void *toKernV(struct PageInfo *pp) {
+        return KERN_ADDR(toPhy(pp));
+    }
+
+    // Convert a physical address to its PageInfo
+    static inline struct PageInfo *fromPhy(physaddr_t pa) {
+        if (PGNUM(pa) >= nPages || nPages == 0)
+            kernelPanic("phyToPage: cannot convert 0x%08lX to PageInfo", pa);
+        return pageInfoArray + PGNUM(pa);
+    }
+}
+
 // Virtual Memory
-//
+namespace vmem::pgdir {
+    void invalidateTLB(pde_t *pageDir, void *va);
 
-void pageDirAlloc();
+    void alloc();
 
-pte_t *pageDirFindPte(pde_t *pageDir, const void *va, bool create);
+    pte_t *findPte(pde_t *pageDir, const void *va, bool create);
 
-struct PageInfo *pageDirFindInfo(pde_t *pageDir, const void *va, pte_t **pteStore);
+    struct PageInfo *findInfo(pde_t *pageDir, const void *va, pte_t **pteStore);
 
-void pageDirRemove(pde_t *pageDir, void *va);
+    void remove(pde_t *pageDir, void *va);
 
-int pageDirInsert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm);
+    int insert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm);
 
-static void pageDirSetup();
+    static void init();
+}
 
 #endif //LITCHI_PMAP_H
