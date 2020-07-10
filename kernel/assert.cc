@@ -19,11 +19,11 @@ void _kernelPanic(const char *file, int line, const char *fmt, ...) {
     asm volatile("cli; cld");
 
     va_start(ap, fmt);
-    console::err::printFmt("********\nKERNEL PANIC AT %s:%d =>\n  ", file, line);
-    console::err::printFmtVa(fmt, ap);
-    console::err::printFmt("\n");
+    console::err::print("********\nKERNEL PANIC AT %s:%d =>\n  ", file, line);
+    console::err::printVa(fmt, ap);
+    console::err::print("\n");
     kdebug::backtrace();
-    console::err::printFmt("********\n");
+    console::err::print("********\n");
     va_end(ap);
 
     spin:
@@ -36,8 +36,8 @@ void _kernelWarning(const char *file, int line, const char *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
-    console::err::printFmt("********\nKERNEL WARNING AT %s:%d =>\n  ", file, line);
-    console::err::printFmtVa(fmt, ap);
-    console::err::printFmt("\n********\n");
+    console::err::print("********\nKERNEL WARNING AT %s:%d =>\n  ", file, line);
+    console::err::printVa(fmt, ap);
+    console::err::print("\n********\n");
     va_end(ap);
 }

@@ -26,7 +26,7 @@ namespace console::in {
         int c;
         int idx = 0;
 
-        if (promptFmt) out::printFmtVa(promptFmt, ap);
+        if (promptFmt) out::printVa(promptFmt, ap);
         while (true) {
             c = getChar();
             if (c < 0) {

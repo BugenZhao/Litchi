@@ -7,6 +7,10 @@
 
 #include <kernel/knlast.inc>
 
-namespace system { [[noreturn]] void reboot(void); }
+namespace system {
+    [[noreturn]] void reboot();
+    static const char * cpuStr();
+    void cpuInfo();
+}
 
 #endif //LITCHI_SYSTEM_H

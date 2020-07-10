@@ -18,15 +18,15 @@ namespace console {
     static void _geConsolePutChar(int c, int *cnt);
 
     namespace out {
-        int printFmtVa(const char *fmt, va_list ap);
+        int printVa(const char *fmt, va_list ap);
 
-        int printFmt(const char *fmt, ...);
+        int print(const char *fmt, ...);
     }
 
     namespace err {
-        void printFmtVa(const char *fmt, va_list ap);
+        void printVa(const char *fmt, va_list ap);
 
-        void printFmt(const char *fmt, ...);
+        void print(const char *fmt, ...);
     }
 }
 

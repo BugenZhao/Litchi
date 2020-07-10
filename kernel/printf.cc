@@ -17,7 +17,7 @@ namespace console {
 
     namespace out {
         // Console vargs printFmt
-        int printFmtVa(const char *fmt, va_list ap) {
+        int printVa(const char *fmt, va_list ap) {
             int cnt = 0;
             _gePrintFmtVa((_gePutCharFunction) _geConsolePutChar, &cnt, fmt, ap, DEF_FORE, DEF_BACK);
             return cnt;
@@ -25,11 +25,11 @@ namespace console {
 
         // Console printFmt with color extension
         // "%<" -> foreground color, "%>" -> background color
-        int printFmt(const char *fmt, ...) {
+        int print(const char *fmt, ...) {
             va_list ap;
             int cnt;
             va_start(ap, fmt);
-            cnt = printFmtVa(fmt, ap);
+            cnt = printVa(fmt, ap);
             va_end(ap);
             return cnt;
         }
@@ -37,16 +37,16 @@ namespace console {
 
     namespace err {
         // Console error vargs printFmt
-        void printFmtVa(const char *fmt, va_list ap) {
+        void printVa(const char *fmt, va_list ap) {
             int cnt = 0;
             _gePrintFmtVa((_gePutCharFunction) _geConsolePutChar, &cnt, fmt, ap, LIGHT_RED, DEF_BACK);
         }
 
         // Console printFmt
-        void printFmt(const char *fmt, ...) {
+        void print(const char *fmt, ...) {
             va_list ap;
             va_start(ap, fmt);
-            printFmtVa(fmt, ap);
+            printVa(fmt, ap);
             va_end(ap);
         }
     }
@@ -58,7 +58,7 @@ int consolePrintFmtC(const char *fmt, ...) {
     va_list ap;
     int cnt;
     va_start(ap, fmt);
-    cnt = console::out::printFmtVa(fmt, ap);
+    cnt = console::out::printVa(fmt, ap);
     va_end(ap);
     return cnt;
 }
@@ -66,7 +66,7 @@ int consolePrintFmtC(const char *fmt, ...) {
 void consoleErrorPrintFmtC(const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
-    console::err::printFmtVa(fmt, ap);
+    console::err::printVa(fmt, ap);
     va_end(ap);
 }
 }

@@ -23,8 +23,8 @@ void i386InitLitchi(void) {
 
     // Init the console for I/O, and print welcome message
     console::init();
-    console::out::printFmt("%<%s%c %<%s!\n%<Kernel version %s\n(C) BugenZhao %d%03x\n\n",
-                           YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
+    console::out::print("%<%s%c %<%s!\n%<Kernel version %s\n(C) BugenZhao %d%03x\n\n",
+                        YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
 
     // Init memory
     vmemoryInit();

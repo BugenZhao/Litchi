@@ -16,12 +16,13 @@
 namespace monitor {
     // 16 args at most, with command name
     constexpr int MAX_ARGS = 16;
+    using funcType = int (*)(int argc, char **argv);
 
     struct Command {
         const char *cmd;
         const char *desc;
 
-        int (*func)(int argc, char **argv);
+        funcType func;
     };
 
     struct Command commands[] = {
@@ -41,14 +42,19 @@ namespace monitor {
                     .func = uname
             },
             {
+                    .cmd = "cpu",
+                    .desc = "Print CPU information",
+                    .func = (funcType) system::cpuInfo
+            },
+            {
                     .cmd = "clear",
                     .desc = "Clear the console screen",
-                    .func = (int (*)(int, char **)) console::clear
+                    .func = (funcType) console::clear
             },
             {
                     .cmd = "reboot",
                     .desc = "Restart the system",
-                    .func = (int (*)(int, char **)) system::reboot
+                    .func = (funcType) system::reboot
             },
             {
                     .cmd = "backtr",
@@ -76,16 +82,16 @@ namespace monitor {
         char *argv[MAX_ARGS + 2];
         int argc = str::splitWs(cmd, argv, MAX_ARGS + 2);
 
-    //    printFmt("argc: %d, argv:\n", argc);
-    //    for (int j = 0; j <= argc; ++j) {
-    //        printFmt("[%d]: %s\n", j, argv[j]);
-    //    }
+        //    printFmt("argc: %d, argv:\n", argc);
+        //    for (int j = 0; j <= argc; ++j) {
+        //        printFmt("[%d]: %s\n", j, argv[j]);
+        //    }
 
         if (argc == MAX_ARGS + 1) {
-            console::err::printFmt("Too many arguments\n");
+            console::err::print("Too many arguments\n");
             return -1;
         } else if (argc == -1) {
-            console::err::printFmt("Bad syntax\n");
+            console::err::print("Bad syntax\n");
             return -2;
         }
 
@@ -96,15 +102,15 @@ namespace monitor {
                 return commands[i].func(argc, argv);
             }
         }
-        console::err::printFmt("Bad command: %s\n", cmd);
+        console::err::print("Bad command: %s\n", cmd);
         return -1;
     }
 
     int main() {
         char *cmd;
         int lastRet = 0;
-        console::out::printFmt("\n");
-        while (lastRet != (int)0x80000000) {
+        console::out::print("\n");
+        while (lastRet != (int) 0x80000000) {
             if (lastRet == 0) cmd = console::in::readline("%<LitchiK%<> ", LIGHT_MAGENTA, DEF_FORE);
             else cmd = console::in::readline("%<LitchiK%<> ", LIGHT_MAGENTA, RED);
             if (*cmd && cmd[0]) lastRet = parseCmd(cmd);
@@ -116,23 +122,23 @@ namespace monitor {
 namespace monitor {
     int echo(int argc, char **argv) {
         for (int i = 1; i < argc; ++i) {
-            console::out::printFmt("%<%s ", (i + str::count(argv[i])) % 15 + BLUE, argv[i]);
+            console::out::print("%<%s ", (i + str::count(argv[i])) % 15 + BLUE, argv[i]);
         }
-        console::out::printFmt("\n");
+        console::out::print("\n");
         return 0;
     }
 
     int help(int argc, char **argv) {
         for (size_t i = 0; i < ARRAY_SIZE(commands); ++i) {
-            console::out::printFmt("%<%8s%<: %s\n", WHITE, commands[i].cmd, DEF_FORE, commands[i].desc);
+            console::out::print("%<%8s%<: %s\n", WHITE, commands[i].cmd, DEF_FORE, commands[i].desc);
         }
         return 0;
     }
 
     int uname(int argc, char **argv) {
         if (argc >= 2 && str::cmp(argv[1], "-a") == 0)
-            console::out::printFmt("Litchi v%s by BugenZhao\n", LITCHI_VERSION);
-        else console::out::printFmt("Litchi\n", LITCHI_VERSION);
+            console::out::print("Litchi v%s by BugenZhao\n", LITCHI_VERSION);
+        else console::out::print("Litchi\n", LITCHI_VERSION);
         return 0;
     }
 
@@ -143,7 +149,7 @@ namespace monitor {
 
     int vmshow(int argc, char **argv) {
         if (argc <= 1) {
-            console::err::printFmt("%s: Invalid argument\n", argv[0]);
+            console::err::print("%s: Invalid argument\n", argv[0]);
             return -1;
         }
         void *beginV = (void *) (str::toLong(argv[1], 0));
@@ -154,7 +160,7 @@ namespace monitor {
 
     int vmdumpv(int argc, char **argv) {
         if (argc <= 1) {
-            console::err::printFmt("%s: Invalid argument\n", argv[0]);
+            console::err::print("%s: Invalid argument\n", argv[0]);
             return -1;
         }
         void *beginV = (void *) (str::toLong(argv[1], 0));
@@ -165,7 +171,7 @@ namespace monitor {
 
     int vmdumpp(int argc, char **argv) {
         if (argc <= 1) {
-            console::err::printFmt("%s: Invalid argument\n", argv[0]);
+            console::err::print("%s: Invalid argument\n", argv[0]);
             return -1;
         }
         physaddr_t beginP = (str::toLong(argv[1], 0));

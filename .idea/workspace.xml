@@ -37,16 +37,17 @@
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ctype.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ctype.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/string.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/string.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/stdout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdout.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/assert.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/assert.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/kdebug.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/pmap.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/printfmt.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/printfmt.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/string.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/string.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/strtol.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/strtol.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/system.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/system.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +126,7 @@
       <recent name="$PROJECT_DIR$/src/include" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.image">
+  <component name="RunManager" selected="CMake Application.qemu">
     <configuration name="boot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot.elf" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -214,6 +215,7 @@
       <workItem from="1593739548633" duration="3904000" />
       <workItem from="1594363107470" duration="7633000" />
       <workItem from="1594370880181" duration="1553000" />
+      <workItem from="1594386246759" duration="2054000" />
     </task>
     <task id="LOCAL-00006" summary="Add string library and tests">
       <created>1582278748142</created>
@@ -634,6 +636,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="659" y="189" key="#xdebugger.evaluate/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586175908836" />
+    <state x="642" y="424" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1594387234510">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="642" y="424" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594387234510" />
     <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1593682650183">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
