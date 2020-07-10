@@ -29,6 +29,17 @@ int consolePrintFmt(const char *fmt, ...) {
     return cnt;
 }
 
+extern "C" {
+int consolePrintFmtC(const char *fmt, ...) {
+    va_list ap;
+    int cnt;
+    va_start(ap, fmt);
+    cnt = consolePrintFmtVa(fmt, ap);
+    va_end(ap);
+    return cnt;
+}
+}
+
 // Console error vargs printFmt
 void consoleErrorPrintFmtVa(const char *fmt, va_list ap) {
     int cnt = 0;
@@ -43,6 +54,15 @@ void consoleErrorPrintFmt(const char *fmt, ...) {
     va_end(ap);
 }
 
+extern "C" {
+void consoleErrorPrintFmtC(const char *fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    consoleErrorPrintFmtVa(fmt, ap);
+    va_end(ap);
+}
+}
+
 void filePrintFmtVa(int fd, const char *fmt, va_list ap){
     // Not implemented
 }
@@ -50,3 +70,4 @@ void filePrintFmtVa(int fd, const char *fmt, va_list ap){
 void filePrintFmt(int fd, const char *fmt, ...){
     // Not implemented
 }
+

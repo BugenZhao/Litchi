@@ -22,9 +22,16 @@ static struct {
 } kbdBuffer;
 
 // kernel/pckbd.c
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void kbdInit(void);
 
 int kbdGetNextChar(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //LITCHI_PCKBD_H

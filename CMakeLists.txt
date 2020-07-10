@@ -28,8 +28,8 @@ macro(add_asm_dump TARGET)
 endmacro(add_asm_dump)
 
 # Flag constants
-set(C_OR_ASM_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu17 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
-set(CXX_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=c++20 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
+set(C_OR_ASM_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu17 -static -Wall -Wno-format -Wno-unused -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
+set(CXX_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu++20 -static -Wall -Wno-pointer-arith -Wno-format -Wno-unused -gstabs -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
 
 # Other constants
 set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
@@ -83,26 +83,26 @@ set(BOOT_SRC
         boot/main.c)
 
 set(LIB_SRC
-        lib/string.c
-        lib/printfmt.c
-        lib/strtol.c
-        lib/ctype.c)
+        lib/string.cc
+        lib/printfmt.cc
+        lib/strtol.cc
+        lib/ctype.cc)
 
 set(KERNEL_SRC
         ${LIB_SRC}
         kernel/entry.S
-        kernel/init.c
+        kernel/init.cc
         kernel/entrypgdir.c
-        kernel/console.c
-        kernel/printf.c
-        kernel/assert.c
+        kernel/console.cc
+        kernel/printf.cc
+        kernel/assert.cc
         kernel/pckbd.c
-        kernel/readline.c
-        kernel/monitor.c
-        kernel/system.c
-        kernel/kdebug.c
-        kernel/pmap.c
-        kernel/monitorxx.cpp
+        kernel/readline.cc
+        kernel/monitor.cc
+        kernel/system.cc
+        kernel/kdebug.cc
+        kernel/pmap.cc
+        kernel/monitorxx.cc
         kernel/color.c)
 
 

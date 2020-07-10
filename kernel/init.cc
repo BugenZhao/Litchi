@@ -17,7 +17,7 @@ static void bssInit() {
     memorySet(edata, 0, end - edata);
 }
 
-
+extern "C" {
 void i386InitLitchi(void) {
     // Clear .BSS section
     bssInit();
@@ -34,4 +34,5 @@ void i386InitLitchi(void) {
     // Go to the monitor
     int errno = monitor();
     kernelPanic("Monitor dead with errno %d", errno);
+}
 }

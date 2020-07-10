@@ -141,10 +141,10 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
 
                 // Colors
             case '<':
-                fore = va_arg(ap, enum color_t);
+                fore = (color_t) va_arg(ap, int);
                 break;
             case '>':
-                back = va_arg(ap, enum color_t);
+                back = (color_t) va_arg(ap, int);
                 break;
 
                 // "%%"
