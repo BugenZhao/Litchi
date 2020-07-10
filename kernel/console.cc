@@ -93,7 +93,14 @@ namespace console {
                     while (*backCode) sout(*(backCode++));
                     sout('m');
                 }
-                sout(c);
+                if ((c & 0xff) == '\b') {
+                    sout(c);
+                    sout(' ');
+                    sout(c);
+                } else {
+                    sout(c);
+                }
+
                 // sout('\x1b');
                 // sout('[');
                 // sout('3');

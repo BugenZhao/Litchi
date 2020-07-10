@@ -37,8 +37,8 @@
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/entry.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/entry.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/entrypgdir.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/entrypgdir.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -207,14 +207,7 @@
       <workItem from="1594363107470" duration="7633000" />
       <workItem from="1594370880181" duration="1553000" />
       <workItem from="1594386246759" duration="4015000" />
-      <workItem from="1594390285764" duration="4994000" />
-    </task>
-    <task id="LOCAL-00008" summary="Grub error 13 bug fixes">
-      <created>1582292838490</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1582292838490</updated>
+      <workItem from="1594390285764" duration="5955000" />
     </task>
     <task id="LOCAL-00009" summary="Update kernel info and tests">
       <created>1582293190511</created>
@@ -552,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594394594819</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Update: use super page at entry">
+      <created>1594395374192</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1594395374192</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -571,7 +571,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="panic(), warning(), and assert() will show relative path now" />
     <MESSAGE value="Basic debugging information" />
     <MESSAGE value="Added physical memory detection" />
     <MESSAGE value="Physical page management 3/5" />
@@ -596,7 +595,8 @@
     <MESSAGE value="Add: cpu id&#10;Update: stdout, version number" />
     <MESSAGE value="Update: vmem &amp; kbd namespace" />
     <MESSAGE value="Update: console namespace, cpuid" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update: console namespace, cpuid" />
+    <MESSAGE value="Update: use super page at entry" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update: use super page at entry" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1593740878452">
@@ -706,10 +706,10 @@
     </state>
     <state x="474" y="301" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594368148320" />
     <state x="556" y="290" key="SettingsEditor/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160896729" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594394596360">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594395375730">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594394596360" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594395375730" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594371588232" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586332687373" />
     <state x="100" y="100" width="1592" height="920" key="dock-window-1" timestamp="1594372306544">
