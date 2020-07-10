@@ -76,7 +76,7 @@ void vmemoryInit() {
     consolePrintFmt("Done\n");
 
     // Print kernel memory info
-    char *kernEndCurrent = bootAlloc(0);
+    char *kernEndCurrent = (char *)bootAlloc(0);
     consolePrintFmt("Kernel at 0x%08X->0x%08X->0x%08X: %d KB in memory\n",
                     kernStart, kernEnd, kernEndCurrent, (kernEndCurrent - kernStart + 1023) / 1024);
 }
@@ -191,7 +191,7 @@ pte_t *pageDirFindPte(pde_t *pageDir, const void *va, bool create) {
         // Entry present
         // Clear the least significant 10 bits (flags) to get the pt address,
         //  then convert it to virtual address in order to access
-        pte_t *pageTable = KERN_ADDR(PTE_ADDR(*pde));
+        pte_t *pageTable = (pte_t *)KERN_ADDR(PTE_ADDR(*pde));
         return pageTable + ptx;
     } else if (!create) {
         return NULL;
@@ -209,7 +209,7 @@ pte_t *pageDirFindPte(pde_t *pageDir, const void *va, bool create) {
 
         tlbInvalidate(pageDir, (void *) va);
 
-        pte_t *pageTable = KERN_ADDR(PTE_ADDR(*pde));
+        pte_t *pageTable = (pte_t *)KERN_ADDR(PTE_ADDR(*pde));
         return pageTable + ptx;
     }
 }
@@ -367,7 +367,7 @@ void vmemoryDumpV(pte_t *pageDir, void *beginV, void *endV) {
             consoleErrorPrintFmt("  <NOT PRESENT>\n");
             return;
         }
-        for (uint8_t *va = row; (void *) va <= row + 15; ++va) {
+        for (uint8_t *va = static_cast<uint8_t *>(row); (void *) va <= row + 15; ++va) {
             consolePrintFmt(" %02X", (uint32_t) *va);
         }
         consolePrintFmt("\n");

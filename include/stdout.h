@@ -29,6 +29,14 @@ void filePrintFmtVa(int fd, const char *fmt, va_list ap);
 
 void filePrintFmt(int fd, const char *fmt, ...);
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+int consolePrintFmtC(const char *fmt, ...);
+void consoleErrorPrintFmtC(const char *fmt, ...);
+#ifdef __cplusplus
+}
+#endif
 
 // printfmt.c
 

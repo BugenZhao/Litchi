@@ -10,4 +10,3 @@ int monitorCount(int argc, char **argv) {
     consolePrintFmt("%<argc%< = %d\n", GREEN, DEF_FORE, argc);
     return 0;
 }
-

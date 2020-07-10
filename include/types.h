@@ -3,8 +3,10 @@
 #ifndef JOS_INC_TYPES_H
 #define JOS_INC_TYPES_H
 
-#ifndef NULL
-#define NULL ((void*) 0)
+#ifdef __cplusplus
+#define NULL 0
+#else
+#define NULL ((void*)0)
 #endif
 
 // Represents true-or-false values
