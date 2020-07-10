@@ -37,15 +37,8 @@
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pckbd.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pckbd.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pckbd.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pckbd.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/system.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/system.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/entry.S" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/entry.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/entrypgdir.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/entrypgdir.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -214,14 +207,7 @@
       <workItem from="1594363107470" duration="7633000" />
       <workItem from="1594370880181" duration="1553000" />
       <workItem from="1594386246759" duration="4015000" />
-      <workItem from="1594390285764" duration="4186000" />
-    </task>
-    <task id="LOCAL-00007" summary="Add printf-like funcs">
-      <created>1582292815335</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1582292815335</updated>
+      <workItem from="1594390285764" duration="4994000" />
     </task>
     <task id="LOCAL-00008" summary="Grub error 13 bug fixes">
       <created>1582292838490</created>
@@ -559,7 +545,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594388394527</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Update: console namespace, cpuid">
+      <created>1594394594819</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1594394594819</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -578,7 +571,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add tests to ensure kernel is correctly loaded" />
     <MESSAGE value="panic(), warning(), and assert() will show relative path now" />
     <MESSAGE value="Basic debugging information" />
     <MESSAGE value="Added physical memory detection" />
@@ -603,13 +595,18 @@
     <MESSAGE value="Updated: str &amp; mem namespace" />
     <MESSAGE value="Add: cpu id&#10;Update: stdout, version number" />
     <MESSAGE value="Update: vmem &amp; kbd namespace" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update: vmem &amp; kbd namespace" />
+    <MESSAGE value="Update: console namespace, cpuid" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update: console namespace, cpuid" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1593740878452">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="225" key="#New_File_Extensions/0.0.1792.1120@0.0.1792.1120" timestamp="1593740878452" />
+    <state x="731" y="423" key="#Other_File_Types" timestamp="1594395062197">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="731" y="423" key="#Other_File_Types/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594395062197" />
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588261951060">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -709,10 +706,10 @@
     </state>
     <state x="474" y="301" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594368148320" />
     <state x="556" y="290" key="SettingsEditor/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160896729" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594388397660">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594394596360">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594388397660" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594394596360" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594371588232" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586332687373" />
     <state x="100" y="100" width="1592" height="920" key="dock-window-1" timestamp="1594372306544">
@@ -725,10 +722,10 @@
     <state x="758" y="472" width="555" height="396" key="refactoring.ChangeSignatureDialog/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594392718737" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1586314010610" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586343465438" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1594392820766">
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1594395015307">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594392820766" />
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594395015307" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586177877931" />
   </component>
   <component name="XDebuggerManager">

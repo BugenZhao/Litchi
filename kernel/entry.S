@@ -64,8 +64,12 @@ entry:
 # BUGENC:  since the elf should be linked to f010 0000 but paging is not
 # BUGENC:  ready now.
 
+	movl	%cr4, %eax
+	orl	$(CR4_PSE), %eax        # enable page size extension
+	movl	%eax, %cr4
+
 # BUGENC: RELOC(pgdir) -> get the physical address of pgdir
-	movl	$(RELOC(entry_pgdir)), %eax
+	movl	$(RELOC(entry_pgdir_super)), %eax
 	movl	%eax, %cr3
 	# Turn on paging.
 	movl	%cr0, %eax
