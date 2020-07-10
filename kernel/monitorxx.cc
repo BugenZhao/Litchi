@@ -7,6 +7,6 @@
 #include "include/color.h"
 
 int monitorCount(int argc, char **argv) {
-    consolePrintFmt("%<argc%< = %d\n", GREEN, DEF_FORE, argc);
+    console::out::printFmt("%<argc%< = %d\n", GREEN, DEF_FORE, argc);
     return 0;
 }

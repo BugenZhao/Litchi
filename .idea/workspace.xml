@@ -36,28 +36,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Added C++ toolchains">
+      <change afterPath="$PROJECT_DIR$/include/cstdout.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pckbd.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pckbd.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdio.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdio.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/stdin.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdin.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/stdout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/string.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/string.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/types.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/types.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/assert.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/assert.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/init.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/kdebug.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitorxx.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitorxx.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/assert.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/assert.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/kdebug.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitor.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitorxx.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitorxx.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/pckbd.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pckbd.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pmap.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/printf.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/readline.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/system.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/ctype.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ctype.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/printfmt.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/printfmt.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/string.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/string.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/strtol.c" beforeDir="false" afterPath="$PROJECT_DIR$/lib/strtol.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/pmap.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/system.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/system.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +120,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="org.ziglang.project.ui.ZigConfigurableImpl" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -226,14 +224,7 @@
       <workItem from="1593258317939" duration="229000" />
       <workItem from="1593681697400" duration="983000" />
       <workItem from="1593739548633" duration="3904000" />
-      <workItem from="1594363107470" duration="4258000" />
-    </task>
-    <task id="LOCAL-00004" summary="Add console functions">
-      <created>1582273978952</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1582273978952</updated>
+      <workItem from="1594363107470" duration="7633000" />
     </task>
     <task id="LOCAL-00005" summary="Console bug fixes">
       <created>1582274605716</created>
@@ -571,7 +562,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594365248896</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Switch to C++">
+      <created>1594367537729</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1594367537729</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -590,8 +588,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge exp with master" />
-    <MESSAGE value="Show message in Litchi Loader" />
     <MESSAGE value="Programmed keyboard support" />
     <MESSAGE value="Basic kernel commands" />
     <MESSAGE value="Basic kernel commands with arguments" />
@@ -612,10 +608,12 @@
     <MESSAGE value="Serial port color output support" />
     <MESSAGE value="Added bootAlloc() protection" />
     <MESSAGE value="Updated memory commands" />
-    <MESSAGE value="Added C++ toolchains" />
     <MESSAGE value="Added: CXX support" />
     <MESSAGE value="Cleanup: boot loader" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup: boot loader" />
+    <MESSAGE value="Switch to C++" />
+    <MESSAGE value="Updated: console namespace" />
+    <MESSAGE value="Added C++ toolchains" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added C++ toolchains" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1593740878452">
@@ -704,15 +702,15 @@
     <state width="1750" height="388" key="GridCell.Tab.1.right/0.23.1792.1043@0.23.1792.1043" timestamp="1586490176162" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588879" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/1792.23.1440.877/0.0.1792.1066@0.0.1792.1066" timestamp="1586325131408" />
-    <state x="446" y="290" width="1192" height="722" key="SettingsEditor" timestamp="1593258489545">
+    <state x="474" y="301" width="1192" height="722" key="SettingsEditor" timestamp="1594368148320">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="446" y="290" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1593258489545" />
+    <state x="474" y="301" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594368148320" />
     <state x="556" y="290" key="SettingsEditor/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160896729" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594365251141">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594367540760">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594365251141" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594367540760" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586332687373" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog" timestamp="1586343465438">
       <screen x="0" y="0" width="1792" height="1120" />

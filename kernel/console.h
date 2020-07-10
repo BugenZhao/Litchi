@@ -19,18 +19,22 @@
 #define CRT_COLS    80
 #define CRT_SIZE    (CRT_ROWS * CRT_COLS)
 
-static void cgaInit(void);
+namespace console {
+    namespace cga {
+        static void init(void);
 
-static void cgaPutChar(int c, enum color_t defForeColor, enum color_t defBackColor);
+        static void putChar(int c, enum color_t defForeColor, enum color_t defBackColor);
 
-static void cgaClear(void);
+        static void clear(void);
+    }
 
-void consoleInit(void);
+    void init(void);
 
-void consolePutChar(int c);
+    void putChar(int c);
 
-int consoleGetChar(void);
+    int getChar(void);
 
-int consoleClear(void);
+    int clear(void);
+}
 
 #endif //LITCHI_CONSOLE_H

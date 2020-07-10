@@ -2,14 +2,12 @@
 // Created by Bugen Zhao on 2020/3/25.
 //
 
-#include <include/string.h>
-#include <include/stdio.h>
-#include <kernel/console.h>
-#include <kernel/version.h>
-#include <include/assert.h>
-#include <kernel/pmap.h>
-
-extern int monitor();
+#include <string.h>
+#include <stdio.h>
+#include "console.h"
+#include "version.h"
+#include <assert.h>
+#include "pmap.h"
 
 static void bssInit() {
     // Variable 'edata' and 'end' are from link scripts.
@@ -23,16 +21,15 @@ void i386InitLitchi(void) {
     bssInit();
 
     // Init the console for I/O, and print welcome message
-    consoleInit();
-    consolePrintFmt("%<%s%c %<%s!\n%<Kernel version %s\n(C) BugenZhao %d%03x\n\n",
-                    YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
+    console::init();
+    console::out::printFmt("%<%s%c %<%s!\n%<Kernel version %s\n(C) BugenZhao %d%03x\n\n",
+                           YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
 
     // Init memory
     vmemoryInit();
 
-
     // Go to the monitor
-    int errno = monitor();
+    int errno = monitor::main();
     kernelPanic("Monitor dead with errno %d", errno);
 }
 }

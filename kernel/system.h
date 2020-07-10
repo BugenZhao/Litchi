@@ -7,6 +7,6 @@
 
 #include <kernel/knlast.inc>
 
-void reboot(void) __attribute__((noreturn));
+[[noreturn]] void reboot(void);
 
 #endif //LITCHI_SYSTEM_H

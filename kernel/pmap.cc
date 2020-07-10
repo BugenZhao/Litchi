@@ -2,12 +2,12 @@
 // Created by Bugen Zhao on 2020/4/6.
 //
 
-#include <kernel/pmap.h>
-#include <include/mmu.h>
-#include <include/stdio.h>
-#include <include/x86.h>
-#include <include/memlayout.h>
-#include <include/string.h>
+#include "pmap.h"
+#include <mmu.h>
+#include <stdio.h>
+#include <x86.h>
+#include <memlayout.h>
+#include <string.h>
 
 size_t totalMem = 0;
 size_t nPages = 0;
@@ -60,10 +60,10 @@ static void vmemoryDetect() {
 void vmemoryInit() {
     // Detect total memory and the number of pages in need
     vmemoryDetect();
-    consolePrintFmt("Available physical memory: %d KB = %d MB\n",
-                    totalMem, (totalMem + 1023) / 1024);
+    console::out::printFmt("Available physical memory: %d KB = %d MB\n",
+                           totalMem, (totalMem + 1023) / 1024);
 
-    consolePrintFmt("Setting up virtual memory...");
+    console::out::printFmt("Setting up virtual memory...");
     // Allocate space for kernelPageDir
     pageDirAlloc();
 
@@ -73,12 +73,12 @@ void vmemoryInit() {
 
     // Setup and load kernelPageDir
     pageDirSetup();
-    consolePrintFmt("Done\n");
+    console::out::printFmt("Done\n");
 
     // Print kernel memory info
     char *kernEndCurrent = (char *)bootAlloc(0);
-    consolePrintFmt("Kernel at 0x%08X->0x%08X->0x%08X: %d KB in memory\n",
-                    kernStart, kernEnd, kernEndCurrent, (kernEndCurrent - kernStart + 1023) / 1024);
+    console::out::printFmt("Kernel at 0x%08X->0x%08X->0x%08X: %d KB in memory\n",
+                           kernStart, kernEnd, kernEndCurrent, (kernEndCurrent - kernStart + 1023) / 1024);
 }
 
 
@@ -177,7 +177,7 @@ void pageDirAlloc() {
     // Map itself to va: UVPT (user virtual page table)
     kernelPageDir[PDX(UVPT)] = PHY_ADDR(kernelPageDir) | PTE_U | PTE_P;
 
-//    consoleErrorPrintFmt("%08X %08X\n", UVPT, PHY_ADDR(kernelPageDir));
+//    printFmt("%08X %08X\n", UVPT, PHY_ADDR(kernelPageDir));
 }
 
 // Find the page table entry of va
@@ -336,18 +336,18 @@ void vmemoryShow(pte_t *pageDir, void *beginV, void *endV) {
     endV = ROUNDDOWN(endV, PGSIZE);
     void *va;
     char flagsBuf[13];
-    consolePrintFmt("VIRTUAL     PHYSICAL  RC  FLAGS\n");
+    console::out::printFmt("VIRTUAL     PHYSICAL  RC  FLAGS\n");
     for (va = beginV; va <= endV; va += PGSIZE) {
-        consolePrintFmt("%08lX -> ", va);
+        console::out::printFmt("%08lX -> ", va);
         pte_t *pte = pageDirFindPte(pageDir, va, 0);
-        if (pte == NULL) consoleErrorPrintFmt("<NOT MAPPED>\n");
+        if (pte == NULL) console::err::printFmt("<NOT MAPPED>\n");
         else {
             physaddr_t phy = PTE_ADDR(*pte);
             if (PGNUM(phy) >= nPages)
-                consoleErrorPrintFmt("<NOT EXIST>\n");
+                console::err::printFmt("<NOT EXIST>\n");
             else
-                consolePrintFmt("%08lX  %2d  %s\n", phy, phyToPage(phy)->refCount,
-                                pageFlagsToStr(pte, flagsBuf));
+                console::out::printFmt("%08lX  %2d  %s\n", phy, phyToPage(phy)->refCount,
+                                       pageFlagsToStr(pte, flagsBuf));
         }
     }
 }
@@ -356,21 +356,21 @@ void vmemoryShow(pte_t *pageDir, void *beginV, void *endV) {
 void vmemoryDumpV(pte_t *pageDir, void *beginV, void *endV) {
     beginV = ROUNDDOWN(beginV, 16);
     endV = ROUNDUP(endV, 16);
-    consolePrintFmt("VIRTUAL   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
+    console::out::printFmt("VIRTUAL   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
     for (void *row = beginV; row <= endV; row += 16) {
-        consolePrintFmt("%08lX", row);
+        console::out::printFmt("%08lX", row);
         pte_t *pte = pageDirFindPte(pageDir, row, 0);
         if (pte == NULL) {
-            consoleErrorPrintFmt("  <INVALID>\n");
+            console::err::printFmt("  <INVALID>\n");
             return;
         } else if (!(*pte & PTE_P)) {
-            consoleErrorPrintFmt("  <NOT PRESENT>\n");
+            console::err::printFmt("  <NOT PRESENT>\n");
             return;
         }
         for (uint8_t *va = static_cast<uint8_t *>(row); (void *) va <= row + 15; ++va) {
-            consolePrintFmt(" %02X", (uint32_t) *va);
+            console::out::printFmt(" %02X", (uint32_t) *va);
         }
-        consolePrintFmt("\n");
+        console::out::printFmt("\n");
     }
 }
 
@@ -379,17 +379,17 @@ void vmemoryDumpP(pte_t *pageDir, physaddr_t beginP, physaddr_t endP) {
     beginP = ROUNDDOWN(beginP, 16);
     endP = ROUNDUP(endP, 16);
     const size_t _totalMem = totalMem * 1024u;
-    consolePrintFmt("PHYSICAL  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
+    console::out::printFmt("PHYSICAL  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
     for (physaddr_t row = beginP; row <= endP; row += 16) {
-        consolePrintFmt("%08lX", row);
+        console::out::printFmt("%08lX", row);
         for (physaddr_t pa = row; pa <= row + 15; ++pa) {
             if (pa >= _totalMem) {
-                consoleErrorPrintFmt("  <INVALID>\n");
+                console::err::printFmt("  <INVALID>\n");
                 return;
             }
-            consolePrintFmt(" %02X", (uint32_t) (*(uint8_t *) KERN_ADDR(pa)));
+            console::out::printFmt(" %02X", (uint32_t) (*(uint8_t *) KERN_ADDR(pa)));
         }
-        consolePrintFmt("\n");
+        console::out::printFmt("\n");
     }
 }
 

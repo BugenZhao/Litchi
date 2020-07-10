@@ -5,14 +5,16 @@
 #ifndef LITCHI_STDIN_H
 #define LITCHI_STDIN_H
 
-#include <include/pckbd.h>
-#include <include/vargs.h>
+#include <pckbd.h>
+#include <vargs.h>
 
 // readline.c
 
-char *consoleReadline(const char *promptFmt, ...);
+namespace console::in {
+    char *readline(const char *promptFmt, ...);
 
-char *consoleReadlineVa(const char *promptFmt, va_list ap);
+    char *readlineVa(const char *promptFmt, va_list ap);
+}
 
 
 #endif //LITCHI_STDIN_H

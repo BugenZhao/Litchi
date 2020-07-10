@@ -5,38 +5,35 @@
 #ifndef LITCHI_STDOUT_H
 #define LITCHI_STDOUT_H
 
-#include <include/types.h>
-#include <kernel/console.h>
-#include <include/vargs.h>
-#include <include/color.h>
+#include <types.h>
+#include "console.h"
+#include <vargs.h>
+#include <color.h>
 
 // Generic printFmt oriented putChar func pointer
 typedef void (*_gePutCharFunction)(int, void *);
 
 // printf.c
 
-static void _geConsolePutChar(int c, int *cnt);
+namespace console {
+    static void _geConsolePutChar(int c, int *cnt);
 
-int consolePrintFmtVa(const char *fmt, va_list ap);
+    namespace out {
+        int printFmtVa(const char *fmt, va_list ap);
 
-int consolePrintFmt(const char *fmt, ...);
+        int printFmt(const char *fmt, ...);
+    }
 
-void consoleErrorPrintFmtVa(const char *fmt, va_list ap);
+    namespace err {
+        void printFmtVa(const char *fmt, va_list ap);
 
-void consoleErrorPrintFmt(const char *fmt, ...);
+        void printFmt(const char *fmt, ...);
+    }
+}
 
 void filePrintFmtVa(int fd, const char *fmt, va_list ap);
 
 void filePrintFmt(int fd, const char *fmt, ...);
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-int consolePrintFmtC(const char *fmt, ...);
-void consoleErrorPrintFmtC(const char *fmt, ...);
-#ifdef __cplusplus
-}
-#endif
 
 // printfmt.c
 

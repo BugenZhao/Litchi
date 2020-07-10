@@ -5,7 +5,7 @@
 #include <include/x86.h>
 #include <kernel/system.h>
 
-void reboot(void) {
+[[noreturn]] void reboot(void) {
     outb(0x92, 0x1);
     while(1);
 }

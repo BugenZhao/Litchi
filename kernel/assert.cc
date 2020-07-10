@@ -2,11 +2,11 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <include/assert.h>
-#include <include/vargs.h>
-#include <include/stdio.h>
-#include <kernel/console.h>
-#include <kernel/kdebug.h>
+#include <assert.h>
+#include <vargs.h>
+#include <stdio.h>
+#include "console.h"
+#include "kdebug.h"
 
 static bool PANIC = false;
 
@@ -19,11 +19,11 @@ void _kernelPanic(const char *file, int line, const char *fmt, ...) {
     asm volatile("cli; cld");
 
     va_start(ap, fmt);
-    consoleErrorPrintFmt("********\nKERNEL PANIC AT %s:%d =>\n  ", file, line);
-    consoleErrorPrintFmtVa(fmt, ap);
-    consoleErrorPrintFmt("\n");
+    console::err::printFmt("********\nKERNEL PANIC AT %s:%d =>\n  ", file, line);
+    console::err::printFmtVa(fmt, ap);
+    console::err::printFmt("\n");
     backtracePrint();
-    consoleErrorPrintFmt("********\n");
+    console::err::printFmt("********\n");
     va_end(ap);
 
     spin:
@@ -36,8 +36,8 @@ void _kernelWarning(const char *file, int line, const char *fmt, ...) {
     va_list ap;
 
     va_start(ap, fmt);
-    consoleErrorPrintFmt("********\nKERNEL WARNING AT %s:%d =>\n  ", file, line);
-    consoleErrorPrintFmtVa(fmt, ap);
-    consoleErrorPrintFmt("\n********\n");
+    console::err::printFmt("********\nKERNEL WARNING AT %s:%d =>\n  ", file, line);
+    console::err::printFmtVa(fmt, ap);
+    console::err::printFmt("\n********\n");
     va_end(ap);
 }

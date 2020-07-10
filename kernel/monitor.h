@@ -5,30 +5,27 @@
 #ifndef LITCHI_MONITOR_H
 #define LITCHI_MONITOR_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include <kernel/knlast.inc>
 
-int monitorEcho(int argc, char **argv);
 
-int monitorHelp(int argc, char **argv);
+namespace monitor {
+    int echo(int argc, char **argv);
 
-int monitorUname(int argc, char **argv);
+    int help(int argc, char **argv);
 
-int monitorBacktrace(int argc, char **argv);
+    int uname(int argc, char **argv);
 
-int monitorVmshow(int argc, char **argv);
+    int backtrace(int argc, char **argv);
 
-int monitorVmdumpv(int argc, char **argv);
+    int vmshow(int argc, char **argv);
 
-int monitorVmdumpp(int argc, char **argv);
+    int vmdumpv(int argc, char **argv);
+
+    int vmdumpp(int argc, char **argv);
+
+    int main();
+}
 
 int monitorCount(int argc, char** argv);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif //LITCHI_MONITOR_H

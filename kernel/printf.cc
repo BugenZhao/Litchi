@@ -2,31 +2,54 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <include/stdio.h>
-#include <include/assert.h>
+#include <stdio.h>
+#include <assert.h>
+#include <cstdout.h>
 
-// Generic printFmt oriented console putChar
-static inline void _geConsolePutChar(int c, int *cnt) {
-    consolePutChar(c);
-    *cnt++;
-}
 
-// Console vargs printFmt
-int consolePrintFmtVa(const char *fmt, va_list ap) {
-    int cnt = 0;
-    _gePrintFmtVa((_gePutCharFunction) _geConsolePutChar, &cnt, fmt, ap, DEF_FORE, DEF_BACK);
-    return cnt;
-}
+namespace console {
+    // Generic printFmt oriented console putChar
+    static inline void _geConsolePutChar(int c, int *cnt) {
+        putChar(c);
+        *cnt++;
+    }
 
-// Console printFmt with color extension
-// "%<" -> foreground color, "%>" -> background color
-int consolePrintFmt(const char *fmt, ...) {
-    va_list ap;
-    int cnt;
-    va_start(ap, fmt);
-    cnt = consolePrintFmtVa(fmt, ap);
-    va_end(ap);
-    return cnt;
+    namespace out {
+        // Console vargs printFmt
+        int printFmtVa(const char *fmt, va_list ap) {
+            int cnt = 0;
+            _gePrintFmtVa((_gePutCharFunction) _geConsolePutChar, &cnt, fmt, ap, DEF_FORE, DEF_BACK);
+            return cnt;
+        }
+
+        // Console printFmt with color extension
+        // "%<" -> foreground color, "%>" -> background color
+        int printFmt(const char *fmt, ...) {
+            va_list ap;
+            int cnt;
+            va_start(ap, fmt);
+            cnt = printFmtVa(fmt, ap);
+            va_end(ap);
+            return cnt;
+        }
+    }
+
+    namespace err {
+        // Console error vargs printFmt
+        void printFmtVa(const char *fmt, va_list ap) {
+            int cnt = 0;
+            _gePrintFmtVa((_gePutCharFunction) _geConsolePutChar, &cnt, fmt, ap, LIGHT_RED, DEF_BACK);
+        }
+
+        // Console printFmt
+        void printFmt(const char *fmt, ...) {
+            va_list ap;
+            va_start(ap, fmt);
+            printFmtVa(fmt, ap);
+            va_end(ap);
+        }
+    }
+
 }
 
 extern "C" {
@@ -34,40 +57,24 @@ int consolePrintFmtC(const char *fmt, ...) {
     va_list ap;
     int cnt;
     va_start(ap, fmt);
-    cnt = consolePrintFmtVa(fmt, ap);
+    cnt = console::out::printFmtVa(fmt, ap);
     va_end(ap);
     return cnt;
 }
-}
 
-// Console error vargs printFmt
-void consoleErrorPrintFmtVa(const char *fmt, va_list ap) {
-    int cnt = 0;
-    _gePrintFmtVa((_gePutCharFunction) _geConsolePutChar, &cnt, fmt, ap, LIGHT_RED, DEF_BACK);
-}
-
-// Console printFmt
-void consoleErrorPrintFmt(const char *fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    consoleErrorPrintFmtVa(fmt, ap);
-    va_end(ap);
-}
-
-extern "C" {
 void consoleErrorPrintFmtC(const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
-    consoleErrorPrintFmtVa(fmt, ap);
+    console::err::printFmtVa(fmt, ap);
     va_end(ap);
 }
 }
 
-void filePrintFmtVa(int fd, const char *fmt, va_list ap){
-    // Not implemented
+void filePrintFmtVa(int fd, const char *fmt, va_list ap) {
+    kernelPanic("Not implemented");
 }
 
-void filePrintFmt(int fd, const char *fmt, ...){
-    // Not implemented
+void filePrintFmt(int fd, const char *fmt, ...) {
+    kernelPanic("Not implemented");
 }
 
