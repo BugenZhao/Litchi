@@ -36,10 +36,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Debug_Litchi.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Debug_Litchi.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +51,6 @@
     <option name="myScale" value="1.0" />
     <option name="myDirectoryToSave" value="$USER_HOME$/Documents/屏幕快照" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Default" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -117,7 +114,7 @@
       <recent name="$PROJECT_DIR$/src/include" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.qemu">
+  <component name="RunManager" selected="CMake Application.qemu-gdb">
     <configuration name="boot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot.elf" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -138,17 +135,17 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="qemu-gdb" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="qemu-gdb" CONFIG_NAME="Default">
+    <configuration name="qemu-gdb" type="CMakeRunConfiguration" factoryName="Application" activateToolWindowBeforeRun="false" singleton="false" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="qemu-gdb" CONFIG_NAME="Default">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="qemu-nox-gdb" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="qemu-nox-gdb" CONFIG_NAME="Default">
+    <configuration name="qemu-nox-gdb" type="CMakeRunConfiguration" factoryName="Application" activateToolWindowBeforeRun="false" singleton="false" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="qemu-nox-gdb" CONFIG_NAME="Default">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="qemu" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="qemu" CONFIG_NAME="Default">
+    <configuration name="qemu" type="CMakeRunConfiguration" factoryName="Application" activateToolWindowBeforeRun="false" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="qemu" CONFIG_NAME="Default">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -207,14 +204,7 @@
       <workItem from="1594363107470" duration="7633000" />
       <workItem from="1594370880181" duration="1553000" />
       <workItem from="1594386246759" duration="4015000" />
-      <workItem from="1594390285764" duration="5955000" />
-    </task>
-    <task id="LOCAL-00009" summary="Update kernel info and tests">
-      <created>1582293190511</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1582293190511</updated>
+      <workItem from="1594390285764" duration="7567000" />
     </task>
     <task id="LOCAL-00010" summary="Update kernel info and tests">
       <created>1582294459240</created>
@@ -552,7 +542,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594395374192</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Fix: serial backspace">
+      <created>1594396339555</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1594396339555</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -571,7 +568,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Basic debugging information" />
     <MESSAGE value="Added physical memory detection" />
     <MESSAGE value="Physical page management 3/5" />
     <MESSAGE value="Physical page management" />
@@ -596,7 +592,8 @@
     <MESSAGE value="Update: vmem &amp; kbd namespace" />
     <MESSAGE value="Update: console namespace, cpuid" />
     <MESSAGE value="Update: use super page at entry" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update: use super page at entry" />
+    <MESSAGE value="Fix: serial backspace" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix: serial backspace" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1593740878452">
@@ -607,9 +604,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="731" y="423" key="#Other_File_Types/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594395062197" />
-    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1588261951060">
+    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594398882424">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594398882424" />
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1588261951060" />
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586322085720" />
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1593740835437">
@@ -706,10 +704,10 @@
     </state>
     <state x="474" y="301" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594368148320" />
     <state x="556" y="290" key="SettingsEditor/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160896729" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594395375730">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594396341425">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594395375730" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594396341425" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594371588232" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586332687373" />
     <state x="100" y="100" width="1592" height="920" key="dock-window-1" timestamp="1594372306544">
@@ -729,6 +727,15 @@
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586177877931" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/kernel/system.cc</url>
+          <line>27</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="CLion_Remote">
         <watch expression="pageFreeList" language="ObjectiveC" />
