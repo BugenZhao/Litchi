@@ -37,17 +37,15 @@
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boot/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/boot/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/memlayout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/memlayout.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/pckbd.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pckbd.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/x86.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/x86.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/stdout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdout.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/kdebug.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pmap.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pmap.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pmap.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/pckbd.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pckbd.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/system.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/system.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -216,7 +214,7 @@
       <workItem from="1594363107470" duration="7633000" />
       <workItem from="1594370880181" duration="1553000" />
       <workItem from="1594386246759" duration="4015000" />
-      <workItem from="1594390285764" duration="3493000" />
+      <workItem from="1594390285764" duration="4186000" />
     </task>
     <task id="LOCAL-00007" summary="Add printf-like funcs">
       <created>1582292815335</created>
@@ -580,7 +578,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add tests to ensure A20 line is enabled" />
     <MESSAGE value="Add tests to ensure kernel is correctly loaded" />
     <MESSAGE value="panic(), warning(), and assert() will show relative path now" />
     <MESSAGE value="Basic debugging information" />
@@ -605,7 +602,8 @@
     <MESSAGE value="Updated: kdebug &amp; system namespace" />
     <MESSAGE value="Updated: str &amp; mem namespace" />
     <MESSAGE value="Add: cpu id&#10;Update: stdout, version number" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add: cpu id&#10;Update: stdout, version number" />
+    <MESSAGE value="Update: vmem &amp; kbd namespace" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update: vmem &amp; kbd namespace" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1593740878452">

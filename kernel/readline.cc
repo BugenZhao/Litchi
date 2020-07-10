@@ -32,13 +32,13 @@ namespace console::in {
             if (c < 0) {
                 kernelPanic("Illegal input: 0x%x", c);
             } else if (isSimpleChar(c) && idx < READLINE_BUF_SIZE - 1) {
-                putChar(c);
+                out::putChar(c);
                 buf[idx++] = c;
             } else if (c == '\b' && idx > 0) {
-                putChar(c);
+                out::putChar(c);
                 idx--;
             } else if (c == '\r' || c == '\n') {
-                putChar('\n');
+                out::putChar('\n');
                 buf[idx] = '\0';
                 break;
             }

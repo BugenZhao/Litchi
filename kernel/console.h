@@ -30,11 +30,11 @@ namespace console {
 
     void init(void);
 
-    void putChar(int c);
-
-    int getChar(void);
-
     int clear(void);
+
+    namespace out { void putChar(int c); }
+
+    namespace in { int getChar(void); }
 }
 
 #endif //LITCHI_CONSOLE_H

@@ -9,7 +9,7 @@
 
 namespace system {
     [[noreturn]] void reboot();
-    static const char * cpuStr();
+
     void cpuInfo();
 }
 

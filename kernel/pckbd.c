@@ -187,6 +187,13 @@ uint8_t *charcode[4] = {
         ctlmap
 };
 
+#define KBD_BUF_SIZE 512
+static struct {
+    uint8_t buffer[KBD_BUF_SIZE];
+    uint32_t readPos;
+    uint32_t writePos;
+} kbdBuffer;
+
 // Read status and data from keyboard register
 static int _kbdProcessData(void) {
     // Adopted from JOS/xv6

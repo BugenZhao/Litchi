@@ -15,8 +15,6 @@ typedef void (*_gePutCharFunction)(int, void *);
 // printf.c
 
 namespace console {
-    static void _geConsolePutChar(int c, int *cnt);
-
     namespace out {
         int printVa(const char *fmt, va_list ap);
 

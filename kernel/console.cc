@@ -205,22 +205,26 @@ namespace console {
         kbd::init();
     }
 
-    // Put a char to console
-    void putChar(int c) {
-        console::cga::putChar(c, DEF_FORE, DEF_BACK);
-        serial::putChar(c, DEF_FORE, DEF_BACK);
-    }
-
-    // Get a non-zero char from console
-    int getChar(void) {
-        int c;
-        while ((c = kbd::getNextChar()) == 0);
-        return c;
-    }
-
     // Console clear screen
     int clear(void) {
         console::cga::clear();
         return 0;
+    }
+
+    namespace out {
+        // Put a char to console
+        void putChar(int c) {
+            cga::putChar(c, DEF_FORE, DEF_BACK);
+            serial::putChar(c, DEF_FORE, DEF_BACK);
+        }
+    }
+
+    namespace in {
+        // Get a non-zero char from console
+        int getChar(void) {
+            int c;
+            while ((c = kbd::getNextChar()) == 0);
+            return c;
+        }
     }
 }
