@@ -81,16 +81,16 @@ testa20:
   jne      a20on
 
 a20fail:
-  movw    $0x0c41, %eax           # Red 'A'
+  movl    $0x0c41, %eax           # Red 'A'
   movl    $0xb809c, %ebx
-  movw    %eax, (%ebx)
+  movl    %eax, (%ebx)
   jmp     spin
 
 a20on:
   # A20 is on, print a green 'A' on the screen
-  movw    $0x0a41, %eax
+  movl    $0x0a41, %eax
   movl    $0xb809c, %ebx
-  movw    %eax, (%ebx)
+  movl    %eax, (%ebx)
   # Set up the stack pointer and call into C.
   movl    $start, %esp
   call    bootmain

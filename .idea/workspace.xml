@@ -36,8 +36,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Debug_Litchi.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Debug_Litchi.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../boot/boot.S" beforeDir="false" afterPath="$PROJECT_DIR$/../boot/boot.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/../out/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +54,7 @@
     <option name="myScale" value="1.0" />
     <option name="myDirectoryToSave" value="$USER_HOME$/Documents/屏幕快照" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Default" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -65,7 +69,7 @@
         <option name="title" value="All" />
       </GitPushTagMode>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GithubPullRequestsUISettings">
     <option name="hiddenUrls">
@@ -78,6 +82,7 @@
     <option name="directoryName" value="pnplu9c8" />
   </component>
   <component name="ProjectId" id="1Y6J60xVvRbNht7m6oxrB0wzjsc" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -97,7 +102,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -205,13 +210,8 @@
       <workItem from="1594370880181" duration="1553000" />
       <workItem from="1594386246759" duration="4015000" />
       <workItem from="1594390285764" duration="7567000" />
-    </task>
-    <task id="LOCAL-00010" summary="Update kernel info and tests">
-      <created>1582294459240</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1582294459240</updated>
+      <workItem from="1594398930903" duration="139000" />
+      <workItem from="1594465282983" duration="6036000" />
     </task>
     <task id="LOCAL-00011" summary="Update CMakeLists.txt and Makefile">
       <created>1582294474753</created>
@@ -549,7 +549,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594396339555</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="Update: CLion debug">
+      <created>1594399024005</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1594399024007</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,7 +575,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added physical memory detection" />
     <MESSAGE value="Physical page management 3/5" />
     <MESSAGE value="Physical page management" />
     <MESSAGE value="Virtual memory" />
@@ -593,7 +599,8 @@
     <MESSAGE value="Update: console namespace, cpuid" />
     <MESSAGE value="Update: use super page at entry" />
     <MESSAGE value="Fix: serial backspace" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix: serial backspace" />
+    <MESSAGE value="Update: CLion debug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update: CLion debug" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1593740878452">
@@ -647,50 +654,62 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="401" y="295" key="FileDocumentManager.FileCacheConflict/0.0.1792.1120@0.0.1792.1120" timestamp="1593740107360" />
-    <state width="1750" height="318" key="GridCell.Tab.0.bottom" timestamp="1592626313645">
+    <state width="1750" height="392" key="GridCell.Tab.0.bottom" timestamp="1594398988106">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="392" key="GridCell.Tab.0.bottom/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594398988106" />
     <state width="1750" height="318" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1592626313645" />
     <state width="1750" height="388" key="GridCell.Tab.0.bottom/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588877" />
-    <state width="1750" height="318" key="GridCell.Tab.0.center" timestamp="1592626313644">
+    <state width="1750" height="392" key="GridCell.Tab.0.center" timestamp="1594398988103">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="392" key="GridCell.Tab.0.center/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594398988103" />
     <state width="1750" height="318" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1592626313644" />
     <state width="1750" height="388" key="GridCell.Tab.0.center/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588876" />
-    <state width="1750" height="318" key="GridCell.Tab.0.left" timestamp="1592626313644">
+    <state width="1750" height="392" key="GridCell.Tab.0.left" timestamp="1594398988102">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="392" key="GridCell.Tab.0.left/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594398988102" />
     <state width="1750" height="318" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1592626313644" />
     <state width="1750" height="388" key="GridCell.Tab.0.left/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588875" />
-    <state width="1750" height="318" key="GridCell.Tab.0.right" timestamp="1592626313645">
+    <state width="1750" height="392" key="GridCell.Tab.0.right" timestamp="1594398988104">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="392" key="GridCell.Tab.0.right/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594398988104" />
     <state width="1750" height="318" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1592626313645" />
     <state width="1750" height="388" key="GridCell.Tab.0.right/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588877" />
-    <state width="1750" height="388" key="GridCell.Tab.1.bottom" timestamp="1586611022633">
+    <state width="1750" height="392" key="GridCell.Tab.1.bottom" timestamp="1594398988111">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="392" key="GridCell.Tab.1.bottom/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594398988111" />
+    <state width="1750" height="392" key="GridCell.Tab.1.bottom/-1366.23.1366.1001/0.0.1792.1064@0.0.1792.1064" timestamp="1594398948352" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1586611022633" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom/0.23.1792.1043@0.23.1792.1043" timestamp="1586490176163" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588880" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom/1792.23.1440.877/0.0.1792.1066@0.0.1792.1066" timestamp="1586325131408" />
-    <state width="1750" height="388" key="GridCell.Tab.1.center" timestamp="1586611022632">
+    <state width="1750" height="392" key="GridCell.Tab.1.center" timestamp="1594398988108">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="392" key="GridCell.Tab.1.center/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594398988108" />
+    <state width="1750" height="392" key="GridCell.Tab.1.center/-1366.23.1366.1001/0.0.1792.1064@0.0.1792.1064" timestamp="1594398948350" />
     <state width="1750" height="388" key="GridCell.Tab.1.center/0.0.1792.1120@0.0.1792.1120" timestamp="1586611022632" />
     <state width="1750" height="388" key="GridCell.Tab.1.center/0.23.1792.1043@0.23.1792.1043" timestamp="1586490176162" />
     <state width="1750" height="388" key="GridCell.Tab.1.center/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588879" />
     <state width="1750" height="388" key="GridCell.Tab.1.center/1792.23.1440.877/0.0.1792.1066@0.0.1792.1066" timestamp="1586325131407" />
-    <state width="1750" height="388" key="GridCell.Tab.1.left" timestamp="1586611022631">
+    <state width="1750" height="392" key="GridCell.Tab.1.left" timestamp="1594398988107">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="392" key="GridCell.Tab.1.left/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594398988107" />
+    <state width="1750" height="392" key="GridCell.Tab.1.left/-1366.23.1366.1001/0.0.1792.1064@0.0.1792.1064" timestamp="1594398948348" />
     <state width="1750" height="388" key="GridCell.Tab.1.left/0.0.1792.1120@0.0.1792.1120" timestamp="1586611022631" />
     <state width="1750" height="388" key="GridCell.Tab.1.left/0.23.1792.1043@0.23.1792.1043" timestamp="1586490176161" />
     <state width="1750" height="388" key="GridCell.Tab.1.left/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588878" />
     <state width="1750" height="388" key="GridCell.Tab.1.left/1792.23.1440.877/0.0.1792.1066@0.0.1792.1066" timestamp="1586325131407" />
-    <state width="1750" height="388" key="GridCell.Tab.1.right" timestamp="1586611022632">
+    <state width="1750" height="392" key="GridCell.Tab.1.right" timestamp="1594398988110">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state width="1750" height="392" key="GridCell.Tab.1.right/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594398988110" />
+    <state width="1750" height="392" key="GridCell.Tab.1.right/-1366.23.1366.1001/0.0.1792.1064@0.0.1792.1064" timestamp="1594398948352" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/0.0.1792.1120@0.0.1792.1120" timestamp="1586611022632" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/0.23.1792.1043@0.23.1792.1043" timestamp="1586490176162" />
     <state width="1750" height="388" key="GridCell.Tab.1.right/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588879" />
@@ -699,15 +718,15 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="694" y="269" key="RollbackChangesDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1594371157331" />
-    <state x="474" y="301" width="1192" height="722" key="SettingsEditor" timestamp="1594368148320">
+    <state x="556" y="317" width="1192" height="722" key="SettingsEditor" timestamp="1594465397511">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="474" y="301" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594368148320" />
+    <state x="556" y="317" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594465397511" />
     <state x="556" y="290" key="SettingsEditor/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160896729" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594396341425">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594399030602">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594396341425" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594399030602" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594371588232" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586332687373" />
     <state x="100" y="100" width="1592" height="920" key="dock-window-1" timestamp="1594372306544">
@@ -727,20 +746,9 @@
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586177877931" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/kernel/system.cc</url>
-          <line>27</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="CLion_Remote">
-        <watch expression="pageFreeList" language="ObjectiveC" />
-        <watch expression="*pte" language="ObjectiveC" />
-        <watch expression="pte-pageDir" language="ObjectiveC" />
+        <watch expression="str+16" language="ObjectiveC" />
       </configuration>
     </watches-manager>
   </component>

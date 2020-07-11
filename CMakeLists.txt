@@ -2,6 +2,9 @@
 
 cmake_minimum_required(VERSION 3.13)
 
+# Make CMake verbose or not
+set(CMAKE_VERBOSE_MAKEFILE 0)
+
 # Set NONE to avoid CMake choosing compilers itself
 project(Litchi LANGUAGES NONE)
 
@@ -21,21 +24,18 @@ file(MAKE_DIRECTORY ${ASM_DUMP_DIR})
 macro(add_asm_dump TARGET)
     add_custom_command(
             TARGET ${TARGET} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan --bold --progress-dir=${PROJECT_BINARY_DIR}/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1)  "Generating ASM dump of ${TARGET}"
             COMMAND ${CMAKE_OBJDUMP} -S $<TARGET_FILE:${TARGET}> > ${ASM_DUMP_DIR}/${TARGET}.asm
-            COMMENT "Generating ASM dump of ${TARGET}"
             VERBATIM)
     set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${ASM_DUMP_DIR}/${TARGET}.asm)
 endmacro(add_asm_dump)
 
 # Flag constants
-set(C_OR_ASM_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu17 -static -Wall -Wno-format -Wno-unused -Werror -gstabs -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
-set(CXX_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu++17 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -gstabs -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -DJOS_KERNEL -DLITCHI_KERNEL -gstabs")
+set(C_OR_ASM_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu17 -static -Wall -Wno-format -Wno-unused -Werror -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
+set(CXX_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu++17 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
 
 # Other constants
 set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
-
-# Make CMake verbose or not
-set(CMAKE_VERBOSE_MAKEFILE 1)
 
 # Get the length of source path to minimize macro __FILE__ by using __FILE__ + SOURCE_PATH_FILE
 # https://stackoverflow.com/questions/8487986/file-macro-shows-full-path
@@ -50,9 +50,6 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 # C
 set(CMAKE_C_COMPILER ${TP}gcc)
 set(CMAKE_C_FLAGS ${C_OR_ASM_FLAGS})
-# Find libgcc.a for operations like '%' or '/', then save its path to ${LIBGCC}
-execute_process(COMMAND ${CMAKE_C_COMPILER} --print-libgcc-file-name OUTPUT_VARIABLE LIBGCC OUTPUT_STRIP_TRAILING_WHITESPACE)
-message(STATUS "libgcc.a found.")
 
 # CXX
 set(CMAKE_CXX_COMPILER ${TP}g++)
@@ -65,10 +62,15 @@ set(CMAKE_ASM_FLAGS ${C_OR_ASM_FLAGS})
 # Objdump
 set(CMAKE_OBJDUMP ${TP}objdump)
 
-# Link
-set(CMAKE_C_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
-set(CMAKE_CXX_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
-#set(CMAKE_C_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES> -b binary")
+# gcc linker fix
+# https://stackoverflow.com/questions/54482519/avoid-cmake-to-add-the-flags-search-paths-first-and-headerpad-max-install-name
+set(HAVE_FLAG_SEARCH_PATHS_FIRST 0)
+set(CMAKE_C_LINK_FLAGS "")
+set(CMAKE_CXX_LINK_FLAGS "")
+
+# Link - use ld
+#set(CMAKE_C_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
+#set(CMAKE_CXX_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
 
 # Now we can enable languages
 enable_language(C ASM CXX)
@@ -107,33 +109,33 @@ set(KERNEL_SRC
 
 # Target - kernel
 add_executable(${LITCHI_ELF} ${KERNEL_SRC} ${LIBS_SRC})
-set_target_properties(${LITCHI_ELF} PROPERTIES LINK_FLAGS "-m elf_i386 -T ${LD_SCRIPT} -nostdlib")
+set_target_properties(${LITCHI_ELF} PROPERTIES LINK_FLAGS "-Wl,-m,elf_i386,-T,${LD_SCRIPT} -nostdlib")
 # ${CMAKE_CXX_COMPILER} ${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS} -o foo.o -c foo.cc
 # Use -Og for a better kernel debugging experience
 set_target_properties(${LITCHI_ELF} PROPERTIES COMPILE_FLAGS "-Og")
-target_link_libraries(${LITCHI_ELF} ${LIBGCC})
+target_link_libraries(${LITCHI_ELF} -static-libgcc -lgcc)
 add_asm_dump(${LITCHI_ELF})
 
 # Target - boot
 add_executable(${BOOT_ELF} ${BOOT_SRC})
-set_target_properties(${BOOT_ELF} PROPERTIES LINK_FLAGS "-Ttext 0x7C00 -m elf_i386 -N -e start")
+set_target_properties(${BOOT_ELF} PROPERTIES LINK_FLAGS "-Wl,-m,elf_i386,-Ttext,0x7C00,-N,-e,start -nostdlib")
 # Use optimization to limit the binary size to 512 bytes
 set_target_properties(${BOOT_ELF} PROPERTIES COMPILE_FLAGS "-O1")
 # post-build command: objcopy (binary, only .text)
 add_custom_command(
         TARGET ${BOOT_ELF}
         POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan --bold --progress-dir=${PROJECT_BINARY_DIR}/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1)  "Objcopy from ${BOOT_ELF} to ${BOOT_BIN}"
         COMMAND ${TP}objcopy -S -O binary -j .text ${PROJECT_BINARY_DIR}/${BOOT_ELF} ${PROJECT_BINARY_DIR}/${BOOT_BIN}
-        COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan "Objcopy done!"
 )
 add_asm_dump(${BOOT_ELF})
 
 # Target - Image
 add_custom_target(image
-        COMMAND dd if=/dev/zero of=${IMG} bs=512 count=2880
-        COMMAND printf '\\x55\\xaa' | dd of=${IMG} bs=1 seek=510 conv=notrunc
-        COMMAND dd if=${PROJECT_BINARY_DIR}/${BOOT_BIN} of=${IMG} conv=notrunc
-        COMMAND dd if=${PROJECT_BINARY_DIR}/${LITCHI_ELF} of=${IMG} seek=1 conv=notrunc
+        COMMAND dd if=/dev/zero of=${IMG} bs=512 count=2880 >/dev/null 2>&1
+        COMMAND printf '\\x55\\xaa' | dd of=${IMG} bs=1 seek=510 conv=notrunc >/dev/null 2>&1
+        COMMAND dd if=${PROJECT_BINARY_DIR}/${BOOT_BIN} of=${IMG} conv=notrunc >/dev/null 2>&1
+        COMMAND dd if=${PROJECT_BINARY_DIR}/${LITCHI_ELF} of=${IMG} seek=1 conv=notrunc >/dev/null 2>&1
         DEPENDS ${LITCHI_ELF} ${BOOT_ELF})
 
 # Options for qemu and gdb
