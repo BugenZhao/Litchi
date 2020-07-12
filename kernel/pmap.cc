@@ -2,12 +2,12 @@
 // Created by Bugen Zhao on 2020/4/6.
 //
 
-#include "pmap.h"
+#include "pmap.hpp"
 #include <include/mmu.h>
-#include <include/stdio.h>
+#include <include/stdio.hpp>
 #include <include/x86.h>
 #include <include/memlayout.h>
-#include <include/string.h>
+#include <include/string.hpp>
 
 // Kernel memory boundary from linker
 extern char kernStart[], kernEnd[];

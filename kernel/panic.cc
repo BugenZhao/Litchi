@@ -2,17 +2,17 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <include/assert.h>
-#include <include/vargs.h>
-#include <include/stdio.h>
-#include "kdebug.h"
-
-static bool PANIC = false;
+#include <include/panic.hpp>
+#include <include/vargs.hpp>
+#include <include/stdio.hpp>
+#include "kdebug.hpp"
 
 void _kernelPanic(const char *file, int line, const char *fmt, ...) {
-    va_list ap;
+    static bool PANIC = false;
     if (PANIC) goto spin;
     else PANIC = true;
+
+    va_list ap;
 
     // Be extra sure that the machine is in as reasonable state
     asm volatile("cli; cld");

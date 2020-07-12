@@ -2,8 +2,8 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#ifndef LITCHI_CONSOLE_H
-#define LITCHI_CONSOLE_H
+#ifndef LITCHI_CONSOLE_HPP
+#define LITCHI_CONSOLE_HPP
 
 #include <kernel/knlast.inc>
 
@@ -37,4 +37,4 @@ namespace console {
     namespace in { int getChar(void); }
 }
 
-#endif //LITCHI_CONSOLE_H
+#endif //LITCHI_CONSOLE_HPP

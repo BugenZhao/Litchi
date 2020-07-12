@@ -2,9 +2,8 @@
 // Created by Bugen Zhao on 2020/4/8.
 //
 
-#include <include/string.h>
+#include <include/string.hpp>
 #include <include/ctype.h>
-
 
 namespace str {
     // Convert a string to a long integer

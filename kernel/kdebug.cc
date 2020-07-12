@@ -2,9 +2,9 @@
 // Created by Bugen Zhao on 2020/4/6.
 //
 
-#include "kdebug.h"
+#include "kdebug.hpp"
 #include <include/x86.h>
-#include <include/stdio.h>
+#include <include/stdio.hpp>
 
 namespace kdebug {
     void backtrace() {

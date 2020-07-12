@@ -2,12 +2,12 @@
 // Created by Bugen Zhao on 2020/4/6.
 //
 
-#ifndef LITCHI_PMAP_H
-#define LITCHI_PMAP_H
+#ifndef LITCHI_PMAP_HPP
+#define LITCHI_PMAP_HPP
 
 #include <kernel/knlast.inc>
 #include <include/x86.h>
-#include <include/assert.h>
+#include <include/panic.hpp>
 #include <include/memlayout.h>
 
 // NVRAM
@@ -130,4 +130,4 @@ namespace vmem::pgdir {
     static void init();
 }
 
-#endif //LITCHI_PMAP_H
+#endif //LITCHI_PMAP_HPP

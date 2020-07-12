@@ -4,9 +4,9 @@
 
 #include <include/x86.h>
 #include <include/memlayout.h>
-#include <include/string.h>
+#include <include/string.hpp>
 #include <include/pckbd.h>
-#include "console.h"
+#include "console.hpp"
 
 namespace console {
     namespace serial {

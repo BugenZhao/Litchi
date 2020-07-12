@@ -1,7 +1,7 @@
 // Adopt from JOS/xv6
 
-#ifndef JOS_INC_TYPES_H
-#define JOS_INC_TYPES_H
+#ifndef LITCHI_TYPES_H
+#define LITCHI_TYPES_H
 
 #include <stddef.h>
 #include <stdint.h>
@@ -22,14 +22,16 @@ enum { false, true };
 #endif
 
 // Explicitly-sized versions of integer types
-//typedef __signed char int8_t;
-//typedef unsigned char uint8_t;
-//typedef short int16_t;
-//typedef unsigned short uint16_t;
-//typedef int int32_t;
-//typedef unsigned int uint32_t;
-//typedef long long int64_t;
-//typedef unsigned long long uint64_t;
+/*
+typedef __signed char int8_t;
+typedef unsigned char uint8_t;
+typedef short int16_t;
+typedef unsigned short uint16_t;
+typedef int int32_t;
+typedef unsigned int uint32_t;
+typedef long long int64_t;
+typedef unsigned long long uint64_t;
+ */
 
 // Pointers and addresses are 32 bits long.
 // We use pointer types to represent virtual addresses,
@@ -84,6 +86,8 @@ typedef int32_t off_t;
 #define ARRAY_SIZE(a)	(sizeof(a) / sizeof(a[0]))
 
 // Return the offset of 'member' relative to the beginning of a struct type
-//#define offsetof(type, member)  ((size_t) (&((type*)0)->member))
+/*
+#define offsetof(type, member)  ((size_t) (&((type*)0)->member))
+ */
 
-#endif /* !JOS_INC_TYPES_H */
+#endif /* !LITCHI_TYPES_H */

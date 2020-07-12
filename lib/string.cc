@@ -4,7 +4,7 @@
 
 // Naive basic string library
 
-#include <include/string.h>
+#include <include/string.hpp>
 #include <include/types.h>
 #include <include/ctype.h>
 
@@ -22,6 +22,66 @@ namespace mem {
         uint8_t *_src = (uint8_t *) src;
         while (count--)
             *(_dest++) = *(_src++);
+        return dest;
+    }
+
+    void *move(void *dest, const void *src, size_t count) {
+        // https://www.student.cs.uwaterloo.ca/~cs350/common/os161-src-html/doxygen/html/memmove_8c_source.html
+        size_t i;
+        /*
+        * If the buffers don't overlap, it doesn't matter what direction
+        * we copy in. If they do, it does, so just assume they always do.
+        * We don't concern ourselves with the possibility that the region
+        * to copy might roll over across the top of memory, because it's
+        * not going to happen.
+        *
+        * If the destination is above the source, we have to copy
+        * back to front to avoid overwriting the data we want to
+        * copy.
+        *
+        *      dest:       dddddddd
+        *      src:    ssssssss   ^
+        *              |   ^  |___|
+        *              |___|
+        *
+        * If the destination is below the source, we have to copy
+        * front to back.
+        *
+        *      dest:   dddddddd
+        *      src:    ^   ssssssss
+        *              |___|  ^   |
+        *                     |___|
+        */
+        if ((uintptr_t) dest < (uintptr_t) src) {
+            /*
+            * As author/maintainer of libc, take advantage of the
+            * fact that we know memcpy copies forwards.
+            */
+            return mem::copy(dest, src, count);
+        }
+        /*
+        * Copy by words in the common case. Look in memcpy.c for more
+        * information.
+        */
+        if ((uintptr_t) dest % sizeof(long) == 0 &&
+            (uintptr_t) src % sizeof(long) == 0 &&
+            count % sizeof(long) == 0) {
+            long *d = static_cast<long *>(dest);
+            const long *s = static_cast<const long *>(src);
+            /*
+            * The reason we copy index i-1 and test i>0 is that
+            * i is unsigned -- so testing i>=0 doesn't work.
+            */
+            for (i = count / sizeof(long); i > 0; i--) {
+                d[i - 1] = s[i - 1];
+            }
+        } else {
+            char *d = static_cast<char *>(dest);
+            const char *s = static_cast<const char *>(src);
+            for (i = count; i > 0; i--) {
+                d[i - 1] = s[i - 1];
+            }
+        }
         return dest;
     }
 
@@ -112,3 +172,6 @@ namespace str {
     }
 }
 
+void * __builtin_memmove(void *dest, const void *src, size_t count) {
+    return mem::move(dest, src, count);
+}

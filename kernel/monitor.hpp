@@ -2,8 +2,8 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#ifndef LITCHI_MONITOR_H
-#define LITCHI_MONITOR_H
+#ifndef LITCHI_MONITOR_HPP
+#define LITCHI_MONITOR_HPP
 
 #include <kernel/knlast.inc>
 
@@ -26,4 +26,4 @@ namespace monitor {
     int main();
 }
 
-#endif //LITCHI_MONITOR_H
+#endif //LITCHI_MONITOR_HPP

@@ -2,11 +2,11 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#ifndef LITCHI_STDOUT_H
-#define LITCHI_STDOUT_H
+#ifndef LITCHI_STDOUT_HPP
+#define LITCHI_STDOUT_HPP
 
 #include <include/types.h>
-#include <include/vargs.h>
+#include <include/vargs.hpp>
 #include <include/color.h>
 
 // Generic printFmt oriented putChar func pointer
@@ -43,4 +43,4 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
 void _gePrintFmt(_gePutCharFunction putChar, void *putdat, const char *fmt, ...);
 
 
-#endif //LITCHI_STDOUT_H
+#endif //LITCHI_STDOUT_HPP

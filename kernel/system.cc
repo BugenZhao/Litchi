@@ -3,9 +3,10 @@
 //
 
 #include <include/x86.h>
-#include <include/stdio.h>
-#include "system.h"
+#include <include/stdio.hpp>
+#include "system.hpp"
 #include <tuple>
+#include <functional>
 
 namespace sys {
     [[noreturn]] void reboot() {
@@ -26,7 +27,7 @@ namespace sys {
     }
 
     void cpuInfo() {
-        auto [vendor, name] = cpuStr();
+        auto[vendor, name] = cpuStr();
         console::out::print("Vendor: %s\n", vendor);
         console::out::print("Name:   %s\n", name);
     }

@@ -2,11 +2,11 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#include <include/stdio.h>
+#include <include/stdio.hpp>
 #include <include/ctype.h>
-#include <include/assert.h>
-#include <include/vargs.h>
-#include "console.h"
+#include <include/panic.hpp>
+#include <include/vargs.hpp>
+#include "console.hpp"
 
 #define READLINE_BUF_SIZE 8192
 namespace console::in {

@@ -2,13 +2,13 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#ifndef LITCHI_STDIN_H
-#define LITCHI_STDIN_H
+#ifndef LITCHI_STDIN_HPP
+#define LITCHI_STDIN_HPP
 
 #include <include/pckbd.h>
-#include <include/vargs.h>
+#include <include/vargs.hpp>
 
-// readline.c
+// readline.cc
 
 namespace console::in {
     char *readline(const char *promptFmt, ...);
@@ -17,4 +17,4 @@ namespace console::in {
 }
 
 
-#endif //LITCHI_STDIN_H
+#endif //LITCHI_STDIN_HPP

@@ -2,17 +2,17 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#include <include/stdio.h>
-#include <kernel/monitor.h>
+#include <include/stdio.hpp>
+#include <kernel/monitor.hpp>
 #include <kernel/version.h>
-#include <kernel/system.h>
-#include <include/string.h>
-#include <kernel/kdebug.h>
-#include <kernel/pmap.h>
-#include "console.h"
-#include "kdebug.h"
-#include "system.h"
-#include "pmap.h"
+#include <kernel/system.hpp>
+#include <include/string.hpp>
+#include <kernel/kdebug.hpp>
+#include <kernel/pmap.hpp>
+#include "console.hpp"
+#include "kdebug.hpp"
+#include "system.hpp"
+#include "pmap.hpp"
 
 namespace monitor {
     // 16 args at most, with command name

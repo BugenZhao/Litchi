@@ -2,9 +2,9 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <include/stdio.h>
+#include <include/stdio.hpp>
 #include <include/ctype.h>
-#include <include/string.h>
+#include <include/string.hpp>
 #include <include/color.h>
 
 constexpr char NULL_FMT[] = "(null)";

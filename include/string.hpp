@@ -2,8 +2,8 @@
 // Created by Bugen Zhao on 2020/3/25.
 //
 
-#ifndef LITCHI_STRING_H
-#define LITCHI_STRING_H
+#ifndef LITCHI_STRING_HPP
+#define LITCHI_STRING_HPP
 
 #include <include/types.h>
 
@@ -11,6 +11,8 @@ namespace mem {
     void *set(void *dest, uint8_t val, size_t count);
 
     void *copy(void *dest, const void *src, size_t count);
+
+    void *move(void *dest, const void *src, size_t count);
 
     void clear(void *dest, size_t count);
 }
@@ -35,4 +37,4 @@ namespace str {
     long toLong(const char *ptr, int base);
 }
 
-#endif //LITCHI_STRING_H
+#endif //LITCHI_STRING_HPP

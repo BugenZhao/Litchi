@@ -2,10 +2,10 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <include/stdio.h>
-#include <include/assert.h>
+#include <include/stdio.hpp>
+#include <include/panic.hpp>
 #include <include/cstdout.h>
-#include "console.h"
+#include "console.hpp"
 
 
 namespace console {

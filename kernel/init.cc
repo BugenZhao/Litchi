@@ -2,13 +2,13 @@
 // Created by Bugen Zhao on 2020/3/25.
 //
 
-#include <include/string.h>
-#include <include/stdio.h>
-#include <include/assert.h>
-#include "console.h"
+#include <include/string.hpp>
+#include <include/stdio.hpp>
+#include <include/panic.hpp>
+#include "console.hpp"
 #include "version.h"
-#include "pmap.h"
-#include "monitor.h"
+#include "pmap.hpp"
+#include "monitor.hpp"
 
 extern "C" {
 void i386InitLitchi(void) {
