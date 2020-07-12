@@ -2,7 +2,7 @@
 // Created by Bugen Zhao on 2020/4/6.
 //
 
-#include "pmap.hpp"
+#include "vmem.hpp"
 #include <include/mmu.h>
 #include <include/stdio.hpp>
 #include <include/x86.h>
@@ -20,9 +20,39 @@ namespace vmem {
     size_t nPages = 0;
     size_t nPagesBaseMem = 0;
     pte_t *kernelPageDir;
-    // PageInfo
-    struct PageInfo *pageInfoArray;
-    static struct PageInfo *pageFreeList;
+}
+
+// PageInfo
+namespace vmem {
+    PageInfo *PageInfo::array = nullptr;
+    PageInfo *PageInfo::freeList = nullptr;
+
+    void PageInfo::decRef() {
+        if (--refCount <= 0) this->free();
+    }
+
+    void PageInfo::free() {
+        if (refCount != 0 || nextFree != nullptr) {
+            kernelPanic("pageFree: cannot free page #%d", this - PageInfo::array);
+        }
+        nextFree = PageInfo::freeList;
+        PageInfo::freeList = this;
+    }
+
+    PageInfo *PageInfo::alloc(bool zero) {
+        struct PageInfo *pp = PageInfo::freeList;
+        if (pp == nullptr) {
+            // Out of free memory
+            return nullptr;
+        }
+        PageInfo::freeList = PageInfo::freeList->nextFree;
+        pp->nextFree = nullptr;
+        if (zero) {
+            void *va = pp->toKernV();
+            mem::clear(va, PGSIZE);
+        }
+        return pp;
+    }
 }
 
 
@@ -32,9 +62,9 @@ namespace vmem {
 
     // Allocate after 'kernEnd'
     static void *bootAlloc(size_t size) {
-        static char *next = NULL;
+        static char *next = nullptr;
         // First time -> set next at kernEnd
-        if (next == NULL) next = ROUNDUP((char *) kernEnd, PGSIZE);
+        if (next == nullptr) next = ROUNDUP((char *) kernEnd, PGSIZE);
         if (size == 0) return next;
 
         assert(!bootAllocForbidden);
@@ -73,7 +103,7 @@ namespace vmem {
         // Allocate space for kernelPageDir
         pgdir::alloc();
 
-        // Build pageInfoArray for all pages
+        // Build PageInfo::array for all pages
         page::init();
         bootAllocForbidden = true;
 
@@ -94,74 +124,42 @@ namespace vmem::page {
     // Initialize pageInfoList
     void init() {
         // Create page info list
-        pageInfoArray = (struct PageInfo *) bootAlloc(sizeof(struct PageInfo) * nPages);
-        mem::clear(pageInfoArray, sizeof(struct PageInfo) * nPages);
+        PageInfo::array = (struct PageInfo *) bootAlloc(sizeof(struct PageInfo) * nPages);
+        mem::clear(PageInfo::array, sizeof(struct PageInfo) * nPages);
 
         // 1. Mark all pages below 1MB as used
         size_t i;
         for (i = 0; i < EXTPHYSMEM / PGSIZE; ++i)
-            pageInfoArray[i].refCount = 1;
+            PageInfo::array[i].refCount = 1;
 
         // 2. Mark pages where kernel resides as used
         size_t nextFreePage = (physaddr_t) PHY_ADDR(bootAlloc(0)) / PGSIZE;
         for (; i < nextFreePage; ++i)
-            pageInfoArray[i].refCount = 1;
+            PageInfo::array[i].refCount = 1;
 
         size_t j;
         // 3. Mark [4MB, total] as free
         for (j = 4 * 1024 * 1024 / PGSIZE; j < nPages; ++j) {
-            pageInfoArray[j].refCount = 0;
-            pageInfoArray[j].nextFree = pageFreeList;
-            pageFreeList = pageInfoArray + j;
+            PageInfo::array[j].refCount = 0;
+            PageInfo::array[j].nextFree = PageInfo::array;
+            PageInfo::freeList = PageInfo::array + j;
         }
 
         // CRITICAL:
         // 4. Mark [nextFreePage * PGSIZE, 4MB) as free **AT LAST**,
         //    since we cannot touch higher memory now when we are using entry_pgdir
         for (; i < 4 * 1024 * 1024 / PGSIZE; ++i) {
-            pageInfoArray[i].refCount = 0;
-            pageInfoArray[i].nextFree = pageFreeList;
-            pageFreeList = pageInfoArray + i;
+            PageInfo::array[i].refCount = 0;
+            PageInfo::array[i].nextFree = PageInfo::freeList;
+            PageInfo::freeList = PageInfo::array + i;
         }
 
         // Do some test
-        assert(fromPhy(0xb8000)->refCount > 0);
-        assert(fromPhy(PHY_ADDR(pageInfoArray))->refCount > 0);
-        assert(fromPhy((totalMem - 4) * 1024u)->refCount == 0);
+        assert(PageInfo::fromPhy(0xb8000)->refCount > 0);
+        assert(PageInfo::fromPhy(PHY_ADDR(PageInfo::array))->refCount > 0);
+        assert(PageInfo::fromPhy((totalMem - 4) * 1024u)->refCount == 0);
         // Make sure we are about to alloc page below 4MB !!!
-        assert(PDX(toPhy(pageFreeList)) == 0);
-    }
-
-    // Allocate a physical page
-    struct PageInfo *alloc(bool zero) {
-        struct PageInfo *pp = pageFreeList;
-        if (pp == NULL) {
-            // Out of free memory
-            return NULL;
-        }
-        pageFreeList = pageFreeList->nextFree;
-        pp->nextFree = NULL;
-        if (zero) {
-            void *va = toKernV(pp);
-            mem::clear(va, PGSIZE);
-        }
-        return pp;
-    }
-
-    // Free a physical page
-    void free(struct PageInfo *pp) {
-        if (pp == NULL) return;
-        if (pp->refCount != 0 || pp->nextFree != NULL) {
-            kernelPanic("pageFree: cannot free page #%d", pp - pageInfoArray);
-        }
-        pp->nextFree = pageFreeList;
-        pageFreeList = pp;
-    }
-
-    // Dec refCount and free it if refCount is 0
-    void decRef(struct PageInfo *pp) {
-        if (pp == NULL) return;
-        if (--pp->refCount <= 0) free(pp);
+        assert(PDX(PageInfo::freeList->toPhy()) == 0);
     }
 }
 
@@ -193,18 +191,18 @@ namespace vmem::pgdir {
             pte_t *pageTable = (pte_t *) KERN_ADDR(PTE_ADDR(*pde));
             return pageTable + ptx;
         } else if (!create) {
-            return NULL;
+            return nullptr;
         } else {
             // Allocate a new page table page's info
-            struct PageInfo *pp = page::alloc(true);
-            if (pp == NULL) { return NULL; }    // Allocation fails
+            struct PageInfo *pp = PageInfo::alloc(true);
+            if (pp == nullptr) { return nullptr; }    // Allocation fails
             pp->refCount++;
 
             // TODO: virtual here?
-            mem::clear(page::toKernV(pp), PGSIZE); // Clear the real page
+            mem::clear(pp->toKernV(), PGSIZE); // Clear the real page
 
             // Actually insert the page table page into pageDir+idx (*pde)
-            *pde = page::toPhy(pp) | PTE_P | PTE_U | PTE_W; // Set permissive flags
+            *pde = pp->toPhy() | PTE_P | PTE_U | PTE_W; // Set permissive flags
 
             invalidateTLB(pageDir, (void *) va);
 
@@ -213,23 +211,21 @@ namespace vmem::pgdir {
         }
     }
 
-    // Lookup physical page mapped at va, and store pte if pteStore is not NULL
-    struct PageInfo *findInfo(pde_t *pageDir, const void *va, pte_t **pteStore) {
+    // Lookup physical page mapped at va
+    std::tuple<PageInfo *, pte_t *> findInfo(pde_t *pageDir, const void *va) {
         pte_t *pte = findPte(pageDir, va, 0);
         // No page or page not present
-        if (pte == NULL || !((*pte) & PTE_P)) return NULL;
-        if (pteStore) *pteStore = pte;
+        if (pte == nullptr || !((*pte) & PTE_P)) return {nullptr, nullptr};
         // Get pa from pte, then get page info from pa
-        return page::fromPhy(PTE_ADDR(*pte));
+        return {PageInfo::fromPhy(PTE_ADDR(*pte)), pte };
     }
 
     // Remove physical page mapped at va
     void remove(pde_t *pageDir, void *va) {
-        pte_t *pte;
-        struct PageInfo *pp = findInfo(pageDir, va, &pte);
+        auto [pp, pte] = findInfo(pageDir, va);
         if (pp && (*pte) & PTE_P) {
             // Dec the ref, and mark the physical page free if necessary
-            page::decRef(pp);
+            pp->decRef();
             // Clear page table entry
             *pte = 0;
             // Invalidate TLB since we removed an entry
@@ -240,7 +236,7 @@ namespace vmem::pgdir {
     // Map the physical page 'pp' at va, with permission bits 'perm'
     int insert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm) {
         pte_t *pte = findPte(pageDir, va, 1);
-        if (pte == NULL) { return -1; }
+        if (pte == nullptr) { return -1; }
 
         // First, inc refCount of pp
         pp->refCount++;
@@ -250,14 +246,14 @@ namespace vmem::pgdir {
             //  then it (pp) won't be freed.
             remove(pageDir, va);
         }
-        *pte = page::toPhy(pp) | perm | PTE_P;
+        *pte = pp->toPhy() | perm | PTE_P;
         // Invalidate TLB since we may have updated an entry
         invalidateTLB(pageDir, va);
         return 0;
     }
 
     // Statically map [va, va+size) to [pa, pa+size)
-    // It will not make changes on pageInfoArray
+    // It will not make changes on PageInfo::array
     static void staticMap(pde_t *pageDir, uintptr_t va, size_t size, physaddr_t pa, int perm) {
         uint32_t offset = 0;
         // There might be multiple pte's to find and set
@@ -272,8 +268,8 @@ namespace vmem::pgdir {
     }
 
     static void init() {
-        // Map pageInfoArray at va UPAGES for user (read-only)
-        staticMap(kernelPageDir, UPAGES, PTSIZE, PHY_ADDR(pageInfoArray), PTE_U);
+        // Map PageInfo::array at va UPAGES for user (read-only)
+        staticMap(kernelPageDir, UPAGES, PTSIZE, PHY_ADDR(PageInfo::array), PTE_U);
         // Map kernel stack at va KSTACKTOP-KSTKSIZE
         staticMap(kernelPageDir, KSTACKTOP - KSTKSIZE, KSTKSIZE, PHY_ADDR(bootstack), PTE_W);
         // Map all of physical memory in [0, 2^32 - KERNBASE) at va KERNBASE
@@ -289,27 +285,27 @@ namespace vmem::pgdir {
         x86::lcr0(cr0);
 
         // Do some checks
-        assert(*(uint64_t *) UPAGES == *(uint64_t *) pageInfoArray);
+        assert(*(uint64_t *) UPAGES == *(uint64_t *) PageInfo::array);
         assert(*(uint32_t *) (KSTACKTOP - (bootstacktop - (char *) &cr0)) == cr0);
 
         struct PageInfo *pp0, *pp1;
         void *va2gb = (void *) 0x80000000;
 
-        assert(pp0 = page::alloc(false));
-        mem::set(page::toKernV(pp0), 0x18, PGSIZE);
+        assert(pp0 = PageInfo::alloc(false));
+        mem::set(pp0->toKernV(), 0x18, PGSIZE);
         insert(kernelPageDir, pp0, va2gb, PTE_W);
         assert(pp0->refCount == 1);
         assert(*(int64_t *) va2gb == 0x1818181818181818);
 
-        assert(pp1 = page::alloc(false));
-        mem::set(page::toKernV(pp1), 0x10, PGSIZE);
+        assert(pp1 = PageInfo::alloc(false));
+        mem::set(pp1->toKernV(), 0x10, PGSIZE);
         insert(kernelPageDir, pp1, va2gb, PTE_W);
         assert(pp0->refCount == 0);
-        assert(pp0->nextFree != NULL);
+        assert(pp0->nextFree != nullptr);
         assert(*(int64_t *) va2gb == 0x1010101010101010);
         remove(kernelPageDir, va2gb);
         assert(pp1->refCount == 0);
-        assert(pp1->nextFree != NULL);
+        assert(pp1->nextFree != nullptr);
     }
 
     // Adopted from xv6/JOS
@@ -336,13 +332,13 @@ namespace vmem::utils {
         for (va = beginV; va <= endV; va += PGSIZE) {
             console::out::print("%08lX -> ", va);
             pte_t *pte = pgdir::findPte(pageDir, va, 0);
-            if (pte == NULL) console::err::print("<NOT MAPPED>\n");
+            if (pte == nullptr) console::err::print("<NOT MAPPED>\n");
             else {
                 physaddr_t phy = PTE_ADDR(*pte);
                 if (PGNUM(phy) >= nPages)
                     console::err::print("<NOT EXIST>\n");
                 else
-                    console::out::print("%08lX  %2d  %s\n", phy, page::fromPhy(phy)->refCount,
+                    console::out::print("%08lX  %2d  %s\n", phy, PageInfo::fromPhy(phy)->refCount,
                                         flagStr(pte, flagsBuf));
             }
         }
@@ -356,7 +352,7 @@ namespace vmem::utils {
         for (void *row = beginV; row <= endV; row += 16) {
             console::out::print("%08lX", row);
             pte_t *pte = pgdir::findPte(pageDir, row, 0);
-            if (pte == NULL) {
+            if (pte == nullptr) {
                 console::err::print("  <INVALID>\n");
                 return;
             } else if (!(*pte & PTE_P)) {
@@ -372,25 +368,27 @@ namespace vmem::utils {
 
     // Show memory map at pa: [beginP, endP]
     void dumpP(pte_t *pageDir, physaddr_t beginP, physaddr_t endP) {
+        using namespace console;
+
         beginP = ROUNDDOWN(beginP, 16);
         endP = ROUNDUP(endP, 16);
         const size_t _totalMem = totalMem * 1024u;
-        console::out::print("PHYSICAL  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
+        out::print("PHYSICAL  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
         for (physaddr_t row = beginP; row <= endP; row += 16) {
-            console::out::print("%08lX", row);
+            out::print("%08lX", row);
             for (physaddr_t pa = row; pa <= row + 15; ++pa) {
                 if (pa >= _totalMem) {
-                    console::err::print("  <INVALID>\n");
+                    err::print("  <INVALID>\n");
                     return;
                 }
-                console::out::print(" %02X", (uint32_t) (*(uint8_t *) KERN_ADDR(pa)));
+                out::print(" %02X", (uint32_t) (*(uint8_t *) KERN_ADDR(pa)));
             }
-            console::out::print("\n");
+            out::print("\n");
         }
     }
 
     char *flagStr(pte_t *entry, char *buf) {
-        if (entry == NULL) return NULL;
+        if (entry == nullptr) return nullptr;
         static const char *str[] = {"_________SR_", "AVLGPDACTUWP"};
         int i;
         for (i = 0; i < 12; ++i) {

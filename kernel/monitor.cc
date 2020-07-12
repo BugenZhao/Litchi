@@ -8,22 +8,22 @@
 #include <kernel/system.hpp>
 #include <include/string.hpp>
 #include <kernel/kdebug.hpp>
-#include <kernel/pmap.hpp>
+#include <kernel/vmem.hpp>
 #include "console.hpp"
 #include "kdebug.hpp"
 #include "system.hpp"
-#include "pmap.hpp"
+#include "vmem.hpp"
 
 namespace monitor {
     // 16 args at most, with command name
     constexpr int MAX_ARGS = 16;
-    using funcType = int (*)(int argc, char **argv);
+    using FuncType = int (*)(int argc, char **argv);
 
     struct Command {
         const char *cmd;
         const char *desc;
 
-        funcType func;
+        FuncType func;
     };
 
     struct Command commands[] = {
@@ -45,17 +45,17 @@ namespace monitor {
             {
                     .cmd = "cpu",
                     .desc = "Print CPU information",
-                    .func = (funcType) sys::cpuInfo
+                    .func = (FuncType) sys::cpuInfo
             },
             {
                     .cmd = "clear",
                     .desc = "Clear the console screen",
-                    .func = (funcType) console::clear
+                    .func = (FuncType) console::clear
             },
             {
                     .cmd = "reboot",
                     .desc = "Restart the system",
-                    .func = (funcType) sys::reboot
+                    .func = (FuncType) sys::reboot
             },
             {
                     .cmd = "backtr",

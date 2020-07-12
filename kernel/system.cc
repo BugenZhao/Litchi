@@ -7,6 +7,7 @@
 #include "system.hpp"
 #include <tuple>
 #include <functional>
+#include <stdexcept>
 
 namespace sys {
     [[noreturn]] void reboot() {
@@ -26,9 +27,10 @@ namespace sys {
         return std::make_tuple(str, str + 16);
     }
 
-    void cpuInfo() {
+    int cpuInfo(int, char **) {
         auto[vendor, name] = cpuStr();
         console::out::print("Vendor: %s\n", vendor);
         console::out::print("Name:   %s\n", name);
+        return 0;
     }
 }

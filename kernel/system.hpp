@@ -10,7 +10,7 @@
 namespace sys {
     [[noreturn]] void reboot();
 
-    void cpuInfo();
+    int cpuInfo(int, char **);
 }
 
 #endif //LITCHI_SYSTEM_HPP

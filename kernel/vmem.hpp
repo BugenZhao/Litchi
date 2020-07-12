@@ -2,27 +2,28 @@
 // Created by Bugen Zhao on 2020/4/6.
 //
 
-#ifndef LITCHI_PMAP_HPP
-#define LITCHI_PMAP_HPP
+#ifndef LITCHI_VMEM_HPP
+#define LITCHI_VMEM_HPP
 
 #include <kernel/knlast.inc>
 #include <include/x86.h>
 #include <include/panic.hpp>
 #include <include/memlayout.h>
+#include <tuple>
 
 // NVRAM
 namespace nvram {
 // Adopted from JOS/xv6
 
-#define    MC_NVRAM_START    0xe    /* start of NVRAM: offset 14 */
-#define    MC_NVRAM_SIZE    50    /* 50 bytes of NVRAM */
+#define MC_NVRAM_START   0xe   /* start of NVRAM: offset 14 */
+#define MC_NVRAM_SIZE    50    /* 50 bytes of NVRAM */
 
 /* NVRAM bytes 7 & 8: base memory size */
 #define NVRAM_BASELO    (MC_NVRAM_START + 7)    /* low byte; RTC off. 0x15 */
 #define NVRAM_BASEHI    (MC_NVRAM_START + 8)    /* high byte; RTC off. 0x16 */
 
 /* NVRAM bytes 9 & 10: extended memory size (between 1MB and 16MB) */
-#define NVRAM_EXTLO    (MC_NVRAM_START + 9)    /* low byte; RTC off. 0x17 */
+#define NVRAM_EXTLO    (MC_NVRAM_START +  9)    /* low byte; RTC off. 0x17 */
 #define NVRAM_EXTHI    (MC_NVRAM_START + 10)    /* high byte; RTC off. 0x18 */
 
 /* NVRAM bytes 38 and 39: extended memory size (between 16MB and 4G) */
@@ -43,18 +44,10 @@ namespace nvram {
 
 // Global
 namespace vmem {
-    struct PageInfo {
-        struct PageInfo *nextFree;
-        uint16_t refCount;
-    };
-
     extern size_t nPages;
-    extern struct PageInfo *pageInfoArray;
     extern pte_t *kernelPageDir;
 
-    void init();
-
-// Convert a kernel virtual address to physical
+    // Convert a kernel virtual address to physical
 #define PHY_ADDR(kernva) _paddr(__RFILE__, __LINE__, kernva)
 
     static inline physaddr_t _paddr(const char *file, int line, void *kernva) {
@@ -72,6 +65,39 @@ namespace vmem {
             _kernelPanic(file, line, "KADDR: cannot convert 0x%08lX to kva", pa);
         return (void *) (pa + KERNBASE);
     }
+
+    void init();
+}
+
+// PageInfo
+namespace vmem {
+    struct PageInfo {
+        struct PageInfo *nextFree;
+        uint16_t refCount;
+
+        static PageInfo *array;
+        static PageInfo *freeList;
+
+        void free();
+
+        void decRef();
+
+        inline physaddr_t toPhy() {
+            return (this - array) << PGSHIFT;
+        }
+
+        inline void *toKernV() {
+            return KERN_ADDR(this->toPhy());
+        }
+
+        static inline PageInfo *fromPhy(physaddr_t pa) {
+            if (PGNUM(pa) >= nPages || nPages == 0)
+                kernelPanic("phyToPage: cannot convert 0x%08lX to PageInfo", pa);
+            return array + PGNUM(pa);
+        }
+
+        static PageInfo *alloc(bool zero);
+    };
 }
 
 // Utilities
@@ -88,29 +114,6 @@ namespace vmem::utils {
 // Physical Page Management
 namespace vmem::page {
     void init();
-
-    struct PageInfo *alloc(bool zero);
-
-    void free(struct PageInfo *pp);
-
-    void decRef(struct PageInfo *pp);
-
-    // Convert a PageInfo to physical address
-    static inline physaddr_t toPhy(struct PageInfo *pp) {
-        return (pp - pageInfoArray) << PGSHIFT;
-    }
-
-    // Convert a PageInfo to kernel virtual address
-    static inline void *toKernV(struct PageInfo *pp) {
-        return KERN_ADDR(toPhy(pp));
-    }
-
-    // Convert a physical address to its PageInfo
-    static inline struct PageInfo *fromPhy(physaddr_t pa) {
-        if (PGNUM(pa) >= nPages || nPages == 0)
-            kernelPanic("phyToPage: cannot convert 0x%08lX to PageInfo", pa);
-        return pageInfoArray + PGNUM(pa);
-    }
 }
 
 // Virtual Memory
@@ -121,7 +124,7 @@ namespace vmem::pgdir {
 
     pte_t *findPte(pde_t *pageDir, const void *va, bool create);
 
-    struct PageInfo *findInfo(pde_t *pageDir, const void *va, pte_t **pteStore);
+    std::tuple<PageInfo *, pte_t *> findInfo(pde_t *pageDir, const void *va);
 
     void remove(pde_t *pageDir, void *va);
 
@@ -130,4 +133,4 @@ namespace vmem::pgdir {
     static void init();
 }
 
-#endif //LITCHI_PMAP_HPP
+#endif //LITCHI_VMEM_HPP

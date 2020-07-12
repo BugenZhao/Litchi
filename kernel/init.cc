@@ -7,7 +7,7 @@
 #include <include/panic.hpp>
 #include "console.hpp"
 #include "version.h"
-#include "pmap.hpp"
+#include "vmem.hpp"
 #include "monitor.hpp"
 
 extern "C" {
