@@ -5,9 +5,9 @@
 #ifndef LITCHI_STDOUT_H
 #define LITCHI_STDOUT_H
 
-#include <types.h>
-#include <vargs.h>
-#include <color.h>
+#include <include/types.h>
+#include <include/vargs.h>
+#include <include/color.h>
 
 // Generic printFmt oriented putChar func pointer
 typedef void (*_gePutCharFunction)(int, void *);

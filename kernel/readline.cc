@@ -2,10 +2,10 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#include <stdio.h>
-#include <ctype.h>
-#include <assert.h>
-#include <vargs.h>
+#include <include/stdio.h>
+#include <include/ctype.h>
+#include <include/assert.h>
+#include <include/vargs.h>
 #include "console.h"
 
 #define READLINE_BUF_SIZE 8192

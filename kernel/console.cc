@@ -2,10 +2,10 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <x86.h>
-#include <memlayout.h>
-#include <string.h>
-#include <pckbd.h>
+#include <include/x86.h>
+#include <include/memlayout.h>
+#include <include/string.h>
+#include <include/pckbd.h>
 #include "console.h"
 
 namespace console {

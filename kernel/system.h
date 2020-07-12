@@ -7,7 +7,7 @@
 
 #include <kernel/knlast.inc>
 
-namespace system {
+namespace sys {
     [[noreturn]] void reboot();
 
     void cpuInfo();

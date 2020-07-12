@@ -2,9 +2,9 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <stdio.h>
-#include <assert.h>
-#include <cstdout.h>
+#include <include/stdio.h>
+#include <include/assert.h>
+#include <include/cstdout.h>
 #include "console.h"
 
 

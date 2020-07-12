@@ -5,7 +5,7 @@
 #ifndef LITCHI_STRING_H
 #define LITCHI_STRING_H
 
-#include <types.h>
+#include <include/types.h>
 
 namespace mem {
     void *set(void *dest, uint8_t val, size_t count);

@@ -5,10 +5,10 @@
 #ifndef LITCHI_VARGS_H
 #define LITCHI_VARGS_H
 
-typedef __builtin_va_list va_list;
-
-#define va_start(ap, last)         (__builtin_va_start(ap, last))
-#define va_arg(ap, type)           (__builtin_va_arg(ap, type))
-#define va_end(ap)                 (__builtin_va_end(ap))
+#ifdef __cplusplus
+#include <cstdarg>
+#elif
+#include <stdarg.h>
+#endif
 
 #endif // LITCHI_VARGS_H

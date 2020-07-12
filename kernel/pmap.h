@@ -9,7 +9,6 @@
 #include <include/x86.h>
 #include <include/assert.h>
 #include <include/memlayout.h>
-#include "x86.h"
 
 // NVRAM
 namespace nvram {

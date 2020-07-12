@@ -2,10 +2,9 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <assert.h>
-#include <vargs.h>
-#include <stdio.h>
-#include "console.h"
+#include <include/assert.h>
+#include <include/vargs.h>
+#include <include/stdio.h>
 #include "kdebug.h"
 
 static bool PANIC = false;

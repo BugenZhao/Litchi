@@ -3,8 +3,8 @@
 //
 
 #include "kdebug.h"
-#include <x86.h>
-#include <stdio.h>
+#include <include/x86.h>
+#include <include/stdio.h>
 
 namespace kdebug {
     void backtrace() {

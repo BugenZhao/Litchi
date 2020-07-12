@@ -3,11 +3,11 @@
 //
 
 #include "pmap.h"
-#include <mmu.h>
-#include <stdio.h>
-#include <x86.h>
-#include <memlayout.h>
-#include <string.h>
+#include <include/mmu.h>
+#include <include/stdio.h>
+#include <include/x86.h>
+#include <include/memlayout.h>
+#include <include/string.h>
 
 // Kernel memory boundary from linker
 extern char kernStart[], kernEnd[];

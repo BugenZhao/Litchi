@@ -4,9 +4,9 @@
 
 // Naive basic string library
 
-#include <string.h>
-#include <types.h>
-#include <ctype.h>
+#include <include/string.h>
+#include <include/types.h>
+#include <include/ctype.h>
 
 
 namespace mem {

@@ -2,8 +2,8 @@
 // Created by Bugen Zhao on 2020/4/8.
 //
 
-#include <string.h>
-#include <ctype.h>
+#include <include/string.h>
+#include <include/ctype.h>
 
 
 namespace str {

@@ -2,11 +2,11 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#include <stdio.h>
+#include <include/stdio.h>
 #include <kernel/monitor.h>
 #include <kernel/version.h>
 #include <kernel/system.h>
-#include <string.h>
+#include <include/string.h>
 #include <kernel/kdebug.h>
 #include <kernel/pmap.h>
 #include "console.h"
@@ -45,7 +45,7 @@ namespace monitor {
             {
                     .cmd = "cpu",
                     .desc = "Print CPU information",
-                    .func = (funcType) system::cpuInfo
+                    .func = (funcType) sys::cpuInfo
             },
             {
                     .cmd = "clear",
@@ -55,7 +55,7 @@ namespace monitor {
             {
                     .cmd = "reboot",
                     .desc = "Restart the system",
-                    .func = (funcType) system::reboot
+                    .func = (funcType) sys::reboot
             },
             {
                     .cmd = "backtr",

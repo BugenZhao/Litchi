@@ -2,9 +2,9 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#include <pckbd.h>
-#include <x86.h>
-#include <cstdout.h>
+#include <include/pckbd.h>
+#include <include/x86.h>
+#include <include/cstdout.h>
 
 // Special keycodes
 #define KEY_HOME	0xE0

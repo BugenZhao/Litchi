@@ -5,8 +5,8 @@
 #ifndef LITCHI_STDIN_H
 #define LITCHI_STDIN_H
 
-#include <pckbd.h>
-#include <vargs.h>
+#include <include/pckbd.h>
+#include <include/vargs.h>
 
 // readline.c
 

@@ -31,8 +31,8 @@ macro(add_asm_dump TARGET)
 endmacro(add_asm_dump)
 
 # Flag constants
-set(C_OR_ASM_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu17 -static -Wall -Wno-format -Wno-unused -Werror -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
-set(CXX_FLAGS "-pipe -nostdinc -fno-builtin -MD -fno-omit-frame-pointer -std=gnu++17 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
+set(C_OR_ASM_FLAGS "-pipe -ffreestanding -fno-builtin -MD -fno-omit-frame-pointer -std=gnu17 -static -Wall -Wno-format -Wno-unused -Werror -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
+set(CXX_FLAGS "-pipe -ffreestanding -fno-builtin -MD -fno-omit-frame-pointer -std=gnu++17 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
 
 # Other constants
 set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
@@ -77,7 +77,7 @@ enable_language(C ASM CXX)
 
 
 # Include
-include_directories(. include)
+include_directories(.)
 
 # Sources
 set(BOOT_SRC
@@ -113,7 +113,7 @@ set_target_properties(${LITCHI_ELF} PROPERTIES LINK_FLAGS "-Wl,-m,elf_i386,-T,${
 # ${CMAKE_CXX_COMPILER} ${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS} -o foo.o -c foo.cc
 # Use -Og for a better kernel debugging experience
 set_target_properties(${LITCHI_ELF} PROPERTIES COMPILE_FLAGS "-Og")
-target_link_libraries(${LITCHI_ELF} -static-libgcc -lgcc)
+target_link_libraries(${LITCHI_ELF} -static-libgcc -lgcc -lsupc++)
 add_asm_dump(${LITCHI_ELF})
 
 # Target - boot

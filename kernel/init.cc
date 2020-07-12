@@ -2,9 +2,9 @@
 // Created by Bugen Zhao on 2020/3/25.
 //
 
-#include <string.h>
-#include <stdio.h>
-#include <assert.h>
+#include <include/string.h>
+#include <include/stdio.h>
+#include <include/assert.h>
 #include "console.h"
 #include "version.h"
 #include "pmap.h"
