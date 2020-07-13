@@ -5,6 +5,7 @@
 #include "vmem.hpp"
 #include <include/stdio.hpp>
 #include <include/string.hpp>
+#include <include/random.hh>
 #include "task.hh"
 
 extern PseudoDesc pseudoDesc; // kernel/gdt.c
@@ -12,9 +13,10 @@ extern PseudoDesc pseudoDesc; // kernel/gdt.c
 namespace task {
     Task *Task::array = nullptr;
     Task *Task::freeList = nullptr;
+    Task *Task::current = nullptr;
 
     // alloc task array, called by vmem::init()
-    void alloc() {
+    void allocArray() {
         using namespace vmem;
         Task::array = bootAllocCount<Task>(Task::maxCount);
         mem::clear(Task::array, sizeof(Task) * Task::maxCount);
@@ -51,8 +53,8 @@ namespace task {
 
         // the kernel never uses GS or FS, so we leave those set to the user data segment.
         // LS 2 bit: Requested Privilege Level
-        asm volatile("movw %%ax,%%gs" : : "a" (GD_UD|3));
-        asm volatile("movw %%ax,%%fs" : : "a" (GD_UD|3));
+        asm volatile("movw %%ax,%%gs" : : "a" (GD_UD | 3));
+        asm volatile("movw %%ax,%%fs" : : "a" (GD_UD | 3));
         // the kernel does use ES, DS, and SS.
         asm volatile("movw %%ax,%%es" : : "a" (GD_KD));
         asm volatile("movw %%ax,%%ds" : : "a" (GD_KD));
@@ -60,5 +62,90 @@ namespace task {
 
         // perform a long jump to set new CS selector
         asm volatile("ljmp %0,$1f\n 1:\n" : : "i" (GD_KT));
+    }
+}
+
+namespace task {
+    std::tuple<Task *, Result> Task::alloc(taskid_t parentId) {
+        // find a free slot
+        Task *task = freeList;
+        if (task == nullptr)
+            return {nullptr, Result::noFreeTask};
+        freeList = task->nextFree;
+
+        // allocate page dir
+        if (Result r; (r = task->setupMemory()) != Result::ok)
+            return {nullptr, r};
+
+        // allocate a random id, ending up with the #
+        uint32_t rand = random::rand() << 16 | random::rand();
+        task->id = (rand & ~(maxCount - 1)) | (task - array);
+
+        // set other fields
+        task->parentId = parentId;
+        task->status = TaskStatus::ready;
+        task->type = TaskType::user;
+
+        // clear the trap frame
+        task->trapFrame.clear();
+        // set initial values, 3: RPL, see: initPerCpu()
+        task->trapFrame.ds = GD_UD | 3;
+        task->trapFrame.es = GD_UD | 3;
+        task->trapFrame.cs = GD_UT | 3;
+        task->trapFrame.ss = GD_UD | 3;
+        task->trapFrame.esp = USTACKTOP; // user stack top
+
+        // eip will be set after binary loaded
+
+        console::out::print("Allocated task #%08x\n", task->id);
+        return {task, Result::ok};
+    }
+
+    Result Task::setupMemory() {
+        // allocate a page for the task's page dir
+        auto page = vmem::PageInfo::alloc(true);
+        if (page == nullptr) return Result::noMemory;
+
+        // simply duplicate the kernel's
+        this->pageDir = static_cast<pde_t *>(page->toKernV());
+        mem::copy(page->toKernV(), vmem::kernelPageDir, PGSIZE);
+        page->refCount += 1;
+
+        // again, make a recursive map to the page dir itself
+        this->pageDir[PDX(UVPT)] = PHY_ADDR(this->pageDir) | PTE_U | PTE_P;
+
+        return Result::ok;
+    }
+
+    void Task::free() {
+        if (this == current) x86::lcr3(PHY_ADDR(vmem::kernelPageDir));
+
+        // free all pages, from 0x0 to UTOP
+        for (int pdx = 0; pdx < (int) PDX(UTOP); ++pdx) {
+            auto pde = this->pageDir[pdx];  // find the page dir entry
+            if (!(pde & PTE_P)) continue;   // page table not present
+
+            auto pa = PTE_ADDR(pde);
+            auto pageTable = static_cast<pte_t *>(KERN_ADDR(pa));
+            for (int ptx = 0; ptx < NPTENTRIES; ++ptx) {
+                auto pte = pageTable[ptx];  // find the page table entry
+                if (pte & PTE_P) // remove the page from page dir, and free the info if needed
+                    vmem::pgdir::remove(this->pageDir, PGADDR(pdx, ptx, 0));
+            }
+
+            // free the page table itself
+            pageDir[pdx] = 0;
+            vmem::PageInfo::fromPhy(pa)->decRef();
+        }
+
+        // free the page dir itself
+        vmem::PageInfo::fromPhy(PHY_ADDR(pageDir))->decRef();
+
+        // free the Task
+        status = TaskStatus::free;
+        nextFree = freeList;
+        freeList = this;
+
+        console::out::print("Freed task #%08x\n", this->id);
     }
 }

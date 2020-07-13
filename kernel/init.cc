@@ -28,8 +28,13 @@ void i386InitLitchi(void) {
     // Init task
     task::init();
 
+    int loop = 10;
+    while (loop--) {
+        console::out::print("%r\n", std::get<1>(task::Task::alloc(0)));
+    }
+
     // Go to the monitor
-    int errno = monitor::main();
-    kernelPanic("Monitor dead with errno %d", errno);
+    int result = monitor::main();
+    kernelPanic("Monitor dead with errno %d", result);
 }
 }

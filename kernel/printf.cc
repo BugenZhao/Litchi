@@ -11,8 +11,10 @@
 namespace console {
     // Generic printFmt oriented console putChar
     static inline void _geConsolePutChar(int c, int *cnt) {
-        out::putChar(c);
-        *cnt++;
+        if ((c & 0x00ff)) {
+            out::putChar(c);
+            *cnt++;
+        }
     }
 
     namespace out {

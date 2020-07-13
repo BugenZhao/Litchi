@@ -6,6 +6,7 @@
 #include <include/ctype.h>
 #include <include/string.hpp>
 #include <include/color.h>
+#include <include/result.hh>
 
 constexpr char NULL_FMT[] = "(null)";
 
@@ -54,6 +55,7 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
     unsigned long long num;
     char paddingChar;
     char *str;
+    Result result;
     int width;
     int longFlag;
     bool capital;
@@ -136,9 +138,38 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
                 for (width -= len; width > 0; width--) putColorChar(paddingChar, fore, back, putdat);
                 for (str; *str != '\0'; str++) putColorChar(*str, fore, back, putdat);
                 break;
+            case 'r':
+                result = va_arg(ap, Result);
+                num = static_cast<int>(result);
+                switch (result) {
+                    case Result::ok:
+                        str = const_cast<char *>("OK");
+                        break;
+                    case Result::invalidArgument:
+                        str = const_cast<char *>("Invalid Argument");
+                        break;
+                    case Result::noMemory:
+                        str = const_cast<char *>("No Memory");
+                        break;
+                    case Result::noFreeTask:
+                        str = const_cast<char *>("No Free Task");
+                        break;
+                    default:
+                    case Result::unknownError:
+                        str = const_cast<char *>("Unknown Error");
+                        break;
+                }
+                len = str::count(str);
+                for (width -= len; width > 0; width--) putColorChar(paddingChar, fore, back, putdat);
+                for (str; *str != '\0'; str++) putColorChar(*str, fore, back, putdat);
+                if (num != 0) {
+                    for (auto c: " [E") putColorChar(c, fore, back, putdat);
+                    _gePrintNumber(putChar, putdat, num, 10, 0, 0, false, fore, back);
+                    putColorChar(']', fore, back, putdat);
+                }
+                break;
             case 'c':
-                putColorChar(va_arg(ap,
-                                     int), fore, back, putdat); // Char in va_list takes 4 Bytes
+                putColorChar(va_arg(ap, int), fore, back, putdat); // Char in va_list takes 4 Bytes
                 break;
 
                 // Colors

@@ -31,8 +31,8 @@ macro(add_asm_dump TARGET)
 endmacro(add_asm_dump)
 
 # Flag constants
-set(C_OR_ASM_FLAGS "-pipe -ffreestanding -fno-builtin -nostdlib -MD -fno-omit-frame-pointer -std=gnu17 -static -Wall -Wno-format -Wno-unused -Werror -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
-set(CXX_FLAGS "-pipe -ffreestanding -fno-builtin -nostdlib -MD -fno-omit-frame-pointer -std=gnu++17 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -fno-unwind-tables -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
+set(C_OR_ASM_FLAGS "-pipe -ffreestanding -fno-builtin -nostdlib -MD -fno-omit-frame-pointer -std=gnu11 -static -Wall -Wno-format -Wno-unused -Werror -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
+set(CXX_FLAGS "-pipe -ffreestanding -fno-builtin -nostdlib -MD -fno-omit-frame-pointer -std=gnu++20 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -fno-unwind-tables -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
 
 # Other constants
 set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
@@ -50,10 +50,12 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 # C
 set(CMAKE_C_COMPILER ${TP}gcc)
 set(CMAKE_C_FLAGS ${C_OR_ASM_FLAGS})
+set(CMAKE_C_STANDARD 11)
 
 # CXX
 set(CMAKE_CXX_COMPILER ${TP}g++)
 set(CMAKE_CXX_FLAGS ${CXX_FLAGS})
+set(CMAKE_CXX_STANDARD 20)
 
 # ASM
 set(CMAKE_ASM_COMPILER ${TP}gcc)
@@ -88,7 +90,7 @@ set(LIB_SRC
         lib/string.cc
         lib/printfmt.cc
         lib/strtol.cc
-        lib/ctype.cc)
+        lib/ctype.cc lib/random.cc)
 
 set(KERNEL_SRC
         ${LIB_SRC}
@@ -141,7 +143,7 @@ add_custom_target(image
         DEPENDS ${LITCHI_ELF} ${BOOT_ELF})
 
 # Options for qemu and gdb
-set(QEMU_OPTIONS -drive file=${IMG},index=0,media=disk,format=raw -m 256 -serial mon:stdio)
+set(QEMU_OPTIONS -cpu Haswell -drive file=${IMG},index=0,media=disk,format=raw -m 256 -serial mon:stdio)
 set(GDB_PORT 10188)
 set(QEMU_GDB_OPTIONS -gdb tcp::${GDB_PORT} -S) # -S: stop at entry
 

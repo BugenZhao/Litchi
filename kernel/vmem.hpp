@@ -48,7 +48,7 @@ namespace vmem {
     extern pte_t *kernelPageDir;
 
     // Convert a kernel virtual address to physical
-#define PHY_ADDR(kernva) _paddr(__RFILE__, __LINE__, kernva)
+#define PHY_ADDR(kernva) vmem::_paddr(__RFILE__, __LINE__, kernva)
 
     static inline physaddr_t _paddr(const char *file, int line, void *kernva) {
         if ((uintptr_t) kernva < KERNBASE)
@@ -57,7 +57,7 @@ namespace vmem {
     }
 
 // Convert a physical address to kernel virtual address
-#define KERN_ADDR(pa) _kaddr(__RFILE__, __LINE__, pa)
+#define KERN_ADDR(pa) vmem::_kaddr(__RFILE__, __LINE__, pa)
 
     static inline void *_kaddr(const char *file, int line, physaddr_t pa) {
         // Out of available memory

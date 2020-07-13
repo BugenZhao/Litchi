@@ -265,6 +265,13 @@ namespace x86 {
                  : "cc");
         return result;
     }
+
+    static inline uint32_t rdrand() {
+        // only supported on newer x86 CPUs
+        uint32_t r;
+        asm volatile ("rdrand %%eax":"=a"(r));
+        return r;
+    }
 #ifdef __cplusplus
 }
 #endif

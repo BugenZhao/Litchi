@@ -106,7 +106,7 @@ namespace vmem {
 
         // Build PageInfo::array for all pages
         page::init();
-        task::alloc();
+        task::allocArray();
         bootAllocForbidden = true;
 
         // Setup and load kernelPageDir

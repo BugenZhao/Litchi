@@ -5,6 +5,8 @@
 #ifndef LITCHI_INCLUDE_TRAP_HH
 #define LITCHI_INCLUDE_TRAP_HH
 
+#include <include/string.hpp>
+
 namespace trap {
     enum class TrapType : int {
         divide = 0,
@@ -63,6 +65,10 @@ namespace trap {
         uintptr_t esp;
         uint16_t ss;
         uint16_t padding4;
+
+        inline void clear() {
+            mem::clear(this, sizeof(*this));
+        }
     } __attribute__((packed));
 }
 
