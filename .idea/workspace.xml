@@ -38,24 +38,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
-      <change afterPath="$PROJECT_DIR$/kernel/embuser.S" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kernel/trap.cc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/entry/libmain.cc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/entry/uentry.S" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boot/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/boot/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/trap.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/panic.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/panic.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/task.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/task.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vmem.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitor.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/kernel.ld" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/kernel.ld" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/user.ld" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/user.ld" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/user/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/hello.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/hello.cc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +126,7 @@
       <recent name="$PROJECT_DIR$/kernel" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.litchi.elf">
+  <component name="RunManager" selected="CMake Application.qemu">
     <configuration name="boot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot.elf" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -244,7 +234,7 @@
       <workItem from="1594478737446" duration="3200000" />
       <workItem from="1594544799189" duration="17867000" />
       <workItem from="1594619951195" duration="25000" />
-      <workItem from="1594619988789" duration="33067000" />
+      <workItem from="1594619988789" duration="34446000" />
     </task>
     <task id="LOCAL-00016" summary="Update CMake configurations">
       <created>1585147010874</created>
@@ -611,7 +601,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Updated 'vmmap' command" />
     <MESSAGE value="Serial port output support" />
     <MESSAGE value="Serial port color output support" />
     <MESSAGE value="Added bootAlloc() protection" />
@@ -636,7 +625,8 @@
     <MESSAGE value="Add: task preparation" />
     <MESSAGE value="Add: task alloc &amp; free" />
     <MESSAGE value="Add: task load elf&#10;Update: separated CMakeLists" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add: task load elf&#10;Update: separated CMakeLists" />
+    <MESSAGE value="Add: user task create &amp; run, embedded ELF" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add: user task create &amp; run, embedded ELF" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1594620112917">
@@ -802,12 +792,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/kernel/monitor.cc</url>
-          <line>81</line>
+          <line>85</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/kernel/monitor.cc</url>
-          <line>100</line>
+          <line>101</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

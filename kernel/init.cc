@@ -31,11 +31,9 @@ void i386InitLitchi(void) {
     task::init();
 
     extern uint8_t embUserElf[];
-    print("\nEmbedded user elf at %08x [%s]\n", embUserElf, (char *) EMBUSER_ELF + SOURCE_PATH_SIZE);
-
-    auto[task, r] = task::Task::create(embUserElf, task::TaskType::user);
-
-    task->run();
+    print("User ELF [%<%s%<] is embedded at %08x\n",
+          WHITE, (char *) EMBUSER_ELF + BINARY_DIR_OFFSET, DEF_FORE,
+          embUserElf);
 
     // Go to the monitor
     int result = monitor::main();

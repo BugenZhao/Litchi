@@ -43,8 +43,10 @@ set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
 
 # Get the length of source path to minimize macro __FILE__ by using __FILE__ + SOURCE_PATH_FILE
 # https://stackoverflow.com/questions/8487986/file-macro-shows-full-path
-string(LENGTH "${CMAKE_SOURCE_DIR}/" SOURCE_PATH_SIZE)
-add_definitions("-DSOURCE_PATH_SIZE=${SOURCE_PATH_SIZE}")
+string(LENGTH "${CMAKE_SOURCE_DIR}/" SOURCE_DIR_OFFSET)
+string(LENGTH "${CMAKE_BINARY_DIR}/" BINARY_DIR_OFFSET)
+add_definitions("-DSOURCE_DIR_OFFSET=${SOURCE_DIR_OFFSET}")
+add_definitions("-DBINARY_DIR_OFFSET=${BINARY_DIR_OFFSET}")
 add_definitions("-DEMBUSER_ELF=\"${PROJECT_BINARY_DIR}/${EMBUSER_ELF}\"")
 
 # CMake will try to compile and run a simple test program, but it is to fail when cross-compiling
