@@ -5,6 +5,7 @@
 #include <include/pckbd.h>
 #include <include/x86.h>
 #include <include/cstdout.h>
+#include <include/color.h>
 
 // Special keycodes
 #define KEY_HOME	0xE0
@@ -253,10 +254,10 @@ static int _kbdProcessData(void) {
 void kbdInit(void) {
     kbdBuffer.readPos = 0;
     kbdBuffer.writePos = 0;
-    consolePrintFmtC("Keyboard initializing...");
+    consolePrintFmtC("Initializing keyboard...");
     // Try to read a char
     _kbdProcessData();
-    consolePrintFmtC("Done\n");
+    consolePrintFmtC("%<Done\n", WHITE);
 }
 
 // Fake keyboard interrupt currently ~

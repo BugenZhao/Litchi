@@ -9,6 +9,7 @@
 #include "version.h"
 #include "vmem.hpp"
 #include "monitor.hpp"
+#include "task.hh"
 
 extern "C" {
 void i386InitLitchi(void) {
@@ -23,6 +24,9 @@ void i386InitLitchi(void) {
 
     // Init memory
     vmem::init();
+
+    // Init task
+    task::init();
 
     // Go to the monitor
     int errno = monitor::main();

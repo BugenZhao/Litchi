@@ -3,6 +3,7 @@
 //
 
 #include "vmem.hpp"
+#include "task.hh"
 #include <include/mmu.h>
 #include <include/stdio.hpp>
 #include <include/x86.h>
@@ -61,7 +62,7 @@ namespace vmem {
     static bool bootAllocForbidden = false;
 
     // Allocate after 'kernEnd'
-    static void *bootAlloc(size_t size) {
+    void *bootAlloc(size_t size) {
         static char *next = nullptr;
         // First time -> set next at kernEnd
         if (next == nullptr) next = ROUNDUP((char *) kernEnd, PGSIZE);
@@ -98,18 +99,19 @@ namespace vmem {
         console::out::print("Available physical memory: %d KB = %d MB\n",
                             totalMem, (totalMem + 1023) / 1024);
 
-        console::out::print("Setting up virtual memory...");
+        console::out::print("Initializing virtual memory...");
 
         // Allocate space for kernelPageDir
         pgdir::alloc();
 
         // Build PageInfo::array for all pages
         page::init();
+        task::alloc();
         bootAllocForbidden = true;
 
         // Setup and load kernelPageDir
         pgdir::init();
-        console::out::print("Done\n");
+        console::out::print("%<Done\n", WHITE);
 
         // Print kernel memory info
         char *kernEndCurrent = (char *) bootAlloc(0);
@@ -171,6 +173,7 @@ namespace vmem::pgdir {
         // Create kernel page dir
         kernelPageDir = (pde_t *) bootAlloc(PGSIZE);
         mem::clear(kernelPageDir, PGSIZE);
+
         // Map itself to va: UVPT (user virtual page table)
         kernelPageDir[PDX(UVPT)] = PHY_ADDR(kernelPageDir) | PTE_U | PTE_P;
 
@@ -254,7 +257,7 @@ namespace vmem::pgdir {
 
     // Statically map [va, va+size) to [pa, pa+size)
     // It will not make changes on PageInfo::array
-    static void staticMap(pde_t *pageDir, uintptr_t va, size_t size, physaddr_t pa, int perm) {
+    void staticMap(pde_t *pageDir, uintptr_t va, size_t size, physaddr_t pa, int perm) {
         uint32_t offset = 0;
         // There might be multiple pte's to find and set
         while (offset < size) {

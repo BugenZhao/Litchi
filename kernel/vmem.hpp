@@ -66,6 +66,13 @@ namespace vmem {
         return (void *) (pa + KERNBASE);
     }
 
+    void *bootAlloc(size_t size);
+
+    template<typename T>
+    static inline T *bootAllocCount(size_t count) {
+        return static_cast<T *>(bootAlloc(count * sizeof(T)));
+    }
+
     void init();
 }
 
@@ -129,6 +136,8 @@ namespace vmem::pgdir {
     void remove(pde_t *pageDir, void *va);
 
     int insert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm);
+
+    void staticMap(pde_t *pageDir, uintptr_t va, size_t size, physaddr_t pa, int perm);
 
     static void init();
 }

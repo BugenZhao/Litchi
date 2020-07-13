@@ -151,7 +151,7 @@
 #include <include/types.h>
 
 // Segment Descriptors
-struct Segdesc {
+struct SegDesc {
 	unsigned sd_lim_15_0 : 16;  // Low bits of segment limit
 	unsigned sd_base_15_0 : 16; // Low bits of segment base address
 	unsigned sd_base_23_16 : 8; // Middle bits of segment base address
@@ -309,7 +309,7 @@ struct Gatedesc {
 }
 
 // Pseudo-descriptors used for LGDT, LLDT and LIDT instructions.
-struct Pseudodesc {
+struct PseudoDesc {
 	uint16_t pd_lim;		// Limit
 	uint32_t pd_base;		// Base address
 } __attribute__ ((packed));
