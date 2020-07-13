@@ -11,7 +11,7 @@
 
 using namespace console::out;
 
-extern PseudoDesc pseudoDesc; // kernel/gdt.c
+extern PseudoDesc gdtPD; // kernel/gdt.c
 
 namespace task {
     Task *Task::array = nullptr;
@@ -50,7 +50,7 @@ namespace task {
     void initPerCpu() {
         // now switch gdt from bootstrap gdt to new one, for use of privilege level
         // see kernel/gdt.c
-        x86::lgdt(&pseudoDesc);
+        x86::lgdt(&gdtPD);
 
         // set segment register (selector) to the correct descriptor
 

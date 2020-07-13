@@ -25,13 +25,13 @@ struct SegDesc gdt[] = {
         [GD_UT >> 3] = SEG(STA_X | STA_R, 0x0, 0xffffffff, 3),
         // 0x20 - user data segment
         [GD_UD >> 3] = SEG(STA_W, 0x0, 0xffffffff, 3),
-        // 0x28 - tss, initialized in trap::initPercpu()
+        // 0x28 - tss, for trap, initialized in trap::initPerCpu() later
         [GD_TSS0 >> 3] = SEG_NULL
 };
 
 
 // for loading the gdt through lgdt
-struct PseudoDesc pseudoDesc = {
+struct PseudoDesc gdtPD = {
         sizeof(gdt) - 1,
         (uintptr_t) gdt
 };

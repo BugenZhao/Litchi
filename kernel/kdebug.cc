@@ -5,6 +5,7 @@
 #include "kdebug.hpp"
 #include <include/x86.h>
 #include <include/stdio.hpp>
+#include <include/memlayout.h>
 
 namespace kdebug {
     void backtrace() {
@@ -12,7 +13,8 @@ namespace kdebug {
         ebp = x86::read_ebp();
 
         console::err::print("Backtrace:\n  ebp\t\t\beip\t\t\bargs\n");
-        while (ebp) {
+        int depth = 5;
+        while (ebp && ebp + 24 < KSTACKTOP && depth--) {
             eip = *(uintptr_t *) (ebp + 4);
             console::err::print("  %08X  %08X  %08X %08X %08X %08X %08X\n",
                                 ebp,

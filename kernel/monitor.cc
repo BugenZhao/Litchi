@@ -86,7 +86,9 @@ namespace monitor {
     }
 
     int runtask(int argc, char **argv) {
-        auto[task, r] = task::Task::create(embUserElf, task::TaskType::user);
+        using namespace task;
+        auto[task, r] = Task::create(embUserElf, TaskType::user);
+        assert((task->id & (Task::maxCount - 1)) == 0);
         task->run();
         return 0;
     }
@@ -184,7 +186,7 @@ namespace monitor {
         return -1;
     }
 
-    int main() {
+    int main(trap::Frame *tf) {
         char *cmd;
         int lastRet = 0;
         console::out::print("\n");

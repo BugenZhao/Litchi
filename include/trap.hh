@@ -7,6 +7,8 @@
 
 #include <include/string.hpp>
 #include <include/panic.hpp>
+#include <include/mmu.h>
+#include <include/memlayout.h>
 
 namespace trap {
     enum class TrapType : int {
@@ -88,6 +90,14 @@ namespace trap {
             kernelPanic("failed to pop and iret trap frame %08x", this);
         }
     } __attribute__((packed));
+}
+
+namespace trap {
+    void init();
+
+    void initPerCpu();
+
+    extern "C" { void trap(Frame *tf); }
 }
 
 #endif //LITCHI_INCLUDE_TRAP_HH

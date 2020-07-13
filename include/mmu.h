@@ -175,7 +175,7 @@ struct SegDesc {
 { ((lim) >> 12) & 0xffff, (base) & 0xffff, ((base) >> 16) & 0xff,	\
     type, 1, dpl, 1, (unsigned) (lim) >> 28, 0, 0, 1, 1,		\
     (unsigned) (base) >> 24 }
-#define SEG16(type, base, lim, dpl) (struct Segdesc)			\
+#define SEG16(type, base, lim, dpl) (struct SegDesc)			\
 { (lim) & 0xffff, (base) & 0xffff, ((base) >> 16) & 0xff,		\
     type, 1, dpl, 1, (unsigned) (lim) >> 16, 0, 0, 1, 0,		\
     (unsigned) (base) >> 24 }
@@ -214,7 +214,7 @@ struct SegDesc {
 #ifndef __ASSEMBLER__
 
 // Task state segment format (as described by the Pentium architecture book)
-struct Taskstate {
+struct TaskState {
 	uint32_t ts_link;	// Old ts selector
 	uintptr_t ts_esp0;	// Stack pointers and segment selectors
 	uint16_t ts_ss0;	//   after an increase in privilege level
@@ -255,7 +255,7 @@ struct Taskstate {
 };
 
 // Gate descriptors for interrupts and traps
-struct Gatedesc {
+struct GateDesc {
 	unsigned gd_off_15_0 : 16;   // low 16 bits of offset in segment
 	unsigned gd_sel : 16;        // segment selector
 	unsigned gd_args : 5;        // # args, 0 for interrupt/trap gates

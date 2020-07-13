@@ -35,6 +35,9 @@ void i386InitLitchi(void) {
           WHITE, (char *) EMBUSER_ELF + BINARY_DIR_OFFSET, DEF_FORE,
           embUserElf);
 
+    // Init trap
+    trap::init();
+
     // Go to the monitor
     int result = monitor::main();
     kernelPanic("Monitor dead with errno %d", result);
