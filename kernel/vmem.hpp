@@ -6,10 +6,12 @@
 #define LITCHI_VMEM_HPP
 
 #include <kernel/knlast.inc>
+
 #include <include/x86.h>
 #include <include/panic.hpp>
 #include <include/memlayout.h>
 #include <tuple>
+#include <include/result.hh>
 
 // NVRAM
 namespace nvram {
@@ -135,7 +137,7 @@ namespace vmem::pgdir {
 
     void remove(pde_t *pageDir, void *va);
 
-    int insert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm);
+    Result insert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm);
 
     void staticMap(pde_t *pageDir, uintptr_t va, size_t size, physaddr_t pa, int perm);
 

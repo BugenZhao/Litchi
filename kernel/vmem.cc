@@ -237,9 +237,9 @@ namespace vmem::pgdir {
     }
 
     // Map the physical page 'pp' at va, with permission bits 'perm'
-    int insert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm) {
+    Result insert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm) {
         pte_t *pte = findPte(pageDir, va, 1);
-        if (pte == nullptr) { return -1; }
+        if (pte == nullptr) return Result::fuck;
 
         // First, inc refCount of pp
         pp->refCount++;
@@ -252,7 +252,7 @@ namespace vmem::pgdir {
         *pte = pp->toPhy() | perm | PTE_P;
         // Invalidate TLB since we may have updated an entry
         invalidateTLB(pageDir, va);
-        return 0;
+        return Result::ok;
     }
 
     // Statically map [va, va+size) to [pa, pa+size)

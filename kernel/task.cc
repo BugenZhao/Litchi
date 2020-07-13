@@ -7,6 +7,7 @@
 #include <include/string.hpp>
 #include <include/random.hh>
 #include "task.hh"
+#include <include/elf.h>
 
 extern PseudoDesc pseudoDesc; // kernel/gdt.c
 
@@ -147,5 +148,49 @@ namespace task {
         freeList = this;
 
         console::out::print("Freed task #%08x\n", this->id);
+    }
+
+    void Task::loadElf(uint8_t *binary) {
+        auto elf = (Elf *) binary;
+        if (elf->e_magic != ELF_MAGIC)
+            kernelPanic("bad elf binary");
+
+        x86::lcr3(PHY_ADDR(pageDir));
+
+        // copy the binary
+        auto ph = (Proghdr *) (binary + elf->e_phoff);  // find the elf header
+        auto eph = ph + elf->e_phnum;                   // end of the header
+        for (; ph < eph; ++ph) {
+            if (ph->p_type != ELF_PROG_LOAD || ph->p_memsz == 0) continue;  // not to load
+
+            // allocate
+            this->regionAlloc((void *) ph->p_va, ph->p_memsz);
+            // copy text/data, only copy filesz length
+            auto va = binary + ph->p_offset;
+            mem::copy((void *) ph->p_va, va, ph->p_filesz);
+        }
+
+        x86::lcr3(PHY_ADDR(vmem::kernelPageDir));
+
+        // allocate stack (PGSIZE)
+        this->regionAlloc((void *) (USTACKTOP - PGSIZE), PGSIZE);
+        // set eip to elf entry point
+        this->trapFrame.eip = elf->e_entry;
+    }
+
+    // allocate zero-ed pages from _va to _va + len, into this->pageDir
+    void Task::regionAlloc(void *_va, size_t len) {
+        char *va = static_cast<char *>(_va);
+        auto vaLo = ROUNDDOWN(va, PGSIZE);
+        auto vaHi = ROUNDUP(va + len, PGSIZE);
+        if (vaLo >= vaHi) kernelPanic("bad va");
+
+        // allocate pages
+        for (auto vaIt = vaLo; vaIt < vaHi; vaIt += PGSIZE) {
+            auto page = vmem::PageInfo::alloc(true);
+            if (page == nullptr) kernelPanic("out of memory");
+            auto result = vmem::pgdir::insert(this->pageDir, page, va, PTE_U | PTE_W);
+            if (result != Result::ok) kernelPanic("insert page failed");
+        }
     }
 }

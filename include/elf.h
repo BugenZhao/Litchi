@@ -6,8 +6,7 @@
 #define ELF_MAGIC 0x464C457FU	/* "\x7FELF" in little endian */
 
 struct Elf {
-    // BUGENC: e.g., 0010 0000
-	uint32_t e_magic;	// must equal ELF_MAGIC
+	uint32_t e_magic;	// == ELF_MAGIC
 	uint8_t e_elf[12];
 	uint16_t e_type;
 	uint16_t e_machine;

@@ -16,6 +16,7 @@ set(QEMU qemu-system-i386)
 set(LITCHI_ELF litchi.elf)
 set(BOOT_ELF boot.elf)
 set(BOOT_BIN boot.bin)
+set(LITCHI_LIB litchicc)
 set(IMG ${PROJECT_SOURCE_DIR}/out/litchi.img)
 
 # Dump dir
@@ -30,9 +31,9 @@ macro(add_asm_dump TARGET)
     set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${ASM_DUMP_DIR}/${TARGET}.asm)
 endmacro(add_asm_dump)
 
-# Flag constants
-set(C_OR_ASM_FLAGS "-pipe -ffreestanding -fno-builtin -nostdlib -MD -fno-omit-frame-pointer -std=gnu11 -static -Wall -Wno-format -Wno-unused -Werror -m32 -fno-tree-ch -fno-stack-protector -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
-set(CXX_FLAGS "-pipe -ffreestanding -fno-builtin -nostdlib -MD -fno-omit-frame-pointer -std=gnu++20 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -fno-unwind-tables -DJOS_KERNEL -DLITCHI_KERNEL -g -ggdb")
+# Flags
+set(C_OR_ASM_FLAGS "-ffreestanding -fno-builtin -nostdlib -fno-omit-frame-pointer -std=gnu11 -static -Wall -Wno-format -Wno-unused -Werror -m32 -fno-tree-ch -fno-stack-protector -g -ggdb")
+set(CXX_FLAGS "-ffreestanding -fno-builtin -nostdlib -fno-omit-frame-pointer -std=gnu++20 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -fno-unwind-tables -g -ggdb")
 
 # Other constants
 set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
@@ -71,6 +72,8 @@ set(CMAKE_C_LINK_FLAGS "")
 set(CMAKE_CXX_LINK_FLAGS "")
 
 # Link - use ld
+set(CMAKE_AR ${TP}ar)
+set(CMAKE_RANLIB ${TP}ranlib)
 #set(CMAKE_C_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
 #set(CMAKE_CXX_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
 
@@ -82,57 +85,10 @@ enable_language(C ASM CXX)
 include_directories(.)
 
 # Sources
-set(BOOT_SRC
-        boot/boot.S
-        boot/main.c)
-
-set(LIB_SRC
-        lib/string.cc
-        lib/printfmt.cc
-        lib/strtol.cc
-        lib/ctype.cc lib/random.cc)
-
-set(KERNEL_SRC
-        ${LIB_SRC}
-        kernel/entry.S
-        kernel/init.cc
-        kernel/entrypgdir.c
-        kernel/console.cc
-        kernel/printf.cc
-        kernel/panic.cc
-        kernel/pckbd.c
-        kernel/readline.cc
-        kernel/monitor.cc
-        kernel/system.cc
-        kernel/kdebug.cc
-        kernel/vmem.cc
-        kernel/color.c
-        kernel/task.cc
-        kernel/task.hh
-        kernel/gdt.c)
-
-# Target - kernel
-add_executable(${LITCHI_ELF} ${KERNEL_SRC} ${LIBS_SRC})
-set_target_properties(${LITCHI_ELF} PROPERTIES LINK_FLAGS "-Wl,-m,elf_i386,-T,${LD_SCRIPT} -nostdlib")
-# ${CMAKE_CXX_COMPILER} ${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS} -o foo.o -c foo.cc
-# Use -Og for a better kernel debugging experience
-set_target_properties(${LITCHI_ELF} PROPERTIES COMPILE_FLAGS "-Og")
-target_link_libraries(${LITCHI_ELF} -static-libgcc -lgcc)
-add_asm_dump(${LITCHI_ELF})
-
-# Target - boot
-add_executable(${BOOT_ELF} ${BOOT_SRC})
-set_target_properties(${BOOT_ELF} PROPERTIES LINK_FLAGS "-Wl,-m,elf_i386,-Ttext,0x7C00,-N,-e,start -nostdlib")
-# Use optimization to limit the binary size to 512 bytes
-set_target_properties(${BOOT_ELF} PROPERTIES COMPILE_FLAGS "-O1")
-# post-build command: objcopy (binary, only .text)
-add_custom_command(
-        TARGET ${BOOT_ELF}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan --bold --progress-dir=${PROJECT_BINARY_DIR}/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1)  "Objcopy from ${BOOT_ELF} to ${BOOT_BIN}"
-        COMMAND ${TP}objcopy -S -O binary -j .text ${PROJECT_BINARY_DIR}/${BOOT_ELF} ${PROJECT_BINARY_DIR}/${BOOT_BIN}
-)
-add_asm_dump(${BOOT_ELF})
+include(lib/CMakeLists.txt)
+include(kernel/CMakeLists.txt)
+include(boot/CMakeLists.txt)
+include(user/CMakeLists.txt)
 
 # Target - Image
 add_custom_target(image
