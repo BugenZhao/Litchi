@@ -24,10 +24,9 @@
       <config projectName="Litchi" targetName="qemu-nox-gdb" />
       <config projectName="Litchi" targetName="cgdb-cli" />
       <config projectName="Litchi" targetName="boot.elf" />
-      <config projectName="Litchi" targetName="CMakeLists.txt" />
       <config projectName="Litchi" targetName="litchicc" />
-      <config projectName="Litchi" targetName="image" />
       <config projectName="Litchi" targetName="hello.elf" />
+      <config projectName="Litchi" targetName="image" />
       <config projectName="Litchi" targetName="litchi.elf" />
       <config projectName="Litchi" targetName="qemu-gdb" />
     </generated>
@@ -39,20 +38,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
-      <change afterPath="$PROJECT_DIR$/boot/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kernel/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/user.ld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/hello.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kernel/embuser.S" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kernel/trap.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/entry/libmain.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/entry/uentry.S" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/elf.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/elf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boot/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/boot/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/trap.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/task.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.cc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/task.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.hh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/vmem.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vmem.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/kernel.ld" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/kernel.ld" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/user.ld" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/user.ld" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/user/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/hello.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/hello.cc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,12 +136,7 @@
       <recent name="$PROJECT_DIR$/kernel" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.qemu">
-    <configuration name="CMakeLists.txt" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="CMakeLists.txt" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="CMakeLists.txt">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="CMake Application.litchi.elf">
     <configuration name="boot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot.elf" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -187,7 +185,6 @@
     <list>
       <item itemvalue="CMake Application.boot.elf" />
       <item itemvalue="CMake Application.cgdb-cli" />
-      <item itemvalue="CMake Application.CMakeLists.txt" />
       <item itemvalue="CMake Application.hello.elf" />
       <item itemvalue="CMake Application.image" />
       <item itemvalue="CMake Application.litchi.elf" />
@@ -247,14 +244,7 @@
       <workItem from="1594478737446" duration="3200000" />
       <workItem from="1594544799189" duration="17867000" />
       <workItem from="1594619951195" duration="25000" />
-      <workItem from="1594619988789" duration="21850000" />
-    </task>
-    <task id="LOCAL-00015" summary="Rearrange old Litchi files">
-      <created>1585146214743</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1585146214744</updated>
+      <workItem from="1594619988789" duration="33067000" />
     </task>
     <task id="LOCAL-00016" summary="Update CMake configurations">
       <created>1585147010874</created>
@@ -592,7 +582,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594637003590</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Add: task load elf&#10;Update: separated CMakeLists">
+      <created>1594643834487</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1594643834487</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -614,7 +611,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="'vmdumpp' and 'vmdumpv' command" />
     <MESSAGE value="Updated 'vmmap' command" />
     <MESSAGE value="Serial port output support" />
     <MESSAGE value="Serial port color output support" />
@@ -639,7 +635,8 @@
     <MESSAGE value="Update: clearer memory management" />
     <MESSAGE value="Add: task preparation" />
     <MESSAGE value="Add: task alloc &amp; free" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add: task alloc &amp; free" />
+    <MESSAGE value="Add: task load elf&#10;Update: separated CMakeLists" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add: task load elf&#10;Update: separated CMakeLists" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1594620112917">
@@ -657,10 +654,10 @@
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594635635829" />
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1588261951060" />
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586322085720" />
-    <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1594640147091">
+    <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1594644723711">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1792.1120@0.0.1792.1120" timestamp="1594640147091" />
+    <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1792.1120@0.0.1792.1120" timestamp="1594644723711" />
     <state x="696" y="284" key="#com.intellij.ide.util.MemberChooser" timestamp="1594620300574">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -695,68 +692,72 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="401" y="295" key="FileDocumentManager.FileCacheConflict/0.0.1792.1120@0.0.1792.1120" timestamp="1593740107360" />
-    <state width="1750" height="318" key="GridCell.Tab.0.bottom" timestamp="1594642757110">
+    <state width="1750" height="435" key="GridCell.Tab.0.bottom" timestamp="1594653134124">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="384" key="GridCell.Tab.0.bottom/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594635963187" />
+    <state width="1750" height="435" key="GridCell.Tab.0.bottom/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594653134124" />
     <state width="1750" height="318" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1594642757110" />
     <state width="1750" height="276" key="GridCell.Tab.0.bottom/0.23.1792.1041@0.23.1792.1041" timestamp="1594561681376" />
     <state width="1750" height="388" key="GridCell.Tab.0.bottom/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588877" />
-    <state width="1750" height="318" key="GridCell.Tab.0.center" timestamp="1594642757108">
+    <state width="1750" height="435" key="GridCell.Tab.0.center" timestamp="1594653134122">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="384" key="GridCell.Tab.0.center/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594635963185" />
+    <state width="1750" height="435" key="GridCell.Tab.0.center/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594653134122" />
     <state width="1750" height="318" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1594642757108" />
     <state width="1750" height="276" key="GridCell.Tab.0.center/0.23.1792.1041@0.23.1792.1041" timestamp="1594561681374" />
     <state width="1750" height="388" key="GridCell.Tab.0.center/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588876" />
-    <state width="1750" height="318" key="GridCell.Tab.0.left" timestamp="1594642757107">
+    <state width="1750" height="435" key="GridCell.Tab.0.left" timestamp="1594653134121">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="384" key="GridCell.Tab.0.left/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594635963184" />
+    <state width="1750" height="435" key="GridCell.Tab.0.left/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594653134121" />
     <state width="1750" height="318" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1594642757107" />
     <state width="1750" height="276" key="GridCell.Tab.0.left/0.23.1792.1041@0.23.1792.1041" timestamp="1594561681373" />
     <state width="1750" height="388" key="GridCell.Tab.0.left/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588875" />
-    <state width="1750" height="318" key="GridCell.Tab.0.right" timestamp="1594642757109">
+    <state width="1750" height="435" key="GridCell.Tab.0.right" timestamp="1594653134123">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="384" key="GridCell.Tab.0.right/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594635963186" />
+    <state width="1750" height="435" key="GridCell.Tab.0.right/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594653134123" />
     <state width="1750" height="318" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1594642757109" />
     <state width="1750" height="276" key="GridCell.Tab.0.right/0.23.1792.1041@0.23.1792.1041" timestamp="1594561681375" />
     <state width="1750" height="388" key="GridCell.Tab.0.right/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588877" />
-    <state width="1750" height="384" key="GridCell.Tab.1.bottom" timestamp="1594641042657">
+    <state width="1750" height="435" key="GridCell.Tab.1.bottom" timestamp="1594653134128">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="384" key="GridCell.Tab.1.bottom/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594635963190" />
+    <state width="1750" height="435" key="GridCell.Tab.1.bottom/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594653134128" />
+    <state width="1750" height="559" key="GridCell.Tab.1.bottom/-1366.0.1366.1024/0.23.1792.1041@0.23.1792.1041" timestamp="1594652977994" />
     <state width="1750" height="392" key="GridCell.Tab.1.bottom/-1366.23.1366.1001/0.0.1792.1064@0.0.1792.1064" timestamp="1594398948352" />
     <state width="1750" height="384" key="GridCell.Tab.1.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1594641042657" />
     <state width="1750" height="276" key="GridCell.Tab.1.bottom/0.23.1792.1041@0.23.1792.1041" timestamp="1594561681378" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom/0.23.1792.1043@0.23.1792.1043" timestamp="1586490176163" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588880" />
     <state width="1750" height="388" key="GridCell.Tab.1.bottom/1792.23.1440.877/0.0.1792.1066@0.0.1792.1066" timestamp="1586325131408" />
-    <state width="1750" height="384" key="GridCell.Tab.1.center" timestamp="1594641042655">
+    <state width="1750" height="435" key="GridCell.Tab.1.center" timestamp="1594653134126">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="384" key="GridCell.Tab.1.center/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594635963189" />
+    <state width="1750" height="435" key="GridCell.Tab.1.center/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594653134126" />
+    <state width="1750" height="559" key="GridCell.Tab.1.center/-1366.0.1366.1024/0.23.1792.1041@0.23.1792.1041" timestamp="1594652977987" />
     <state width="1750" height="392" key="GridCell.Tab.1.center/-1366.23.1366.1001/0.0.1792.1064@0.0.1792.1064" timestamp="1594398948350" />
     <state width="1750" height="384" key="GridCell.Tab.1.center/0.0.1792.1120@0.0.1792.1120" timestamp="1594641042655" />
     <state width="1750" height="276" key="GridCell.Tab.1.center/0.23.1792.1041@0.23.1792.1041" timestamp="1594561681377" />
     <state width="1750" height="388" key="GridCell.Tab.1.center/0.23.1792.1043@0.23.1792.1043" timestamp="1586490176162" />
     <state width="1750" height="388" key="GridCell.Tab.1.center/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588879" />
     <state width="1750" height="388" key="GridCell.Tab.1.center/1792.23.1440.877/0.0.1792.1066@0.0.1792.1066" timestamp="1586325131407" />
-    <state width="1750" height="384" key="GridCell.Tab.1.left" timestamp="1594641042655">
+    <state width="1750" height="435" key="GridCell.Tab.1.left" timestamp="1594653134125">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="384" key="GridCell.Tab.1.left/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594635963188" />
+    <state width="1750" height="435" key="GridCell.Tab.1.left/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594653134125" />
+    <state width="1750" height="559" key="GridCell.Tab.1.left/-1366.0.1366.1024/0.23.1792.1041@0.23.1792.1041" timestamp="1594652977986" />
     <state width="1750" height="392" key="GridCell.Tab.1.left/-1366.23.1366.1001/0.0.1792.1064@0.0.1792.1064" timestamp="1594398948348" />
     <state width="1750" height="384" key="GridCell.Tab.1.left/0.0.1792.1120@0.0.1792.1120" timestamp="1594641042655" />
     <state width="1750" height="276" key="GridCell.Tab.1.left/0.23.1792.1041@0.23.1792.1041" timestamp="1594561681376" />
     <state width="1750" height="388" key="GridCell.Tab.1.left/0.23.1792.1043@0.23.1792.1043" timestamp="1586490176161" />
     <state width="1750" height="388" key="GridCell.Tab.1.left/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588878" />
     <state width="1750" height="388" key="GridCell.Tab.1.left/1792.23.1440.877/0.0.1792.1066@0.0.1792.1066" timestamp="1586325131407" />
-    <state width="1750" height="384" key="GridCell.Tab.1.right" timestamp="1594641042656">
+    <state width="1750" height="435" key="GridCell.Tab.1.right" timestamp="1594653134127">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="384" key="GridCell.Tab.1.right/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594635963189" />
+    <state width="1750" height="435" key="GridCell.Tab.1.right/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594653134127" />
+    <state width="1750" height="559" key="GridCell.Tab.1.right/-1366.0.1366.1024/0.23.1792.1041@0.23.1792.1041" timestamp="1594652977992" />
     <state width="1750" height="392" key="GridCell.Tab.1.right/-1366.23.1366.1001/0.0.1792.1064@0.0.1792.1064" timestamp="1594398948352" />
     <state width="1750" height="384" key="GridCell.Tab.1.right/0.0.1792.1120@0.0.1792.1120" timestamp="1594641042656" />
     <state width="1750" height="276" key="GridCell.Tab.1.right/0.23.1792.1041@0.23.1792.1041" timestamp="1594561681378" />
@@ -773,21 +774,21 @@
     <state x="556" y="317" key="SettingsEditor/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594637849242" />
     <state x="449" y="334" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594642232787" />
     <state x="556" y="290" key="SettingsEditor/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160896729" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594637010722">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594643835964">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594637010722" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594477028228" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594643835964" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586332687373" />
     <state x="100" y="100" width="1592" height="920" key="dock-window-1" timestamp="1594372306544">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="100" y="100" width="1592" height="920" key="dock-window-1/0.0.1792.1120@0.0.1792.1120" timestamp="1594372306544" />
-    <state x="758" y="472" width="555" height="396" key="refactoring.ChangeSignatureDialog" timestamp="1594638027026">
+    <state x="758" y="472" width="555" height="392" key="refactoring.ChangeSignatureDialog" timestamp="1594648254476">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="758" y="472" width="555" height="396" key="refactoring.ChangeSignatureDialog/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594638027026" />
-    <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1594566181613" />
+    <state x="758" y="472" width="555" height="392" key="refactoring.ChangeSignatureDialog/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594648254476" />
+    <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1594647305494" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586343465438" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1594639111174">
       <screen x="0" y="0" width="1792" height="1120" />

@@ -6,6 +6,7 @@
 #define LITCHI_INCLUDE_TRAP_HH
 
 #include <include/string.hpp>
+#include <include/panic.hpp>
 
 namespace trap {
     enum class TrapType : int {
@@ -56,7 +57,7 @@ namespace trap {
 
         /* auto saved by x86 hardware */
         uint32_t err;
-        uintptr_t eip;
+        uintptr_t eip;          /* iret */
         uint16_t cs;
         uint16_t padding3;
         uint32_t eflags;
@@ -68,6 +69,23 @@ namespace trap {
 
         inline void clear() {
             mem::clear(this, sizeof(*this));
+        }
+
+        // pop the trap frame and goto user mode
+        inline void pop() {
+            asm volatile (
+            "movl %0, %%esp\n"      // move tf to stack
+            "popal\n"
+            "popl %%es\n"           // must be LONG
+            "popl %%ds\n"
+            "addl $0x8, %%esp\n"    // skip trap number and err
+            "iret\n"                // IRET!!!
+            :
+            :"g"(this)              // put this to any General reg
+            :"memory"               // do not reorder
+            );
+
+            kernelPanic("failed to pop and iret trap frame %08x", this);
         }
     } __attribute__((packed));
 }

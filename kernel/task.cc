@@ -9,6 +9,8 @@
 #include "task.hh"
 #include <include/elf.h>
 
+using namespace console::out;
+
 extern PseudoDesc pseudoDesc; // kernel/gdt.c
 
 namespace task {
@@ -31,7 +33,7 @@ namespace task {
     }
 
     void init() {
-        console::out::print("Initializing tasks...");
+        print("Initializing tasks...");
         // vmem part should have allocated task array
         assert(Task::array != nullptr);
 
@@ -42,7 +44,7 @@ namespace task {
         }
 
         initPerCpu();
-        console::out::print("%<Done\n", WHITE);
+        print("%<Done\n", WHITE);
     }
 
     void initPerCpu() {
@@ -89,16 +91,17 @@ namespace task {
 
         // clear the trap frame
         task->trapFrame.clear();
-        // set initial values, 3: RPL, see: initPerCpu()
+        // set segment descriptors to users', 3: RPL, see: initPerCpu()
         task->trapFrame.ds = GD_UD | 3;
         task->trapFrame.es = GD_UD | 3;
         task->trapFrame.cs = GD_UT | 3;
         task->trapFrame.ss = GD_UD | 3;
+        // set user stack
         task->trapFrame.esp = USTACKTOP; // user stack top
 
         // eip will be set after binary loaded
 
-        console::out::print("Allocated task #%08x\n", task->id);
+        print("Allocated task #%08x\n", task->id);
         return {task, Result::ok};
     }
 
@@ -147,7 +150,7 @@ namespace task {
         nextFree = freeList;
         freeList = this;
 
-        console::out::print("Freed task #%08x\n", this->id);
+        print("Freed task #%08x\n", this->id);
     }
 
     void Task::loadElf(uint8_t *binary) {
@@ -155,7 +158,7 @@ namespace task {
         if (elf->e_magic != ELF_MAGIC)
             kernelPanic("bad elf binary");
 
-        x86::lcr3(PHY_ADDR(pageDir));
+        x86::lcr3(PHY_ADDR(this->pageDir));
 
         // copy the binary
         auto ph = (Proghdr *) (binary + elf->e_phoff);  // find the elf header
@@ -163,10 +166,11 @@ namespace task {
         for (; ph < eph; ++ph) {
             if (ph->p_type != ELF_PROG_LOAD || ph->p_memsz == 0) continue;  // not to load
 
-            // allocate
+            // allocate pages
             this->regionAlloc((void *) ph->p_va, ph->p_memsz);
             // copy text/data, only copy filesz length
             auto va = binary + ph->p_offset;
+            print("VA %08x\n", va);
             mem::copy((void *) ph->p_va, va, ph->p_filesz);
         }
 
@@ -176,6 +180,8 @@ namespace task {
         this->regionAlloc((void *) (USTACKTOP - PGSIZE), PGSIZE);
         // set eip to elf entry point
         this->trapFrame.eip = elf->e_entry;
+
+        print("Loaded elf of task #%08x\n", this->id);
     }
 
     // allocate zero-ed pages from _va to _va + len, into this->pageDir
@@ -189,8 +195,38 @@ namespace task {
         for (auto vaIt = vaLo; vaIt < vaHi; vaIt += PGSIZE) {
             auto page = vmem::PageInfo::alloc(true);
             if (page == nullptr) kernelPanic("out of memory");
+            print("PA %08x\n", page->toPhy());
             auto result = vmem::pgdir::insert(this->pageDir, page, va, PTE_U | PTE_W);
             if (result != Result::ok) kernelPanic("insert page failed");
         }
+    }
+
+    std::tuple<Task *, Result> Task::create(uint8_t *binary, TaskType type) {
+        // allocate a free task
+        auto[task, r] = alloc(0);
+        if (r != Result::ok) return {nullptr, r};
+        // set up vm
+        r = task->setupMemory();
+        if (r != Result::ok) return {nullptr, r};
+        // load elf
+        task->loadElf(binary);
+
+        print("Created task #%08x\n", task->id);
+        return {task, Result::ok};
+    }
+
+    void Task::run() {
+        if (this != current) {
+            // context switching
+            if (current != nullptr && current->status == TaskStatus::running)
+                current->status = TaskStatus::ready;
+            this->status = TaskStatus::running;
+            current = this;
+
+            x86::lcr3(PHY_ADDR(this->pageDir));
+        }
+
+        print("Goodbye, kernel! [%08x]\n", id);
+        this->trapFrame.pop();
     }
 }

@@ -28,13 +28,17 @@ namespace task {
 
         static std::tuple<Task *, Result> alloc(taskid_t parentId);
 
-        Result setupMemory();
+        static std::tuple<Task *, Result> create(uint8_t *binary, TaskType type);
+
+        void run();
 
         void free();
 
+    private:
+        Result setupMemory();
+
         void loadElf(uint8_t *binary);
 
-    private:
         void regionAlloc(void *va, size_t len);
     };
 

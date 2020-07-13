@@ -11,16 +11,18 @@
 #include "monitor.hpp"
 #include "task.hh"
 
+using namespace console::out;
+
 extern "C" {
 void i386InitLitchi(void) {
     // Clear .BSS section
-    extern char edata[], end[];
+    extern uint8_t edata[], end[];
     mem::set(edata, 0, end - edata);
 
     // Init the console for I/O, and print welcome message
     console::init();
-    console::out::print("%<%s%c %<%s!\n%<Kernel version %s\n(C) BugenZhao %d%03x\n\n",
-                        YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
+    print("%<%s%c %<%s!\n%<Kernel version %s\n(C) BugenZhao %d%03x\n\n",
+          YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION, 2, 0x20);
 
     // Init memory
     vmem::init();
@@ -28,10 +30,12 @@ void i386InitLitchi(void) {
     // Init task
     task::init();
 
-    int loop = 10;
-    while (loop--) {
-        console::out::print("%r\n", std::get<1>(task::Task::alloc(0)));
-    }
+    extern uint8_t embUserElf[];
+    print("\nEmbedded user elf at %08x [%s]\n", embUserElf, (char *) EMBUSER_ELF + SOURCE_PATH_SIZE);
+
+    auto[task, r] = task::Task::create(embUserElf, task::TaskType::user);
+
+    task->run();
 
     // Go to the monitor
     int result = monitor::main();

@@ -180,7 +180,7 @@ namespace vmem::pgdir {
         //    printFmt("%08X %08X\n", UVPT, PHY_ADDR(kernelPageDir));
     }
 
-    // Find the page table entry of va
+    // Find the page table entry of va, but won't do any mapping
     // If not exist but create == true, func will create one page table / page dir entry
     pte_t *findPte(pde_t *pageDir, const void *va, bool create) {
         uint32_t pdx = PDX(va);     // Page directory index
@@ -196,7 +196,7 @@ namespace vmem::pgdir {
         } else if (!create) {
             return nullptr;
         } else {
-            // Allocate a new page table page's info
+            // Allocate a new **PAGE TABLE** page's info
             struct PageInfo *pp = PageInfo::alloc(true);
             if (pp == nullptr) { return nullptr; }    // Allocation fails
             pp->refCount++;

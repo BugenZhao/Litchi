@@ -47,6 +47,11 @@ SECTIONS
 	/* The data segment */
 	.data : {
 		*(.data)
+
+		/* Put the embedded elf here to get the correct load
+		   address (pa) of 001xxxxx */
+		PROVIDE(embUserElf = .);
+                *(.embuser*)
 	}
 
 	.bss : {
@@ -55,6 +60,7 @@ SECTIONS
 		PROVIDE(end = .);
 		BYTE(0)
 	}
+
 	PROVIDE(kernEnd = .);
 
 	/DISCARD/ : {

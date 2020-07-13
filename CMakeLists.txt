@@ -19,6 +19,9 @@ set(BOOT_BIN boot.bin)
 set(LITCHI_LIB litchicc)
 set(IMG ${PROJECT_SOURCE_DIR}/out/litchi.img)
 
+# Embedded user elf binary, see kernel/embuser.S
+set(EMBUSER_ELF hello.elf)
+
 # Dump dir
 set(ASM_DUMP_DIR ${PROJECT_BINARY_DIR}/asm_dumps)
 file(MAKE_DIRECTORY ${ASM_DUMP_DIR})
@@ -42,6 +45,7 @@ set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
 # https://stackoverflow.com/questions/8487986/file-macro-shows-full-path
 string(LENGTH "${CMAKE_SOURCE_DIR}/" SOURCE_PATH_SIZE)
 add_definitions("-DSOURCE_PATH_SIZE=${SOURCE_PATH_SIZE}")
+add_definitions("-DEMBUSER_ELF=\"${PROJECT_BINARY_DIR}/${EMBUSER_ELF}\"")
 
 # CMake will try to compile and run a simple test program, but it is to fail when cross-compiling
 # After setting this, CMake will try to compile a static library and do not run it
@@ -86,9 +90,13 @@ include_directories(.)
 
 # Sources
 include(lib/CMakeLists.txt)
-include(kernel/CMakeLists.txt)
-include(boot/CMakeLists.txt)
 include(user/CMakeLists.txt)
+include(boot/CMakeLists.txt)
+include(kernel/CMakeLists.txt)
+
+# Litchi.elf includes and thus depends on embUserElf
+# WARNING: not always working, remember to rebuild every time after updating
+add_dependencies(${LITCHI_ELF} ${EMBUSER_ELF})
 
 # Target - Image
 add_custom_target(image
