@@ -1,7 +1,34 @@
-# Litchi
-Bugen's toy kernel for i386 systems implemented in modern C++.   
-Now at **_early_** development stage.  
+# Litchi ![Build](https://github.com/BugenZhao/Litchi/workflows/Build/badge.svg)
+
+Bugen's toy kernel for x86 systems implemented in modern C++.
+
 ![litchi](img/v0.5.4.png)
+
+## Get Started
+
+### Install Toolchains
+
+Litchi is compiled to i386-elf target, which may require a cross-compiler. For macOS user, some Homebrew formulae and bottles are provided (see [BugenZhao/homebrew-litchi](https://github.com/BugenZhao/homebrew-litchi)).
+
+Make sure you have Homebrew installed, then simply run:
+
+```bash
+$ brew tap bugenzhao/litchi
+$ brew install --HEAD i386-litchi-elf-qemu
+$ brew install i386-litchi-elf-binutils i386-litchi-elf-gcc i386-litchi-elf-gdb
+```
+
+### Build & Run
+
+Litchi is built by CMake, which is fairly easy to build and run:
+
+```bash
+$ git clone https://github.com/BugenZhao/Litchi.git && cd Litchi
+$ mkdir build && cd build && cmake .. && make qemu
+```
+
+
+
 
 ## Progress
 - [x] Adopt bootloader from JOS / xv6
