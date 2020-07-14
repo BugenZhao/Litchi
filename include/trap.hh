@@ -11,14 +11,14 @@
 #include <include/memlayout.h>
 
 namespace trap {
-    enum class TrapType : uint32_t {
+    enum struct TrapType : uint32_t {
         divide = 0,
         debug,
         nmi,
         breakpoint,
         overflow,
         bound,
-        illegalOp,
+        invalidOp,
         device,
         doubleFault,
         coprocessor,    // reserved

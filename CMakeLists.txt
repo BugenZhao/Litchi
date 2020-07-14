@@ -53,9 +53,9 @@ add_definitions("-DEMBUSER_ELF=\"${PROJECT_BINARY_DIR}/${EMBUSER_ELF}\"")
 
 # Provide time
 string(TIMESTAMP TIMESEED "%y%m%d%H%M%S")
-string(TIMESTAMP TIME "%Y-%m-%d %H:%M:%S")
+string(TIMESTAMP BUILD_TIME "%Y-%m-%d-%H:%M:%S")
 add_definitions("-DTIMESEED=${TIMESEED}")
-add_definitions("-DTIME=\"${TIME}\"")
+add_definitions("-DBUILD_TIME=\"${BUILD_TIME}\"")
 
 
 # CMake will try to compile and run a simple test program, but it is to fail when cross-compiling

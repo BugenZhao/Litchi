@@ -31,6 +31,7 @@ namespace monitor {
 }
 
 namespace monitor {
+    // echo some colorful words
     int echo(int argc, char **argv, trap::Frame *tf) {
         for (int i = 1; i < argc; ++i) {
             console::out::print("%<%s ", (i + str::count(argv[i])) % 15 + BLUE, argv[i]);
@@ -39,18 +40,21 @@ namespace monitor {
         return 0;
     }
 
+    // display litchi
     int uname(int argc, char **argv, trap::Frame *tf) {
         if (argc >= 2 && str::cmp(argv[1], "-a") == 0)
-            console::out::print("Litchi v%s by BugenZhao\n", LITCHI_VERSION);
-        else console::out::print("Litchi\n", LITCHI_VERSION);
+            console::out::print("Litchi v%s by BugenZhao\n", LITCHI_VERSION_TIME);
+        else console::out::print("Litchi\n");
         return 0;
     }
 
+    // print backtrace
     int backtrace(int argc, char **argv, trap::Frame *tf) {
         kdebug::backtrace();
         return 0;
     }
 
+    // show vm mapping
     int vmshow(int argc, char **argv, trap::Frame *tf) {
         if (argc <= 1) {
             print("%s: Invalid argument\n", argv[0]);
@@ -62,6 +66,7 @@ namespace monitor {
         return 0;
     }
 
+    // dump virtual memory
     int vmdumpv(int argc, char **argv, trap::Frame *tf) {
         if (argc <= 1) {
             print("%s: Invalid argument\n", argv[0]);
@@ -73,6 +78,7 @@ namespace monitor {
         return 0;
     }
 
+    // dump physical memory
     int vmdumpp(int argc, char **argv, trap::Frame *tf) {
         if (argc <= 1) {
             print("%s: Invalid argument\n", argv[0]);
@@ -84,6 +90,7 @@ namespace monitor {
         return 0;
     }
 
+    // run user task from embedded ELF
     int runtask(int argc, char **argv, trap::Frame *tf) {
         using namespace task;
         static bool started = false;
@@ -94,10 +101,24 @@ namespace monitor {
         task->run();
     }
 
+    // USER TASK DEBUG: continue
     int cont(int, char **, trap::Frame *tf) {
-        if (tf) tf->pop();
-        else {
-            console::err::print("Not a breakpoint\n");
+        if (tf) {
+            tf->eflags &= ~FL_TF;   // clear Trap Flag (single-step)
+            tf->pop();
+        } else {
+            console::err::print("No task to continue\n");
+            return -1;
+        }
+    }
+
+    // USER TASK DEBUG: single instruction
+    int si(int, char **, trap::Frame *tf) {
+        if (tf) {
+            tf->eflags |= FL_TF;    // set Trap Flag (single-step)
+            tf->pop();
+        } else {
+            console::err::print("No task to continue\n");
             return -1;
         }
     }
@@ -168,6 +189,11 @@ namespace monitor {
                     .desc = "Continue the task",
                     .func = cont
             },
+            {
+                    .cmd  = "si",
+                    .desc = "Single-Instruction debug the task",
+                    .func = si
+            },
     };
 
     int help(int argc, char **argv, trap::Frame *tf) {
@@ -176,15 +202,12 @@ namespace monitor {
         }
         return 0;
     }
+}
 
+namespace monitor {
     int parseCmd(char *cmd, trap::Frame *tf) {
         char *argv[MAX_ARGS + 2];
         int argc = str::splitWs(cmd, argv, MAX_ARGS + 2);
-
-        //    printFmt("argc: %d, argv:\n", argc);
-        //    for (int j = 0; j <= argc; ++j) {
-        //        printFmt("[%d]: %s\n", j, argv[j]);
-        //    }
 
         if (argc == MAX_ARGS + 1) {
             print("Too many arguments\n");
@@ -193,7 +216,6 @@ namespace monitor {
             print("Bad syntax\n");
             return -2;
         }
-
 
         for (size_t i = 0; i < ARRAY_SIZE(commands); ++i) {
             if (str::cmpCase(argv[0], commands[i].cmd) == 0) {
@@ -209,12 +231,14 @@ namespace monitor {
         int lastRet = 0;
         console::out::print("\n");
         while (true) {
+            // show current task if needed
             if (task::Task::current != nullptr)
                 cmd = console::in::readline("%<Litchi%<[%08x]%<> ",
                                             LIGHT_MAGENTA, WHITE, task::Task::current->id, lastRet ? RED : DEF_FORE);
             else
                 cmd = console::in::readline("%<Litchi%<> ",
                                             LIGHT_MAGENTA, lastRet ? RED : DEF_FORE);
+
             if (*cmd && cmd[0]) lastRet = parseCmd(cmd, tf);
         }
     }

@@ -12,6 +12,7 @@ void pageFault() {
 }
 
 int umain(int, char **) {
+    asm volatile ("int3");
     console::out::print("%<Hello from user!!!!\n", LIGHT_GREEN);
     return 0;
 }

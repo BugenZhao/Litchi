@@ -64,6 +64,52 @@ namespace trap {
 
         void dispatch();
     } __attribute__((packed));
+
+    static inline constexpr const char *describe(TrapType type) {
+        switch (type) {
+            case TrapType::divide:
+                return "Divide Error";
+            case TrapType::debug:
+                return "Debug";
+            case TrapType::nmi:
+                return "Non-Maskable Interrupt";
+            case TrapType::breakpoint:
+                return "Breakpoint";
+            case TrapType::overflow:
+                return "Overflow";
+            case TrapType::bound:
+                return "BOUND Range Exceed";
+            case TrapType::invalidOp:
+                return "Invalid Opcode";
+            case TrapType::device:
+                return "Device Not Available";
+            case TrapType::doubleFault:
+                return "Double Fault";
+            case TrapType::coprocessor:
+                return "Coprocessor Segment";
+            case TrapType::invalidTss:
+                return "Invalid TSS";
+            case TrapType::segmentNP:
+                return "Segment Not Present";
+            case TrapType::stack:
+                return "Stack Fault";
+            case TrapType::gpFault:
+                return "General Protection";
+            case TrapType::pageFault:
+                return "Page Fault";
+            case TrapType::fpError:
+                return "x87 FPU Floating-Point Error";
+            case TrapType::alignment:
+                return "Alignment Check";
+            case TrapType::machineCheck:
+                return "Machine Check";
+            case TrapType::simdError:
+                return "SIMD Floating-Point";
+            case TrapType::syscall:
+                return "Litchi Syscall";
+        }
+        return "Unknown Trap";
+    }
 }
 
 namespace trap {

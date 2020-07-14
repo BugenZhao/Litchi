@@ -233,8 +233,9 @@ namespace task {
     }
 
     void Task::destroy(bool fromKernel) {
-        this->free();
         print("%<[%08x] Destroyed by %s\n", WHITE, id, fromKernel ? "kernel" : "user");
+        if (this == current) current = nullptr;
+        this->free();
         monitor::main();
     }
 }

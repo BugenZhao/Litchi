@@ -42,9 +42,12 @@ namespace trap {
             SETGATE(idt[i], 0, GD_KT, ivt[i], 0);
         }
 
-        // allow syscall trap be called by user => dpl = 3
-        auto no = (int) TrapType::syscall;
-        SETGATE(idt[no], 1, GD_KT, ivt[no], 3);
+        // allow some traps be called by user => dpl = 3
+        for (auto no: {(int) TrapType::syscall,
+                       (int) TrapType::breakpoint,
+                       (int) TrapType::debug}) {
+            SETGATE(idt[no], 1, GD_KT, ivt[no], 3);
+        }
 
         // set and load tss, ivt per CPU
         initPerCpu();
@@ -85,9 +88,9 @@ namespace trap {
             tf = &Task::current->trapFrame;   // use the one on kernel stack to avoid problems
 
             if (tf->trapType != TrapType::syscall)
-                print("[%08x] Back to kernel: Trap %u\n", Task::current->id, tf->trapType);
+                print("[%08x] Back to kernel: Trap [%s]\n", Task::current->id, describe(tf->trapType));
         } else {
-            print("Kernel Trap %u\n", tf->trapType);
+            print("Kernel Trap [%s]\n", describe(tf->trapType));
         }
 
         // dispatch to trap handlers
@@ -104,6 +107,8 @@ namespace trap {
         void pageFault(Frame *tf);
 
         uint32_t syscall(Frame *tf);
+
+        void debug(Frame *tf);
     }
 
     void Frame::dispatch() {
@@ -115,13 +120,16 @@ namespace trap {
                 handler::syscall(this);
                 break;
 
-            case TrapType::divide:
             case TrapType::debug:
-            case TrapType::nmi:
             case TrapType::breakpoint:
+                handler::debug(this);
+                break;
+
+            case TrapType::divide:
+            case TrapType::nmi:
             case TrapType::overflow:
             case TrapType::bound:
-            case TrapType::illegalOp:
+            case TrapType::invalidOp:
             case TrapType::device:
             case TrapType::doubleFault:
             case TrapType::coprocessor:
@@ -135,10 +143,13 @@ namespace trap {
             case TrapType::simdError:
             default:
                 if ((this->cs & 0b11) == 0) {
-                    kernelPanic("Unhandled trap %u from kernel\n", trapType);
+                    // Unhandled trap from kernel => BUG
+                    kernelPanic("Unhandled trap [%s] from kernel\n", describe(trapType));
                 } else {
-                    print("[%08x] Unhandled trap %u\n", task::Task::current->id, trapType);
-                    task::Task::current->destroy(true); // will trap into monitor
+                    // Unhandled trap from user
+                    print("[%08x] Unhandled trap [%s]\n", task::Task::current->id, describe(trapType));
+                    monitor::main(&task::Task::current->trapFrame);                     // Break
+                    // task::Task::current->destroy(true); // will trap into monitor    // or destroy
                 }
         }
     }
@@ -152,7 +163,7 @@ namespace trap::handler {
         if ((tf->cs & 0b11) == 0) {
             kernelPanic("Unhandled page fault (%08x) from kernel\n", faultVa);
         } else {
-            print("[%08x] Unhandled page fault (%08x)\n", task::Task::current->id, faultVa);
+            print("[%08x] Unhandled page fault (at %08x)\n", task::Task::current->id, faultVa);
             task::Task::current->destroy(true); // will trap into monitor
         }
     }
@@ -160,5 +171,10 @@ namespace trap::handler {
     uint32_t syscall(Frame *tf) {
         return ksyscall::main(static_cast<ksyscall::SyscallType>(tf->regs.eax),
                               tf->regs.edx, tf->regs.ecx, tf->regs.ebx, tf->regs.edi, tf->regs.esi);
+    }
+
+    void debug(Frame *tf) {
+        print("eip = %08x\n", tf->eip);
+        monitor::main(tf);
     }
 }

@@ -50,7 +50,7 @@ SECTIONS
 
 		/* Put the embedded elf here to get the correct load
 		   address (pa) of 001xxxxx */
-		PROVIDE(embUserElf = .);
+		/* PROVIDE(embUserElf = .); */
                 *(.embuser*)
 	}
 
