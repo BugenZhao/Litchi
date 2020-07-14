@@ -104,9 +104,9 @@ namespace str {
         return dest;
     }
 
-    char *copy(char *dest, const char *src) {
+    char *copy(char *dest, const char *src, size_t count) {
         char *ret = dest;
-        while (*src)
+        while (*src && count--)
             *(dest++) = *(src++);
         *dest = 0;
         return ret;

@@ -25,7 +25,7 @@ namespace task {
         Task::array = bootAllocCount<Task>(Task::maxCount);
         mem::clear(Task::array, sizeof(Task) * Task::maxCount);
 
-        // map the task array to read-only user space
+        // expose the task array to user space
         pgdir::staticMap(kernelPageDir,
                          UENVS,
                          ROUNDUP(sizeof(Task) * Task::maxCount, PGSIZE),
@@ -202,7 +202,7 @@ namespace task {
         }
     }
 
-    std::tuple<Task *, Result> Task::create(uint8_t *binary, TaskType type) {
+    std::tuple<Task *, Result> Task::create(uint8_t *binary, TaskType type, const char *_name) {
         // allocate a free task
         auto[task, r] = alloc(0);
         if (r != Result::ok) return {nullptr, r};
@@ -212,7 +212,8 @@ namespace task {
         // load elf
         task->loadElf(binary);
 
-        print("[%08x] Created task\n", task->id);
+        str::copy(task->name, _name, nameLength);
+        print("[%08x] Created task %<'%s'\n", task->id, WHITE, task->name);
         return {task, Result::ok};
     }
 

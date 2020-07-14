@@ -201,7 +201,6 @@ namespace vmem::pgdir {
             if (pp == nullptr) { return nullptr; }    // Allocation fails
             pp->refCount++;
 
-            // TODO: virtual here?
             mem::clear(pp->toKernV(), PGSIZE); // Clear the real page
 
             // Actually insert the page table page into pageDir+idx (*pde)
@@ -319,6 +318,26 @@ namespace vmem::pgdir {
         // Flush the entry only if we're modifying the current address space.
         // For now, there is only one address space, so always invalidate.
         x86::invlpg(va);
+    }
+
+
+    // some user task may trick the kernel, using syscall to access kernel space
+    // use this to check if [va, va + size) all satisfy the perm
+    bool userCheck(pde_t *pageDir, const void *va, size_t size, int perm) {
+        perm = perm | PTE_P;
+        auto va_it = (uint32_t) va;
+
+        for (; va_it < (uint32_t) va + size; va_it += PGSIZE) {
+            // out of user limit
+            if ((uintptr_t) va_it >= ULIM) goto bad;
+            // perm not satisfied
+            pte_t *pte = findPte(pageDir, (const void *) va_it, false);
+            if (pte == NULL) goto bad;
+            if (!(*pte & perm)) goto bad;
+        }
+        return true;
+        bad:
+        return false;
     }
 }
 

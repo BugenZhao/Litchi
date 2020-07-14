@@ -3,7 +3,7 @@ set(USER_LD_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/user.ld)
 file(GLOB USER_SRCS RELATIVE ${CMAKE_SOURCE_DIR} "user/*.cc")
 set(USER_LIB_SRCS
         user/entry/uentry.S
-        user/entry/libmain.cc
+        user/entry/umain.cc
         user/lib/printf.cc)
 
 foreach(file_path ${USER_SRCS})

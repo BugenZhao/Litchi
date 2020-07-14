@@ -4,11 +4,11 @@
 
 #include <user/stdlib.hh>
 
-extern void umain(int argc, char **argv);
+extern int main(int argc, char **argv);
 
 extern "C" {
 void libmain(int argc, char **argv) {
-    umain(argc, argv);
+    main(argc, argv);
     syscall(ksyscall::SyscallType::exit);
 }
 }

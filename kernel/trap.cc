@@ -148,8 +148,8 @@ namespace trap {
                 } else {
                     // Unhandled trap from user
                     print("[%08x] Unhandled trap [%s]\n", task::Task::current->id, describe(trapType));
-                    monitor::main(&task::Task::current->trapFrame);                     // Break
-                    // task::Task::current->destroy(true); // will trap into monitor    // or destroy
+                    monitor::main(&task::Task::current->trapFrame);     // Break
+                    // task::Task::current->destroy(true);              // or destroy
                 }
         }
     }
@@ -163,7 +163,11 @@ namespace trap::handler {
         if ((tf->cs & 0b11) == 0) {
             kernelPanic("Unhandled page fault (%08x) from kernel\n", faultVa);
         } else {
-            print("[%08x] Unhandled page fault (at %08x)\n", task::Task::current->id, faultVa);
+            print("[%08x] Unhandled page fault (at %08x) [%s, %s, %s]\n",
+                  task::Task::current->id, faultVa,
+                  tf->err & 4 ? "user" : "kernel",
+                  tf->err & 2 ? "write" : "read",
+                  tf->err & 1 ? "protection" : "not-present");
             task::Task::current->destroy(true); // will trap into monitor
         }
     }

@@ -96,7 +96,8 @@ namespace monitor {
         static bool started = false;
         if (started) return -1;
 
-        auto[task, r] = Task::create(embUserElf, TaskType::user);
+        auto[task, r] = Task::create(embUserElf, TaskType::user,
+                                     (char *) EMBUSER_ELF + BINARY_DIR_OFFSET);
         started = true;
         task->run();
     }

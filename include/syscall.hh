@@ -10,6 +10,7 @@
 namespace ksyscall {
     enum struct SyscallType : uint32_t {
         putChar,
+        putString,
         exit
     };
 }

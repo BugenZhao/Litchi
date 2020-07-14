@@ -22,7 +22,7 @@ namespace str {
 
     char *append(char *dest, const char *src);
 
-    char *copy(char *dest, const char *src);
+    char *copy(char *dest, const char *src, size_t count = SIZE_MAX);
 
     int cmp(const char *lhs, const char *rhs);
 

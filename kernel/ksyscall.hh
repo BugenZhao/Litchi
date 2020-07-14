@@ -15,6 +15,8 @@ namespace ksyscall {
 namespace ksyscall {
     void putChar(int c);
 
+    void putString(const char *str, size_t count);
+
     void exit();
 }
 

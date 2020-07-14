@@ -13,6 +13,7 @@
 namespace task {
     struct Task {
         static constexpr size_t maxCount = 0x100;
+        static constexpr size_t nameLength = 32;
         static Task *array;
         static Task *freeList;
         static Task *current;
@@ -20,6 +21,7 @@ namespace task {
         Task *nextFree;
         taskid_t id;
         taskid_t parentId;
+        char name[nameLength];
         TaskStatus status;
         TaskType type;
 
@@ -28,7 +30,7 @@ namespace task {
 
         static std::tuple<Task *, Result> alloc(taskid_t parentId);
 
-        static std::tuple<Task *, Result> create(uint8_t *binary, TaskType type);
+        static std::tuple<Task *, Result> create(uint8_t *binary, TaskType type, const char *_name = "<unknown>");
 
         [[noreturn]] void run(bool verbose = true);
 
