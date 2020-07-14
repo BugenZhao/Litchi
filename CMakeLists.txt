@@ -17,21 +17,21 @@ set(LITCHI_ELF litchi.elf)
 set(BOOT_ELF boot.elf)
 set(BOOT_BIN boot.bin)
 set(LITCHI_LIB litchicc)
-set(IMG ${PROJECT_SOURCE_DIR}/out/litchi.img)
+set(IMG "${PROJECT_SOURCE_DIR}/out/litchi.img")
 
 # Embedded user elf binary, see kernel/embuser.S
 set(EMBUSER_ELF hello.elf)
 
 # Dump dir
-set(ASM_DUMP_DIR ${PROJECT_BINARY_DIR}/asm_dumps)
+set(ASM_DUMP_DIR "${PROJECT_BINARY_DIR}/asm_dumps")
 file(MAKE_DIRECTORY ${ASM_DUMP_DIR})
 macro(add_asm_dump TARGET)
     add_custom_command(
             TARGET ${TARGET} POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan --bold --progress-dir=${PROJECT_BINARY_DIR}/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1)  "Generating ASM dump of ${TARGET}"
-            COMMAND ${CMAKE_OBJDUMP} -S $<TARGET_FILE:${TARGET}> > ${ASM_DUMP_DIR}/${TARGET}.asm
+            COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan --bold --progress-dir="${PROJECT_BINARY_DIR}/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1)  "Generating ASM dump of ${TARGET}"
+            COMMAND ${CMAKE_OBJDUMP} -S $<TARGET_FILE:${TARGET}> > "${ASM_DUMP_DIR}/${TARGET}.asm"
             VERBATIM)
-    set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES ${ASM_DUMP_DIR}/${TARGET}.asm)
+    set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${ASM_DUMP_DIR}/${TARGET}.asm")
 endmacro(add_asm_dump)
 
 # Flags
@@ -39,7 +39,7 @@ set(C_OR_ASM_FLAGS "-ffreestanding -fno-builtin -nostdlib -fno-omit-frame-pointe
 set(CXX_FLAGS "-ffreestanding -fno-builtin -nostdlib -fno-omit-frame-pointer -std=gnu++20 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -fno-unwind-tables -g -ggdb")
 
 # Other constants
-set(LD_SCRIPT ${CMAKE_SOURCE_DIR}/scripts/kernel.ld)
+set(LD_SCRIPT "${CMAKE_SOURCE_DIR}/scripts/kernel.ld")
 
 # Get the length of source path to minimize macro __FILE__ by using __FILE__ + SOURCE_PATH_FILE
 # https://stackoverflow.com/questions/8487986/file-macro-shows-full-path
@@ -104,8 +104,8 @@ add_dependencies(${LITCHI_ELF} ${EMBUSER_ELF})
 add_custom_target(image
         COMMAND dd if=/dev/zero of=${IMG} bs=512 count=2880 >/dev/null 2>&1
         COMMAND printf '\\x55\\xaa' | dd of=${IMG} bs=1 seek=510 conv=notrunc >/dev/null 2>&1
-        COMMAND dd if=${PROJECT_BINARY_DIR}/${BOOT_BIN} of=${IMG} conv=notrunc >/dev/null 2>&1
-        COMMAND dd if=${PROJECT_BINARY_DIR}/${LITCHI_ELF} of=${IMG} seek=1 conv=notrunc >/dev/null 2>&1
+        COMMAND dd if="${PROJECT_BINARY_DIR}/${BOOT_BIN}" of=${IMG} conv=notrunc >/dev/null 2>&1
+        COMMAND dd if="${PROJECT_BINARY_DIR}/${LITCHI_ELF}" of=${IMG} seek=1 conv=notrunc >/dev/null 2>&1
         DEPENDS ${LITCHI_ELF} ${BOOT_ELF})
 
 # Options for qemu and gdb

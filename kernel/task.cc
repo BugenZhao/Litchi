@@ -101,7 +101,7 @@ namespace task {
 
         // eip will be set after binary loaded
 
-        print("Allocated task #%08x\n", task->id);
+        print("[%08x] Allocated task\n", task->id);
         return {task, Result::ok};
     }
 
@@ -150,7 +150,7 @@ namespace task {
         nextFree = freeList;
         freeList = this;
 
-        print("Freed task #%08x\n", this->id);
+        print("[%08x] Freed task\n", this->id);
     }
 
     void Task::loadElf(uint8_t *binary) {
@@ -170,7 +170,7 @@ namespace task {
             this->regionAlloc((void *) ph->p_va, ph->p_memsz);
             // copy text/data, only copy filesz length
             auto va = binary + ph->p_offset;
-            print("VA %08x\n", va);
+//            print("VA %08x\n", va);
             mem::copy((void *) ph->p_va, va, ph->p_filesz);
         }
 
@@ -181,7 +181,7 @@ namespace task {
         // set eip to elf entry point
         this->trapFrame.eip = elf->e_entry;
 
-        print("Loaded elf of task #%08x\n", this->id);
+        print("[%08x] Loaded elf\n", this->id);
     }
 
     // allocate zero-ed pages from _va to _va + len, into this->pageDir
@@ -195,7 +195,7 @@ namespace task {
         for (auto vaIt = vaLo; vaIt < vaHi; vaIt += PGSIZE) {
             auto page = vmem::PageInfo::alloc(true);
             if (page == nullptr) kernelPanic("out of memory");
-            print("PA %08x\n", page->toPhy());
+//            print("PA %08x\n", page->toPhy());
             auto result = vmem::pgdir::insert(this->pageDir, page, va, PTE_U | PTE_W);
             if (result != Result::ok) kernelPanic("insert page failed");
         }
@@ -211,7 +211,7 @@ namespace task {
         // load elf
         task->loadElf(binary);
 
-        print("Created task #%08x\n", task->id);
+        print("[%08x] Created task\n", task->id);
         return {task, Result::ok};
     }
 
@@ -226,7 +226,7 @@ namespace task {
             x86::lcr3(PHY_ADDR(this->pageDir));
         }
 
-        print("Goodbye, kernel! [%08x]\n", id);
+        print("[%08x] Goodbye, kernel!\n", id);
         this->trapFrame.pop();
     }
 }

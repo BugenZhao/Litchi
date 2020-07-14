@@ -10,7 +10,9 @@
 
 
 namespace monitor {
-    int help(int argc, char **argv);
+    using FuncType = int (int argc, char **argv, trap::Frame *tf);
+
+    FuncType help;
 
     int main(trap::Frame *tf = nullptr);
 }

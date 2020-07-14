@@ -6,6 +6,7 @@
 #include <include/stdio.hpp>
 #include <include/x86.h>
 #include "monitor.hpp"
+#include "task.hh"
 
 using namespace console::out;
 
@@ -71,7 +72,7 @@ namespace trap {
     }
 
     void trap(Frame *tf) {
-        console::out::print("Trap %d", tf->trapNumber);
+        console::out::print("[%08x] Back to kernel: Trap %d\n", task::Task::current->id, tf->trapNumber);
         monitor::main(tf);
         kernelPanic("");
     }

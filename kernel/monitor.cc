@@ -21,18 +21,17 @@ extern uint8_t embUserElf[];
 namespace monitor {
     // 16 args at most, with command name
     constexpr int MAX_ARGS = 16;
-    using FuncType = int (*)(int argc, char **argv);
 
     struct Command {
         const char *cmd;
         const char *desc;
 
-        FuncType func;
+        FuncType *func;
     };
 }
 
 namespace monitor {
-    int echo(int argc, char **argv) {
+    int echo(int argc, char **argv, trap::Frame *tf) {
         for (int i = 1; i < argc; ++i) {
             console::out::print("%<%s ", (i + str::count(argv[i])) % 15 + BLUE, argv[i]);
         }
@@ -40,19 +39,19 @@ namespace monitor {
         return 0;
     }
 
-    int uname(int argc, char **argv) {
+    int uname(int argc, char **argv, trap::Frame *tf) {
         if (argc >= 2 && str::cmp(argv[1], "-a") == 0)
             console::out::print("Litchi v%s by BugenZhao\n", LITCHI_VERSION);
         else console::out::print("Litchi\n", LITCHI_VERSION);
         return 0;
     }
 
-    int backtrace(int argc, char **argv) {
+    int backtrace(int argc, char **argv, trap::Frame *tf) {
         kdebug::backtrace();
         return 0;
     }
 
-    int vmshow(int argc, char **argv) {
+    int vmshow(int argc, char **argv, trap::Frame *tf) {
         if (argc <= 1) {
             print("%s: Invalid argument\n", argv[0]);
             return -1;
@@ -63,7 +62,7 @@ namespace monitor {
         return 0;
     }
 
-    int vmdumpv(int argc, char **argv) {
+    int vmdumpv(int argc, char **argv, trap::Frame *tf) {
         if (argc <= 1) {
             print("%s: Invalid argument\n", argv[0]);
             return -1;
@@ -74,7 +73,7 @@ namespace monitor {
         return 0;
     }
 
-    int vmdumpp(int argc, char **argv) {
+    int vmdumpp(int argc, char **argv, trap::Frame *tf) {
         if (argc <= 1) {
             print("%s: Invalid argument\n", argv[0]);
             return -1;
@@ -85,12 +84,19 @@ namespace monitor {
         return 0;
     }
 
-    int runtask(int argc, char **argv) {
+    int runtask(int argc, char **argv, trap::Frame *tf) {
         using namespace task;
+        static bool started = false;
+        if (started) return -1;
+
         auto[task, r] = Task::create(embUserElf, TaskType::user);
-        assert((task->id & (Task::maxCount - 1)) == 0);
+        started = true;
         task->run();
-        return 0;
+    }
+
+    int cont(int, char **, trap::Frame *tf) {
+        if (tf) tf->pop();
+        else return -1;
     }
 
     struct Command commands[] = {
@@ -112,17 +118,17 @@ namespace monitor {
             {
                     .cmd = "cpu",
                     .desc = "Print CPU information",
-                    .func = (FuncType) sys::cpuInfo
+                    .func = (FuncType *) sys::cpuInfo
             },
             {
                     .cmd = "clear",
                     .desc = "Clear the console screen",
-                    .func = (FuncType) console::clear
+                    .func = (FuncType *) console::clear
             },
             {
                     .cmd = "reboot",
                     .desc = "Restart the system",
-                    .func = (FuncType) sys::reboot
+                    .func = (FuncType *) sys::reboot
             },
             {
                     .cmd = "backtr",
@@ -149,16 +155,21 @@ namespace monitor {
                     .desc = "Run the initial task",
                     .func = runtask
             },
+            {
+                    .cmd  = "cont",
+                    .desc = "Continue the task",
+                    .func = cont
+            },
     };
 
-    int help(int argc, char **argv) {
+    int help(int argc, char **argv, trap::Frame *tf) {
         for (size_t i = 0; i < ARRAY_SIZE(commands); ++i) {
             console::out::print("%<%8s%<: %s\n", WHITE, commands[i].cmd, DEF_FORE, commands[i].desc);
         }
         return 0;
     }
 
-    int parseCmd(char *cmd) {
+    int parseCmd(char *cmd, trap::Frame *tf) {
         char *argv[MAX_ARGS + 2];
         int argc = str::splitWs(cmd, argv, MAX_ARGS + 2);
 
@@ -179,7 +190,7 @@ namespace monitor {
 
         for (size_t i = 0; i < ARRAY_SIZE(commands); ++i) {
             if (str::cmpCase(argv[0], commands[i].cmd) == 0) {
-                return commands[i].func(argc, argv);
+                return commands[i].func(argc, argv, tf);
             }
         }
         print("Bad command: %s\n", cmd);
@@ -193,7 +204,7 @@ namespace monitor {
         while (lastRet != (int) 0x80000000) {
             if (lastRet == 0) cmd = console::in::readline("%<LitchiK%<> ", LIGHT_MAGENTA, DEF_FORE);
             else cmd = console::in::readline("%<LitchiK%<> ", LIGHT_MAGENTA, RED);
-            if (*cmd && cmd[0]) lastRet = parseCmd(cmd);
+            if (*cmd && cmd[0]) lastRet = parseCmd(cmd, tf);
         }
         return lastRet;
     }

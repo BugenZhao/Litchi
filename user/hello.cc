@@ -3,6 +3,6 @@
 //
 
 int umain(int, char **) {
-    asm volatile ("int $18");
+    asm volatile ("int $88");   // syscall
     return 0;
 }

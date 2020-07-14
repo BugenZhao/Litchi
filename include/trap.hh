@@ -74,7 +74,7 @@ namespace trap {
         }
 
         // pop the trap frame and goto user mode
-        inline void pop() {
+        [[noreturn]] inline void pop() {
             asm volatile (
             "movl %0, %%esp\n"      // move tf to stack
             "popal\n"

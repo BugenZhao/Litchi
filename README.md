@@ -1,7 +1,7 @@
 # Litchi
-Bugen's toy kernel for i386 systems implemented in C, with full of comments.   
-Now at **_very early_** development stage.  
-![litchi v0.43](img/v0.43.png)
+Bugen's toy kernel for i386 systems implemented in modern C++.   
+Now at **_early_** development stage.  
+![litchi](img/v0.5.4.png)
 
 ## Progress
 - [x] Adopt bootloader from JOS / xv6
@@ -31,15 +31,16 @@ Now at **_very early_** development stage.
 - [x] Virtual memory
 - [x] Kernel address space
 - [ ] Kernel heap management
+- [x] User level task
+- [x] Interrupt / Rrap
+
 ---
 - [ ] Test for standard library
 - [ ] Interrupt based keyboard input
-- [ ] User level environment
-- [ ] Process
 - [ ] Shell
 - [ ] Multitasking
 - [ ] Multi-core support
-- [ ] Switch to x86-64
+- [ ] Port to x86-64
 - [ ] ...
 
 ## Reference

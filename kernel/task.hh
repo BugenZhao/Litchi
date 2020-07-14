@@ -30,7 +30,7 @@ namespace task {
 
         static std::tuple<Task *, Result> create(uint8_t *binary, TaskType type);
 
-        void run();
+        [[noreturn]] void run();
 
         void free();
 
