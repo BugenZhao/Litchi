@@ -10,6 +10,8 @@
 namespace sys {
     [[noreturn]] void reboot();
 
+    [[noreturn]] void shutdown();
+
     int cpuInfo(int, char **);
 }
 

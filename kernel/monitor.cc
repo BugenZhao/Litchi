@@ -131,6 +131,11 @@ namespace monitor {
                     .func = (FuncType *) sys::reboot
             },
             {
+                    .cmd = "shut",
+                    .desc = "Shutdown the system",
+                    .func = (FuncType *) sys::shutdown
+            },
+            {
                     .cmd = "backtr",
                     .desc = "Print backtrace",
                     .func = backtrace

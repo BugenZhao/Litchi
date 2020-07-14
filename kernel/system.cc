@@ -6,13 +6,20 @@
 #include <include/stdio.hpp>
 #include "system.hpp"
 #include <tuple>
-#include <functional>
-#include <stdexcept>
 
 namespace sys {
-    [[noreturn]] void reboot() {
-        x86::outb(0x92, 0x1);
-        while (1);
+    void reboot() {
+        asm volatile ("cli");
+        x86::outb(0x64, 0xfe);
+        while (true);
+    }
+
+    void shutdown() {
+        asm volatile ("cli");
+        x86::outw(0xB004, 0x2000);  // bochs
+        x86::outw(0x604, 0x2000);   // qemu
+        x86::outw(0x4004, 0x3400);  // vbox
+        while (true);
     }
 
     static const auto cpuStr() {
