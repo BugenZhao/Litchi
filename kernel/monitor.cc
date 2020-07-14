@@ -21,80 +21,77 @@ extern uint8_t embUserElf[];
 namespace monitor {
     // 16 args at most, with command name
     constexpr int MAX_ARGS = 16;
+    using FuncType = Result(int argc, char **argv, trap::Frame *tf);
 
     struct Command {
         const char *cmd;
         const char *desc;
-
         FuncType *func;
+        bool hide = false;
+
+        bool operator<(const Command &rhs) const {
+            return str::cmp(cmd, rhs.cmd) < 0;
+        }
     };
 }
 
 namespace monitor {
+    FuncType help;
+
     // echo some colorful words
-    int echo(int argc, char **argv, trap::Frame *tf) {
+    Result echo(int argc, char **argv, trap::Frame *tf) {
         for (int i = 1; i < argc; ++i) {
             console::out::print("%<%s ", (i + str::count(argv[i])) % 15 + BLUE, argv[i]);
         }
         console::out::print("\n");
-        return 0;
+        return Result::ok;
     }
 
     // display litchi
-    int uname(int argc, char **argv, trap::Frame *tf) {
+    Result uname(int argc, char **argv, trap::Frame *tf) {
         if (argc >= 2 && str::cmp(argv[1], "-a") == 0)
             console::out::print("Litchi v%s by BugenZhao\n", LITCHI_VERSION_TIME);
         else console::out::print("Litchi\n");
-        return 0;
+        return Result::ok;
     }
 
     // print backtrace
-    int backtrace(int argc, char **argv, trap::Frame *tf) {
+    Result backtrace(int argc, char **argv, trap::Frame *tf) {
         kdebug::backtrace();
-        return 0;
+        return Result::ok;
     }
 
     // show vm mapping
-    int vmshow(int argc, char **argv, trap::Frame *tf) {
-        if (argc <= 1) {
-            print("%s: Invalid argument\n", argv[0]);
-            return -1;
-        }
+    Result vmshow(int argc, char **argv, trap::Frame *tf) {
+        if (argc <= 1) return Result::invalidArg;
         void *beginV = (void *) (str::toLong(argv[1], 0));
         void *endV = (argc >= 3) ? (void *) (str::toLong(argv[2], 0)) : beginV;
         vmem::utils::show(vmem::kernelPageDir, beginV, endV);
-        return 0;
+        return Result::ok;
     }
 
     // dump virtual memory
-    int vmdumpv(int argc, char **argv, trap::Frame *tf) {
-        if (argc <= 1) {
-            print("%s: Invalid argument\n", argv[0]);
-            return -1;
-        }
+    Result vmdumpv(int argc, char **argv, trap::Frame *tf) {
+        if (argc <= 1) return Result::invalidArg;
         void *beginV = (void *) (str::toLong(argv[1], 0));
         void *endV = (argc >= 3) ? (void *) (str::toLong(argv[2], 0)) : beginV;
         vmem::utils::dumpV(vmem::kernelPageDir, beginV, endV);
-        return 0;
+        return Result::ok;
     }
 
     // dump physical memory
-    int vmdumpp(int argc, char **argv, trap::Frame *tf) {
-        if (argc <= 1) {
-            print("%s: Invalid argument\n", argv[0]);
-            return -1;
-        }
+    Result vmdumpp(int argc, char **argv, trap::Frame *tf) {
+        if (argc <= 1) return Result::invalidArg;
         physaddr_t beginP = (str::toLong(argv[1], 0));
         physaddr_t endP = (argc >= 3) ? (str::toLong(argv[2], 0)) : beginP;
         vmem::utils::dumpP(vmem::kernelPageDir, beginP, endP);
-        return 0;
+        return Result::ok;
     }
 
     // run user task from embedded ELF
-    int runtask(int argc, char **argv, trap::Frame *tf) {
+    Result runtask(int argc, char **argv, trap::Frame *tf) {
         using namespace task;
         static bool started = false;
-        if (started) return -1;
 
         auto[task, r] = Task::create(embUserElf, TaskType::user,
                                      (char *) EMBUSER_ELF + BINARY_DIR_OFFSET);
@@ -103,25 +100,27 @@ namespace monitor {
     }
 
     // USER TASK DEBUG: continue
-    int cont(int, char **, trap::Frame *tf) {
+    Result cont(int, char **, trap::Frame *tf) {
         if (tf) {
             tf->eflags &= ~FL_TF;   // clear Trap Flag (single-step)
             tf->pop();
         } else {
-            console::err::print("No task to continue\n");
-            return -1;
+            return Result::noSuchTask;
         }
     }
 
     // USER TASK DEBUG: single instruction
-    int si(int, char **, trap::Frame *tf) {
+    Result si(int, char **, trap::Frame *tf) {
         if (tf) {
             tf->eflags |= FL_TF;    // set Trap Flag (single-step)
             tf->pop();
         } else {
-            console::err::print("No task to continue\n");
-            return -1;
+            return Result::noSuchTask;
         }
+    }
+
+    Result fuck(int, char **, trap::Frame *) {
+        return Result::fuck;
     }
 
     struct Command commands[] = {
@@ -195,52 +194,55 @@ namespace monitor {
                     .desc = "Single-Instruction debug the task",
                     .func = si
             },
+            {
+                    .cmd  = "fuck",
+                    .func = fuck,
+                    .hide = true
+            },
     };
 
-    int help(int argc, char **argv, trap::Frame *tf) {
+    Result help(int argc, char **argv, trap::Frame *tf) {
         for (size_t i = 0; i < ARRAY_SIZE(commands); ++i) {
-            console::out::print("%<%8s%<: %s\n", WHITE, commands[i].cmd, DEF_FORE, commands[i].desc);
+            if (!commands[i].hide)
+                console::out::print("%<%8s%<: %s\n", WHITE, commands[i].cmd, DEF_FORE, commands[i].desc);
         }
-        return 0;
+        return Result::ok;
     }
 }
 
 namespace monitor {
-    int parseCmd(char *cmd, trap::Frame *tf) {
+    Result parseCmd(char *cmd, trap::Frame *tf) {
         char *argv[MAX_ARGS + 2];
         int argc = str::splitWs(cmd, argv, MAX_ARGS + 2);
 
-        if (argc == MAX_ARGS + 1) {
-            print("Too many arguments\n");
-            return -1;
-        } else if (argc == -1) {
-            print("Bad syntax\n");
-            return -2;
-        }
+        if (argc == MAX_ARGS + 1) return Result::tooManyArgs;
+        else if (argc == -1) return Result::badSyntax;
 
         for (size_t i = 0; i < ARRAY_SIZE(commands); ++i) {
             if (str::cmpCase(argv[0], commands[i].cmd) == 0) {
                 return commands[i].func(argc, argv, tf);
             }
         }
-        print("Bad command: %s\n", cmd);
-        return -1;
+        return Result::badCommand;
     }
 
     [[noreturn]] int main(trap::Frame *tf) {
         char *cmd;
-        int lastRet = 0;
+        auto lastRet = Result::ok;
         console::out::print("\n");
         while (true) {
+            auto color = lastRet != Result::ok ? RED : DEF_FORE;
             // show current task if needed
             if (task::Task::current != nullptr)
                 cmd = console::in::readline("%<Litchi%<[%08x]%<> ",
-                                            LIGHT_MAGENTA, WHITE, task::Task::current->id, lastRet ? RED : DEF_FORE);
+                                            LIGHT_MAGENTA, WHITE, task::Task::current->id, color);
             else
                 cmd = console::in::readline("%<Litchi%<> ",
-                                            LIGHT_MAGENTA, lastRet ? RED : DEF_FORE);
+                                            LIGHT_MAGENTA, color);
 
             if (*cmd && cmd[0]) lastRet = parseCmd(cmd, tf);
+
+            if (lastRet != Result::ok) console::err::print("%s: %r\n", cmd, lastRet);
         }
     }
 }

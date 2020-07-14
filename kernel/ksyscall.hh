@@ -8,7 +8,7 @@
 #include <include/syscall.hh>
 
 namespace ksyscall {
-    int32_t main(SyscallType type,
+    int32_t main(Num type,
                  uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5);
 }
 

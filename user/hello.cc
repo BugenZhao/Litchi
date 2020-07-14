@@ -27,8 +27,13 @@ void pageFault3() {     // read kernel address space
     print("%c", *((char *) KERNBASE + 0x110000));
 }
 
+void pageFault4() {     // cheat kernel to r/w privileged memory
+    syscall(ksyscall::Num::putString, KERNBASE + 0x110000, 10);
+}
+
 int main(int, char **) {
     asm volatile ("int3");
     print("%<Hello from user!!!!\n", LIGHT_GREEN);
+    pageFault4();
     return 0;
 }

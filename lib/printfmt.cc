@@ -8,6 +8,32 @@
 #include <include/color.h>
 #include <include/result.hh>
 
+static inline constexpr const char *describe(Result result) {
+    switch (result) {
+        case Result::ok:
+            return "OK";
+        case Result::unknownError:
+            return "Unknown Error";
+        case Result::invalidArg:
+            return "Invalid Argument";
+        case Result::noMemory:
+            return "No Memory";
+        case Result::noFreeTask:
+            return "No Free Task";
+        case Result::fuck:
+            return "Fucking Error";
+        case Result::tooManyArgs:
+            return "Too Many Arguments";
+        case Result::badSyntax:
+            return "Bad Syntax";
+        case Result::badCommand:
+            return "Bad Command";
+        case Result::noSuchTask:
+            return "No Such Task";
+    }
+    return "Undefined Error";
+}
+
 constexpr char NULL_FMT[] = "(null)";
 
 // Get unsigned int in different length from va_list
@@ -141,24 +167,7 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
             case 'r':
                 result = va_arg(ap, Result);
                 num = static_cast<int>(result);
-                switch (result) {
-                    case Result::ok:
-                        str = const_cast<char *>("OK");
-                        break;
-                    case Result::invalidArgument:
-                        str = const_cast<char *>("Invalid Argument");
-                        break;
-                    case Result::noMemory:
-                        str = const_cast<char *>("No Memory");
-                        break;
-                    case Result::noFreeTask:
-                        str = const_cast<char *>("No Free Task");
-                        break;
-                    default:
-                    case Result::unknownError:
-                        str = const_cast<char *>("Unknown Error");
-                        break;
-                }
+                str = const_cast<char *>(describe(result));
                 len = str::count(str);
                 for (width -= len; width > 0; width--) putColorChar(paddingChar, fore, back, putdat);
                 for (str; *str != '\0'; str++) putColorChar(*str, fore, back, putdat);

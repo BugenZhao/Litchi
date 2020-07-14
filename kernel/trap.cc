@@ -43,9 +43,9 @@ namespace trap {
         }
 
         // allow some traps be called by user => dpl = 3
-        for (auto no: {(int) TrapType::syscall,
-                       (int) TrapType::breakpoint,
-                       (int) TrapType::debug}) {
+        for (auto no: {(int) Type::syscall,
+                       (int) Type::breakpoint,
+                       (int) Type::debug}) {
             SETGATE(idt[no], 1, GD_KT, ivt[no], 3);
         }
 
@@ -87,7 +87,7 @@ namespace trap {
             Task::current->trapFrame = *tf;   // update tf
             tf = &Task::current->trapFrame;   // use the one on kernel stack to avoid problems
 
-            if (tf->trapType != TrapType::syscall)
+            if (tf->trapType != Type::syscall)
                 print("[%08x] Back to kernel: Trap [%s]\n", Task::current->id, describe(tf->trapType));
         } else {
             print("Kernel Trap [%s]\n", describe(tf->trapType));
@@ -98,7 +98,7 @@ namespace trap {
 
         // run again
         assert(Task::current);
-        Task::current->run(tf->trapType != TrapType::syscall);
+        Task::current->run(tf->trapType != Type::syscall);
     }
 }
 
@@ -113,34 +113,34 @@ namespace trap {
 
     void Frame::dispatch() {
         switch (trapType) {
-            case TrapType::pageFault:
+            case Type::pageFault:
                 handler::pageFault(this);
                 break;
-            case TrapType::syscall:
+            case Type::syscall:
                 handler::syscall(this);
                 break;
 
-            case TrapType::debug:
-            case TrapType::breakpoint:
+            case Type::debug:
+            case Type::breakpoint:
                 handler::debug(this);
                 break;
 
-            case TrapType::divide:
-            case TrapType::nmi:
-            case TrapType::overflow:
-            case TrapType::bound:
-            case TrapType::invalidOp:
-            case TrapType::device:
-            case TrapType::doubleFault:
-            case TrapType::coprocessor:
-            case TrapType::invalidTss:
-            case TrapType::segmentNP:
-            case TrapType::stack:
-            case TrapType::gpFault:
-            case TrapType::fpError:
-            case TrapType::alignment:
-            case TrapType::machineCheck:
-            case TrapType::simdError:
+            case Type::divide:
+            case Type::nmi:
+            case Type::overflow:
+            case Type::bound:
+            case Type::invalidOp:
+            case Type::device:
+            case Type::doubleFault:
+            case Type::coprocessor:
+            case Type::invalidTss:
+            case Type::segmentNP:
+            case Type::stack:
+            case Type::gpFault:
+            case Type::fpError:
+            case Type::alignment:
+            case Type::machineCheck:
+            case Type::simdError:
             default:
                 if ((this->cs & 0b11) == 0) {
                     // Unhandled trap from kernel => BUG
@@ -173,7 +173,7 @@ namespace trap::handler {
     }
 
     uint32_t syscall(Frame *tf) {
-        return ksyscall::main(static_cast<ksyscall::SyscallType>(tf->regs.eax),
+        return ksyscall::main(static_cast<ksyscall::Num>(tf->regs.eax),
                               tf->regs.edx, tf->regs.ecx, tf->regs.ebx, tf->regs.edi, tf->regs.esi);
     }
 

@@ -9,7 +9,7 @@
 #include <include/syscall.hh>
 #include <include/trap.hh>
 
-static inline int32_t syscall(ksyscall::SyscallType type,
+static inline int32_t syscall(ksyscall::Num type,
                               uint32_t a1 = 0, uint32_t a2 = 0, uint32_t a3 = 0, uint32_t a4 = 0, uint32_t a5 = 0) {
     int32_t ret;
 
@@ -17,7 +17,7 @@ static inline int32_t syscall(ksyscall::SyscallType type,
     // move arguments into: edx, ecx, ebx, edi, esi
     asm volatile("int %1\n"
     : "=a" (ret)
-    : "i" (trap::TrapType::syscall),
+    : "i" (trap::Type::syscall),
     "a" (type),
     "d" (a1),
     "c" (a2),

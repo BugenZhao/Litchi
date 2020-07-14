@@ -7,13 +7,10 @@
 
 #include <kernel/knlast.inc>
 #include "trap.hh"
+#include <include/result.hh>
 
 
 namespace monitor {
-    using FuncType = int (int argc, char **argv, trap::Frame *tf);
-
-    FuncType help;
-
     [[noreturn]] int main(trap::Frame *tf = nullptr);
 }
 

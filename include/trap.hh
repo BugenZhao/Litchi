@@ -11,7 +11,7 @@
 #include <include/memlayout.h>
 
 namespace trap {
-    enum struct TrapType : uint32_t {
+    enum struct Type : uint32_t {
         divide = 0,
         debug,
         nmi,

@@ -235,7 +235,10 @@ namespace task {
 
     void Task::destroy(bool fromKernel) {
         print("%<[%08x] Destroyed by %s\n", WHITE, id, fromKernel ? "kernel" : "user");
-        if (this == current) current = nullptr;
+        if (this == current) {
+            current = nullptr;
+            x86::lcr3(PHY_ADDR(vmem::kernelPageDir));
+        }
         this->free();
         monitor::main();
     }

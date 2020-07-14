@@ -8,11 +8,14 @@
 enum struct Result : int {
     ok = 0,
     unknownError = 1,
-    invalidArgument,
+    invalidArg,
     noMemory,
     noFreeTask,
     fuck,
-    MAX_ERROR
+    tooManyArgs,
+    badSyntax,
+    badCommand,
+    noSuchTask,
 };
 
 #endif //LITCHI_INCLUDE_RESULT_HH

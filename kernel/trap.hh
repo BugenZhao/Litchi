@@ -27,7 +27,7 @@ namespace trap {
         uint16_t padding1;
         uint16_t ds;            /* movL */
         uint16_t padding2;
-        TrapType trapType;    /* push imm */
+        Type trapType;    /* push imm */
 
         /* auto saved by x86 hardware */
         uint32_t err;
@@ -65,47 +65,47 @@ namespace trap {
         void dispatch();
     } __attribute__((packed));
 
-    static inline constexpr const char *describe(TrapType type) {
+    static inline constexpr const char *describe(Type type) {
         switch (type) {
-            case TrapType::divide:
+            case Type::divide:
                 return "Divide Error";
-            case TrapType::debug:
+            case Type::debug:
                 return "Debug";
-            case TrapType::nmi:
+            case Type::nmi:
                 return "Non-Maskable Interrupt";
-            case TrapType::breakpoint:
+            case Type::breakpoint:
                 return "Breakpoint";
-            case TrapType::overflow:
+            case Type::overflow:
                 return "Overflow";
-            case TrapType::bound:
+            case Type::bound:
                 return "BOUND Range Exceed";
-            case TrapType::invalidOp:
+            case Type::invalidOp:
                 return "Invalid Opcode";
-            case TrapType::device:
+            case Type::device:
                 return "Device Not Available";
-            case TrapType::doubleFault:
+            case Type::doubleFault:
                 return "Double Fault";
-            case TrapType::coprocessor:
+            case Type::coprocessor:
                 return "Coprocessor Segment";
-            case TrapType::invalidTss:
+            case Type::invalidTss:
                 return "Invalid TSS";
-            case TrapType::segmentNP:
+            case Type::segmentNP:
                 return "Segment Not Present";
-            case TrapType::stack:
+            case Type::stack:
                 return "Stack Fault";
-            case TrapType::gpFault:
+            case Type::gpFault:
                 return "General Protection";
-            case TrapType::pageFault:
+            case Type::pageFault:
                 return "Page Fault";
-            case TrapType::fpError:
+            case Type::fpError:
                 return "x87 FPU Floating-Point Error";
-            case TrapType::alignment:
+            case Type::alignment:
                 return "Alignment Check";
-            case TrapType::machineCheck:
+            case Type::machineCheck:
                 return "Machine Check";
-            case TrapType::simdError:
+            case Type::simdError:
                 return "SIMD Floating-Point";
-            case TrapType::syscall:
+            case Type::syscall:
                 return "Litchi Syscall";
         }
         return "Unknown Trap";

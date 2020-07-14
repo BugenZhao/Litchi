@@ -7,7 +7,7 @@
 
 #include <kernel/knlast.inc>
 
-#define LITCHI_VERSION "0.5.6"
+#define LITCHI_VERSION "0.5.7"
 #define LITCHI_VERSION_TIME LITCHI_VERSION " build " BUILD_TIME
 #define LITCHI_LDR_INFO "=> Litchi Loader v0.31\r\n\n"
 

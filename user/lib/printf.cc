@@ -10,7 +10,7 @@ namespace console {
 
         inline void flush() {
             if (idx != 0) {
-                syscall(ksyscall::SyscallType::putString, (uint32_t) buf, idx);
+                syscall(ksyscall::Num::putString, (uint32_t) buf, idx);
                 idx = 0;
             }
         }
