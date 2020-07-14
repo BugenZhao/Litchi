@@ -6,7 +6,7 @@
 #include <include/types.h>
 
 namespace random {
-    static int next = 1018;
+    static int next = (int) TIMESEED;
 
     uint16_t rand() {
         next = next * 1103515245 + 12345;

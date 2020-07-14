@@ -115,7 +115,7 @@ namespace vmem {
 
         // Print kernel memory info
         char *kernEndCurrent = (char *) bootAlloc(0);
-        console::out::print("Kernel at 0x%08X->0x%08X->0x%08X: %d KB in memory\n",
+        console::out::print("Kernel at %08x->%08x->%08x: %d KB in memory\n",
                             kernStart, kernEnd, kernEndCurrent, (kernEndCurrent - kernStart + 1023) / 1024);
     }
 }

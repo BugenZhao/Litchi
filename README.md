@@ -2,7 +2,7 @@
 
 Bugen's toy kernel for x86 systems implemented in modern C++.
 
-![litchi](img/v0.5.4.png)
+![litchi](img/v0.5.6.png)
 
 ## Get Started
 
@@ -60,6 +60,7 @@ $ mkdir build && cd build && cmake .. && make qemu
 - [ ] Kernel heap management
 - [x] User level task
 - [x] Interrupt / Rrap
+- [x] System call
 
 ---
 - [ ] Test for standard library

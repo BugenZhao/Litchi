@@ -17,7 +17,8 @@ set(KERNEL_SRC
         kernel/gdt.c
         kernel/trap.cc
         kernel/embuser.S
-        kernel/irqentry.S)
+        kernel/irqentry.S
+        kernel/ksyscall.cc)
 
 # Target - kernel
 add_executable(${LITCHI_ELF} ${KERNEL_SRC})

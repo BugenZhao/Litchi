@@ -47,7 +47,16 @@ string(LENGTH "${CMAKE_SOURCE_DIR}/" SOURCE_DIR_OFFSET)
 string(LENGTH "${CMAKE_BINARY_DIR}/" BINARY_DIR_OFFSET)
 add_definitions("-DSOURCE_DIR_OFFSET=${SOURCE_DIR_OFFSET}")
 add_definitions("-DBINARY_DIR_OFFSET=${BINARY_DIR_OFFSET}")
+
+# Provide embedded ELF file name
 add_definitions("-DEMBUSER_ELF=\"${PROJECT_BINARY_DIR}/${EMBUSER_ELF}\"")
+
+# Provide time
+string(TIMESTAMP TIMESEED "%y%m%d%H%M%S")
+string(TIMESTAMP TIME "%Y-%m-%d %H:%M:%S")
+add_definitions("-DTIMESEED=${TIMESEED}")
+add_definitions("-DTIME=\"${TIME}\"")
+
 
 # CMake will try to compile and run a simple test program, but it is to fail when cross-compiling
 # After setting this, CMake will try to compile a static library and do not run it

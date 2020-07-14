@@ -96,7 +96,10 @@ namespace monitor {
 
     int cont(int, char **, trap::Frame *tf) {
         if (tf) tf->pop();
-        else return -1;
+        else {
+            console::err::print("Not a breakpoint\n");
+            return -1;
+        }
     }
 
     struct Command commands[] = {

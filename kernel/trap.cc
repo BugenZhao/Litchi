@@ -7,6 +7,7 @@
 #include "trap.hh"
 #include "monitor.hpp"
 #include "task.hh"
+#include "ksyscall.hh"
 
 using namespace console::out;
 
@@ -82,7 +83,9 @@ namespace trap {
         if ((tf->cs & 0b11) == 3) { // trapped from user mode, must be Task::current
             Task::current->trapFrame = *tf;   // update tf
             tf = &Task::current->trapFrame;   // use the one on kernel stack to avoid problems
-            print("[%08x] Back to kernel: Trap %u\n", Task::current->id, tf->trapType);
+
+            if (tf->trapType != TrapType::syscall)
+                print("[%08x] Back to kernel: Trap %u\n", Task::current->id, tf->trapType);
         } else {
             print("Kernel Trap %u\n", tf->trapType);
         }
@@ -92,7 +95,7 @@ namespace trap {
 
         // run again
         assert(Task::current);
-        Task::current->run();
+        Task::current->run(tf->trapType != TrapType::syscall);
     }
 }
 
@@ -155,8 +158,7 @@ namespace trap::handler {
     }
 
     uint32_t syscall(Frame *tf) {
-//        kernelPanic("[%08x] Unhandled syscall \n", task::Task::current->id);
-        monitor::main(tf);
-        return 0;
+        return ksyscall::main(static_cast<ksyscall::SyscallType>(tf->regs.eax),
+                              tf->regs.edx, tf->regs.ecx, tf->regs.ebx, tf->regs.edi, tf->regs.esi);
     }
 }

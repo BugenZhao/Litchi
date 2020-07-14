@@ -13,7 +13,7 @@ namespace console {
     static inline void _geConsolePutChar(int c, int *cnt) {
         if ((c & 0x00ff)) {
             out::putChar(c);
-            *cnt++;
+            if (cnt) *cnt++;
         }
     }
 

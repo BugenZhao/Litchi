@@ -216,7 +216,7 @@ namespace task {
         return {task, Result::ok};
     }
 
-    void Task::run() {
+    void Task::run(bool verbose) {
         if (this != current) {
             // context switching
             if (current != nullptr && current->status == TaskStatus::running)
@@ -227,7 +227,8 @@ namespace task {
             x86::lcr3(PHY_ADDR(this->pageDir));
         }
 
-        print("[%08x] Goodbye, kernel!\n", id);
+        if (verbose)
+            print("[%08x] Goodbye, kernel!\n", id);
         this->trapFrame.pop();
     }
 
