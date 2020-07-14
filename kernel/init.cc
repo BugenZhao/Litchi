@@ -39,7 +39,7 @@ void i386InitLitchi(void) {
     trap::init();
 
     // Go to the monitor
-    int result = monitor::main();
-    kernelPanic("Monitor dead with errno %d", result);
+    monitor::main();
+    kernelPanic("Monitor died");
 }
 }

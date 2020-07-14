@@ -8,6 +8,7 @@
 #include <include/random.hh>
 #include "task.hh"
 #include <include/elf.h>
+#include "monitor.hpp"
 
 using namespace console::out;
 
@@ -228,5 +229,11 @@ namespace task {
 
         print("[%08x] Goodbye, kernel!\n", id);
         this->trapFrame.pop();
+    }
+
+    void Task::destroy(bool fromKernel) {
+        this->free();
+        print("%<[%08x] Destroyed by %s\n", WHITE, id, fromKernel ? "kernel" : "user");
+        monitor::main();
     }
 }

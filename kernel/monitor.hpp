@@ -6,7 +6,7 @@
 #define LITCHI_MONITOR_HPP
 
 #include <kernel/knlast.inc>
-#include <include/trap.hh>
+#include "trap.hh"
 
 
 namespace monitor {
@@ -14,7 +14,7 @@ namespace monitor {
 
     FuncType help;
 
-    int main(trap::Frame *tf = nullptr);
+    [[noreturn]] int main(trap::Frame *tf = nullptr);
 }
 
 #endif //LITCHI_MONITOR_HPP

@@ -6,9 +6,9 @@
 #define LITCHI_TASK_HH
 
 #include <include/task.hh>
-#include <include/trap.hh>
 #include <include/result.hh>
 #include <tuple>
+#include "trap.hh"
 
 namespace task {
     struct Task {
@@ -33,6 +33,8 @@ namespace task {
         [[noreturn]] void run();
 
         void free();
+
+        void destroy(bool fromKernel);
 
     private:
         Result setupMemory();

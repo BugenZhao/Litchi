@@ -2,9 +2,9 @@
 // Created by Bugen Zhao on 7/13/20.
 //
 
-#include <include/trap.hh>
 #include <include/stdio.hpp>
 #include <include/x86.h>
+#include "trap.hh"
 #include "monitor.hpp"
 #include "task.hh"
 
@@ -70,10 +70,93 @@ namespace trap {
         x86::ltr(GD_TSS0);
         x86::lidt(&idtPD);
     }
+}
 
-    void trap(Frame *tf) {
-        console::out::print("[%08x] Back to kernel: Trap %d\n", task::Task::current->id, tf->trapNumber);
+namespace trap {
+    [[noreturn]] void trap(Frame *tf) {
+        using namespace task;
+
+        // interrupts should be disabled
+        assert(!(x86::read_eflags() & FL_IF));
+
+        if ((tf->cs & 0b11) == 3) { // trapped from user mode, must be Task::current
+            Task::current->trapFrame = *tf;   // update tf
+            tf = &Task::current->trapFrame;   // use the one on kernel stack to avoid problems
+            print("[%08x] Back to kernel: Trap %u\n", Task::current->id, tf->trapType);
+        } else {
+            print("Kernel Trap %u\n", tf->trapType);
+        }
+
+        // dispatch to trap handlers
+        tf->dispatch();
+
+        // run again
+        assert(Task::current);
+        Task::current->run();
+    }
+}
+
+namespace trap {
+    namespace handler {
+        void pageFault(Frame *tf);
+
+        uint32_t syscall(Frame *tf);
+    }
+
+    void Frame::dispatch() {
+        switch (trapType) {
+            case TrapType::pageFault:
+                handler::pageFault(this);
+                break;
+            case TrapType::syscall:
+                handler::syscall(this);
+                break;
+
+            case TrapType::divide:
+            case TrapType::debug:
+            case TrapType::nmi:
+            case TrapType::breakpoint:
+            case TrapType::overflow:
+            case TrapType::bound:
+            case TrapType::illegalOp:
+            case TrapType::device:
+            case TrapType::doubleFault:
+            case TrapType::coprocessor:
+            case TrapType::invalidTss:
+            case TrapType::segmentNP:
+            case TrapType::stack:
+            case TrapType::gpFault:
+            case TrapType::fpError:
+            case TrapType::alignment:
+            case TrapType::machineCheck:
+            case TrapType::simdError:
+            default:
+                if ((this->cs & 0b11) == 0) {
+                    kernelPanic("Unhandled trap %u from kernel\n", trapType);
+                } else {
+                    print("[%08x] Unhandled trap %u\n", task::Task::current->id, trapType);
+                    task::Task::current->destroy(true); // will trap into monitor
+                }
+        }
+    }
+}
+
+namespace trap::handler {
+    void pageFault(Frame *tf) {
+        // get fault virtual address
+        auto faultVa = x86::rcr2();
+
+        if ((tf->cs & 0b11) == 0) {
+            kernelPanic("Unhandled page fault (%08x) from kernel\n", faultVa);
+        } else {
+            print("[%08x] Unhandled page fault (%08x)\n", task::Task::current->id, faultVa);
+            task::Task::current->destroy(true); // will trap into monitor
+        }
+    }
+
+    uint32_t syscall(Frame *tf) {
+//        kernelPanic("[%08x] Unhandled syscall \n", task::Task::current->id);
         monitor::main(tf);
-        kernelPanic("");
+        return 0;
     }
 }

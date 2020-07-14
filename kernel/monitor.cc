@@ -191,7 +191,6 @@ namespace monitor {
             return -2;
         }
 
-        if (str::cmpCase(argv[0], "fuck") == 0) return 0x80000000;
 
         for (size_t i = 0; i < ARRAY_SIZE(commands); ++i) {
             if (str::cmpCase(argv[0], commands[i].cmd) == 0) {
@@ -202,15 +201,18 @@ namespace monitor {
         return -1;
     }
 
-    int main(trap::Frame *tf) {
+    [[noreturn]] int main(trap::Frame *tf) {
         char *cmd;
         int lastRet = 0;
         console::out::print("\n");
-        while (lastRet != (int) 0x80000000) {
-            if (lastRet == 0) cmd = console::in::readline("%<LitchiK%<> ", LIGHT_MAGENTA, DEF_FORE);
-            else cmd = console::in::readline("%<LitchiK%<> ", LIGHT_MAGENTA, RED);
+        while (true) {
+            if (task::Task::current != nullptr)
+                cmd = console::in::readline("%<Litchi%<[%08x]%<> ",
+                                            LIGHT_MAGENTA, WHITE, task::Task::current->id, lastRet ? RED : DEF_FORE);
+            else
+                cmd = console::in::readline("%<Litchi%<> ",
+                                            LIGHT_MAGENTA, lastRet ? RED : DEF_FORE);
             if (*cmd && cmd[0]) lastRet = parseCmd(cmd, tf);
         }
-        return lastRet;
     }
 }
