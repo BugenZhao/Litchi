@@ -1,0 +1,19 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Brew Tap
+      run: brew tap bugenzhao/litchi
+    - name: Install Toolchains
+      run: brew install i386-litchi-elf-binutils i386-litchi-elf-gcc
+    - name: Build
+      run: mkdir build && cd build && cmake .. && make
