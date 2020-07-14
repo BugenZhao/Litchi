@@ -197,7 +197,7 @@ namespace task {
             auto page = vmem::PageInfo::alloc(true);
             if (page == nullptr) kernelPanic("out of memory");
 //            print("PA %08x\n", page->toPhy());
-            auto result = vmem::pgdir::insert(this->pageDir, page, va, PTE_U | PTE_W);
+            auto result = vmem::pgdir::insert(this->pageDir, page, vaIt, PTE_U | PTE_W);
             if (result != Result::ok) kernelPanic("insert page failed");
         }
     }

@@ -15,7 +15,7 @@ namespace ksyscall {
                 putChar(a1);
                 return 0;
             case SyscallType::putString:
-                putString((const char *) a1, a2);
+                putString((const uint16_t *) a1, a2);
                 return 0;
             case SyscallType::exit:
                 exit();
@@ -32,7 +32,7 @@ namespace ksyscall {
         }
     }
 
-    void putString(const char *str, size_t count) {
+    void putString(const uint16_t *str, size_t count) {
         // check if user is cheating us with our privilege
         if (!vmem::pgdir::userCheck(task::Task::current->pageDir, str, count, PTE_U)) {
             console::out::print("[%08x] invalid memory access in [%08x, %08x)\n",

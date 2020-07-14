@@ -30,9 +30,5 @@ void pageFault3() {     // read kernel address space
 int main(int, char **) {
     asm volatile ("int3");
     print("%<Hello from user!!!!\n", LIGHT_GREEN);
-
-    syscall(ksyscall::SyscallType::putString, (uint32_t) "Hello, put string\n", 18);
-
-    pageFault3();
     return 0;
 }

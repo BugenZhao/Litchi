@@ -1,22 +1,45 @@
-
 #include <include/stdout.hpp>
 #include <user/stdlib.hh>
 
 namespace console {
-    // Generic printFmt oriented console putChar [USER]
-    static inline void _geUserConsolePutChar(int c, int *cnt) {
-        if ((c & 0x00ff)) {
-            syscall(ksyscall::SyscallType::putChar, c);
-            if (cnt) *cnt++;
+    struct PrintBuf {
+        static constexpr int maxCount = 256;
+        int idx = 0;
+        int count = 0;
+        uint16_t buf[maxCount];
+
+        inline void flush() {
+            if (idx != 0) {
+                syscall(ksyscall::SyscallType::putString, (uint32_t) buf, idx);
+                idx = 0;
+            }
         }
+
+        inline void putChar(int c) {
+            if (c & 0x00ff) {
+                buf[idx++] = (uint16_t) (c & 0xffff);
+                if (idx == maxCount - 1) flush();
+                count++;
+            }
+        }
+
+        inline void clear() {
+            idx = 0;
+            count = 0;
+        }
+    };
+
+    static inline void _geUserConsolePutChar(int c, PrintBuf *printBuf) {
+        printBuf->putChar(c);
     }
 
     namespace out {
         // Console vargs printFmt
         int printVa(const char *fmt, va_list ap) {
-            int cnt = 0;
-            _gePrintFmtVa((_gePutCharFunction) _geUserConsolePutChar, &cnt, fmt, ap, DEF_FORE, DEF_BACK);
-            return cnt;
+            struct PrintBuf printBuf;
+            _gePrintFmtVa((_gePutCharFunction) _geUserConsolePutChar, &printBuf, fmt, ap, DEF_FORE, DEF_BACK);
+            printBuf.flush();   // flush the buffer
+            return printBuf.count;
         }
 
         // Console printFmt with color extension
