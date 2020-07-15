@@ -59,7 +59,7 @@ namespace trap {
             :"memory"               // do not reorder
             );
 
-            kernelPanic("failed to pop and iret trap frame %08x", this);
+            kernelPanic("failed to pop and iret trap frame %p", this);
         }
 
         void dispatch();

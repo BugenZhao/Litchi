@@ -117,7 +117,7 @@ namespace trap {
                 handler::pageFault(this);
                 break;
             case Type::syscall:
-                handler::syscall(this);
+                this->regs.eax = handler::syscall(this);
                 break;
 
             case Type::debug:
@@ -161,9 +161,9 @@ namespace trap::handler {
         auto faultVa = x86::rcr2();
 
         if ((tf->cs & 0b11) == 0) {
-            kernelPanic("Unhandled page fault (%08x) from kernel\n", faultVa);
+            kernelPanic("Unhandled page fault (%p) from kernel\n", faultVa);
         } else {
-            print("[%08x] Unhandled page fault (at %08x) [%s, %s, %s]\n",
+            print("[%08x] Unhandled page fault (at %p) [%s, %s, %s]\n",
                   task::Task::current->id, faultVa,
                   tf->err & 4 ? "user" : "kernel",
                   tf->err & 2 ? "write" : "read",
@@ -178,7 +178,7 @@ namespace trap::handler {
     }
 
     void debug(Frame *tf) {
-        print("eip = %08x\n", tf->eip);
+        print("eip = %p\n", tf->eip);
         monitor::main(tf);
     }
 }

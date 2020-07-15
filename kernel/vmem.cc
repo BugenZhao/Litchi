@@ -115,7 +115,7 @@ namespace vmem {
 
         // Print kernel memory info
         char *kernEndCurrent = (char *) bootAlloc(0);
-        console::out::print("Kernel at %08x->%08x->%08x: %d KB in memory\n",
+        console::out::print("Kernel at %p->%p->%p: %d KB in memory\n",
                             kernStart, kernEnd, kernEndCurrent, (kernEndCurrent - kernStart + 1023) / 1024);
     }
 }
@@ -177,7 +177,7 @@ namespace vmem::pgdir {
         // Map itself to va: UVPT (user virtual page table)
         kernelPageDir[PDX(UVPT)] = PHY_ADDR(kernelPageDir) | PTE_U | PTE_P;
 
-        //    printFmt("%08X %08X\n", UVPT, PHY_ADDR(kernelPageDir));
+        //    printFmt("%p %p\n", UVPT, PHY_ADDR(kernelPageDir));
     }
 
     // Find the page table entry of va, but won't do any mapping
@@ -352,7 +352,7 @@ namespace vmem::utils {
         char flagsBuf[13];
         console::out::print("VIRTUAL     PHYSICAL  RC  FLAGS\n");
         for (va = beginV; va <= endV; va += PGSIZE) {
-            console::out::print("%08lX -> ", va);
+            console::out::print("%p -> ", va);
             pte_t *pte = pgdir::findPte(pageDir, va, 0);
             if (pte == nullptr) console::err::print("<NOT MAPPED>\n");
             else {
@@ -360,7 +360,7 @@ namespace vmem::utils {
                 if (PGNUM(phy) >= nPages)
                     console::err::print("<NOT EXIST>\n");
                 else
-                    console::out::print("%08lX  %2d  %s\n", phy, PageInfo::fromPhy(phy)->refCount,
+                    console::out::print("%p  %2d  %s\n", phy, PageInfo::fromPhy(phy)->refCount,
                                         flagStr(pte, flagsBuf));
             }
         }
@@ -372,7 +372,7 @@ namespace vmem::utils {
         endV = ROUNDUP(endV, 16);
         console::out::print("VIRTUAL   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
         for (void *row = beginV; row <= endV; row += 16) {
-            console::out::print("%08lX", row);
+            console::out::print("%p", row);
             pte_t *pte = pgdir::findPte(pageDir, row, 0);
             if (pte == nullptr) {
                 console::err::print("  <INVALID>\n");
@@ -397,7 +397,7 @@ namespace vmem::utils {
         const size_t _totalMem = totalMem * 1024u;
         out::print("PHYSICAL  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
         for (physaddr_t row = beginP; row <= endP; row += 16) {
-            out::print("%08lX", row);
+            out::print("%p", row);
             for (physaddr_t pa = row; pa <= row + 15; ++pa) {
                 if (pa >= _totalMem) {
                     err::print("  <INVALID>\n");

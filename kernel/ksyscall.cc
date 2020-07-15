@@ -35,7 +35,7 @@ namespace ksyscall {
     void putString(const uint16_t *str, size_t count) {
         // check if user is cheating us with our privilege
         if (!vmem::pgdir::userCheck(task::Task::current->pageDir, str, count, PTE_U)) {
-            console::out::print("[%08x] Invalid memory access in [%08x, %08x)\n",
+            console::out::print("[%08x] Invalid memory access in [%p, %p)\n",
                                 task::Task::current->id, str, str + count);
             task::Task::current->destroy(true);
         }

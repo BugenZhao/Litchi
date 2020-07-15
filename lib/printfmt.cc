@@ -164,6 +164,14 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
                 for (width -= len; width > 0; width--) putColorChar(paddingChar, fore, back, putdat);
                 for (str; *str != '\0'; str++) putColorChar(*str, fore, back, putdat);
                 break;
+            case 'p':
+                num = va_arg(ap, uintptr_t);
+                _gePrintNumber(putChar, putdat, num, 16, 8, '0', false, fore, back);
+                break;
+            case 'P':
+                num = va_arg(ap, uintptr_t);
+                _gePrintNumber(putChar, putdat, num, 16, 8, '0', true, fore, back);
+                break;
             case 'r':
                 result = va_arg(ap, Result);
                 num = static_cast<int>(result);

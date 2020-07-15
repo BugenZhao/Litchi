@@ -171,7 +171,7 @@ namespace task {
             this->regionAlloc((void *) ph->p_va, ph->p_memsz);
             // copy text/data, only copy filesz length
             auto va = binary + ph->p_offset;
-//            print("VA %08x\n", va);
+//            print("VA %p\n", va);
             mem::copy((void *) ph->p_va, va, ph->p_filesz);
         }
 
@@ -196,7 +196,7 @@ namespace task {
         for (auto vaIt = vaLo; vaIt < vaHi; vaIt += PGSIZE) {
             auto page = vmem::PageInfo::alloc(true);
             if (page == nullptr) kernelPanic("out of memory");
-//            print("PA %08x\n", page->toPhy());
+//            print("PA %p\n", page->toPhy());
             auto result = vmem::pgdir::insert(this->pageDir, page, vaIt, PTE_U | PTE_W);
             if (result != Result::ok) kernelPanic("insert page failed");
         }

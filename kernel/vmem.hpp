@@ -54,7 +54,7 @@ namespace vmem {
 
     static inline physaddr_t _paddr(const char *file, int line, void *kernva) {
         if ((uintptr_t) kernva < KERNBASE)
-            _kernelPanic(file, line, "PADDR: cannot convert 0x%08lX to pa", kernva);
+            _kernelPanic(file, line, "PADDR: cannot convert 0x%p to pa", kernva);
         return (physaddr_t) kernva - KERNBASE;
     }
 
@@ -64,7 +64,7 @@ namespace vmem {
     static inline void *_kaddr(const char *file, int line, physaddr_t pa) {
         // Out of available memory
         if (PGNUM(pa) >= nPages || nPages == 0)
-            _kernelPanic(file, line, "KADDR: cannot convert 0x%08lX to kva", pa);
+            _kernelPanic(file, line, "KADDR: cannot convert 0x%p to kva", pa);
         return (void *) (pa + KERNBASE);
     }
 
@@ -101,7 +101,7 @@ namespace vmem {
 
         static inline PageInfo *fromPhy(physaddr_t pa) {
             if (PGNUM(pa) >= nPages || nPages == 0)
-                kernelPanic("phyToPage: cannot convert 0x%08lX to PageInfo", pa);
+                kernelPanic("phyToPage: cannot convert 0x%p to PageInfo", pa);
             return array + PGNUM(pa);
         }
 

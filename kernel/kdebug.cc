@@ -16,7 +16,7 @@ namespace kdebug {
         int depth = 5;
         while (ebp && ebp + 24 < KSTACKTOP && depth--) {
             eip = *(uintptr_t *) (ebp + 4);
-            console::err::print("  %08X  %08X  %08X %08X %08X %08X %08X\n",
+            console::err::print("  %p  %p  %p %p %p %p %p\n",
                                 ebp,
                                 eip,
                                 *(uintptr_t *) (ebp + 8),
