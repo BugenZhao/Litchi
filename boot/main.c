@@ -1,7 +1,7 @@
 // Adopted from JOS/xv6
 
-#include <include/x86.h>
-#include <include/elf.h>
+#include <include/x64.h>
+#include <include/elf64.h>
 
 /**********************************************************************
  * This a dirt simple boot loader, whose sole job is to boot
@@ -60,7 +60,7 @@ bootmain(void) {
     // call the entry point from the ELF header
     // note: does not return!
     *(uint16_t *) 0xb809e = 0x0a4c;
-    ((void (*)(void)) (ELFHDR->e_entry))();
+    ((void (*)(void)) ((uint32_t) ELFHDR->e_entry))();
 
     bad:
     *(uint16_t *) 0xb809e = 0x0c4c;

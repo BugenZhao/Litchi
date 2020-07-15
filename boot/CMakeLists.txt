@@ -6,7 +6,7 @@ set(BOOT_SRC
 add_executable(${BOOT_ELF} ${BOOT_SRC})
 set_target_properties(${BOOT_ELF} PROPERTIES LINK_FLAGS "-Wl,-m,elf_i386,-Ttext,0x7C00,-N,-e,start -nostdlib")
 # Use optimization to limit the binary size to 512 bytes
-set_target_properties(${BOOT_ELF} PROPERTIES COMPILE_FLAGS "-O1 -DLITCHI_KERNEL")
+set_target_properties(${BOOT_ELF} PROPERTIES COMPILE_FLAGS "-m32 -O1 -DLITCHI_KERNEL")
 # post-build command: objcopy (binary, only .text)
 add_custom_command(
         TARGET ${BOOT_ELF}

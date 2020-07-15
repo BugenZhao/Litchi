@@ -37,23 +37,23 @@ static inline constexpr const char *describe(Result result) {
 constexpr char NULL_FMT[] = "(null)";
 
 // Get unsigned int in different length from va_list
-static unsigned long long _getUIntVa(va_list *ap, int longFlag) {
+static unsigned long long _getUnsignedVa(va_list ap, int longFlag) {
     unsigned long long num;
 
-    if (longFlag == 0) num = va_arg(*ap, unsigned int);
-    else if (longFlag == 1) num = va_arg(*ap, unsigned long);
-    else num = va_arg(*ap, unsigned long long);
+    if (longFlag == 0) num = va_arg(ap, unsigned int);
+    else if (longFlag == 1) num = va_arg(ap, unsigned long);
+    else num = va_arg(ap, unsigned long long);
 
     return num;
 }
 
 // Get signed int in different length from va_list
-static long long _getIntVa(va_list *ap, int longFlag) {
+static long long _getSignedVa(va_list ap, int longFlag) {
     unsigned long long num;
 
-    if (longFlag == 0) num = va_arg(*ap, int);
-    else if (longFlag == 1) num = va_arg(*ap, long);
-    else num = va_arg(*ap, long long);
+    if (longFlag == 0) num = va_arg(ap, int);
+    else if (longFlag == 1) num = va_arg(ap, long);
+    else num = va_arg(ap, long long);
 
     return num;
 }
@@ -132,11 +132,11 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
 
                 // Number types
             case 'u':
-                num = _getUIntVa(&ap, longFlag);
+                num = _getUnsignedVa(ap, longFlag);
                 _gePrintNumber(putChar, putdat, num, 10, width, paddingChar, capital, fore, back);
                 break;
             case 'd':
-                num = _getIntVa(&ap, longFlag);
+                num = _getSignedVa(ap, longFlag);
                 if ((long long) num < 0) {
                     putColorChar('-', fore, back, putdat);
                     num = -(long long) num;
@@ -146,13 +146,13 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
             case 'X':
                 capital = true;
             case 'x':
-                num = _getUIntVa(&ap, longFlag);
+                num = _getUnsignedVa(ap, longFlag);
                 _gePrintNumber(putChar, putdat, num, 16, width, paddingChar, capital, fore, back);
                 break;
             case 'O':
                 capital = true;
             case 'o':
-                num = _getUIntVa(&ap, longFlag);
+                num = _getUnsignedVa(ap, longFlag);
                 _gePrintNumber(putChar, putdat, num, 8, width, paddingChar, capital, fore, back);
                 break;
 
@@ -180,6 +180,9 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
             case 'c':
                 putColorChar(va_arg(ap, int), fore, back, putdat); // Char in va_list takes 4 Bytes
                 break;
+            case 'p':
+                num = _getUnsignedVa(ap, 2);
+                _gePrintNumber(putChar, putdat, num, 16, 16, '0', false, fore, back);
 
                 // Colors
             case '<':

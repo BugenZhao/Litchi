@@ -3,7 +3,7 @@
 //
 
 #include <include/stdio.hpp>
-#include <include/x86.h>
+#include <include/x64.h>
 #include "trap.hh"
 #include "monitor.hpp"
 #include "task.hh"
@@ -12,16 +12,18 @@
 using namespace console::out;
 
 // see irqentry.S
-extern uint32_t ivt[];
+extern uintptr_t ivt[];
+
 // see gdt.c
 extern struct SegDesc gdt[];
+extern struct PseudoDesc gdtPD;
 
 namespace trap {
     // Interrupt DESCRIPTOR Table <= generate from ivt
     GateDesc idt[256] = {{0}};
     // for load idt
     PseudoDesc idtPD = {
-            sizeof(idt) - 1, (uint32_t) idt
+            sizeof(idt) - 1, (uintptr_t) idt
     };
 
     // Task State, if trapped, CPU will automatically load ss, esp from it
@@ -58,8 +60,7 @@ namespace trap {
     void initPerCpu() {
         // see comments around the definition of kernelTS
         // Note: for time-slicing multitasking, the stack(esp0) should be switched every context switching
-        kernelTS.ts_ss0 = GD_KD;
-        kernelTS.ts_esp0 = KSTACKTOP;
+        kernelTS.ts_rsp0 = KSTACKTOP;
         kernelTS.ts_iomb = sizeof(TaskState);   // just ignored, http://forum.osdev.org/viewtopic.php?t=13678
 
         // specifying the TSS' address as "base",
@@ -67,12 +68,19 @@ namespace trap {
         // 0x89 (Present|Executable|Accessed) as "access byte"
         // and 0x40 (Size-bit) as "flags". In the TSS itself
         // https://wiki.osdev.org/TSS
-        gdt[GD_TSS0 >> 3] = SEG16(STS_T32A, (uint32_t) &kernelTS, sizeof(TaskState) - 1, 0);
-        gdt[GD_TSS0 >> 3].sd_s = 0;
+
+        SETTSS((struct SysSegDesc *) &gdt[GD_TSS0 >> 3],
+               STS_T64A,
+               (uint64_t) (&kernelTS),
+               sizeof(struct TaskState) - 1,
+               0);
+
+//        gdt[GD_TSS0 >> 3] = SEG(STS_T32A, (uintptr_t) &kernelTS, sizeof(TaskState) - 1, 0);
+//        gdt[GD_TSS0 >> 3].sd_s = 0;
 
         // load
-        x86::ltr(GD_TSS0);
-        x86::lidt(&idtPD);
+        x64::ltr(GD_TSS0);
+        x64::lidt(&idtPD);
     }
 }
 
@@ -81,7 +89,7 @@ namespace trap {
         using namespace task;
 
         // interrupts should be disabled
-        assert(!(x86::read_eflags() & FL_IF));
+        assert(!(x64::read_rflags() & FL_IF));
 
         if ((tf->cs & 0b11) == 3) { // trapped from user mode, must be Task::current
             Task::current->trapFrame = *tf;   // update tf
@@ -106,7 +114,7 @@ namespace trap {
     namespace handler {
         void pageFault(Frame *tf);
 
-        uint32_t syscall(Frame *tf);
+        int64_t syscall(Frame *tf);
 
         void debug(Frame *tf);
     }
@@ -158,12 +166,12 @@ namespace trap {
 namespace trap::handler {
     void pageFault(Frame *tf) {
         // get fault virtual address
-        auto faultVa = x86::rcr2();
+        auto faultVa = x64::rcr2();
 
         if ((tf->cs & 0b11) == 0) {
-            kernelPanic("Unhandled page fault (%08x) from kernel\n", faultVa);
+            kernelPanic("Unhandled page fault (%p) from kernel\n", faultVa);
         } else {
-            print("[%08x] Unhandled page fault (at %08x) [%s, %s, %s]\n",
+            print("[%08x] Unhandled page fault (at %p) [%s, %s, %s]\n",
                   task::Task::current->id, faultVa,
                   tf->err & 4 ? "user" : "kernel",
                   tf->err & 2 ? "write" : "read",
@@ -172,13 +180,13 @@ namespace trap::handler {
         }
     }
 
-    uint32_t syscall(Frame *tf) {
-        return ksyscall::main(static_cast<ksyscall::Num>(tf->regs.eax),
-                              tf->regs.edx, tf->regs.ecx, tf->regs.ebx, tf->regs.edi, tf->regs.esi);
+    int64_t syscall(Frame *tf) {
+        return ksyscall::main(static_cast<ksyscall::Num>(tf->regs.rax),
+                              tf->regs.rdx, tf->regs.rcx, tf->regs.rbx, tf->regs.r10, tf->regs.r8);
     }
 
     void debug(Frame *tf) {
-        print("eip = %08x\n", tf->eip);
+        print("rip = %p\n", tf->rip);
         monitor::main(tf);
     }
 }

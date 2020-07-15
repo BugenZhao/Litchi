@@ -11,7 +11,7 @@ using namespace console::out;
 
 void pageFault1() {     // low address
     int sum = 0;
-    for (int va = 0x100; va < 0x200; ++va)
+    for (uint64_t va = 0x100; va < 0x200; ++va)
         sum += *(int *) (va);
     *(int *) (0x100) = sum;
 }

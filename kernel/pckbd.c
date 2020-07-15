@@ -3,7 +3,7 @@
 //
 
 #include <include/pckbd.h>
-#include <include/x86.h>
+#include <include/x64.h>
 #include <include/cstdout.h>
 #include <include/color.h>
 

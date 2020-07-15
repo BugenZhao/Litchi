@@ -7,7 +7,7 @@
 #include <include/string.hpp>
 #include <include/random.hh>
 #include "task.hh"
-#include <include/elf.h>
+#include <include/elf64.h>
 #include "monitor.hpp"
 
 using namespace console::out;
@@ -26,7 +26,7 @@ namespace task {
         mem::clear(Task::array, sizeof(Task) * Task::maxCount);
 
         // expose the task array to user space
-        pgdir::staticMap(kernelPageDir,
+        pgdir::staticMap(kernelPML4,
                          UENVS,
                          ROUNDUP(sizeof(Task) * Task::maxCount, PGSIZE),
                          PHY_ADDR(Task::array),
@@ -51,7 +51,7 @@ namespace task {
     void initPerCpu() {
         // now switch gdt from bootstrap gdt to new one, for use of privilege level
         // see kernel/gdt.c
-        x86::lgdt(&gdtPD);
+        x64::lgdt(&gdtPD);
 
         // set segment register (selector) to the correct descriptor
 
@@ -65,7 +65,7 @@ namespace task {
         asm volatile("movw %%ax,%%ss" : : "a" (GD_KD));
 
         // perform a long jump to set new CS selector
-        asm volatile("ljmp %0,$1f\n 1:\n" : : "i" (GD_KT));
+        asm volatile("pushq %%rbx \n \t movabs $1f,%%rax \n \t pushq %%rax \n\t lretq \n 1:\n" :: "b" (GD_KT):"cc","memory");
     }
 }
 
@@ -98,7 +98,7 @@ namespace task {
         task->trapFrame.cs = GD_UT | 3;
         task->trapFrame.ss = GD_UD | 3;
         // set user stack
-        task->trapFrame.esp = USTACKTOP; // user stack top
+        task->trapFrame.rsp = USTACKTOP; // user stack top
 
         // eip will be set after binary loaded
 
@@ -113,7 +113,7 @@ namespace task {
 
         // simply duplicate the kernel's
         this->pageDir = static_cast<pde_t *>(page->toKernV());
-        mem::copy(page->toKernV(), vmem::kernelPageDir, PGSIZE);
+        mem::copy(page->toKernV(), vmem::kernelPML4, PGSIZE);
         page->refCount += 1;
 
         // again, make a recursive map to the page dir itself
@@ -123,7 +123,7 @@ namespace task {
     }
 
     void Task::free() {
-        if (this == current) x86::lcr3(PHY_ADDR(vmem::kernelPageDir));
+        if (this == current) x64::lcr3(PHY_ADDR(vmem::kernelPML4));
 
         // free all pages, from 0x0 to UTOP
         for (int pdx = 0; pdx < (int) PDX(UTOP); ++pdx) {
@@ -135,7 +135,9 @@ namespace task {
             for (int ptx = 0; ptx < NPTENTRIES; ++ptx) {
                 auto pte = pageTable[ptx];  // find the page table entry
                 if (pte & PTE_P) // remove the page from page dir, and free the info if needed
-                    vmem::pgdir::remove(this->pageDir, PGADDR(pdx, ptx, 0));
+                    ;
+                    // TODO: here
+//                    vmem::pgdir::remove(this->pageDir, PGADDR(pdx, ptx, 0));
             }
 
             // free the page table itself
@@ -159,7 +161,7 @@ namespace task {
         if (elf->e_magic != ELF_MAGIC)
             kernelPanic("bad elf binary");
 
-        x86::lcr3(PHY_ADDR(this->pageDir));
+        x64::lcr3(PHY_ADDR(this->pageDir));
 
         // copy the binary
         auto ph = (Proghdr *) (binary + elf->e_phoff);  // find the elf header
@@ -175,12 +177,12 @@ namespace task {
             mem::copy((void *) ph->p_va, va, ph->p_filesz);
         }
 
-        x86::lcr3(PHY_ADDR(vmem::kernelPageDir));
+        x64::lcr3(PHY_ADDR(vmem::kernelPML4));
 
         // allocate stack (PGSIZE)
         this->regionAlloc((void *) (USTACKTOP - PGSIZE), PGSIZE);
         // set eip to elf entry point
-        this->trapFrame.eip = elf->e_entry;
+        this->trapFrame.rip = elf->e_entry;
 
         print("[%08x] Loaded elf\n", this->id);
     }
@@ -225,7 +227,7 @@ namespace task {
             this->status = TaskStatus::running;
             current = this;
 
-            x86::lcr3(PHY_ADDR(this->pageDir));
+            x64::lcr3(PHY_ADDR(this->pageDir));
         }
 
         if (verbose)
@@ -237,7 +239,7 @@ namespace task {
         print("%<[%08x] Destroyed by %s\n", WHITE, id, fromKernel ? "kernel" : "user");
         if (this == current) {
             current = nullptr;
-            x86::lcr3(PHY_ADDR(vmem::kernelPageDir));
+            x64::lcr3(PHY_ADDR(vmem::kernelPML4));
         }
         this->free();
         monitor::main();

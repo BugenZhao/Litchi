@@ -8,8 +8,8 @@
 #include <include/syscall.hh>
 
 namespace ksyscall {
-    int32_t main(Num type,
-                 uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5);
+    int64_t main(Num type,
+                 uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5);
 }
 
 namespace ksyscall {

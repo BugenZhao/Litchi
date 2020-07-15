@@ -2,7 +2,7 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <include/x86.h>
+#include <include/x64.h>
 #include <include/memlayout.h>
 #include <include/string.hpp>
 #include <include/pckbd.h>
@@ -38,36 +38,36 @@ namespace console {
 
         // Stupid I/O delay routine necessitated by historical PC design flaws
         static void delay(void) {
-            x86::inb(0x84);
-            x86::inb(0x84);
-            x86::inb(0x84);
-            x86::inb(0x84);
+            x64::inb(0x84);
+            x64::inb(0x84);
+            x64::inb(0x84);
+            x64::inb(0x84);
         }
 
         static bool exists;
 
         static void init(void) {
             // Turn off the FIFO
-            x86::outb(COM1 + COM_FCR, 0);
+            x64::outb(COM1 + COM_FCR, 0);
 
             // Set speed; requires DLAB latch
-            x86::outb(COM1 + COM_LCR, COM_LCR_DLAB);
-            x86::outb(COM1 + COM_DLL, (uint8_t) (115200 / 9600));
-            x86::outb(COM1 + COM_DLM, 0);
+            x64::outb(COM1 + COM_LCR, COM_LCR_DLAB);
+            x64::outb(COM1 + COM_DLL, (uint8_t) (115200 / 9600));
+            x64::outb(COM1 + COM_DLM, 0);
 
             // 8 data bits, 1 stop bit, parity off; turn off DLAB latch
-            x86::outb(COM1 + COM_LCR, COM_LCR_WLEN8 & ~COM_LCR_DLAB);
+            x64::outb(COM1 + COM_LCR, COM_LCR_WLEN8 & ~COM_LCR_DLAB);
 
             // No modem controls
-            x86::outb(COM1 + COM_MCR, 0);
+            x64::outb(COM1 + COM_MCR, 0);
             // Enable rcv interrupts
-            x86::outb(COM1 + COM_IER, COM_IER_RDI);
+            x64::outb(COM1 + COM_IER, COM_IER_RDI);
 
             // Clear any preexisting overrun indications and interrupts
             // Serial port doesn't exist if COM_LSR returns 0xFF
-            exists = (x86::inb(COM1 + COM_LSR) != 0xFF);
-            (void) x86::inb(COM1 + COM_IIR);
-            (void) x86::inb(COM1 + COM_RX);
+            exists = (x64::inb(COM1 + COM_LSR) != 0xFF);
+            (void) x64::inb(COM1 + COM_IIR);
+            (void) x64::inb(COM1 + COM_RX);
         }
 
         static inline void sout(int c) {
@@ -76,7 +76,7 @@ namespace console {
             //      !(inb(COM1 + COM_LSR) & COM_LSR_TXRDY) && i < 12800;
             //      i++)
             //     delay();
-            x86::outb(COM1 + COM_TX, c);
+            x64::outb(COM1 + COM_TX, c);
         }
 
         static void putChar(int c, enum color_t defForeColor, enum color_t defBackColor) {
@@ -113,6 +113,15 @@ namespace console {
     namespace cga {
         /***** Text-mode CGA/VGA display output *****/
 
+#define MONO_BASE   0x3B4
+#define MONO_BUF    0xB0000
+#define CGA_BASE    0x3D4
+#define CGA_BUF     0xB8000
+
+#define CRT_ROWS    25
+#define CRT_COLS    80
+#define CRT_SIZE    (CRT_ROWS * CRT_COLS)
+
         static unsigned addr_6845;
         static uint16_t *buffer;
         static uint16_t pos;
@@ -135,10 +144,10 @@ namespace console {
             }
 
             // Get cursor position
-            x86::outb(addr_6845, 14);
-            npos = x86::inb(addr_6845 + 1) << 8;
-            x86::outb(addr_6845, 15);
-            npos |= x86::inb(addr_6845 + 1);
+            x64::outb(addr_6845, 14);
+            npos = x64::inb(addr_6845 + 1) << 8;
+            x64::outb(addr_6845, 15);
+            npos |= x64::inb(addr_6845 + 1);
 
             buffer = (uint16_t *) cp;
             pos = npos;
@@ -146,10 +155,10 @@ namespace console {
 
         // Refresh CGA cursor to next text position
         static inline void cursorRefresh(void) {
-            x86::outb(addr_6845, 14);
-            x86::outb(addr_6845 + 1, pos >> 8);
-            x86::outb(addr_6845, 15);
-            x86::outb(addr_6845 + 1, pos);
+            x64::outb(addr_6845, 14);
+            x64::outb(addr_6845 + 1, pos >> 8);
+            x64::outb(addr_6845, 15);
+            x64::outb(addr_6845 + 1, pos);
         }
 
         // Put char into cga. Explicit colors will be used only if no color info in c

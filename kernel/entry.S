@@ -44,6 +44,7 @@
 .globl		_start
 _start = RELOC(entry)
 
+.code32
 .globl entry
 entry:
 # BUGENC: tell BIOS not to perform memory check
@@ -66,11 +67,19 @@ entry:
 
 	movl	%cr4, %eax
 	orl	$(CR4_PSE), %eax        # enable page size extension
+	orl     $(CR4_PAE), %eax        # physical address extension
 	movl	%eax, %cr4
 
 # BUGENC: RELOC(pgdir) -> get the physical address of pgdir
-	movl	$(RELOC(entry_pgdir_super)), %eax
+	movl	$(RELOC(entry_pml4)), %eax
 	movl	%eax, %cr3
+
+	# Enable long mode
+	movl    $0xc0000080, %ecx
+	rdmsr
+	btsl    $8, %eax
+	wrmsr
+
 	# Turn on paging.
 	movl	%cr0, %eax
 	orl	$(CR0_PE|CR0_PG|CR0_WP), %eax
@@ -80,22 +89,30 @@ entry:
 	# Now paging is enabled, but we're still running at a low EIP
 	# (why is this okay?).  Jump up above KERNBASE before entering
 	# C code.
-	mov	$relocated, %eax
-	jmp	*%eax
+	# mov	$relocated, %eax
+	# jmp	*%eax
+
+	movl    $gdtdesc_64, %eax
+        lgdt    (%eax)
+        pushl   $0x8
+        movl    $relocated, %eax
+        pushl   %eax
+
 # BUGENC: now our codes are running at high (virtual) addresses,
 # BUGENC:  and the debugger can locate the code by the address in Elf
+.code64
 relocated:
 
 	# Clear the frame pointer register (EBP)
 	# so that once we get into debugging C code,
 	# stack backtraces will be terminated properly.
-	movl	$0x0,%ebp			# nuke frame pointer
+	movq	$0x0, %rbp			# nuke frame pointer
 
 	# Set the stack pointer
-	movl	$(bootstacktop),%esp
+	movq	$(bootstacktop), %rsp
 
 	# now to C code
-	call	i386InitLitchi
+	call	x86_64Litchi
 
 	# Should never get here, but in case we do, just spin.
 spin:
@@ -104,6 +121,15 @@ spin:
 
 
 .data
+	.p2align 2
+gdt_64:
+	SEG_NULL
+	.quad  0x00af9a000000ffff            #64 bit CS
+	.quad  0x00cf92000000ffff            #64 bit DS
+gdtdesc_64:
+	.word 0x17
+	.quad gdt_64
+
 ###################################################################
 # boot stack
 ###################################################################

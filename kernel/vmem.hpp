@@ -7,7 +7,7 @@
 
 #include <kernel/knlast.inc>
 
-#include <include/x86.h>
+#include <include/x64.h>
 #include <include/panic.hpp>
 #include <include/memlayout.h>
 #include <tuple>
@@ -35,8 +35,8 @@ namespace nvram {
 #define    IO_RTC        0x070        /* RTC port */
 
     static unsigned mc146818_read(unsigned reg) {
-        x86::outb(IO_RTC, reg);
-        return x86::inb(IO_RTC + 1);
+        x64::outb(IO_RTC, reg);
+        return x64::inb(IO_RTC + 1);
     }
 
     static int read(int r) {
@@ -47,14 +47,14 @@ namespace nvram {
 // Global
 namespace vmem {
     extern size_t nPages;
-    extern pte_t *kernelPageDir;
+    extern pte_t *kernelPML4;
 
     // Convert a kernel virtual address to physical
 #define PHY_ADDR(kernva) vmem::_paddr(__RFILE__, __LINE__, kernva)
 
     static inline physaddr_t _paddr(const char *file, int line, void *kernva) {
         if ((uintptr_t) kernva < KERNBASE)
-            _kernelPanic(file, line, "PADDR: cannot convert 0x%08lX to pa", kernva);
+            _kernelPanic(file, line, "PADDR: cannot convert %p to pa", kernva);
         return (physaddr_t) kernva - KERNBASE;
     }
 
@@ -64,7 +64,7 @@ namespace vmem {
     static inline void *_kaddr(const char *file, int line, physaddr_t pa) {
         // Out of available memory
         if (PGNUM(pa) >= nPages || nPages == 0)
-            _kernelPanic(file, line, "KADDR: cannot convert 0x%08lX to kva", pa);
+            _kernelPanic(file, line, "KADDR: cannot convert %p to kva", pa);
         return (void *) (pa + KERNBASE);
     }
 
@@ -101,7 +101,7 @@ namespace vmem {
 
         static inline PageInfo *fromPhy(physaddr_t pa) {
             if (PGNUM(pa) >= nPages || nPages == 0)
-                kernelPanic("phyToPage: cannot convert 0x%08lX to PageInfo", pa);
+                kernelPanic("phyToPage: cannot convert %p to PageInfo", pa);
             return array + PGNUM(pa);
         }
 
@@ -139,7 +139,7 @@ namespace vmem::pgdir {
 
     Result insert(pde_t *pageDir, struct PageInfo *pp, void *va, int perm);
 
-    void staticMap(pde_t *pageDir, uintptr_t va, size_t size, physaddr_t pa, int perm);
+    void staticMap(pml4e_t *pml4, uintptr_t va, size_t size, physaddr_t pa, int perm);
 
     static void init();
 

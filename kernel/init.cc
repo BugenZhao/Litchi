@@ -14,7 +14,7 @@
 using namespace console::out;
 
 extern "C" {
-void i386InitLitchi(void) {
+void x86_64Litchi(void) {
     // Clear .BSS section
     extern uint8_t edata[], end[];
     mem::set(edata, 0, end - edata);

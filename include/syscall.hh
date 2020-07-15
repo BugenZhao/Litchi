@@ -8,7 +8,7 @@
 #include <include/types.h>
 
 namespace ksyscall {
-    enum struct Num : uint32_t {
+    enum struct Num : uint64_t {
         putChar,
         putString,
         exit

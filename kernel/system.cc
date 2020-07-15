@@ -2,7 +2,7 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#include <include/x86.h>
+#include <include/x64.h>
 #include <include/stdio.hpp>
 #include "system.hpp"
 #include <tuple>
@@ -10,15 +10,15 @@
 namespace sys {
     void reboot() {
         asm volatile ("cli");
-        x86::outb(0x64, 0xfe);
+        x64::outb(0x64, 0xfe);
         while (true);
     }
 
     void shutdown() {
         asm volatile ("cli");
-        x86::outw(0xB004, 0x2000);  // bochs
-        x86::outw(0x604, 0x2000);   // qemu
-        x86::outw(0x4004, 0x3400);  // vbox
+        x64::outw(0xB004, 0x2000);  // bochs
+        x64::outw(0x604, 0x2000);   // qemu
+        x64::outw(0x4004, 0x3400);  // vbox
         while (true);
     }
 

@@ -1,12 +1,12 @@
-// Adapt from JOS/xv6
+// Adopted from JOS/xv6
 
-#ifndef JOS_INC_X86_H
-#define JOS_INC_X86_H
+#ifndef LITCHI_X64_H
+#define LITCHI_X64_H
 
 #include <include/types.h>
 
 #ifdef __cplusplus
-namespace x86 {
+namespace x64 {
 #endif
     static inline void
     breakpoint(void)
@@ -141,108 +141,91 @@ namespace x86 {
     }
 
     static inline void
-    lcr0(uint32_t val)
+    lcr0(uint64_t val)
     {
-        asm volatile("movl %0,%%cr0" : : "r" (val));
+        asm volatile("movq %0,%%cr0" : : "r" (val));
     }
 
-    static inline uint32_t
+    static inline uint64_t
     rcr0(void)
     {
-        uint32_t val;
-        asm volatile("movl %%cr0,%0" : "=r" (val));
+        uint64_t val;
+        asm volatile("movq %%cr0,%0" : "=r" (val));
         return val;
     }
 
-    static inline uint32_t
+    static inline uint64_t
     rcr2(void)
     {
-        uint32_t val;
-        asm volatile("movl %%cr2,%0" : "=r" (val));
+        uint64_t val;
+        asm volatile("movq %%cr2,%0" : "=r" (val));
         return val;
     }
 
     static inline void
-    lcr3(uint32_t val)
+    lcr3(uint64_t val)
     {
-        asm volatile("movl %0,%%cr3" : : "r" (val));
+        asm volatile("movq %0,%%cr3" : : "r" (val));
     }
 
-    static inline uint32_t
+    static inline uint64_t
     rcr3(void)
     {
-        uint32_t val;
-        asm volatile("movl %%cr3,%0" : "=r" (val));
+        uint64_t val;
+        asm volatile("movq %%cr3,%0" : "=r" (val));
         return val;
     }
 
     static inline void
-    lcr4(uint32_t val)
+    lcr4(uint64_t val)
     {
-        asm volatile("movl %0,%%cr4" : : "r" (val));
+        asm volatile("movq %0,%%cr4" : : "r" (val));
     }
 
-    static inline uint32_t
+    static inline uint64_t
     rcr4(void)
     {
-        uint32_t cr4;
-        asm volatile("movl %%cr4,%0" : "=r" (cr4));
+        uint64_t cr4;
+        asm volatile("movq %%cr4,%0" : "=r" (cr4));
         return cr4;
     }
 
     static inline void
     tlbflush(void)
     {
-        uint32_t cr3;
-        asm volatile("movl %%cr3,%0" : "=r" (cr3));
-        asm volatile("movl %0,%%cr3" : : "r" (cr3));
+        uint64_t cr3;
+        asm volatile("movq %%cr3,%0" : "=r" (cr3));
+        asm volatile("movq %0,%%cr3" : : "r" (cr3));
     }
 
-    static inline uint32_t
-    read_eflags(void)
+    static inline uint64_t
+    read_rflags(void)
     {
-        uint32_t eflags;
-        asm volatile("pushfl; popl %0" : "=r" (eflags));
-        return eflags;
-    }
-
-    static inline void
-    write_eflags(uint32_t eflags)
-    {
-        asm volatile("pushl %0; popfl" : : "r" (eflags));
-    }
-
-    static inline uint32_t
-    read_ebp(void)
-    {
-        uint32_t ebp;
-        asm volatile("movl %%ebp,%0" : "=r" (ebp));
-        return ebp;
-    }
-
-    static inline uint32_t
-    read_esp(void)
-    {
-        uint32_t esp;
-        asm volatile("movl %%esp,%0" : "=r" (esp));
-        return esp;
+        uint64_t rflags;
+        asm volatile("pushfq; popq %0" : "=r" (rflags));
+        return rflags;
     }
 
     static inline void
-    cpuid(uint32_t info, uint32_t *eaxp, uint32_t *ebxp, uint32_t *ecxp, uint32_t *edxp)
+    write_rflags(uint64_t rflags)
     {
-        uint32_t eax, ebx, ecx, edx;
-        asm volatile("cpuid"
-                 : "=a" (eax), "=b" (ebx), "=c" (ecx), "=d" (edx)
-                 : "a" (info));
-        if (eaxp)
-            *eaxp = eax;
-        if (ebxp)
-            *ebxp = ebx;
-        if (ecxp)
-            *ecxp = ecx;
-        if (edxp)
-            *edxp = edx;
+        asm volatile("pushq %0; popfq" : : "r" (rflags));
+    }
+
+    static inline uint64_t
+    read_rbp(void)
+    {
+        uint64_t rbp;
+        asm volatile("movq %%rbp,%0" : "=r" (rbp));
+        return rbp;
+    }
+
+    static inline uint64_t
+    read_rsp(void)
+    {
+        uint64_t rsp;
+        asm volatile("movq %%rsp,%0" : "=r" (rsp));
+        return rsp;
     }
 
     static inline uint64_t
@@ -276,4 +259,4 @@ namespace x86 {
 }
 #endif
 
-#endif /* !JOS_INC_X86_H */
+#endif //LITCHI_X64_H

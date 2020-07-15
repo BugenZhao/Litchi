@@ -3,14 +3,14 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Make CMake verbose or not
-set(CMAKE_VERBOSE_MAKEFILE 0)
+set(CMAKE_VERBOSE_MAKEFILE 1)
 
 # Set NONE to avoid CMake choosing compilers itself
 project(Litchi LANGUAGES NONE)
 
 # Toolchains prefix
-set(TP i386-litchi-elf-)
-set(QEMU qemu-system-i386)
+set(TP x86_64-litchi-elf-)
+set(QEMU qemu-system-x86_64)
 
 # Object name constants
 set(LITCHI_ELF litchi.elf)
@@ -34,9 +34,9 @@ macro(add_asm_dump TARGET)
     set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${ASM_DUMP_DIR}/${TARGET}.asm")
 endmacro(add_asm_dump)
 
-# Flags
-set(C_OR_ASM_FLAGS "-ffreestanding -fno-builtin -nostdlib -fno-omit-frame-pointer -std=gnu11 -static -Wall -Wno-format -Wno-unused -Werror -m32 -fno-tree-ch -fno-stack-protector -g -ggdb")
-set(CXX_FLAGS "-ffreestanding -fno-builtin -nostdlib -fno-omit-frame-pointer -std=gnu++20 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -fno-unwind-tables -g -ggdb")
+# General Flags
+set(C_OR_ASM_FLAGS "-ffreestanding -mno-red-zone -fno-builtin -nostdlib -fno-omit-frame-pointer -std=gnu11 -static -Wall -Wno-format -Wno-unused -Werror -fno-tree-ch -fno-stack-protector -g -ggdb")
+set(CXX_FLAGS "-ffreestanding -mno-red-zone -fno-builtin -nostdlib -fno-omit-frame-pointer -std=gnu++20 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -fno-unwind-tables -g -ggdb")
 
 # Other constants
 set(LD_SCRIPT "${CMAKE_SOURCE_DIR}/scripts/kernel.ld")

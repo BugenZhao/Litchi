@@ -9,7 +9,7 @@
 #include <include/stdio.hpp>
 
 namespace ksyscall {
-    int32_t main(Num type, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5) {
+    int64_t main(Num type, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5) {
         switch (type) {
             case Num::putChar:
                 putChar(a1);
@@ -35,7 +35,7 @@ namespace ksyscall {
     void putString(const uint16_t *str, size_t count) {
         // check if user is cheating us with our privilege
         if (!vmem::pgdir::userCheck(task::Task::current->pageDir, str, count, PTE_U)) {
-            console::out::print("[%08x] Invalid memory access in [%08x, %08x)\n",
+            console::out::print("[%08x] Invalid memory access in [%p, %p)\n",
                                 task::Task::current->id, str, str + count);
             task::Task::current->destroy(true);
         }

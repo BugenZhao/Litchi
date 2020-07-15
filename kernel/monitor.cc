@@ -66,7 +66,7 @@ namespace monitor {
         if (argc <= 1) return Result::invalidArg;
         void *beginV = (void *) (str::toLong(argv[1], 0));
         void *endV = (argc >= 3) ? (void *) (str::toLong(argv[2], 0)) : beginV;
-        vmem::utils::show(vmem::kernelPageDir, beginV, endV);
+        vmem::utils::show(vmem::kernelPML4, beginV, endV);
         return Result::ok;
     }
 
@@ -75,7 +75,7 @@ namespace monitor {
         if (argc <= 1) return Result::invalidArg;
         void *beginV = (void *) (str::toLong(argv[1], 0));
         void *endV = (argc >= 3) ? (void *) (str::toLong(argv[2], 0)) : beginV;
-        vmem::utils::dumpV(vmem::kernelPageDir, beginV, endV);
+        vmem::utils::dumpV(vmem::kernelPML4, beginV, endV);
         return Result::ok;
     }
 
@@ -84,7 +84,7 @@ namespace monitor {
         if (argc <= 1) return Result::invalidArg;
         physaddr_t beginP = (str::toLong(argv[1], 0));
         physaddr_t endP = (argc >= 3) ? (str::toLong(argv[2], 0)) : beginP;
-        vmem::utils::dumpP(vmem::kernelPageDir, beginP, endP);
+        vmem::utils::dumpP(vmem::kernelPML4, beginP, endP);
         return Result::ok;
     }
 
@@ -102,7 +102,7 @@ namespace monitor {
     // USER TASK DEBUG: continue
     Result cont(int, char **, trap::Frame *tf) {
         if (tf) {
-            tf->eflags &= ~FL_TF;   // clear Trap Flag (single-step)
+            tf->rflags &= ~FL_TF;   // clear Trap Flag (single-step)
             tf->pop();
         } else {
             return Result::noSuchTask;
@@ -112,7 +112,7 @@ namespace monitor {
     // USER TASK DEBUG: single instruction
     Result si(int, char **, trap::Frame *tf) {
         if (tf) {
-            tf->eflags |= FL_TF;    // set Trap Flag (single-step)
+            tf->rflags |= FL_TF;    // set Trap Flag (single-step)
             tf->pop();
         } else {
             return Result::noSuchTask;

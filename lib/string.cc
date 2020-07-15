@@ -171,7 +171,3 @@ namespace str {
         return split(str, WHITESPACE, resultBuf, bufCount, true);
     }
 }
-
-void * __builtin_memmove(void *dest, const void *src, size_t count) {
-    return mem::move(dest, src, count);
-}

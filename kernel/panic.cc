@@ -6,7 +6,7 @@
 #include <include/vargs.hpp>
 #include <include/stdio.hpp>
 #include "kdebug.hpp"
-#include <include/x86.h>
+#include <include/x64.h>
 
 void _kernelPanic(const char *file, int line, const char *fmt, ...) {
     static bool PANIC = false;

@@ -6,7 +6,7 @@
 #include "task.hh"
 #include <include/mmu.h>
 #include <include/stdio.hpp>
-#include <include/x86.h>
+#include <include/x64.h>
 #include <include/memlayout.h>
 #include <include/string.hpp>
 
@@ -20,7 +20,7 @@ namespace vmem {
     size_t totalMem = 0;
     size_t nPages = 0;
     size_t nPagesBaseMem = 0;
-    pte_t *kernelPageDir;
+    pml4e_t *kernelPML4;
 }
 
 // PageInfo
@@ -171,13 +171,15 @@ namespace vmem::pgdir {
     // Allocate kernelPageDir
     void alloc() {
         // Create kernel page dir
-        kernelPageDir = (pde_t *) bootAlloc(PGSIZE);
-        mem::clear(kernelPageDir, PGSIZE);
+        kernelPML4 = (pml4e_t *) bootAlloc(PGSIZE);
+        mem::clear(kernelPML4, PGSIZE);
 
         // Map itself to va: UVPT (user virtual page table)
-        kernelPageDir[PDX(UVPT)] = PHY_ADDR(kernelPageDir) | PTE_U | PTE_P;
+        // *****************************************************************************************************
+        kernelPML4[PDX(UVPT)] = PHY_ADDR(kernelPML4) | PTE_U | PTE_P;
+        // *****************************************************************************************************
 
-        //    printFmt("%08X %08X\n", UVPT, PHY_ADDR(kernelPageDir));
+        console::out::print("kernelPML4: %p\n", PHY_ADDR(kernelPML4));
     }
 
     // Find the page table entry of va, but won't do any mapping
@@ -256,35 +258,35 @@ namespace vmem::pgdir {
 
     // Statically map [va, va+size) to [pa, pa+size)
     // It will not make changes on PageInfo::array
-    void staticMap(pde_t *pageDir, uintptr_t va, size_t size, physaddr_t pa, int perm) {
+    void staticMap(pml4e_t *pml4, uintptr_t va, size_t size, physaddr_t pa, int perm) {
         uint32_t offset = 0;
         // There might be multiple pte's to find and set
         while (offset < size) {
             // Get the page table entry
-            pte_t *pte = findPte(pageDir, (const void *) (va + offset), 1);
+            pte_t *pte = findPte(pml4, (const void *) (va + offset), true);
             // Actually set the pte to map the page
             *pte = (pa + offset) | PTE_P | perm;
-            invalidateTLB(pageDir, (void *) (va + offset));
+            invalidateTLB(pml4, (void *) (va + offset));
             offset += PGSIZE;
         }
     }
 
     static void init() {
         // Map PageInfo::array at va UPAGES for user (read-only)
-        staticMap(kernelPageDir, UPAGES, PTSIZE, PHY_ADDR(PageInfo::array), PTE_U);
+        staticMap(kernelPML4, UPAGES, PTSIZE, PHY_ADDR(PageInfo::array), PTE_U);
         // Map kernel stack at va KSTACKTOP-KSTKSIZE
-        staticMap(kernelPageDir, KSTACKTOP - KSTKSIZE, KSTKSIZE, PHY_ADDR(bootstack), PTE_W);
-        // Map all of physical memory in [0, 2^32 - KERNBASE) at va KERNBASE
-        staticMap(kernelPageDir, KERNBASE, ~KERNBASE, 0, PTE_W);
+        staticMap(kernelPML4, KSTACKTOP - KSTKSIZE, KSTKSIZE, PHY_ADDR(bootstack), PTE_W);
+        // Map all of physical memory at va KERNBASE
+        staticMap(kernelPML4, KERNBASE, nPages * PGSIZE, 0, PTE_W);
 
         // Actually load page dir
-        x86::lcr3(PHY_ADDR(kernelPageDir));
+        x64::lcr3(PHY_ADDR(kernelPML4));
 
         // Set other cr0 flags
-        uint32_t cr0 = x86::rcr0();
+        uint32_t cr0 = x64::rcr0();
         cr0 |= CR0_PE | CR0_PG | CR0_AM | CR0_WP | CR0_NE | CR0_MP;
         cr0 &= ~(CR0_TS | CR0_EM);
-        x86::lcr0(cr0);
+        x64::lcr0(cr0);
 
         // Do some checks
         assert(*(uint64_t *) UPAGES == *(uint64_t *) PageInfo::array);
@@ -295,17 +297,17 @@ namespace vmem::pgdir {
 
         assert(pp0 = PageInfo::alloc(false));
         mem::set(pp0->toKernV(), 0x18, PGSIZE);
-        insert(kernelPageDir, pp0, va2gb, PTE_W);
+        insert(kernelPML4, pp0, va2gb, PTE_W);
         assert(pp0->refCount == 1);
         assert(*(int64_t *) va2gb == 0x1818181818181818);
 
         assert(pp1 = PageInfo::alloc(false));
         mem::set(pp1->toKernV(), 0x10, PGSIZE);
-        insert(kernelPageDir, pp1, va2gb, PTE_W);
+        insert(kernelPML4, pp1, va2gb, PTE_W);
         assert(pp0->refCount == 0);
         assert(pp0->nextFree != nullptr);
         assert(*(int64_t *) va2gb == 0x1010101010101010);
-        remove(kernelPageDir, va2gb);
+        remove(kernelPML4, va2gb);
         assert(pp1->refCount == 0);
         assert(pp1->nextFree != nullptr);
     }
@@ -317,7 +319,7 @@ namespace vmem::pgdir {
     void invalidateTLB(pde_t *pageDir, void *va) {
         // Flush the entry only if we're modifying the current address space.
         // For now, there is only one address space, so always invalidate.
-        x86::invlpg(va);
+        x64::invlpg(va);
     }
 
 
@@ -325,9 +327,9 @@ namespace vmem::pgdir {
     // use this to check if [va, va + size) all satisfy the perm
     bool userCheck(pde_t *pageDir, const void *va, size_t size, int perm) {
         perm = perm | PTE_P;
-        auto va_it = (uint32_t) va;
+        auto va_it = (uintptr_t) va;
 
-        for (; va_it < (uint32_t) va + size; va_it += PGSIZE) {
+        for (; va_it < (uintptr_t) va + size; va_it += PGSIZE) {
             // out of user limit
             if ((uintptr_t) va_it >= ULIM) goto bad;
             // perm not satisfied

@@ -11,8 +11,8 @@ _ustart:
 	// If not, push dummy argc/argv arguments.
 	// This happens when we are loaded by the kernel,
 	// because the kernel does not know about passing arguments.
-	pushl $0
-	pushl $0
+	pushq $0
+	pushq $0
 
 args_exist:
 	call libmain

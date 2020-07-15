@@ -19,12 +19,13 @@
 #define GD_UT     0x18     // user text
 #define GD_UD     0x20     // user data
 #define GD_TSS0   0x28     // Task segment selector for CPU 0
+#define GD_TSS0H  0x30     // FOR LONG MODE tss pointer, see gdt.c
 
 /*
  * Virtual memory map:                                Permissions
  *                                                    kernel/user
  *
- *    4 Gig -------->  +------------------------------+
+ *     HUGE -------->  +------------------------------+
  *                     |                              | RW/--
  *                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *                     :              .               :
@@ -34,32 +35,34 @@
  *                     |                              | RW/--
  *                     |   Remapped Physical Memory   | RW/--
  *                     |                              | RW/--
- *    KERNBASE, ---->  +------------------------------+ 0xf0000000      --+
- *    KSTACKTOP        |     CPU0's Kernel Stack      | RW/--  KSTKSIZE   |
- *                     | - - - - - - - - - - - - - - -|                   |
- *                     |      Invalid Memory (*)      | --/--  KSTKGAP    |
- *                     +------------------------------+                   |
- *                     |     CPU1's Kernel Stack      | RW/--  KSTKSIZE   |
- *                     | - - - - - - - - - - - - - - -|                 PTSIZE
- *                     |      Invalid Memory (*)      | --/--  KSTKGAP    |
- *                     +------------------------------+                   |
- *                     :              .               :                   |
- *                     :              .               :                   |
- *    MMIOLIM ------>  +------------------------------+ 0xefc00000      --+
+ *    KERNBASE, ---->  +------------------------------+ 0x1018_00000000     --+
+ *    KSTACKTOP        |     CPU0's Kernel Stack      | RW/--  KSTKSIZE       |
+ *                     | - - - - - - - - - - - - - - -|                       |
+ *                     |      Invalid Memory (*)      | --/--  KSTKGAP        |
+ *                     +------------------------------+                       |
+ *                     |     CPU1's Kernel Stack      | RW/--  KSTKSIZE       |
+ *                     | - - - - - - - - - - - - - - -|                     PTSIZE
+ *                     |      Invalid Memory (*)      | --/--  KSTKGAP        |
+ *                     +------------------------------+                       |
+ *                     :              .               :                       |
+ *                     :              .               :                       |
+ *    MMIOLIM ------>  +------------------------------+ 0x1017_ffc00000     --+
  *                     |       Memory-mapped I/O      | RW/--  PTSIZE
- * ULIM, MMIOBASE -->  +------------------------------+ 0xef800000
+ * ULIM, MMIOBASE -->  +------------------------------+ 0x1017_ff800000
  *                     |  Cur. Page Table (User R-)   | R-/R-  PTSIZE
- *    UVPT      ---->  +------------------------------+ 0xef400000
- *                     |          RO PAGES            | R-/R-  PTSIZE
- *    UPAGES    ---->  +------------------------------+ 0xef000000
+ *    UVPT      ---->  +------------------------------+ 0x1017_ff400000
  *                     |           RO ENVS            | R-/R-  PTSIZE
- * UTOP,UENVS ------>  +------------------------------+ 0xeec00000
- * UXSTACKTOP -/       |     User Exception Stack     | RW/RW  PGSIZE
- *                     +------------------------------+ 0xeebff000
+ * UTOP,UENVS ------>  +------------------------------+ 0x1017_ff000000
+ *                     :              .               :
+ *    UPAGES    ---->  +------------------------------+ 0x1010_00000000
+ *                     :              .               :
+ * UXSTACKTOP ------>  +------------------------------+ 0xfffff000
+ *                     |     User Exception Stack     | RW/RW  PGSIZE
+ *                     +------------------------------+ 0xffffe000
  *                     |       Empty Memory (*)       | --/--  PGSIZE
- *    USTACKTOP  --->  +------------------------------+ 0xeebfe000
+ *    USTACKTOP  --->  +------------------------------+ 0xffffd000
  *                     |      Normal User Stack       | RW/RW  PGSIZE
- *                     +------------------------------+ 0xeebfd000
+ *                     +------------------------------+ ...
  *                     |                              |
  *                     |                              |
  *                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,14 +71,14 @@
  *                     .                              .
  *                     |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
  *                     |     Program Data & Heap      |
- *    UTEXT -------->  +------------------------------+ 0x00800000
- *    PFTEMP ------->  |       Empty Memory (*)       |        PTSIZE
+ *    UTEXT -------->  +------------------------------+ 0x01000000
+ *    PFTEMP ------->  |       Empty Memory (*)       |        2 * PTSIZE
  *                     |                              |
- *    UTEMP -------->  +------------------------------+ 0x00400000      --+
+ *    UTEMP -------->  +------------------------------+ 0x00800000      --+
  *                     |       Empty Memory (*)       |                   |
  *                     | - - - - - - - - - - - - - - -|                   |
- *                     |  User STAB Data (optional)   |                 PTSIZE
- *    USTABDATA ---->  +------------------------------+ 0x00200000        |
+ *                     |  User STAB Data (optional)   |              2 * PTSIZE
+ *    USTABDATA ---->  +------------------------------+ 0x00400000        |
  *                     |       Empty Memory (*)       |                   |
  *    0 ------------>  +------------------------------+                 --+
  *
@@ -86,17 +89,18 @@
 
 
 // All physical memory mapped at this address
-#define	KERNBASE	0xE0000000
+#define	KERNBASE	0x101800000000
+#define KERNLIM     0x101900000000
 
 // At IOPHYSMEM (640K) there is a 384K hole for I/O.  From the kernel,
 // IOPHYSMEM can be addressed at KERNBASE + IOPHYSMEM.  The hole ends
-// at physical address EXTPHYSMEM.
+// at physical address EXTPHYSMEM
 #define IOPHYSMEM	0x0A0000
 #define EXTPHYSMEM	0x100000
 
 // Kernel stack.
 #define KSTACKTOP	KERNBASE
-#define KSTKSIZE	(8*PGSIZE)   		// size of a kernel stack
+#define KSTKSIZE	(16*PGSIZE)   		// size of a kernel stack
 #define KSTKGAP		(8*PGSIZE)   		// size of a kernel stack guard
 
 // Memory-mapped IO.
@@ -113,9 +117,9 @@
 // User read-only virtual page table (see 'uvpt' below)
 #define UVPT		(ULIM - PTSIZE)
 // Read-only copies of the Page structures
-#define UPAGES		(UVPT - PTSIZE)
+#define UPAGES		0x101000000000
 // Read-only copies of the global env structures
-#define UENVS		(UPAGES - PTSIZE)
+#define UENVS		(UVPT - PTSIZE)
 
 /*
  * Top of user VM. User can manipulate VA from UTOP-1 and down!
@@ -123,27 +127,30 @@
 
 // Top of user-accessible VM
 #define UTOP		UENVS
+
 // Top of one-page user exception stack
-#define UXSTACKTOP	UTOP
+#define UXSTACKTOP	0xfffff000
 // Next page left invalid to guard against exception stack overflow; then:
 // Top of normal user stack
-#define USTACKTOP	(UTOP - 2*PGSIZE)
+#define USTACKTOP	(UXSTACKTOP - 2*PGSIZE)
 
 // Where user programs generally begin
-#define UTEXT		(2*PTSIZE)
+#define UTEXT		(4*PTSIZE)
 
 // Used for temporary page mappings.  Typed 'void*' for convenience
-#define UTEMP		((void*) PTSIZE)
+#define UTEMP		((void*) (2*PTSIZE))
 // Used for temporary page mappings for the user page-fault handler
 // (should not conflict with other temporary page mappings)
-#define PFTEMP		(UTEMP + PTSIZE - PGSIZE)
+#define PFTEMP		(UTEMP + 2 * PTSIZE - PGSIZE)
 // The location of the user-level STABS data structure
-#define USTABDATA	(PTSIZE / 2)
+#define USTABDATA	PTSIZE
 
 #ifndef __ASSEMBLER__
 
-typedef uint32_t pte_t;
-typedef uint32_t pde_t;
+typedef uint64_t pml4e_t;   // Page Map Level 4 Entry
+typedef uint64_t pdpe_t;    // Page Dir Pointer Entry
+typedef uint64_t pde_t;     // Page Dir         Entry
+typedef uint64_t pte_t;     // Page Table       Entry
 
 #endif /* !__ASSEMBLER__ */
 #endif /* !JOS_INC_MEMLAYOUT_H */
