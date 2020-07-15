@@ -17,7 +17,7 @@ set(LITCHI_ELF litchi.elf)
 set(BOOT_ELF boot.elf)
 set(BOOT_BIN boot.bin)
 set(LITCHI_LIB litchicc)
-set(IMG "${PROJECT_SOURCE_DIR}/out/litchi.img")
+set(IMG "${PROJECT_SOURCE_DIR}/image/litchi.img")
 
 # Embedded user elf binary, see kernel/embuser.S
 set(EMBUSER_ELF hello.elf)
@@ -116,6 +116,7 @@ add_custom_target(image
         COMMAND dd if="${PROJECT_BINARY_DIR}/${BOOT_BIN}" of=${IMG} conv=notrunc >/dev/null 2>&1
         COMMAND dd if="${PROJECT_BINARY_DIR}/${LITCHI_ELF}" of=${IMG} seek=1 conv=notrunc >/dev/null 2>&1
         DEPENDS ${LITCHI_ELF} ${BOOT_ELF})
+set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${IMG}")
 
 # Options for qemu and gdb
 set(QEMU_OPTIONS -cpu Haswell -drive file=${IMG},index=0,media=disk,format=raw -m 256 -serial mon:stdio)

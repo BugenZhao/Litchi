@@ -15,3 +15,4 @@ add_custom_command(
         COMMAND ${TP}objcopy -S -O binary -j .text ${PROJECT_BINARY_DIR}/${BOOT_ELF} ${PROJECT_BINARY_DIR}/${BOOT_BIN}
 )
 add_asm_dump(${BOOT_ELF})
+set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${PROJECT_BINARY_DIR}/${BOOT_BIN}")

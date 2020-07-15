@@ -45,23 +45,11 @@
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/result.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/result.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/syscall.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/syscall.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/trap.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/ksyscall.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/ksyscall.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/ksyscall.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/ksyscall.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/task.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/trap.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/trap.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/trap.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/printfmt.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/printfmt.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/out/litchi.img" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/entry/umain.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/entry/umain.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/hello.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/hello.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/lib/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/lib/printf.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/stdlib.hh" beforeDir="false" afterPath="$PROJECT_DIR$/user/stdlib.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boot/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/boot/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/v0.5.6.png" beforeDir="false" afterPath="$PROJECT_DIR$/docs/v0.5.6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/image/litchi.img" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -281,6 +269,8 @@
       <workItem from="1594619951195" duration="25000" />
       <workItem from="1594619988789" duration="78167000" />
       <workItem from="1594745892645" duration="175000" />
+      <workItem from="1594833438881" duration="37000" />
+      <workItem from="1594833752089" duration="436000" />
     </task>
     <task id="LOCAL-00028" summary="Merge exp with master">
       <created>1585235130314</created>
@@ -721,15 +711,10 @@
     </state>
     <state x="586" y="290" key="#qemu/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594662031271" />
     <state x="586" y="290" key="#qemu/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586322113110" />
-    <state x="799" y="238" key="#xdebugger.XInspectDialog" timestamp="1586175893245">
-      <screen x="0" y="0" width="1792" height="1120" />
-    </state>
-    <state x="799" y="238" key="#xdebugger.XInspectDialog/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586175893245" />
     <state x="659" y="189" key="#xdebugger.evaluate" timestamp="1594663243404">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="659" y="189" key="#xdebugger.evaluate/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594663243404" />
-    <state x="659" y="189" key="#xdebugger.evaluate/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586175908836" />
     <state x="642" y="424" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1594387234510">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -752,31 +737,35 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="401" y="295" key="FileDocumentManager.FileCacheConflict/0.0.1792.1120@0.0.1792.1120" timestamp="1593740107360" />
-    <state width="1750" height="318" key="GridCell.Tab.0.bottom" timestamp="1594745869563">
-      <screen x="0" y="0" width="1792" height="1120" />
+    <state width="1750" height="318" key="GridCell.Tab.0.bottom" timestamp="1594833374912">
+      <screen x="0" y="23" width="1792" height="1041" />
     </state>
     <state width="1750" height="435" key="GridCell.Tab.0.bottom/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594663579267" />
+    <state width="1750" height="318" key="GridCell.Tab.0.bottom/-1366.23.1366.1001/0.23.1792.1041@0.23.1792.1041" timestamp="1594833374912" />
     <state width="1750" height="318" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1594745869563" />
     <state width="1750" height="435" key="GridCell.Tab.0.bottom/0.23.1792.1041@0.23.1792.1041" timestamp="1594742481414" />
     <state width="1750" height="388" key="GridCell.Tab.0.bottom/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588877" />
-    <state width="1750" height="318" key="GridCell.Tab.0.center" timestamp="1594745869562">
-      <screen x="0" y="0" width="1792" height="1120" />
+    <state width="1750" height="318" key="GridCell.Tab.0.center" timestamp="1594833374911">
+      <screen x="0" y="23" width="1792" height="1041" />
     </state>
     <state width="1750" height="435" key="GridCell.Tab.0.center/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594663579265" />
+    <state width="1750" height="318" key="GridCell.Tab.0.center/-1366.23.1366.1001/0.23.1792.1041@0.23.1792.1041" timestamp="1594833374911" />
     <state width="1750" height="318" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1594745869562" />
     <state width="1750" height="435" key="GridCell.Tab.0.center/0.23.1792.1041@0.23.1792.1041" timestamp="1594742481413" />
     <state width="1750" height="388" key="GridCell.Tab.0.center/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588876" />
-    <state width="1750" height="318" key="GridCell.Tab.0.left" timestamp="1594745869561">
-      <screen x="0" y="0" width="1792" height="1120" />
+    <state width="1750" height="318" key="GridCell.Tab.0.left" timestamp="1594833374911">
+      <screen x="0" y="23" width="1792" height="1041" />
     </state>
     <state width="1750" height="435" key="GridCell.Tab.0.left/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594663579264" />
+    <state width="1750" height="318" key="GridCell.Tab.0.left/-1366.23.1366.1001/0.23.1792.1041@0.23.1792.1041" timestamp="1594833374911" />
     <state width="1750" height="318" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1594745869561" />
     <state width="1750" height="435" key="GridCell.Tab.0.left/0.23.1792.1041@0.23.1792.1041" timestamp="1594742481412" />
     <state width="1750" height="388" key="GridCell.Tab.0.left/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588875" />
-    <state width="1750" height="318" key="GridCell.Tab.0.right" timestamp="1594745869562">
-      <screen x="0" y="0" width="1792" height="1120" />
+    <state width="1750" height="318" key="GridCell.Tab.0.right" timestamp="1594833374911">
+      <screen x="0" y="23" width="1792" height="1041" />
     </state>
     <state width="1750" height="435" key="GridCell.Tab.0.right/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594663579266" />
+    <state width="1750" height="318" key="GridCell.Tab.0.right/-1366.23.1366.1001/0.23.1792.1041@0.23.1792.1041" timestamp="1594833374911" />
     <state width="1750" height="318" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1594745869562" />
     <state width="1750" height="435" key="GridCell.Tab.0.right/0.23.1792.1041@0.23.1792.1041" timestamp="1594742481414" />
     <state width="1750" height="388" key="GridCell.Tab.0.right/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586326588877" />
@@ -837,7 +826,6 @@
     </state>
     <state x="556" y="317" key="SettingsEditor/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594656723691" />
     <state x="449" y="334" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594642232787" />
-    <state x="556" y="290" key="SettingsEditor/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586160896729" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594742834680">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -859,7 +847,6 @@
     </state>
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594718269194" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1594742745770" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.0.1440.900/0.0.1792.1120@0.0.1792.1120" timestamp="1586177877931" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -2,7 +2,7 @@
 
 Bugen's toy kernel for x86 systems implemented in modern C++.
 
-![litchi](img/v0.5.6.png)
+![litchi](docs/v0.5.6.png)
 
 ## Get Started
 
@@ -14,8 +14,10 @@ Make sure you have Homebrew installed, then simply run:
 
 ```bash
 $ brew tap bugenzhao/litchi
-$ brew install --HEAD i386-litchi-elf-qemu
-$ brew install i386-litchi-elf-binutils i386-litchi-elf-gcc i386-litchi-elf-gdb
+$ brew install i386-litchi-elf-binutils \
+               i386-litchi-elf-gcc      \
+               i386-litchi-elf-gdb      \
+               litchi-qemu
 ```
 
 ### Build & Run
