@@ -15,5 +15,11 @@ jobs:
       run: brew tap bugenzhao/litchi
     - name: Install Toolchains
       run: brew install i386-litchi-elf-binutils i386-litchi-elf-gcc
+    - name: Install QEMU
+      run: brew install qemu
+    - name: Install Coreutils
+      run: brew install coreutils
     - name: Build
-      run: mkdir build && cd build && cmake .. && make
+      run: mkdir build && cd build && cmake .. && make image
+    - name: Run
+      run: timeout 5s make -C build qemu-nox || true
