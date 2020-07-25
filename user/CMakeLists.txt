@@ -4,7 +4,8 @@ file(GLOB USER_SRCS RELATIVE ${CMAKE_SOURCE_DIR} "user/*.cc")
 set(USER_LIB_SRCS
         user/entry/uentry.S
         user/entry/umain.cc
-        user/lib/printf.cc)
+        user/lib/printf.cc
+        user/lib/readline.cc)
 
 foreach(file_path ${USER_SRCS})
     string( REPLACE ".cc" ".elf" new_name ${file_path} )

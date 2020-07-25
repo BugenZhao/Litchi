@@ -18,6 +18,8 @@ namespace ksyscall {
     void putString(const uint16_t *str, size_t count);
 
     void exit();
+
+    char getChar();
 }
 
 #endif //LITCHI_KERNEL_KSYSCALL_HH

@@ -11,6 +11,7 @@ namespace ksyscall {
     enum struct Num : uint32_t {
         putChar,
         putString,
+        getChar,
         exit
     };
 }

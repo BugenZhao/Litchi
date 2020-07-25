@@ -8,6 +8,7 @@
 #include <user/stdlib.hh>
 
 using namespace console::out;
+using namespace console::in;
 
 void pageFault1() {     // low address
     int sum = 0;
@@ -32,8 +33,9 @@ void pageFault4() {     // cheat kernel to r/w privileged memory
 }
 
 int main(int, char **) {
-    asm volatile ("int3");
+//    asm volatile ("int3");  // breakpoint, wait for a `cont`
     print("%<Hello from user!!!!\n", LIGHT_GREEN);
-    pageFault4();
+    char *name = readline("What's your name?\n");
+    print("Hello, %<%s!\n", LIGHT_MAGENTA, name);
     return 0;
 }

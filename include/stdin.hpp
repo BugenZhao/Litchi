@@ -11,7 +11,11 @@
 // readline.cc
 
 namespace console::in {
-    char *readline(const char *promptFmt, ...);
+    constexpr int readlineBufferSize = 4096;
+
+    char getChar();
+
+    char *readline(const char *promptFmt = nullptr, ...);
 
     char *readlineVa(const char *promptFmt, va_list ap);
 }

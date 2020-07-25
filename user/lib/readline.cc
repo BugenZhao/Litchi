@@ -1,16 +1,20 @@
 //
-// Created by Bugen Zhao on 2020/3/27.
+// Created by Bugen Zhao on 7/25/20.
 //
 
 #include <include/stdio.hpp>
+#include <user/stdlib.hh>
 #include <include/ctype.h>
-#include <kernel/panic.hh>
-#include <include/vargs.hpp>
 
 namespace console::in {
-    static char buf[readlineBufferSize];
+    char getChar() {
+        return syscall(ksyscall::Num::getChar);
+    }
+}
 
-    // Read line from console
+namespace console::in {
+    static char buf[readlineBufferSize];    // not safe
+
     char *readline(const char *promptFmt, ...) {
         char *ret;
         va_list ap;
@@ -27,9 +31,7 @@ namespace console::in {
         if (promptFmt) out::printVa(promptFmt, ap);
         while (true) {
             c = getChar();
-            if (c < 0) {
-                kernelPanic("Illegal input: 0x%x", c);
-            } else if (isSimpleChar(c) && idx < readlineBufferSize - 1) {
+            if (isSimpleChar(c) && idx < readlineBufferSize - 1) {
                 out::putChar(c);
                 buf[idx++] = c;
             } else if (c == '\b' && idx > 0) {
@@ -45,4 +47,3 @@ namespace console::in {
         return buf;
     }
 }
-

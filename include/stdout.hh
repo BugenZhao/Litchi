@@ -14,9 +14,12 @@ typedef void (*_gePutCharFunction)(int, void *);
 
 // kernel/printf.cc
 // user/lib/printf.cc
+// kernel/console.cc
 
 namespace console {
     namespace out {
+        void putChar(int c);
+
         int printVa(const char *fmt, va_list ap);
 
         int print(const char *fmt, ...);

@@ -228,7 +228,7 @@ namespace console {
 
     namespace in {
         // Get a non-zero char from console
-        int getChar(void) {
+        int getChar() {
             int c;
             while ((c = kbd::getNextChar()) == 0);
             return c;

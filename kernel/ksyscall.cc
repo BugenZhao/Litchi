@@ -20,6 +20,8 @@ namespace ksyscall {
             case Num::exit:
                 exit();
                 return 0;
+            case Num::getChar:
+                return getChar();
         }
         return 0;
     }
@@ -45,5 +47,9 @@ namespace ksyscall {
 
     void exit() {
         task::Task::current->destroy(false);
+    }
+
+    char getChar() {
+        return console::in::getChar();
     }
 }

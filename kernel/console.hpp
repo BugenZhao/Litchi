@@ -31,10 +31,6 @@ namespace console {
     void init(void);
 
     int clear(void);
-
-    namespace out { void putChar(int c); }
-
-    namespace in { int getChar(void); }
 }
 
 #endif //LITCHI_CONSOLE_HPP
