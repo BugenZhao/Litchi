@@ -2,7 +2,7 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#include <include/pckbd.h>
+#include <kernel/pckbd.h>
 #include <include/x86.h>
 #include <include/cstdout.h>
 #include <include/color.h>

@@ -5,8 +5,8 @@
 #ifndef LITCHI_INCLUDE_TRAP_HH
 #define LITCHI_INCLUDE_TRAP_HH
 
-#include <include/string.hpp>
-#include <include/panic.hpp>
+#include <include/string.hh>
+#include <kernel/panic.hh>
 #include <include/mmu.h>
 #include <include/memlayout.h>
 

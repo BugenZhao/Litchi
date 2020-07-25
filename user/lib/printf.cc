@@ -1,4 +1,4 @@
-#include <include/stdout.hpp>
+#include <include/stdout.hh>
 #include <user/stdlib.hh>
 
 namespace console {

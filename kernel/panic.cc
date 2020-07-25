@@ -2,7 +2,7 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <include/panic.hpp>
+#include <kernel/panic.hh>
 #include <include/vargs.hpp>
 #include <include/stdio.hpp>
 #include "kdebug.hpp"

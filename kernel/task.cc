@@ -4,7 +4,7 @@
 
 #include "vmem.hpp"
 #include <include/stdio.hpp>
-#include <include/string.hpp>
+#include <include/string.hh>
 #include <include/random.hh>
 #include "task.hh"
 #include <include/elf.h>

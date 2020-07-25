@@ -5,7 +5,7 @@
 #ifndef LITCHI_STDIN_HPP
 #define LITCHI_STDIN_HPP
 
-#include <include/pckbd.h>
+#include <kernel/pckbd.h>
 #include <include/vargs.hpp>
 
 // readline.cc

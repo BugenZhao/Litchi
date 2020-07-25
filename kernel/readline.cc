@@ -4,7 +4,7 @@
 
 #include <include/stdio.hpp>
 #include <include/ctype.h>
-#include <include/panic.hpp>
+#include <kernel/panic.hh>
 #include <include/vargs.hpp>
 #include "console.hpp"
 

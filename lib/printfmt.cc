@@ -4,7 +4,7 @@
 
 #include <include/stdio.hpp>
 #include <include/ctype.h>
-#include <include/string.hpp>
+#include <include/string.hh>
 #include <include/color.h>
 #include <include/result.hh>
 

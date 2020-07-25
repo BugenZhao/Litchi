@@ -5,7 +5,7 @@
 #ifndef LITCHI_PCKBD_H
 #define LITCHI_PCKBD_H
 
-#include "include/types.h"
+#include <include/types.h>
 
 extern uint8_t shiftcode[256];
 extern uint8_t togglecode[256];

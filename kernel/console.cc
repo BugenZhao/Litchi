@@ -4,8 +4,8 @@
 
 #include <include/x86.h>
 #include <include/memlayout.h>
-#include <include/string.hpp>
-#include <include/pckbd.h>
+#include <include/string.hh>
+#include <kernel/pckbd.h>
 #include "console.hpp"
 
 namespace console {

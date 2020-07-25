@@ -11,7 +11,6 @@ set(KERNEL_SRC
         kernel/system.cc
         kernel/kdebug.cc
         kernel/vmem.cc
-        kernel/color.c
         kernel/task.cc
         kernel/task.hh
         kernel/gdt.c

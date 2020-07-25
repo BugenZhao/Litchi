@@ -2,8 +2,8 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#ifndef LITCHI_STDOUT_HPP
-#define LITCHI_STDOUT_HPP
+#ifndef LITCHI_STDOUT_HH
+#define LITCHI_STDOUT_HH
 
 #include <include/types.h>
 #include <include/vargs.hpp>
@@ -12,7 +12,8 @@
 // Generic printFmt oriented putChar func pointer
 typedef void (*_gePutCharFunction)(int, void *);
 
-// printf.c
+// kernel/printf.cc
+// user/lib/printf.cc
 
 namespace console {
     namespace out {
@@ -28,11 +29,11 @@ namespace console {
     }
 }
 
-void filePrintFmtVa(int fd, const char *fmt, va_list ap);
+//void filePrintFmtVa(int fd, const char *fmt, va_list ap);
 
-void filePrintFmt(int fd, const char *fmt, ...);
+//void filePrintFmt(int fd, const char *fmt, ...);
 
-// printfmt.c
+// lib/printfmt.c
 
 void _gePrintNumber(_gePutCharFunction putChar, void *putdat, unsigned long long num, unsigned base, int width,
                     int paddingChar, bool capital, enum color_t fore, enum color_t back);
@@ -43,4 +44,4 @@ void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va
 void _gePrintFmt(_gePutCharFunction putChar, void *putdat, const char *fmt, ...);
 
 
-#endif //LITCHI_STDOUT_HPP
+#endif //LITCHI_STDOUT_HH

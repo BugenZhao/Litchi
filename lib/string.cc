@@ -4,7 +4,7 @@
 
 // Naive basic string library
 
-#include <include/string.hpp>
+#include <include/string.hh>
 #include <include/types.h>
 #include <include/ctype.h>
 

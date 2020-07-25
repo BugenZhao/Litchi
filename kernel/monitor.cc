@@ -6,7 +6,7 @@
 #include <kernel/monitor.hpp>
 #include <kernel/version.h>
 #include <kernel/system.hpp>
-#include <include/string.hpp>
+#include <include/string.hh>
 #include <kernel/kdebug.hpp>
 #include <kernel/vmem.hpp>
 #include "console.hpp"

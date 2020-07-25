@@ -2,8 +2,8 @@
 // Created by Bugen Zhao on 2020/3/25.
 //
 
-#ifndef LITCHI_STRING_HPP
-#define LITCHI_STRING_HPP
+#ifndef LITCHI_STRING_HH
+#define LITCHI_STRING_HH
 
 #include <include/types.h>
 
@@ -37,4 +37,4 @@ namespace str {
     long toLong(const char *ptr, int base);
 }
 
-#endif //LITCHI_STRING_HPP
+#endif //LITCHI_STRING_HH

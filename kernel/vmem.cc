@@ -8,7 +8,7 @@
 #include <include/stdio.hpp>
 #include <include/x86.h>
 #include <include/memlayout.h>
-#include <include/string.hpp>
+#include <include/string.hh>
 
 // Kernel memory boundary from linker
 extern char kernStart[], kernEnd[];

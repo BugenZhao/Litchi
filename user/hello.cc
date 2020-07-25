@@ -3,7 +3,7 @@
 //
 
 #include <include/stdio.hpp>
-#include <include/string.hpp>
+#include <include/string.hh>
 #include <include/memlayout.h>
 #include <user/stdlib.hh>
 

@@ -8,7 +8,7 @@
 #include <kernel/knlast.inc>
 
 #include <include/x86.h>
-#include <include/panic.hpp>
+#include <kernel/panic.hh>
 #include <include/memlayout.h>
 #include <tuple>
 #include <include/result.hh>

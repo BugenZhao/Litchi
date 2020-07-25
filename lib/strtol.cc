@@ -2,7 +2,7 @@
 // Created by Bugen Zhao on 2020/4/8.
 //
 
-#include <include/string.hpp>
+#include <include/string.hh>
 #include <include/ctype.h>
 
 namespace str {

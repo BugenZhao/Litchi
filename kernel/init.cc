@@ -2,9 +2,9 @@
 // Created by Bugen Zhao on 2020/3/25.
 //
 
-#include <include/string.hpp>
+#include <include/string.hh>
 #include <include/stdio.hpp>
-#include <include/panic.hpp>
+#include <kernel/panic.hh>
 #include "console.hpp"
 #include "version.h"
 #include "vmem.hpp"

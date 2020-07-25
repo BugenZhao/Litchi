@@ -3,7 +3,7 @@
 //
 
 #include <include/stdio.hpp>
-#include <include/panic.hpp>
+#include <kernel/panic.hh>
 #include <include/cstdout.h>
 #include "console.hpp"
 

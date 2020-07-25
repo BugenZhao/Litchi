@@ -6,6 +6,6 @@
 #define LITCHI_STDIO_HPP
 
 #include <include/stdin.hpp>
-#include <include/stdout.hpp>
+#include <include/stdout.hh>
 
 #endif //LITCHI_STDIO_HPP
