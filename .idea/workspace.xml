@@ -26,6 +26,7 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
+      <config projectName="Litchi" targetName="qemu-nox" />
       <config projectName="Litchi" targetName="qemu" />
       <config projectName="Litchi" targetName="qemu-nox-gdb" />
       <config projectName="Litchi" targetName="cgdb-cli" />
@@ -44,29 +45,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
-      <change afterPath="$PROJECT_DIR$/conf/dump.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conf/macros.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conf/ptargets.cmake" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conf/toolchain.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/build.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boot/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/boot/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/ptargets.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/conf/ptargets.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/image/litchi.img" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdin.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdin.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/task.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/task.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vmem.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vmem.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/user/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/hello.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/hello.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/lib/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/lib/printf.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/lib/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/lib/readline.cc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +132,7 @@
       <recent name="$PROJECT_DIR$/kernel" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.qemu">
+  <component name="RunManager" selected="CMake Application.qemu-nox">
     <configuration name="boot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot.elf" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -191,6 +173,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="qemu-nox" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="qemu-nox" CONFIG_NAME="Default">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="qemu" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="qemu" CONFIG_NAME="Default">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -222,6 +209,7 @@
       <item itemvalue="CMake Application.image" />
       <item itemvalue="CMake Application.qemu" />
       <item itemvalue="CMake Application.qemu-gdb" />
+      <item itemvalue="CMake Application.qemu-nox" />
       <item itemvalue="CMake Application.qemu-nox-gdb" />
       <item itemvalue="CMake Application.boot.elf" />
       <item itemvalue="CMake Application.litchi.elf" />
@@ -289,14 +277,7 @@
       <workItem from="1594745892645" duration="175000" />
       <workItem from="1594833438881" duration="37000" />
       <workItem from="1594833752089" duration="1551000" />
-      <workItem from="1595685241163" duration="6846000" />
-    </task>
-    <task id="LOCAL-00032" summary="Basic kernel commands with arguments">
-      <created>1585289730766</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1585289730767</updated>
+      <workItem from="1595685241163" duration="7396000" />
     </task>
     <task id="LOCAL-00033" summary="Add tests to ensure A20 line is enabled">
       <created>1585320159039</created>
@@ -634,7 +615,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595687758998</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="Update: CMake submodules&#10;Cleanup: reduce compiler complaints">
+      <created>1595692245600</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1595692245600</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -668,7 +656,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Fix: serial backspace" />
     <MESSAGE value="Update: CLion debug" />
     <MESSAGE value="Update: build" />
     <MESSAGE value="Add: stdc++" />
@@ -693,7 +680,8 @@
     <MESSAGE value="Update: %p address fmt&#10;Fix: syscall return value" />
     <MESSAGE value="Cleanup: rearrange headers" />
     <MESSAGE value="Add: getChar syscall, readline() user function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add: getChar syscall, readline() user function" />
+    <MESSAGE value="Update: CMake submodules&#10;Cleanup: reduce compiler complaints" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update: CMake submodules&#10;Cleanup: reduce compiler complaints" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1594620112917">
@@ -830,11 +818,11 @@
     </state>
     <state x="556" y="317" key="SettingsEditor/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594656723691" />
     <state x="449" y="334" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594642232787" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1594835296756">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595692247278">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594835296756" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1594742834680" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1595692247278" />
     <state x="100" y="100" width="1592" height="920" key="dock-window-1" timestamp="1594372306544">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>

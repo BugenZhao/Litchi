@@ -20,6 +20,10 @@ add_custom_target(qemu-gdb
         COMMAND ${QEMU} ${QEMU_OPTIONS} ${QEMU_GDB_OPTIONS}
         DEPENDS image)
 
+add_custom_target(qemu-nox
+        COMMAND ${QEMU} -nographic ${QEMU_OPTIONS}
+        DEPENDS image)
+
 add_custom_target(qemu
         COMMAND ${QEMU} ${QEMU_OPTIONS}
         DEPENDS image)
