@@ -3,7 +3,6 @@
 //
 
 #include <include/stdio.hpp>
-#include <include/string.hh>
 #include <include/memlayout.h>
 #include <user/stdlib.hh>
 
@@ -33,7 +32,7 @@ void pageFault4() {     // cheat kernel to r/w privileged memory
 }
 
 int main(int, char **) {
-//    asm volatile ("int3");  // breakpoint, wait for a `cont`
+    asm volatile ("int3");  // breakpoint, wait for a `cont`
     print("%<Hello from user!!!!\n", LIGHT_GREEN);
     char *name = readline("What's your name?\n");
     print("Hello, %<%s!\n", LIGHT_MAGENTA, name);

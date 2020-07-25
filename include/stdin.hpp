@@ -11,7 +11,7 @@
 // readline.cc
 
 namespace console::in {
-    constexpr int readlineBufferSize = 4096;
+    constexpr int READLINE_BUF_SIZE = 4096;
 
     char getChar();
 

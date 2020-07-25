@@ -13,7 +13,7 @@ namespace console::in {
 }
 
 namespace console::in {
-    static char buf[readlineBufferSize];    // not safe
+    static char buf[READLINE_BUF_SIZE];    // not safe
 
     char *readline(const char *promptFmt, ...) {
         char *ret;
@@ -31,7 +31,7 @@ namespace console::in {
         if (promptFmt) out::printVa(promptFmt, ap);
         while (true) {
             c = getChar();
-            if (isSimpleChar(c) && idx < readlineBufferSize - 1) {
+            if (isSimpleChar(c) && idx < READLINE_BUF_SIZE - 1) {
                 out::putChar(c);
                 buf[idx++] = c;
             } else if (c == '\b' && idx > 0) {

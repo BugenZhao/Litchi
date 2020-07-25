@@ -106,6 +106,8 @@ namespace vmem {
         }
 
         static PageInfo *alloc(bool zero);
+
+        static int freeCount();
     };
 }
 

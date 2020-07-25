@@ -1,11 +1,11 @@
 set(USER_LD_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/user.ld)
 
-file(GLOB USER_SRCS RELATIVE ${CMAKE_SOURCE_DIR} "user/*.cc")
+file(GLOB USER_SRCS RELATIVE ${CMAKE_CURRENT_LIST_DIR} "*.cc")
 set(USER_LIB_SRCS
-        user/entry/uentry.S
-        user/entry/umain.cc
-        user/lib/printf.cc
-        user/lib/readline.cc)
+        entry/uentry.S
+        entry/umain.cc
+        lib/printf.cc
+        lib/readline.cc)
 
 foreach(file_path ${USER_SRCS})
     string( REPLACE ".cc" ".elf" new_name ${file_path} )

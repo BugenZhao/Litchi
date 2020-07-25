@@ -8,7 +8,7 @@
 #include <include/vargs.hpp>
 
 namespace console::in {
-    static char buf[readlineBufferSize];
+    static char buf[READLINE_BUF_SIZE];
 
     // Read line from console
     char *readline(const char *promptFmt, ...) {
@@ -29,7 +29,7 @@ namespace console::in {
             c = getChar();
             if (c < 0) {
                 kernelPanic("Illegal input: 0x%x", c);
-            } else if (isSimpleChar(c) && idx < readlineBufferSize - 1) {
+            } else if (isSimpleChar(c) && idx < READLINE_BUF_SIZE - 1) {
                 out::putChar(c);
                 buf[idx++] = c;
             } else if (c == '\b' && idx > 0) {

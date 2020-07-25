@@ -96,7 +96,7 @@ namespace monitor {
         auto[task, r] = Task::create(embUserElf, TaskType::user,
                                      (char *) EMBUSER_ELF + BINARY_DIR_OFFSET);
         started = true;
-        task->run();
+        task->run(true);
     }
 
     // USER TASK DEBUG: continue
@@ -121,6 +121,11 @@ namespace monitor {
 
     Result fuck(int, char **, trap::Frame *) {
         return Result::fuck;
+    }
+
+    Result page(int, char **, trap::Frame *) {
+        print("%d free pages\n", vmem::PageInfo::freeCount());
+        return Result::ok;
     }
 
     struct Command commands[] = {
@@ -199,6 +204,11 @@ namespace monitor {
                     .func = fuck,
                     .hide = true
             },
+            {
+                    .cmd  = "page",
+                    .desc = "Check page statistics",
+                    .func = page
+            }
     };
 
     Result help(int argc, char **argv, trap::Frame *tf) {

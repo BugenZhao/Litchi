@@ -7,7 +7,7 @@ namespace console::out {
     }
 }
 
-namespace console::out {
+namespace console {
     struct PrintBuf {
         static constexpr int maxCount = 256;
         int idx = 0;
@@ -39,22 +39,40 @@ namespace console::out {
         printBuf->putChar(c);
     }
 
-    // Console vargs printFmt
-    int printVa(const char *fmt, va_list ap) {
-        struct PrintBuf printBuf;
-        _gePrintFmtVa((_gePutCharFunction) _geUserConsolePutChar, &printBuf, fmt, ap, DEF_FORE, DEF_BACK);
-        printBuf.flush();   // flush the buffer
-        return printBuf.count;
+    namespace out {
+        // Console vargs printFmt
+        int printVa(const char *fmt, va_list ap) {
+            struct PrintBuf printBuf;
+            _gePrintFmtVa((_gePutCharFunction) _geUserConsolePutChar, &printBuf, fmt, ap, DEF_FORE, DEF_BACK);
+            printBuf.flush();   // flush the buffer
+            return printBuf.count;
+        }
+
+        // Console printFmt with color extension
+        // "%<" -> foreground color, "%>" -> background color
+        int print(const char *fmt, ...) {
+            va_list ap;
+            int cnt;
+            va_start(ap, fmt);
+            cnt = printVa(fmt, ap);
+            va_end(ap);
+            return cnt;
+        }
     }
 
-    // Console printFmt with color extension
-    // "%<" -> foreground color, "%>" -> background color
-    int print(const char *fmt, ...) {
-        va_list ap;
-        int cnt;
-        va_start(ap, fmt);
-        cnt = printVa(fmt, ap);
-        va_end(ap);
-        return cnt;
+    namespace err {
+        // Console error vargs printFmt
+        void printVa(const char *fmt, va_list ap) {
+            int cnt = 0;
+            _gePrintFmtVa((_gePutCharFunction) _geUserConsolePutChar, &cnt, fmt, ap, LIGHT_RED, DEF_BACK);
+        }
+
+        // Console printFmt
+        void print(const char *fmt, ...) {
+            va_list ap;
+            va_start(ap, fmt);
+            printVa(fmt, ap);
+            va_end(ap);
+        }
     }
 }

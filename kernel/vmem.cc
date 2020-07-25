@@ -54,6 +54,16 @@ namespace vmem {
         }
         return pp;
     }
+
+    int PageInfo::freeCount() {
+        auto p = freeList;
+        int count = 0;
+        while (p) {
+            count++;
+            p = p->nextFree;
+        }
+        return count;
+    }
 }
 
 
@@ -348,12 +358,11 @@ namespace vmem::utils {
     void show(pte_t *pageDir, void *beginV, void *endV) {
         beginV = ROUNDDOWN(beginV, PGSIZE);
         endV = ROUNDDOWN(endV, PGSIZE);
-        void *va;
         char flagsBuf[13];
         console::out::print("VIRTUAL     PHYSICAL  RC  FLAGS\n");
-        for (va = beginV; va <= endV; va += PGSIZE) {
+        for (uintptr_t va = (uintptr_t) beginV; va <= (uintptr_t) endV; va += PGSIZE) {
             console::out::print("%p -> ", va);
-            pte_t *pte = pgdir::findPte(pageDir, va, 0);
+            pte_t *pte = pgdir::findPte(pageDir, (void *) va, 0);
             if (pte == nullptr) console::err::print("<NOT MAPPED>\n");
             else {
                 physaddr_t phy = PTE_ADDR(*pte);
@@ -371,7 +380,7 @@ namespace vmem::utils {
         beginV = ROUNDDOWN(beginV, 16);
         endV = ROUNDUP(endV, 16);
         console::out::print("VIRTUAL   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
-        for (void *row = beginV; row <= endV; row += 16) {
+        for (void *row = beginV; row <= endV; row = (void *) ((uintptr_t) row + 16)) {
             console::out::print("%p", row);
             pte_t *pte = pgdir::findPte(pageDir, row, 0);
             if (pte == nullptr) {
@@ -381,7 +390,7 @@ namespace vmem::utils {
                 console::err::print("  <NOT PRESENT>\n");
                 return;
             }
-            for (uint8_t *va = static_cast<uint8_t *>(row); (void *) va <= row + 15; ++va) {
+            for (uint8_t *va = static_cast<uint8_t *>(row); (void *) va <= (void *) ((uintptr_t) row + 15); ++va) {
                 console::out::print(" %02X", (uint32_t) *va);
             }
             console::out::print("\n");
@@ -396,7 +405,7 @@ namespace vmem::utils {
         endP = ROUNDUP(endP, 16);
         const size_t _totalMem = totalMem * 1024u;
         out::print("PHYSICAL  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
-        for (physaddr_t row = beginP; row <= endP; row += 16) {
+        for (physaddr_t row = beginP; row <= endP; row = (physaddr_t) ((uintptr_t) row + 16)) {
             out::print("%p", row);
             for (physaddr_t pa = row; pa <= row + 15; ++pa) {
                 if (pa >= _totalMem) {

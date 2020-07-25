@@ -1,23 +1,25 @@
+set(LD_SCRIPT "${CMAKE_SOURCE_DIR}/scripts/kernel.ld")
+
 set(KERNEL_SRC
-        kernel/entry.S
-        kernel/init.cc
-        kernel/entrypgdir.c
-        kernel/console.cc
-        kernel/printf.cc
-        kernel/panic.cc
-        kernel/pckbd.c
-        kernel/readline.cc
-        kernel/monitor.cc
-        kernel/system.cc
-        kernel/kdebug.cc
-        kernel/vmem.cc
-        kernel/task.cc
-        kernel/task.hh
-        kernel/gdt.c
-        kernel/trap.cc
-        kernel/embuser.S
-        kernel/irqentry.S
-        kernel/ksyscall.cc)
+        entry.S
+        init.cc
+        entrypgdir.c
+        console.cc
+        printf.cc
+        panic.cc
+        pckbd.c
+        readline.cc
+        monitor.cc
+        system.cc
+        kdebug.cc
+        vmem.cc
+        task.cc
+        task.hh
+        gdt.c
+        trap.cc
+        embuser.S
+        irqentry.S
+        ksyscall.cc)
 
 # Target - kernel
 add_executable(${LITCHI_ELF} ${KERNEL_SRC})
@@ -27,3 +29,7 @@ set_target_properties(${LITCHI_ELF} PROPERTIES LINK_FLAGS "-Wl,-m,elf_i386,-T,${
 set_target_properties(${LITCHI_ELF} PROPERTIES COMPILE_FLAGS "-Og -DLITCHI_KERNEL")
 target_link_libraries(${LITCHI_ELF} ${LITCHI_LIB} -static-libgcc -lgcc)
 add_asm_dump(${LITCHI_ELF})
+
+# Litchi.elf includes and thus depends on embUserElf
+# WARNING: not always working, remember to rebuild every time after updating
+add_dependencies(${LITCHI_ELF} ${EMBUSER_ELF})

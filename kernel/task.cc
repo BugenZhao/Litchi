@@ -228,8 +228,7 @@ namespace task {
             x86::lcr3(PHY_ADDR(this->pageDir));
         }
 
-        if (verbose)
-            print("[%08x] Goodbye, kernel!\n", id);
+        if (verbose) print("[%08x] Goodbye, kernel!\n", id);
         this->trapFrame.pop();
     }
 
