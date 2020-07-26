@@ -4,7 +4,7 @@ set(LIB_SRC
         strtol.cc
         ctype.cc
         random.cc
-        color.c)
+        color.c exception.cc)
 
 add_library(${LITCHI_LIB} STATIC ${LIB_SRC})
 #set_target_properties(${LITCHI_LIB} PROPERTIES LINK_FLAGS "-Wl,-m,elf_i386,-T,${USER_LD_SCRIPT} -nostdlib")

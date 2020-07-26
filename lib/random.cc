@@ -5,7 +5,7 @@
 #include <include/random.hh>
 #include <include/types.h>
 
-namespace random {
+namespace lrandom {
     static int next = (int) TIMESEED;
 
     uint16_t rand() {

@@ -41,9 +41,3 @@ void _kernelWarning(const char *file, int line, const char *fmt, ...) {
     console::err::print("\n********\n");
     va_end(ap);
 }
-
-namespace std {
-    void __throw_bad_function_call() {
-        kernelPanic("bad function call");
-    }
-}

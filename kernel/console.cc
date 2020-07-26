@@ -174,6 +174,8 @@ namespace console {
                 case '\r':
                     pos = pos / CRT_COLS * CRT_COLS;
                     break;
+                case '\0':
+                    break;
                 default:
                     buffer[pos++] = c;
             }

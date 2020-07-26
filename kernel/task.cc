@@ -82,7 +82,7 @@ namespace task {
             return {nullptr, r};
 
         // allocate a random id, ending up with the #
-        uint32_t rand = random::rand() << 16 | random::rand();
+        uint32_t rand = lrandom::rand() << 16 | lrandom::rand();
         task->id = (rand & ~(maxCount - 1)) | (task - array);
 
         // set other fields

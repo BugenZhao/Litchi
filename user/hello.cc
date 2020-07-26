@@ -36,5 +36,6 @@ int main(int, char **) {
     print("%<Hello from user!!!!\n", LIGHT_GREEN);
     char *name = readline("What's your name?\n");
     print("Hello, %<%s!\n", LIGHT_MAGENTA, name);
+    console::err::print("Bye...\n");
     return 0;
 }

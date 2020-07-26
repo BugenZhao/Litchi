@@ -243,7 +243,7 @@ static int _kbdProcessData(void) {
     // Process special keys
     // Ctrl-Alt-Del: reboot
     if (!(~shift & (CTL | ALT)) && c == KEY_DEL) {
-        consoleErrorPrintFmtC("Rebooting!\n");
+        consoleErrPrintC("Rebooting!\n");
         outb(0x92, 0x3); // courtesy of Chris Frost
     }
 
@@ -254,10 +254,10 @@ static int _kbdProcessData(void) {
 void kbdInit(void) {
     kbdBuffer.readPos = 0;
     kbdBuffer.writePos = 0;
-    consolePrintFmtC("Initializing keyboard...");
+    consoleOutPrintC("Initializing keyboard...");
     // Try to read a char
     _kbdProcessData();
-    consolePrintFmtC("%<Done\n", WHITE);
+    consoleOutPrintC("%<Done\n", WHITE);
 }
 
 // Fake keyboard interrupt currently ~

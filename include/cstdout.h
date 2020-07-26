@@ -8,8 +8,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-int consolePrintFmtC(const char *fmt, ...);
-void consoleErrorPrintFmtC(const char *fmt, ...);
+int consoleOutPrintC(const char *fmt, ...);
+void consoleErrPrintC(const char *fmt, ...);
 #ifdef __cplusplus
 }
 #endif

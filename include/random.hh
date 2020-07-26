@@ -7,7 +7,7 @@
 
 #include <include/types.h>
 
-namespace random {
+namespace lrandom {
     uint16_t rand();
 }
 

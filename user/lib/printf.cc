@@ -43,7 +43,7 @@ namespace console {
         // Console vargs printFmt
         int printVa(const char *fmt, va_list ap) {
             struct PrintBuf printBuf;
-            _gePrintFmtVa((_gePutCharFunction) _geUserConsolePutChar, &printBuf, fmt, ap, DEF_FORE, DEF_BACK);
+            ge::printFmtVa([&printBuf](int c) { printBuf.putChar(c); }, fmt, ap, DEF_FORE, DEF_BACK);
             printBuf.flush();   // flush the buffer
             return printBuf.count;
         }
@@ -52,9 +52,8 @@ namespace console {
         // "%<" -> foreground color, "%>" -> background color
         int print(const char *fmt, ...) {
             va_list ap;
-            int cnt;
             va_start(ap, fmt);
-            cnt = printVa(fmt, ap);
+            int cnt = printVa(fmt, ap);
             va_end(ap);
             return cnt;
         }
@@ -63,8 +62,9 @@ namespace console {
     namespace err {
         // Console error vargs printFmt
         void printVa(const char *fmt, va_list ap) {
-            int cnt = 0;
-            _gePrintFmtVa((_gePutCharFunction) _geUserConsolePutChar, &cnt, fmt, ap, LIGHT_RED, DEF_BACK);
+            struct PrintBuf printBuf;
+            ge::printFmtVa([&printBuf](int c) { printBuf.putChar(c); }, fmt, ap, LIGHT_RED, DEF_BACK);
+            printBuf.flush();   // flush the buffer
         }
 
         // Console printFmt

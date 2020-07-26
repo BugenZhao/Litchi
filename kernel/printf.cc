@@ -9,19 +9,15 @@
 
 
 namespace console {
-    // Generic printFmt oriented console putChar
-    static inline void _geConsolePutChar(int c, int *cnt) {
-        if ((c & 0x00ff)) {
-            out::putChar(c);
-            if (cnt) *cnt++;
-        }
-    }
-
     namespace out {
         // Console vargs printFmt
         int printVa(const char *fmt, va_list ap) {
             int cnt = 0;
-            _gePrintFmtVa((_gePutCharFunction) _geConsolePutChar, &cnt, fmt, ap, DEF_FORE, DEF_BACK);
+            auto putChar = [&cnt](int c) {
+                out::putChar(c);
+                if (c & 0x00ff) cnt++;
+            };
+            ge::printFmtVa(putChar, fmt, ap, DEF_FORE, DEF_BACK);
             return cnt;
         }
 
@@ -29,9 +25,8 @@ namespace console {
         // "%<" -> foreground color, "%>" -> background color
         int print(const char *fmt, ...) {
             va_list ap;
-            int cnt;
             va_start(ap, fmt);
-            cnt = printVa(fmt, ap);
+            int cnt = printVa(fmt, ap);
             va_end(ap);
             return cnt;
         }
@@ -40,8 +35,7 @@ namespace console {
     namespace err {
         // Console error vargs printFmt
         void printVa(const char *fmt, va_list ap) {
-            int cnt = 0;
-            _gePrintFmtVa((_gePutCharFunction) _geConsolePutChar, &cnt, fmt, ap, LIGHT_RED, DEF_BACK);
+            ge::printFmtVa(out::putChar, fmt, ap, LIGHT_RED, DEF_BACK);
         }
 
         // Console printFmt
@@ -56,7 +50,7 @@ namespace console {
 }
 
 extern "C" {
-int consolePrintFmtC(const char *fmt, ...) {
+int consoleOutPrintC(const char *fmt, ...) {
     va_list ap;
     int cnt;
     va_start(ap, fmt);
@@ -65,19 +59,10 @@ int consolePrintFmtC(const char *fmt, ...) {
     return cnt;
 }
 
-void consoleErrorPrintFmtC(const char *fmt, ...) {
+void consoleErrPrintC(const char *fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
     console::err::printVa(fmt, ap);
     va_end(ap);
 }
 }
-
-void filePrintFmtVa(int fd, const char *fmt, va_list ap) {
-    kernelPanic("Not implemented");
-}
-
-void filePrintFmt(int fd, const char *fmt, ...) {
-    kernelPanic("Not implemented");
-}
-

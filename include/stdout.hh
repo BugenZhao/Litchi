@@ -8,9 +8,7 @@
 #include <include/types.h>
 #include <include/vargs.hh>
 #include <include/color.h>
-
-// Generic printFmt oriented putChar func pointer
-typedef void (*_gePutCharFunction)(int, void *);
+#include <functional>
 
 // kernel/printf.cc
 // user/lib/printf.cc
@@ -32,19 +30,20 @@ namespace console {
     }
 }
 
-//void filePrintFmtVa(int fd, const char *fmt, va_list ap);
-
-//void filePrintFmt(int fd, const char *fmt, ...);
 
 // lib/printfmt.c
 
-void _gePrintNumber(_gePutCharFunction putChar, void *putdat, unsigned long long num, unsigned base, int width,
-                    int paddingChar, bool capital, enum color_t fore, enum color_t back);
+namespace console::ge {
+    // Generic printFmt oriented putChar func pointer
+    using PutCharFunc = std::function<void(int c)>;
 
-void _gePrintFmtVa(_gePutCharFunction putChar, void *putdat, const char *fmt, va_list ap, enum color_t defFore,
-                   enum color_t defBack);
+    void printNumber(PutCharFunc putChar, unsigned long long num, unsigned base, int width, int paddingChar,
+                     bool capital, enum color_t fore, enum color_t back);
 
-void _gePrintFmt(_gePutCharFunction putChar, void *putdat, const char *fmt, ...);
+    void printFmtVa(PutCharFunc putChar, const char *fmt, va_list ap, enum color_t defFore, enum color_t defBack);
+
+    void printFmt(PutCharFunc putChar, const char *fmt, ...);
+}
 
 
 #endif //LITCHI_STDOUT_HH
