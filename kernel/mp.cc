@@ -2,6 +2,9 @@
 // Created by Bugen Zhao on 7/26/20.
 //
 
+// https://www.cheesecake.org/sac/smp.html
+// https://wiki.osdev.org/Symmetric_Multiprocessing
+
 #include <kernel/mp.hh>
 #include <include/stdio.hh>
 #include <include/string.hh>
@@ -9,6 +12,7 @@
 #include <include/trap.hh>
 
 namespace mp {
+    // using these tricky structures provided by BIOS to detect SMP, see websites above
     struct FPStruct;
     struct ConfTable;
     struct ProcessorAPIC;
@@ -96,6 +100,7 @@ namespace mp {
             return nullptr;
         };
 
+        // there are 3 possible positions
         // 1. Check the first KB of the Extended BIOS Data Area (EBDA)
         constexpr uint16_t bdaSeg = 0x40;
         auto bda = (uint8_t *) KERN_ADDR(bdaSeg << 4);
@@ -190,7 +195,7 @@ namespace mp {
 // Adopted from JOS
 
 namespace mp::lapic {
-// Local APIC registers, divided by 4 for use as uint32_t[] indices.
+// Local APIC registers [Memory Mapped I/O], divided by 4 for use as uint32_t[] indices.
 #define ID      (0x0020/4)   // ID
 #define VER     (0x0030/4)   // Version
 #define TPR     (0x0080/4)   // Task Priority

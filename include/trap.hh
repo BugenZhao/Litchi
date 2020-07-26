@@ -32,7 +32,7 @@ namespace trap {
         machineCheck,
         simdError,
 
-        HW_OFFSET = 32,
+        HW_OFFSET = 32, // give an offset for interrupts from PIC
         hwTimer = HW_OFFSET + 0,
         hwKeyboard = HW_OFFSET + 1,
         hwSpurious = HW_OFFSET + 7,

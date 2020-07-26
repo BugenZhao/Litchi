@@ -47,14 +47,8 @@
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/image/litchi.img" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/task.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/task.hh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/trap.hh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/mp.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/mp.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/mp.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/mp.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/trap.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vmem.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vmem.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.hh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,14 +272,7 @@
       <workItem from="1594833438881" duration="37000" />
       <workItem from="1594833752089" duration="1551000" />
       <workItem from="1595685241163" duration="8937000" />
-      <workItem from="1595694256881" duration="21091000" />
-    </task>
-    <task id="LOCAL-00042" summary="Updated README.md">
-      <created>1586181743970</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1586181743970</updated>
+      <workItem from="1595694256881" duration="21646000" />
     </task>
     <task id="LOCAL-00043" summary="stringToLong() and 'vmmap' command">
       <created>1586317239937</created>
@@ -623,7 +610,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595754772448</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="Add: local APIC for MP">
+      <created>1595759792017</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1595759792017</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -657,7 +651,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add: task alloc &amp; free" />
     <MESSAGE value="Add: task load elf&#10;Update: separated CMakeLists" />
     <MESSAGE value="Add: user task create &amp; run, embedded ELF" />
     <MESSAGE value="Update: run task by command" />
@@ -682,7 +675,8 @@
     <MESSAGE value="Fix: debug info" />
     <MESSAGE value="Add: multi-processor detection" />
     <MESSAGE value="Update: init logging" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update: init logging" />
+    <MESSAGE value="Add: local APIC for MP" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add: local APIC for MP" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1594620112917">
@@ -821,10 +815,10 @@
     </state>
     <state x="556" y="317" key="SettingsEditor/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595754904875" />
     <state x="449" y="334" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1595694341257" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595754779908">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595759808281">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595754779908" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595759808281" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1595729589335" />
     <state x="100" y="100" width="1592" height="920" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1595748384983">
       <screen x="0" y="0" width="1792" height="1120" />
