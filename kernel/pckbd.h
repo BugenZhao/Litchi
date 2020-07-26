@@ -2,9 +2,10 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#ifndef LITCHI_PCKBD_H
-#define LITCHI_PCKBD_H
+#ifndef LITCHI_KERNEL_PCKBD_H
+#define LITCHI_KERNEL_PCKBD_H
 
+#include <kernel/knlast.inc>
 #include <include/types.h>
 
 extern uint8_t shiftcode[256];
@@ -37,4 +38,4 @@ namespace kbd {
 }
 #endif
 
-#endif //LITCHI_PCKBD_H
+#endif //LITCHI_KERNEL_PCKBD_H

@@ -32,8 +32,8 @@
       <config projectName="Litchi" targetName="cgdb-cli" />
       <config projectName="Litchi" targetName="boot.elf" />
       <config projectName="Litchi" targetName="litchicc" />
-      <config projectName="Litchi" targetName="hello.elf" />
       <config projectName="Litchi" targetName="image" />
+      <config projectName="Litchi" targetName="hello.elf" />
       <config projectName="Litchi" targetName="litchi.elf" />
       <config projectName="Litchi" targetName="qemu-gdb" />
     </generated>
@@ -45,8 +45,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/build.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/image/litchi.img" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/stdin.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdin.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/stdio.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdio.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/stdout.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdout.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/trap.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/vargs.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/vargs.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/console.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/kdebug.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/kdebug.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/ksyscall.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/ksyscall.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/ksyscall.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/ksyscall.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitor.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/panic.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/panic.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/pckbd.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pckbd.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/system.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/system.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/task.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/task.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/trap.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/trap.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/trap.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/vmem.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/vmem.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/printfmt.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/printfmt.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/entry/uentry.S" beforeDir="false" afterPath="$PROJECT_DIR$/user/entry/uentry.S" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/entry/umain.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/entry/umain.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/hello.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/hello.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/lib/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/lib/printf.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/lib/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/lib/readline.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/stdlib.hh" beforeDir="false" afterPath="$PROJECT_DIR$/user/include/stdlib.hh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +117,9 @@
   <component name="MacroExpansionManager">
     <option name="directoryName" value="pnplu9c8" />
   </component>
+  <component name="OCResolveContextSettings">
+    <option name="configuration" value="0-Default-litchi.elf" />
+  </component>
   <component name="ProjectId" id="1Y6J60xVvRbNht7m6oxrB0wzjsc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -106,16 +143,9 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/kernel" />
-      <recent name="$PROJECT_DIR$/lib" />
-      <recent name="$PROJECT_DIR$/old_litchis" />
-      <recent name="$PROJECT_DIR$/old2" />
-      <recent name="$PROJECT_DIR$/src/include" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/include" />
       <recent name="$PROJECT_DIR$" />
@@ -123,8 +153,15 @@
       <recent name="$PROJECT_DIR$/inc" />
       <recent name="$PROJECT_DIR$/kernel" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/user/include" />
+      <recent name="$PROJECT_DIR$/kernel" />
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="$PROJECT_DIR$/old_litchis" />
+      <recent name="$PROJECT_DIR$/old2" />
+    </key>
   </component>
-  <component name="RunManager" selected="CMake Application.qemu-nox">
+  <component name="RunManager" selected="CMake Application.qemu">
     <configuration name="boot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot.elf" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -269,14 +306,8 @@
       <workItem from="1594745892645" duration="175000" />
       <workItem from="1594833438881" duration="37000" />
       <workItem from="1594833752089" duration="1551000" />
-      <workItem from="1595685241163" duration="8144000" />
-    </task>
-    <task id="LOCAL-00035" summary="panic(), warning(), and assert() will show relative path now">
-      <created>1586153931117</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1586153931117</updated>
+      <workItem from="1595685241163" duration="8937000" />
+      <workItem from="1595694256881" duration="1919000" />
     </task>
     <task id="LOCAL-00036" summary="Basic debugging information">
       <created>1586157643364</created>
@@ -614,7 +645,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595692917327</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="Update: CI run">
+      <created>1595693425017</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1595693425017</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -805,11 +843,11 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="694" y="269" key="RollbackChangesDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1594371157331" />
-    <state x="556" y="317" width="1192" height="722" key="SettingsEditor" timestamp="1594656723691">
+    <state x="449" y="334" width="1192" height="722" key="SettingsEditor" timestamp="1595694341257">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="556" y="317" key="SettingsEditor/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594656723691" />
-    <state x="449" y="334" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1594642232787" />
+    <state x="449" y="334" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1595694341257" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595692953446">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>

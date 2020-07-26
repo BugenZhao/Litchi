@@ -2,10 +2,10 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#include <include/stdio.hpp>
+#include <include/stdio.hh>
 #include <include/ctype.h>
 #include <kernel/panic.hh>
-#include <include/vargs.hpp>
+#include <include/vargs.hh>
 
 namespace console::in {
     static char buf[READLINE_BUF_SIZE];

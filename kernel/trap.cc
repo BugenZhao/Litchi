@@ -2,12 +2,12 @@
 // Created by Bugen Zhao on 7/13/20.
 //
 
-#include <include/stdio.hpp>
+#include <include/stdio.hh>
 #include <include/x86.h>
-#include "trap.hh"
-#include "monitor.hpp"
-#include "task.hh"
-#include "ksyscall.hh"
+#include <kernel/trap.hh>
+#include <kernel/monitor.hh>
+#include <kernel/task.hh>
+#include <kernel/ksyscall.hh>
 
 using namespace console::out;
 

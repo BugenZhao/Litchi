@@ -2,8 +2,8 @@
 // Created by Bugen Zhao on 7/25/20.
 //
 
-#include <include/stdio.hpp>
-#include <user/stdlib.hh>
+#include <include/stdio.hh>
+#include <user/include/stdlib.hh>
 #include <include/ctype.h>
 
 namespace console::in {

@@ -3,13 +3,13 @@
 //
 
 #include <include/string.hh>
-#include <include/stdio.hpp>
+#include <include/stdio.hh>
 #include <kernel/panic.hh>
-#include "console.hpp"
-#include "version.h"
-#include "vmem.hpp"
-#include "monitor.hpp"
-#include "task.hh"
+#include <kernel/console.hh>
+#include <kernel/version.h>
+#include <kernel/vmem.hh>
+#include <kernel/monitor.hh>
+#include <kernel/task.hh>
 
 using namespace console::out;
 

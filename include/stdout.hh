@@ -6,7 +6,7 @@
 #define LITCHI_STDOUT_HH
 
 #include <include/types.h>
-#include <include/vargs.hpp>
+#include <include/vargs.hh>
 #include <include/color.h>
 
 // Generic printFmt oriented putChar func pointer

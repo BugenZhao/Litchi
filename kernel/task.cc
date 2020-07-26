@@ -2,13 +2,13 @@
 // Created by Bugen Zhao on 7/13/20.
 //
 
-#include "vmem.hpp"
-#include <include/stdio.hpp>
+#include <include/stdio.hh>
 #include <include/string.hh>
 #include <include/random.hh>
-#include "task.hh"
 #include <include/elf.h>
-#include "monitor.hpp"
+#include <kernel/vmem.hh>
+#include <kernel/task.hh>
+#include <kernel/monitor.hh>
 
 using namespace console::out;
 

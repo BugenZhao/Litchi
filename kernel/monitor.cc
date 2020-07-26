@@ -2,17 +2,17 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#include <include/stdio.hpp>
-#include <kernel/monitor.hpp>
+#include <include/stdio.hh>
+#include <kernel/monitor.hh>
 #include <kernel/version.h>
-#include <kernel/system.hpp>
+#include <kernel/system.hh>
 #include <include/string.hh>
-#include <kernel/kdebug.hpp>
-#include <kernel/vmem.hpp>
-#include "console.hpp"
-#include "kdebug.hpp"
-#include "system.hpp"
-#include "vmem.hpp"
+#include <kernel/kdebug.hh>
+#include <kernel/vmem.hh>
+#include "console.hh"
+#include "kdebug.hh"
+#include "system.hh"
+#include "vmem.hh"
 #include "task.hh"
 
 using namespace console::out;

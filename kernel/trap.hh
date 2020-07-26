@@ -6,6 +6,8 @@
 #define LITCHI_KERNEL_TRAP_HH
 
 #include <include/trap.hh>
+#include <kernel/knlast.inc>
+#include <kernel/panic.hh>
 
 namespace trap {
     struct Registers {

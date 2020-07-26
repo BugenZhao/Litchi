@@ -3,9 +3,9 @@
 //
 
 #include <kernel/panic.hh>
-#include <include/vargs.hpp>
-#include <include/stdio.hpp>
-#include "kdebug.hpp"
+#include <include/vargs.hh>
+#include <include/stdio.hh>
+#include "kdebug.hh"
 #include <include/x86.h>
 
 void _kernelPanic(const char *file, int line, const char *fmt, ...) {

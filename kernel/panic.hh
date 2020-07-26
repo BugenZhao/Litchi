@@ -2,8 +2,10 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#ifndef LITCHI_PANIC_HPP
-#define LITCHI_PANIC_HPP
+#ifndef LITCHI_PANIC_HH
+#define LITCHI_PANIC_HH
+
+#include <kernel/knlast.inc>
 
 void _kernelPanic(const char *file, int line, const char *fmt, ...) __attribute__((noreturn));
 
@@ -21,4 +23,4 @@ void _kernelWarning(const char *file, int line, const char *fmt, ...);
 
 #define assertStatic(x) switch (x) case 0: case (x)
 
-#endif //LITCHI_PANIC_HPP
+#endif //LITCHI_PANIC_HH

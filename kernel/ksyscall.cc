@@ -2,11 +2,12 @@
 // Created by Bugen Zhao on 7/14/20.
 //
 
-#include "ksyscall.hh"
-#include "console.hpp"
-#include "task.hh"
-#include "vmem.hpp"
-#include <include/stdio.hpp>
+#include <include/stdio.hh>
+#include <kernel/ksyscall.hh>
+#include <kernel/console.hh>
+#include <kernel/task.hh>
+#include <kernel/vmem.hh>
+
 
 namespace ksyscall {
     int32_t main(Num type, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t a5) {

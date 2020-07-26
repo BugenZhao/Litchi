@@ -5,10 +5,12 @@
 #ifndef LITCHI_TASK_HH
 #define LITCHI_TASK_HH
 
+#include <kernel/knlast.inc>
+
+#include <tuple>
 #include <include/task.hh>
 #include <include/result.hh>
-#include <tuple>
-#include "trap.hh"
+#include <kernel/trap.hh>
 
 namespace task {
     struct Task {

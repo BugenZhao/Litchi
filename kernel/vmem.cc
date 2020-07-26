@@ -2,13 +2,13 @@
 // Created by Bugen Zhao on 2020/4/6.
 //
 
-#include "vmem.hpp"
-#include "task.hh"
 #include <include/mmu.h>
-#include <include/stdio.hpp>
+#include <include/stdio.hh>
 #include <include/x86.h>
 #include <include/memlayout.h>
 #include <include/string.hh>
+#include <kernel/vmem.hh>
+#include <kernel/task.hh>
 
 // Kernel memory boundary from linker
 extern char kernStart[], kernEnd[];

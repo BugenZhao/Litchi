@@ -7,11 +7,11 @@
 
 #include <kernel/knlast.inc>
 
-#include <include/x86.h>
-#include <kernel/panic.hh>
-#include <include/memlayout.h>
 #include <tuple>
+#include <include/x86.h>
+#include <include/memlayout.h>
 #include <include/result.hh>
+#include <kernel/panic.hh>
 
 // NVRAM
 namespace nvram {

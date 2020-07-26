@@ -15,7 +15,7 @@ _ustart:
 	pushl $0
 
 args_exist:
-	call libmain
+	call umain
 
 bad:
 	ud2

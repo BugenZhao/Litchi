@@ -6,7 +6,6 @@
 #define LITCHI_INCLUDE_TRAP_HH
 
 #include <include/string.hh>
-#include <kernel/panic.hh>
 #include <include/mmu.h>
 #include <include/memlayout.h>
 

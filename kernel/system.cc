@@ -2,10 +2,10 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#include <include/x86.h>
-#include <include/stdio.hpp>
-#include "system.hpp"
 #include <tuple>
+#include <include/x86.h>
+#include <include/stdio.hh>
+#include <kernel/system.hh>
 
 namespace sys {
     void reboot() {

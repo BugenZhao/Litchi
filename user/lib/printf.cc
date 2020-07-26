@@ -1,5 +1,5 @@
 #include <include/stdout.hh>
-#include <user/stdlib.hh>
+#include <user/include/stdlib.hh>
 
 namespace console::out {
     void putChar(int c) {

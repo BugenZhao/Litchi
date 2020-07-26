@@ -2,11 +2,10 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#ifndef LITCHI_STDIN_HPP
-#define LITCHI_STDIN_HPP
+#ifndef LITCHI_STDIN_HH
+#define LITCHI_STDIN_HH
 
-#include <kernel/pckbd.h>
-#include <include/vargs.hpp>
+#include <include/vargs.hh>
 
 // readline.cc
 
@@ -21,4 +20,4 @@ namespace console::in {
 }
 
 
-#endif //LITCHI_STDIN_HPP
+#endif //LITCHI_STDIN_HH

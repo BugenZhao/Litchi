@@ -2,7 +2,7 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#include <include/stdio.hpp>
+#include <include/stdio.hh>
 #include <include/ctype.h>
 #include <include/string.hh>
 #include <include/color.h>

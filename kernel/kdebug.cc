@@ -2,9 +2,9 @@
 // Created by Bugen Zhao on 2020/4/6.
 //
 
-#include "kdebug.hpp"
+#include <kernel/kdebug.hh>
 #include <include/x86.h>
-#include <include/stdio.hpp>
+#include <include/stdio.hh>
 #include <include/memlayout.h>
 
 namespace kdebug {

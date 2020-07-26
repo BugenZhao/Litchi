@@ -2,8 +2,8 @@
 // Created by Bugen Zhao on 2020/3/27.
 //
 
-#ifndef LITCHI_SYSTEM_HPP
-#define LITCHI_SYSTEM_HPP
+#ifndef LITCHI_SYSTEM_HH
+#define LITCHI_SYSTEM_HH
 
 #include <kernel/knlast.inc>
 
@@ -15,4 +15,4 @@ namespace sys {
     int cpuInfo(int, char **);
 }
 
-#endif //LITCHI_SYSTEM_HPP
+#endif //LITCHI_SYSTEM_HH

@@ -6,7 +6,7 @@
 #include <include/memlayout.h>
 #include <include/string.hh>
 #include <kernel/pckbd.h>
-#include "console.hpp"
+#include <kernel/console.hh>
 
 namespace console {
     namespace serial {

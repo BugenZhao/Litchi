@@ -5,6 +5,7 @@
 #ifndef LITCHI_KERNEL_KSYSCALL_HH
 #define LITCHI_KERNEL_KSYSCALL_HH
 
+#include <kernel/knlast.inc>
 #include <include/syscall.hh>
 
 namespace ksyscall {

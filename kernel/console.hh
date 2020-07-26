@@ -2,8 +2,8 @@
 // Created by Bugen Zhao on 2020/3/26.
 //
 
-#ifndef LITCHI_CONSOLE_HPP
-#define LITCHI_CONSOLE_HPP
+#ifndef LITCHI_KERNEL_CONSOLE_HH
+#define LITCHI_KERNEL_CONSOLE_HH
 
 #include <kernel/knlast.inc>
 
@@ -33,4 +33,4 @@ namespace console {
     int clear(void);
 }
 
-#endif //LITCHI_CONSOLE_HPP
+#endif //LITCHI_KERNEL_CONSOLE_HH

@@ -2,9 +2,9 @@
 // Created by Bugen Zhao on 7/13/20.
 //
 
-#include <include/stdio.hpp>
+#include <include/stdio.hh>
 #include <include/memlayout.h>
-#include <user/stdlib.hh>
+#include <user/include/stdlib.hh>
 
 using namespace console::out;
 using namespace console::in;
