@@ -6,6 +6,7 @@
 #include <include/stdio.hh>
 #include <include/string.hh>
 #include <kernel/vmem.hh>
+#include <include/trap.hh>
 
 namespace mp {
     struct FPStruct;
@@ -69,9 +70,7 @@ namespace mp {
         uint8_t flags; // If bit 0 is set then the entry should be ignored
         uint32_t address; // The memory mapped address of the IO APIC is memory
     } __attribute__((__packed__));
-}
 
-namespace mp {
     template<typename T>
     static bool checksumOk(const T *addr, size_t len = sizeof(T)) {
         uint8_t sum = 0;
@@ -115,12 +114,23 @@ namespace mp {
 }
 
 namespace mp {
+    int cpuCount = 0;
+    CPUInfo cpus[MAX_CPU_COUNT] = {};
+    CPUInfo *bootstrapCPU = nullptr;
+    bool isMP = false;
+}
+
+namespace mp {
     void init() {
         console::out::print("Initializing multi-processor...\n");
 
         auto fp = searchFP();
         if (fp == nullptr) {
             console::out::print("No multi-processor support.\n");
+            cpuCount = 1;
+            cpus[0].id = 0;
+            cpus[0].status = CPUInfo::Status::started;
+            bootstrapCPU = &cpus[0];
             return;
         }
 
@@ -131,26 +141,212 @@ namespace mp {
         assert(checksumOk(conf, conf->length));             // base checksum
         assert(checksumOk((uint8_t *) conf + conf->length, conf->extended_table_length));   // extended checksum
 
+        // APIC OEM ID
         char oem[9] = {};
         mem::copy(oem, conf->oem_id, sizeof(conf->oem_id));
         console::out::print("  MP Conf Table OEM: %s\n", oem);
 
+        // save local APIC MMIO physical address
+        lapic::lapicPhy = conf->lapic_address;
+
         // **After** the table, there are entry_count entries describing more information about the system
         uintptr_t entries = (uintptr_t) conf + sizeof(ConfTable);
         ProcessorAPIC *proc;
+        bool isBootstrap;
         console::out::print("  Found CPU");
+
         for (int i = 0; i < conf->entry_count; ++i) {
             switch (*(APICType *) entries) {
                 case MPPROC:    // processor entry type
                     proc = (ProcessorAPIC *) entries;
-                    console::out::print(" %d", proc->local_apic_id);
+                    isBootstrap = proc->flags & 0x02;
+
+                    if (cpuCount < MAX_CPU_COUNT) { // add this CPU
+                        cpus[cpuCount].id = cpuCount;
+                        console::out::print(" %d%s", proc->local_apic_id, isBootstrap ? "[B]" : "");
+                        if (isBootstrap) bootstrapCPU = &cpus[cpuCount];
+                        cpuCount++;
+                    }
+
                     entries += sizeof(ProcessorAPIC);
                     break;
-                default:
+
+                default:        // other apic entry
                     entries += 8;
                     break;
             }
         }
+
+        bootstrapCPU->status = CPUInfo::Status::started;
+        isMP = cpuCount > 1;
+
+        lapic::init();
+
         console::out::print("\n  %<Done\n", WHITE);
+    }
+}
+
+
+// Adopted from JOS
+
+namespace mp::lapic {
+// Local APIC registers, divided by 4 for use as uint32_t[] indices.
+#define ID      (0x0020/4)   // ID
+#define VER     (0x0030/4)   // Version
+#define TPR     (0x0080/4)   // Task Priority
+#define EOI     (0x00B0/4)   // EOI
+#define SVR     (0x00F0/4)   // Spurious Interrupt Vector
+#define ENABLE     0x00000100   // Unit Enable
+#define ESR     (0x0280/4)   // Error Status
+#define ICRLO   (0x0300/4)   // Interrupt Command
+#define INIT       0x00000500   // INIT/RESET
+#define STARTUP    0x00000600   // Startup IPI
+#define DELIVS     0x00001000   // Delivery status
+#define ASSERT     0x00004000   // Assert interrupt (vs deassert)
+#define DEASSERT   0x00000000
+#define LEVEL      0x00008000   // Level triggered
+#define BCAST      0x00080000   // Send to all APICs, including self.
+#define OTHERS     0x000C0000   // Send to all APICs, excluding self.
+#define BUSY       0x00001000
+#define FIXED      0x00000000
+#define ICRHI   (0x0310/4)   // Interrupt Command [63:32]
+#define TIMER   (0x0320/4)   // Local Vector Table 0 (TIMER)
+#define X1         0x0000000B   // divide counts by 1
+#define PERIODIC   0x00020000   // Periodic
+#define PCINT   (0x0340/4)   // Performance Counter LVT
+#define LINT0   (0x0350/4)   // Local Vector Table 1 (LINT0)
+#define LINT1   (0x0360/4)   // Local Vector Table 2 (LINT1)
+#define ERROR   (0x0370/4)   // Local Vector Table 3 (ERROR)
+#define MASKED     0x00010000   // Interrupt masked
+#define TICR    (0x0380/4)   // Timer Initial Count
+#define TCCR    (0x0390/4)   // Timer Current Count
+#define TDCR    (0x03E0/4)   // Timer Divide Configuration
+
+    physaddr_t lapicPhy;
+    volatile uint32_t *lapicKern;   // VOLATILE! memory-mapped I/O: different contents for different CPU
+
+    // (memory-mapped I/O) write to local APIC's register of current CPU
+    static void lapicw(int index, int value) {
+        lapicKern[index] = value;
+        lapicKern[ID];  // wait for write to finish, by reading
+    }
+
+    void init() {
+        using trap::Type;
+
+        // no MP support
+        if (!lapicPhy) return;
+
+        // lapicPhy is the physical address of the LAPIC's 4K MMIO
+        // region.  Map it in to virtual memory so we can access it.
+        lapicKern = static_cast<volatile uint32_t *>(vmem::pgdir::mmioMap(lapicPhy, 4096));
+
+        // Enable local APIC; set spurious interrupt vector.
+        lapicw(SVR, ENABLE | (uint32_t) Type::hwSpurious);
+
+        // The timer repeatedly counts down at bus frequency
+        // from lapic[TICR] and then issues an interrupt.
+        // If we cared more about precise timekeeping,
+        // TICR would be calibrated using an external time source.
+        lapicw(TDCR, X1);
+        lapicw(TIMER, PERIODIC | (uint32_t) Type::hwTimer);
+        lapicw(TICR, 10000000);
+
+        // Leave LINT0 of the BSP enabled so that it can get
+        // interrupts from the 8259A chip.
+        //
+        // According to Intel MP Specification, the BIOS should initialize
+        // BSP's local APIC in Virtual Wire Mode, in which 8259A's
+        // INTR is virtually connected to BSP's LINTIN0. In this mode,
+        // we do not need to program the IOAPIC.
+        if (mp::thisCPU() != mp::bootstrapCPU)
+            lapicw(LINT0, MASKED);
+
+        // Disable NMI (LINT1) on all CPUs
+        lapicw(LINT1, MASKED);
+
+        // Disable performance counter overflow interrupts
+        // on machines that provide that interrupt entry.
+        if (((lapicKern[VER] >> 16) & 0xFF) >= 4)
+            lapicw(PCINT, MASKED);
+
+        // Map error interrupt to IRQ_ERROR.
+        lapicw(ERROR, (uint32_t) Type::hwError);
+
+        // Clear error status register (requires back-to-back writes).
+        lapicw(ESR, 0);
+        lapicw(ESR, 0);
+
+        // Ack any outstanding interrupts.
+        lapicw(EOI, 0);
+
+        // Send an Init Level De-Assert to synchronize arbitration ID's.
+        lapicw(ICRHI, 0);
+        lapicw(ICRLO, BCAST | INIT | LEVEL);
+        while (lapicKern[ICRLO] & DELIVS);
+
+        // Enable interrupts on the APIC (but not on the processor).
+        lapicw(TPR, 0);
+    }
+
+// Acknowledge interrupt.
+    void lapic_eoi() {
+        if (lapicKern)
+            lapicw(EOI, 0);
+    }
+
+// Spin for a given number of microseconds.
+// On real hardware would want to tune this dynamically.
+    static void microdelay(int us) {
+    }
+
+// Start additional processor running entry code at addr.
+// See Appendix B of MultiProcessor Specification.
+    void startAP(uint8_t apicid, uint32_t addr) {
+        using namespace x86;
+
+        int i;
+        uint16_t *wrv;
+
+        // "The BSP must initialize CMOS shutdown code to 0AH
+        // and the warm reset vector (DWORD based at 40:67) to point at
+        // the AP startup code prior to the [universal startup algorithm]."
+        outb(IO_RTC, 0xF);  // offset 0xF is shutdown code
+        outb(IO_RTC + 1, 0x0A);
+        wrv = (uint16_t *) KERN_ADDR(0x40 << 4 | 0x67);  // Warm reset vector
+        wrv[0] = 0;
+        wrv[1] = addr >> 4;
+
+        // "Universal startup algorithm."
+        // Send INIT (level-triggered) interrupt to reset other CPU.
+        lapicw(ICRHI, apicid << 24);
+        lapicw(ICRLO, INIT | LEVEL | ASSERT);
+        microdelay(200);
+        lapicw(ICRLO, INIT | LEVEL);
+        microdelay(100);    // should be 10ms, but too slow in Bochs!
+
+        // Send startup IPI (twice!) to enter code.
+        // Regular hardware is supposed to only accept a STARTUP
+        // when it is in the halted state due to an INIT.  So the second
+        // should be ignored, but it is part of the official Intel algorithm.
+        // Bochs complains about the second one.  Too bad for Bochs.
+        for (i = 0; i < 2; i++) {
+            lapicw(ICRHI, apicid << 24);
+            lapicw(ICRLO, STARTUP | (addr >> 12));
+            microdelay(200);
+        }
+    }
+
+    void lapic_ipi(int vector) {
+        lapicw(ICRLO, OTHERS | FIXED | vector);
+        while (lapicKern[ICRLO] & DELIVS);
+    }
+}
+
+namespace mp {
+    CPUInfo *thisCPU() {
+        using namespace lapic;
+        int num = lapicKern == nullptr ? 0 : lapicKern[ID] >> 24;
+        return &cpus[num];
     }
 }

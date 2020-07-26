@@ -143,6 +143,8 @@ namespace vmem::pgdir {
 
     void staticMap(pde_t *pageDir, uintptr_t va, size_t size, physaddr_t pa, int perm);
 
+    void *mmioMap(physaddr_t pa, size_t size);
+
     static void init();
 
     bool userCheck(pde_t *pageDir, const void *va, size_t size, int perm);

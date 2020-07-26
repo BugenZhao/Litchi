@@ -280,6 +280,21 @@ namespace vmem::pgdir {
         }
     }
 
+    // Statically map [pa, pa+size) to some address in [MMIOBASE, MMIOLIM)
+    void *mmioMap(physaddr_t pa, size_t size) {
+        static uintptr_t next = MMIOBASE;
+
+        size = ROUNDUP(size, PGSIZE);
+        if (next + size >= MMIOLIM || next + size < MMIOBASE)
+            kernelPanic("Cannot map vm for mmio (pa %p, size %u)", pa, size);
+
+        // cache-disable, write-through
+        staticMap(kernelPageDir, next, size, pa, PTE_W | PTE_PCD | PTE_PWT);
+
+        next += size;
+        return (void *) (next - size);
+    }
+
     static void init() {
         // Map PageInfo::array at va UPAGES for user (read-only)
         staticMap(kernelPageDir, UPAGES, PTSIZE, PHY_ADDR(PageInfo::array), PTE_U);

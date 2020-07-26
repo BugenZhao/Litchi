@@ -45,7 +45,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/image/litchi.img" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/task.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/task.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/trap.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/mp.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/mp.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/mp.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/mp.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/trap.hh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/version.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/version.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/vmem.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/vmem.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.hh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +114,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -269,14 +278,7 @@
       <workItem from="1594833438881" duration="37000" />
       <workItem from="1594833752089" duration="1551000" />
       <workItem from="1595685241163" duration="8937000" />
-      <workItem from="1595694256881" duration="16114000" />
-    </task>
-    <task id="LOCAL-00041" summary="Kernel Address Space">
-      <created>1586180098933</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1586180098933</updated>
+      <workItem from="1595694256881" duration="21091000" />
     </task>
     <task id="LOCAL-00042" summary="Updated README.md">
       <created>1586181743970</created>
@@ -614,7 +616,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595754680438</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="Update: init logging">
+      <created>1595754772448</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1595754772448</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -695,10 +704,10 @@
     </state>
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594736193294" />
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1792.1120@0.0.1792.1120" timestamp="1595690098544" />
-    <state x="696" y="284" key="#com.intellij.ide.util.MemberChooser" timestamp="1595749666870">
+    <state x="696" y="284" key="#com.intellij.ide.util.MemberChooser" timestamp="1595758200953">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="696" y="284" key="#com.intellij.ide.util.MemberChooser/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595749666870" />
+    <state x="696" y="284" key="#com.intellij.ide.util.MemberChooser/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595758200953" />
     <state x="696" y="284" key="#com.intellij.ide.util.MemberChooser/0.0.1792.1120@0.0.1792.1120" timestamp="1595686734026" />
     <state x="634" y="315" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1595754551545">
       <screen x="0" y="0" width="1792" height="1120" />
@@ -807,15 +816,15 @@
     </state>
     <state x="694" y="269" key="RollbackChangesDialog/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595754610448" />
     <state x="694" y="269" key="RollbackChangesDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1594371157331" />
-    <state x="449" y="334" width="1192" height="722" key="SettingsEditor" timestamp="1595694341257">
+    <state x="556" y="317" width="1192" height="722" key="SettingsEditor" timestamp="1595754904875">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="556" y="317" key="SettingsEditor/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594656723691" />
+    <state x="556" y="317" key="SettingsEditor/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595754904875" />
     <state x="449" y="334" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1595694341257" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595754693238">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595754779908">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595754693238" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595754779908" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1595729589335" />
     <state x="100" y="100" width="1592" height="920" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1595748384983">
       <screen x="0" y="0" width="1792" height="1120" />

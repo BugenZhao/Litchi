@@ -8,11 +8,11 @@
 namespace task {
     using taskid_t = int32_t;
 
-    enum class TaskStatus : int {
+    enum struct TaskStatus : int {
         free = 0, dying, ready, running, waiting
     };
 
-    enum class TaskType : int {
+    enum struct TaskType : int {
         user = 0
     };
 }

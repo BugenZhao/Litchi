@@ -32,6 +32,12 @@ namespace trap {
         machineCheck,
         simdError,
 
+        HW_OFFSET = 32,
+        hwTimer = HW_OFFSET + 0,
+        hwKeyboard = HW_OFFSET + 1,
+        hwSpurious = HW_OFFSET + 7,
+        hwError = HW_OFFSET + 19,
+
         syscall = 88
     };
 }

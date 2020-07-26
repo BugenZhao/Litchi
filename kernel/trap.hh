@@ -109,6 +109,14 @@ namespace trap {
                 return "SIMD Floating-Point";
             case Type::syscall:
                 return "Litchi Syscall";
+            case Type::hwTimer:
+                return "HW Timer";
+            case Type::hwKeyboard:
+                return "HW Keyboard";
+            case Type::hwSpurious:
+                return "HW Spurious";
+            case Type::hwError:
+                return "HW Error";
         }
         return "Unknown Trap";
     }
