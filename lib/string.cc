@@ -88,6 +88,17 @@ namespace mem {
     void clear(void *dest, size_t count) {
         set(dest, 0, count);
     }
+
+    int cmp(const void *lhs, const void *rhs, size_t count) {
+        auto _lhs = (const char *) lhs;
+        auto _rhs = (const char *) rhs;
+
+        while (count--) {
+            if (*_lhs == *_rhs) _lhs++, _rhs++;
+            else return *_lhs - *_rhs;
+        }
+        return 0;
+    }
 }
 
 namespace str {

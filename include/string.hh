@@ -15,6 +15,8 @@ namespace mem {
     void *move(void *dest, const void *src, size_t count);
 
     void clear(void *dest, size_t count);
+
+    int cmp(const void *lhs, const void *rhs, size_t count);
 }
 
 namespace str {

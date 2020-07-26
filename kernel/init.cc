@@ -10,6 +10,7 @@
 #include <kernel/vmem.hh>
 #include <kernel/monitor.hh>
 #include <kernel/task.hh>
+#include <kernel/mp.hh>
 
 using namespace console::out;
 
@@ -21,8 +22,8 @@ void i386InitLitchi(void) {
 
     // Init the console for I/O, and print welcome message
     console::init();
-    print("%<%s%c %<%s!\n%<Kernel v%s\n(C) BugenZhao %d\n\n",
-          YELLOW, "Hello", ',', LIGHT_MAGENTA, "Litchi", WHITE, LITCHI_VERSION_TIME, YEAR);
+    print("%<Hello, %<Litchi!\n%<Kernel v%s\n(C) BugenZhao %d\n\n",
+          YELLOW, LIGHT_MAGENTA, WHITE, LITCHI_VERSION_TIME, YEAR);
 
     // Init memory
     vmem::init();
@@ -37,6 +38,8 @@ void i386InitLitchi(void) {
 
     // Init trap
     trap::init();
+
+    mp::init();
 
     // Go to the monitor
     monitor::main();

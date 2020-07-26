@@ -19,7 +19,8 @@ set(KERNEL_SRC
         trap.cc
         embuser.S
         irqentry.S
-        ksyscall.cc)
+        ksyscall.cc
+        mp.cc)
 
 # Target - kernel
 add_executable(${LITCHI_ELF} ${KERNEL_SRC})
