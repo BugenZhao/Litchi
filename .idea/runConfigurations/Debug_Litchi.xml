@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Debug Litchi" type="CLion_Remote" singleton="false" debugger="/usr/local/bin/i386-litchi-elf-gdb" toolchainName="i386-jos-elf" remoteCommand="localhost:10188" symbolFile="$PROJECT_DIR$/cmake-build-default/litchi.elf" sysroot="">
+  <configuration default="false" name="Debug Litchi" type="CLion_Remote" singleton="false" debugger="/usr/local/bin/i386-litchi-elf-gdb" toolchainName="i386-jos-elf" remoteCommand="localhost:10188" symbolFile="$PROJECT_DIR$/cmake-build-default/kernel/litchi.elf" sysroot="">
     <method v="2" />
   </configuration>
 </component>

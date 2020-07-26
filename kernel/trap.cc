@@ -31,7 +31,7 @@ namespace trap {
     TaskState kernelTS;
 
     void init() {
-        print("Initializing traps...");
+        print("Initializing traps...\n");
 
         for (int i = 0; i < 256; ++i) {
             // gate  : interrupt descriptor
@@ -52,7 +52,7 @@ namespace trap {
         // set and load tss, ivt per CPU
         initPerCpu();
 
-        print("%<Done\n", WHITE);
+        print("  %<Done\n", WHITE);
     }
 
     void initPerCpu() {

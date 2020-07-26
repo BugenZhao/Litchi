@@ -34,7 +34,7 @@ namespace task {
     }
 
     void init() {
-        print("Initializing tasks...");
+        print("Initializing tasks...\n");
         // vmem part should have allocated task array
         assert(Task::array != nullptr);
 
@@ -45,7 +45,7 @@ namespace task {
         }
 
         initPerCpu();
-        print("%<Done\n", WHITE);
+        print("  %<Done\n", WHITE);
     }
 
     void initPerCpu() {

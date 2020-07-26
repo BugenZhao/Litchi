@@ -2,7 +2,7 @@
 
 Bugen's toy kernel for x86 systems implemented in modern C++.
 
-![litchi](docs/v0.5.6.png)
+![litchi](docs/0.6.0.png)
 
 ## Get Started
 

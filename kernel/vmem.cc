@@ -104,12 +104,12 @@ namespace vmem {
 
     // Main initialization of memory
     void init() {
+        console::out::print("Initializing virtual memory...\n");
+
         // Detect total memory and the number of pages in need
         detect();
-        console::out::print("Available physical memory: %d KB = %d MB\n",
+        console::out::print("  Available: %d KB = %d MB\n",
                             totalMem, (totalMem + 1023) / 1024);
-
-        console::out::print("Initializing virtual memory...");
 
         // Allocate space for kernelPageDir
         pgdir::alloc();
@@ -121,12 +121,13 @@ namespace vmem {
 
         // Setup and load kernelPageDir
         pgdir::init();
-        console::out::print("%<Done\n", WHITE);
 
         // Print kernel memory info
         char *kernEndCurrent = (char *) bootAlloc(0);
         console::out::print("  Kernel at %p->%p->%p: %d KB in memory\n",
                             kernStart, kernEnd, kernEndCurrent, (kernEndCurrent - kernStart + 1023) / 1024);
+
+        console::out::print("  %<Done\n", WHITE);
     }
 }
 
