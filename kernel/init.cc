@@ -31,7 +31,7 @@ void i386InitLitchi(void) {
     task::init();
 
     extern uint8_t embUserElf[];
-    print("User ELF [%<%s%<] is embedded at %p\n",
+    print("  User ELF [%<%s%<] is embedded at %p\n",
           WHITE, (char *) EMBUSER_ELF + BINARY_DIR_OFFSET, DEF_FORE,
           embUserElf);
 

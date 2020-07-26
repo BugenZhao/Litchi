@@ -124,7 +124,8 @@ namespace monitor {
     }
 
     Result page(int, char **, trap::Frame *) {
-        print("%d free pages\n", vmem::PageInfo::freeCount());
+        auto count = vmem::PageInfo::freeCount();
+        print("%d free pages (%d KB, %d MB)\n", count, count << 2, count << 2 >> 10);
         return Result::ok;
     }
 

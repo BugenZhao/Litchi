@@ -46,41 +46,11 @@
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/ptargets.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/conf/ptargets.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/image/litchi.img" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdin.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdin.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdio.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdio.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdout.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdout.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/trap.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/vargs.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/vargs.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.hh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/kdebug.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/kdebug.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/kdebug.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/ksyscall.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/ksyscall.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/ksyscall.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/ksyscall.hh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/panic.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/panic.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pckbd.h" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pckbd.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/readline.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/system.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/system.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/system.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/task.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/task.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/trap.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/trap.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/trap.hh" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/trap.hh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kernel/vmem.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/vmem.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/vmem.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/printfmt.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/printfmt.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/entry/uentry.S" beforeDir="false" afterPath="$PROJECT_DIR$/user/entry/uentry.S" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/entry/umain.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/entry/umain.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/hello.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/hello.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/lib/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/lib/printf.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/lib/readline.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/lib/readline.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/stdlib.hh" beforeDir="false" afterPath="$PROJECT_DIR$/user/include/stdlib.hh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,14 +277,7 @@
       <workItem from="1594833438881" duration="37000" />
       <workItem from="1594833752089" duration="1551000" />
       <workItem from="1595685241163" duration="8937000" />
-      <workItem from="1595694256881" duration="1919000" />
-    </task>
-    <task id="LOCAL-00036" summary="Basic debugging information">
-      <created>1586157643364</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1586157643364</updated>
+      <workItem from="1595694256881" duration="6969000" />
     </task>
     <task id="LOCAL-00037" summary="Added physical memory detection">
       <created>1586160213294</created>
@@ -652,7 +615,14 @@
       <option name="project" value="LOCAL" />
       <updated>1595693425017</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="Cleanup: rearrange headers &amp; includes">
+      <created>1595729587681</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1595729587681</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -686,7 +656,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Update: build" />
     <MESSAGE value="Add: stdc++" />
     <MESSAGE value="Update: separate stdc++ with litchi lib" />
     <MESSAGE value="Update: clearer memory management" />
@@ -711,7 +680,8 @@
     <MESSAGE value="Add: getChar syscall, readline() user function" />
     <MESSAGE value="Update: CMake submodules&#10;Cleanup: reduce compiler complaints" />
     <MESSAGE value="Update: CI run" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update: CI run" />
+    <MESSAGE value="Cleanup: rearrange headers &amp; includes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup: rearrange headers &amp; includes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1594620112917">
@@ -848,11 +818,11 @@
     </state>
     <state x="556" y="317" key="SettingsEditor/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594656723691" />
     <state x="449" y="334" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1595694341257" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595692953446">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595729589335">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594835296756" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1595692953446" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1595729589335" />
     <state x="100" y="100" width="1592" height="920" key="dock-window-1" timestamp="1594372306544">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -862,11 +832,11 @@
     </state>
     <state x="746" y="474" width="555" height="392" key="refactoring.ChangeSignatureDialog/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594732445228" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1595691102368" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1595686836406">
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1595730333528">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594834290306" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1595686836406" />
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1595730333528" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

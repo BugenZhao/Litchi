@@ -125,7 +125,7 @@ namespace vmem {
 
         // Print kernel memory info
         char *kernEndCurrent = (char *) bootAlloc(0);
-        console::out::print("Kernel at %p->%p->%p: %d KB in memory\n",
+        console::out::print("  Kernel at %p->%p->%p: %d KB in memory\n",
                             kernStart, kernEnd, kernEndCurrent, (kernEndCurrent - kernStart + 1023) / 1024);
     }
 }
@@ -153,7 +153,7 @@ namespace vmem::page {
         // 3. Mark [4MB, total] as free
         for (j = 4 * 1024 * 1024 / PGSIZE; j < nPages; ++j) {
             PageInfo::array[j].refCount = 0;
-            PageInfo::array[j].nextFree = PageInfo::array;
+            PageInfo::array[j].nextFree = PageInfo::freeList;
             PageInfo::freeList = PageInfo::array + j;
         }
 

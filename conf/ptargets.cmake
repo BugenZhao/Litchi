@@ -8,7 +8,7 @@ add_custom_target(image
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${IMG}")
 
 # Options for qemu and gdb
-set(QEMU_OPTIONS -cpu Haswell -drive file=${IMG},index=0,media=disk,format=raw -m 256 -serial mon:stdio)
+set(QEMU_OPTIONS -cpu Haswell -drive file=${IMG},index=0,media=disk,format=raw -m 512 -serial mon:stdio)
 set(GDB_PORT 10188)
 set(QEMU_GDB_OPTIONS -gdb tcp::${GDB_PORT} -S) # -S: stop at entry
 
