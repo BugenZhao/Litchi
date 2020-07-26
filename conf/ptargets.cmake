@@ -3,7 +3,7 @@ add_custom_target(image
         COMMAND dd if=/dev/zero of=${IMG} bs=512 count=2880 >/dev/null 2>&1
         COMMAND printf '\\x55\\xaa' | dd of=${IMG} bs=1 seek=510 conv=notrunc >/dev/null 2>&1
         COMMAND dd if="${PROJECT_BINARY_DIR}/boot/${BOOT_BIN}" of=${IMG} conv=notrunc >/dev/null 2>&1
-        COMMAND dd if="${PROJECT_BINARY_DIR}/kernel/${LITCHI_ELF}" of=${IMG} seek=1 conv=notrunc >/dev/null 2>&1
+        COMMAND dd if="$<TARGET_FILE:${LITCHI_ELF}>" of=${IMG} seek=1 conv=notrunc >/dev/null 2>&1
         DEPENDS ${LITCHI_ELF} ${BOOT_ELF})
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${IMG}")
 

@@ -6,7 +6,7 @@ add_definitions("-DSOURCE_DIR_OFFSET=${SOURCE_DIR_OFFSET}")
 add_definitions("-DBINARY_DIR_OFFSET=${BINARY_DIR_OFFSET}")
 
 # Provide embedded ELF file name
-add_definitions("-DEMBUSER_ELF=\"${PROJECT_BINARY_DIR}/user/${EMBUSER_ELF}\"")
+add_definitions("-DEMBUSER_ELF=\"$<TARGET_FILE:${EMBUSER_ELF}>\"")
 
 # Provide time
 string(TIMESTAMP TIMESEED "%y%m%d%H%M%S")

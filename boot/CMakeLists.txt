@@ -12,7 +12,7 @@ add_custom_command(
         TARGET ${BOOT_ELF}
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan --bold --progress-dir=${PROJECT_BINARY_DIR}/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1)  "Objcopy from ${BOOT_ELF} to ${BOOT_BIN}"
-        COMMAND ${TP}objcopy -S -O binary -j .text ${PROJECT_BINARY_DIR}/boot/${BOOT_ELF} ${PROJECT_BINARY_DIR}/boot/${BOOT_BIN}
+        COMMAND ${TP}objcopy -S -O binary -j .text $<TARGET_FILE:${BOOT_ELF}> ${PROJECT_BINARY_DIR}/boot/${BOOT_BIN}
 )
 add_asm_dump(${BOOT_ELF})
 set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${PROJECT_BINARY_DIR}/boot/${BOOT_BIN}")

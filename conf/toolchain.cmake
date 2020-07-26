@@ -7,6 +7,10 @@ set(QEMU qemu-system-i386)
 # https://stackoverflow.com/questions/53633705/cmake-the-c-compiler-is-not-able-to-compile-a-simple-test-program
 set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 
+# Flags
+set(C_OR_ASM_FLAGS "-ffreestanding -fno-builtin -nostdlib -fno-omit-frame-pointer -static -Wall -Wno-format -Wno-unused -Wno-pointer-arith -Werror -m32 -fno-tree-ch -fno-stack-protector -g -ggdb")
+set(CXX_FLAGS "-ffreestanding -fno-builtin -nostdlib -fno-omit-frame-pointer -std=gnu++20 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -fno-unwind-tables -g -ggdb")
+
 # C
 set(CMAKE_C_COMPILER ${TP}gcc)
 set(CMAKE_C_FLAGS ${C_OR_ASM_FLAGS})
@@ -36,6 +40,3 @@ set(CMAKE_RANLIB ${TP}ranlib)
 #set(CMAKE_C_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
 #set(CMAKE_CXX_LINK_EXECUTABLE "${TP}ld -o <TARGET> <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
 
-# Flags
-set(C_OR_ASM_FLAGS "-ffreestanding -fno-builtin -nostdlib -fno-omit-frame-pointer -static -Wall -Wno-format -Wno-unused -Wno-pointer-arith -Werror -m32 -fno-tree-ch -fno-stack-protector -g -ggdb")
-set(CXX_FLAGS "-ffreestanding -fno-builtin -nostdlib -fno-omit-frame-pointer -std=gnu++20 -static -Wall -Wno-pointer-arith -Werror -Wno-format -Wno-unused -m32 -fno-tree-ch -fno-stack-protector -fno-rtti -fno-exceptions -fno-unwind-tables -g -ggdb")
