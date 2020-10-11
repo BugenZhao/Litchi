@@ -35,3 +35,6 @@ add_subdirectory(kernel)
 
 # Image, qemu, gdb...
 include(conf/ptargets.cmake)
+
+# Documentation
+include(conf/doxygen.cmake)

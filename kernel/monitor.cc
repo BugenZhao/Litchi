@@ -237,6 +237,9 @@ namespace monitor {
         return Result::badCommand;
     }
 
+    /// The entry of the kernel monitor
+    /// \param tf trap frame of current task
+    /// \return nothing
     [[noreturn]] int main(trap::Frame *tf) {
         char *cmd;
         auto lastRet = Result::ok;

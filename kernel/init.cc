@@ -15,6 +15,7 @@
 using namespace console::out;
 
 extern "C" {
+/// The entry of litchi kernel for i386 arch
 void i386InitLitchi(void) {
     // Clear .BSS section
     extern uint8_t edata[], end[];

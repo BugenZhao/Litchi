@@ -27,13 +27,14 @@
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
       <config projectName="Litchi" targetName="qemu-nox" />
+      <config projectName="Litchi" targetName="doc" />
       <config projectName="Litchi" targetName="qemu" />
       <config projectName="Litchi" targetName="qemu-nox-gdb" />
       <config projectName="Litchi" targetName="cgdb-cli" />
       <config projectName="Litchi" targetName="boot.elf" />
       <config projectName="Litchi" targetName="litchicc" />
-      <config projectName="Litchi" targetName="image" />
       <config projectName="Litchi" targetName="hello.elf" />
+      <config projectName="Litchi" targetName="image" />
       <config projectName="Litchi" targetName="litchi.elf" />
       <config projectName="Litchi" targetName="qemu-gdb" />
     </generated>
@@ -45,22 +46,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
-      <change afterPath="$PROJECT_DIR$/lib/exception.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/conf/Doxyfile.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/conf/doxygen.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image/litchi.img" beforeDir="false" afterPath="$PROJECT_DIR$/image/litchi.img" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/cstdout.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cstdout.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/random.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/random.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/stdout.hh" beforeDir="false" afterPath="$PROJECT_DIR$/include/stdout.hh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/console.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/console.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/panic.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/panic.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/pckbd.c" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/pckbd.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/printf.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/task.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/task.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lib/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/printfmt.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/printfmt.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/random.cc" beforeDir="false" afterPath="$PROJECT_DIR$/lib/random.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/hello.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/hello.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/lib/printf.cc" beforeDir="false" afterPath="$PROJECT_DIR$/user/lib/printf.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/v0.5.6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/image/litchi.img" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +113,7 @@
     <property name="cf.advertisement.text.overridden" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
@@ -138,13 +133,23 @@
       <recent name="$PROJECT_DIR$/old_litchis" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.qemu">
+  <component name="RunManager" selected="CMake Application.doc">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="boot.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="boot.elf" CONFIG_NAME="Default" RUN_TARGET_PROJECT_NAME="Litchi" RUN_TARGET_NAME="boot.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="cgdb-cli" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="cgdb-cli" CONFIG_NAME="Default">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="doc" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Litchi" TARGET_NAME="doc" CONFIG_NAME="Default">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -189,6 +194,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="irq_gen" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Litchi" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -211,16 +221,17 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="CMake Application.boot.elf" />
       <item itemvalue="CMake Application.cgdb-cli" />
+      <item itemvalue="CMake Application.doc" />
       <item itemvalue="CMake Application.hello.elf" />
       <item itemvalue="CMake Application.image" />
-      <item itemvalue="CMake Application.qemu" />
-      <item itemvalue="CMake Application.qemu-gdb" />
-      <item itemvalue="CMake Application.qemu-nox" />
-      <item itemvalue="CMake Application.qemu-nox-gdb" />
-      <item itemvalue="CMake Application.boot.elf" />
       <item itemvalue="CMake Application.litchi.elf" />
       <item itemvalue="CMake Application.litchicc" />
+      <item itemvalue="CMake Application.qemu-gdb" />
+      <item itemvalue="CMake Application.qemu-nox-gdb" />
+      <item itemvalue="CMake Application.qemu-nox" />
+      <item itemvalue="CMake Application.qemu" />
       <item itemvalue="GDB Remote Debug.Debug Litchi" />
       <item itemvalue="Python.irq_gen" />
     </list>
@@ -230,6 +241,7 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -285,14 +297,12 @@
       <workItem from="1594833752089" duration="1551000" />
       <workItem from="1595685241163" duration="8937000" />
       <workItem from="1595694256881" duration="21767000" />
-      <workItem from="1595768736134" duration="1998000" />
-    </task>
-    <task id="LOCAL-00044" summary="'vmdumpp' and 'vmdumpv' command">
-      <created>1586326221723</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1586326221723</updated>
+      <workItem from="1595768736134" duration="2248000" />
+      <workItem from="1597371090666" duration="5000" />
+      <workItem from="1598713522377" duration="672000" />
+      <workItem from="1598714227200" duration="6000" />
+      <workItem from="1598884086933" duration="564000" />
+      <workItem from="1602428296070" duration="7735000" />
     </task>
     <task id="LOCAL-00045" summary="Updated 'vmmap' command">
       <created>1586326606960</created>
@@ -630,11 +640,18 @@
       <option name="project" value="LOCAL" />
       <updated>1595760327176</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="Update: lambda console out">
+      <created>1595770976843</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1595770976843</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -664,7 +681,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Add: user task create &amp; run, embedded ELF" />
     <MESSAGE value="Update: run task by command" />
     <MESSAGE value="Add: trap support" />
     <MESSAGE value="Add: allow task continue" />
@@ -689,14 +705,14 @@
     <MESSAGE value="Update: init logging" />
     <MESSAGE value="Add: local APIC for MP" />
     <MESSAGE value="Add: comments for MP" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add: comments for MP" />
+    <MESSAGE value="Update: lambda console out" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update: lambda console out" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1594620112917">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="225" key="#New_File_Extensions/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594620112917" />
-    <state x="496" y="225" key="#New_File_Extensions/0.0.1792.1120@0.0.1792.1120" timestamp="1593740878452" />
     <state x="731" y="423" key="#Other_File_Types" timestamp="1594395062197">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -705,7 +721,6 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595747861174" />
-    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1588261951060" />
     <state x="554" y="365" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595690098544">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -720,7 +735,6 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="634" y="315" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595754551545" />
-    <state x="634" y="315" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1593742835961" />
     <state x="432" y="394" width="927" height="331" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog" timestamp="1594834282417">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -737,10 +751,6 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="642" y="424" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594387234510" />
-    <state x="714" y="87" key="CommitChangelistDialog2" timestamp="1593682650183">
-      <screen x="0" y="0" width="1792" height="1120" />
-    </state>
-    <state x="714" y="87" key="CommitChangelistDialog2/0.0.1792.1120@0.0.1792.1120" timestamp="1593682650183" />
     <state x="100" y="54" width="1592" height="1066" key="DiffContextDialog" timestamp="1594741153746">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -750,10 +760,6 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="842" y="439" key="FileChooserDialogImpl/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594656701123" />
-    <state x="401" y="295" key="FileDocumentManager.FileCacheConflict" timestamp="1593740107360">
-      <screen x="0" y="0" width="1792" height="1120" />
-    </state>
-    <state x="401" y="295" key="FileDocumentManager.FileCacheConflict/0.0.1792.1120@0.0.1792.1120" timestamp="1593740107360" />
     <state width="1750" height="305" key="GridCell.Tab.0.bottom" timestamp="1595760430042">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -828,11 +834,11 @@
     </state>
     <state x="556" y="317" key="SettingsEditor/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595754904875" />
     <state x="449" y="334" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1595694341257" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595760329586">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595770978613">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595760329586" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1595729589335" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1595770978613" />
     <state x="100" y="100" width="1592" height="920" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1595748384983">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -846,10 +852,11 @@
     </state>
     <state x="746" y="474" width="555" height="392" key="refactoring.ChangeSignatureDialog/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1594732445228" />
     <state x="658" y="198" key="refactoring.ChangeSignatureDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1595769645471" />
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1595753044994">
-      <screen x="0" y="0" width="1792" height="1120" />
+    <state x="801" y="328" width="958" height="816" key="search.everywhere.popup" timestamp="1602428789238">
+      <screen x="0" y="25" width="2560" height="1351" />
     </state>
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595753044994" />
+    <state x="801" y="328" width="958" height="816" key="search.everywhere.popup/-1366.416.1366.1024/0.25.2560.1351@0.25.2560.1351" timestamp="1602428789238" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1595730333528" />
   </component>
   <component name="XDebuggerManager">
