@@ -1,0 +1,36 @@
+<map id="trap::init" name="trap::init">
+<area shape="rect" id="node1" title=" " alt="" coords="5,145,75,172"/>
+<area shape="rect" id="node2" href="$x86_8h.html#a7212dae3820e33d3e65b624a9fee1b04" title=" " alt="" coords="150,31,233,57"/>
+<area shape="rect" id="node3" href="$namespacetrap_1_1handler.html#aa067cfbe3cae2802d8b48a14d125daa3" title=" " alt="" coords="123,145,260,172"/>
+<area shape="rect" id="node11" href="$namespaceconsole_1_1out.html#ac6f663e3971b66b8e130ee94755a150e" title=" " alt="" coords="463,107,590,133"/>
+<area shape="rect" id="node31" href="$namespacetrap.html#a122971dfdb9c856a2343f1869781e3db" title=" " alt="" coords="135,208,248,235"/>
+<area shape="rect" id="node34" href="$stdlib_8hh.html#ab9656f5950c15e0f988c0cde1c3c07dd" title=" " alt="" coords="160,259,223,285"/>
+<area shape="rect" id="node4" href="$namespacemonitor.html#ac02f947e274eb7d38cdfa803c21ef579" title=" " alt="" coords="308,183,409,209"/>
+<area shape="rect" id="node5" href="$namespacemonitor.html#a8b88ed0586263051a6af8dbff388e314" title=" " alt="" coords="460,208,593,235"/>
+<area shape="rect" id="node26" href="$namespaceconsole_1_1err.html#a124c7e8527c0e3fd2b9636411aea7e82" title=" " alt="" coords="465,259,588,285"/>
+<area shape="rect" id="node28" href="$namespaceconsole_1_1in.html#afa763e7729f2e6fbdcf4c14e44ad7a29" title=" " alt="" coords="457,157,596,184"/>
+<area shape="rect" id="node6" href="$namespacestr.html#ace5edf7e67a558a1c4ead28a66faba41" title=" " alt="" coords="670,208,771,235"/>
+<area shape="rect" id="node7" href="$namespacestr.html#a12522233f7d73122d76de5c82e44a183" title=" " alt="" coords="676,385,765,412"/>
+<area shape="rect" id="node8" href="$namespacestr.html#a0e183e333ba05550c6b206906dbf0f10" title=" " alt="" coords="881,385,951,412"/>
+<area shape="rect" id="node9" href="$namespacestr.html#a062221f630647cf300f0dd982c4ed904" title=" " alt="" coords="2096,411,2173,437"/>
+<area shape="rect" id="node10" href="$namespacestr.html#a4b4d986113337f946299cef82449cf52" title=" " alt="" coords="1081,385,1148,412"/>
+<area shape="rect" id="node12" href="$namespaceconsole_1_1out.html#a8f791bfac54067cadb1b9f18117b987b" title=" " alt="" coords="845,107,987,133"/>
+<area shape="rect" id="node13" href="$namespaceconsole_1_1ge.html#af642934cb833142f133285fdb75ef7b7" title=" " alt="" coords="1035,259,1195,285"/>
+<area shape="rect" id="node19" href="$namespaceconsole_1_1out.html#ad9fc97dff4404c2d21aedbb24691e7cb" title=" " alt="" coords="1459,183,1605,209"/>
+<area shape="rect" id="node14" href="$printfmt_8cc.html#a708ec6ee2b8bd2d7a453d8d9436ed3b3" title=" " alt="" coords="1288,309,1365,336"/>
+<area shape="rect" id="node15" href="$printfmt_8cc.html#af4b46892c76c8bfd27efdb20847eb7c8" title=" " alt="" coords="1283,360,1370,387"/>
+<area shape="rect" id="node16" href="$printfmt_8cc.html#a0e3e484ece5e75b9f5fbe337f0ae8ae3" title=" " alt="" coords="1291,461,1362,488"/>
+<area shape="rect" id="node18" href="$namespaceconsole_1_1ge.html#a7e301813fd34fde772376afc5fdad95d" title=" " alt="" coords="1243,208,1411,235"/>
+<area shape="rect" id="node17" href="$namespacemonitor.html#a318993193c866642f8389a1c1f285739" title=" " alt="" coords="1483,461,1581,488"/>
+<area shape="rect" id="node20" href="$namespaceconsole_1_1serial.html#a3a7c1f95ae3c24136ea63bb31fdf0391" title=" " alt="" coords="1653,183,1813,209"/>
+<area shape="rect" id="node23" href="$namespaceconsole_1_1cga.html#afa19057ca041b39682d5d4831c43dfa0" title=" " alt="" coords="1658,233,1809,260"/>
+<area shape="rect" id="node21" href="$namespaceconsole_1_1serial.html#aa5605d4537106bb1c2bab72d7d1a5824" title=" " alt="" coords="1885,183,2024,209"/>
+<area shape="rect" id="node22" href="$x86_8h.html#ade961b44e45ddacbc3c3b7609cf36dc6" title=" " alt="" coords="2111,208,2158,235"/>
+<area shape="rect" id="node24" href="$namespacemem.html#a64d9d05b439041901498c606de606431" title=" " alt="" coords="1911,309,1998,336"/>
+<area shape="rect" id="node25" href="$namespaceconsole_1_1cga.html#a06463d4dc68819e30615ba299d02a78f" title=" " alt="" coords="1861,233,2048,260"/>
+<area shape="rect" id="node27" href="$namespaceconsole_1_1err.html#a4cd18e4c409b5b17ecec61ce83b05fba" title=" " alt="" coords="847,259,985,285"/>
+<area shape="rect" id="node29" href="$namespaceconsole_1_1in.html#ac28354dad0498aa6bb0c178b10d62c8a" title=" " alt="" coords="644,56,797,83"/>
+<area shape="rect" id="node30" href="$namespaceconsole_1_1in.html#a6fc069f2bc57fda183e3b991c31ec5a7" title=" " alt="" coords="847,5,985,32"/>
+<area shape="rect" id="node32" href="$x86_8h.html#a3a83060064855a2a5ab203a164d2d47e" title=" " alt="" coords="339,284,378,311"/>
+<area shape="rect" id="node33" href="$x86_8h.html#a6b866857c06dcdcbf81ac93c9f6d78f8" title=" " alt="" coords="339,233,378,260"/>
+</map>

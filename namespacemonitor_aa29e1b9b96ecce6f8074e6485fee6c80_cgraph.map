@@ -1,0 +1,32 @@
+<map id="monitor::vmdumpv" name="monitor::vmdumpv">
+<area shape="rect" id="node1" title=" " alt="" coords="5,376,136,403"/>
+<area shape="rect" id="node2" href="$namespacevmem_1_1utils.html#ad7f7376677ebdefd78c092c546a2f7f4" title=" " alt="" coords="184,339,323,365"/>
+<area shape="rect" id="node29" href="$namespacestr.html#a7bea2669afeb636a996a561e640d2ee8" title=" " alt="" coords="211,401,295,428"/>
+<area shape="rect" id="node3" href="$namespacevmem_1_1pgdir.html#a933a8f939084dabdb1a4b5401bebf8d7" title=" " alt="" coords="955,123,1098,149"/>
+<area shape="rect" id="node12" href="$namespaceconsole_1_1out.html#ac6f663e3971b66b8e130ee94755a150e" title=" " alt="" coords="371,325,497,352"/>
+<area shape="rect" id="node27" href="$namespaceconsole_1_1err.html#a124c7e8527c0e3fd2b9636411aea7e82" title=" " alt="" coords="373,376,495,403"/>
+<area shape="rect" id="node4" href="$structvmem_1_1_page_info.html#afcdcb7e941219a8ec999353658e3c2aa" title=" " alt="" coords="1173,148,1326,175"/>
+<area shape="rect" id="node5" href="$namespacemem.html#a981dd0cb1408b798a79443c6245e9c55" title=" " alt="" coords="1431,173,1518,200"/>
+<area shape="rect" id="node8" href="$structvmem_1_1_page_info.html#afc863f1d364462ddd2c20bf31f588337" title=" " alt="" coords="1388,97,1561,124"/>
+<area shape="rect" id="node9" href="$structvmem_1_1_page_info.html#accf2071c7875c29c9aa78a01ef5963a1" title=" " alt="" coords="1623,47,1783,73"/>
+<area shape="rect" id="node10" href="$namespacevmem_1_1pgdir.html#a972bb045d4c58b0ea9c569e05831bbb6" title=" " alt="" coords="1159,47,1340,73"/>
+<area shape="rect" id="node6" href="$namespacestr.html#a062221f630647cf300f0dd982c4ed904" title=" " alt="" coords="1844,224,1921,251"/>
+<area shape="rect" id="node7" href="$namespacemem.html#adbaba9127c03fb914f752bfe19d6d089" title=" " alt="" coords="1664,199,1741,225"/>
+<area shape="rect" id="node11" href="$x86_8h.html#a2c1c4c8523ed258a75c563a8f94d1686" title=" " alt="" coords="1447,47,1503,73"/>
+<area shape="rect" id="node13" href="$namespaceconsole_1_1out.html#a8f791bfac54067cadb1b9f18117b987b" title=" " alt="" coords="545,325,687,352"/>
+<area shape="rect" id="node14" href="$namespaceconsole_1_1ge.html#af642934cb833142f133285fdb75ef7b7" title=" " alt="" coords="735,401,895,428"/>
+<area shape="rect" id="node20" href="$namespaceconsole_1_1out.html#ad9fc97dff4404c2d21aedbb24691e7cb" title=" " alt="" coords="1176,452,1323,479"/>
+<area shape="rect" id="node15" href="$printfmt_8cc.html#a708ec6ee2b8bd2d7a453d8d9436ed3b3" title=" " alt="" coords="988,401,1065,428"/>
+<area shape="rect" id="node16" href="$printfmt_8cc.html#af4b46892c76c8bfd27efdb20847eb7c8" title=" " alt="" coords="983,503,1070,529"/>
+<area shape="rect" id="node17" href="$printfmt_8cc.html#a0e3e484ece5e75b9f5fbe337f0ae8ae3" title=" " alt="" coords="991,351,1062,377"/>
+<area shape="rect" id="node19" href="$namespaceconsole_1_1ge.html#a7e301813fd34fde772376afc5fdad95d" title=" " alt="" coords="943,452,1111,479"/>
+<area shape="rect" id="node18" href="$namespacemonitor.html#a318993193c866642f8389a1c1f285739" title=" " alt="" coords="1200,351,1299,377"/>
+<area shape="rect" id="node21" href="$namespaceconsole_1_1serial.html#a3a7c1f95ae3c24136ea63bb31fdf0391" title=" " alt="" coords="1395,452,1555,479"/>
+<area shape="rect" id="node24" href="$namespaceconsole_1_1cga.html#afa19057ca041b39682d5d4831c43dfa0" title=" " alt="" coords="1399,401,1550,428"/>
+<area shape="rect" id="node22" href="$namespaceconsole_1_1serial.html#aa5605d4537106bb1c2bab72d7d1a5824" title=" " alt="" coords="1633,452,1772,479"/>
+<area shape="rect" id="node23" href="$x86_8h.html#ade961b44e45ddacbc3c3b7609cf36dc6" title=" " alt="" coords="1859,427,1906,453"/>
+<area shape="rect" id="node25" href="$namespacemem.html#a64d9d05b439041901498c606de606431" title=" " alt="" coords="1659,325,1746,352"/>
+<area shape="rect" id="node26" href="$namespaceconsole_1_1cga.html#a06463d4dc68819e30615ba299d02a78f" title=" " alt="" coords="1609,401,1796,428"/>
+<area shape="rect" id="node28" href="$namespaceconsole_1_1err.html#a4cd18e4c409b5b17ecec61ce83b05fba" title=" " alt="" coords="547,401,685,428"/>
+<area shape="rect" id="node30" href="$ctype_8h.html#afa0dfddc51a97feb51f3ecfbe30125b1" title=" " alt="" coords="383,427,485,453"/>
+</map>

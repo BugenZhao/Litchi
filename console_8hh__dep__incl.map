@@ -1,0 +1,8 @@
+<map id="console.hh" name="console.hh">
+<area shape="rect" id="node1" title=" " alt="" coords="199,5,284,32"/>
+<area shape="rect" id="node2" href="$console_8cc.html" title=" " alt="" coords="5,80,91,107"/>
+<area shape="rect" id="node3" href="$init_8cc.html" title=" " alt="" coords="115,80,173,107"/>
+<area shape="rect" id="node4" href="$ksyscall_8cc.html" title=" " alt="" coords="197,80,285,107"/>
+<area shape="rect" id="node5" href="$kernel_2printf_8cc.html" title=" " alt="" coords="309,80,379,107"/>
+<area shape="rect" id="node6" href="$monitor_8cc.html" title=" " alt="" coords="403,80,485,107"/>
+</map>

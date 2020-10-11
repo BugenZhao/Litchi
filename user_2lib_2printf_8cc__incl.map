@@ -1,0 +1,18 @@
+<map id="printf.cc" name="printf.cc">
+<area shape="rect" id="node1" title=" " alt="" coords="281,5,350,32"/>
+<area shape="rect" id="node2" href="$stdout_8hh.html" title=" " alt="" coords="159,80,280,107"/>
+<area shape="rect" id="node11" href="$stdlib_8hh.html" title=" " alt="" coords="391,80,536,107"/>
+<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="532,379,643,405"/>
+<area shape="rect" id="node7" href="$vargs_8hh.html" title=" " alt="" coords="25,155,142,181"/>
+<area shape="rect" id="node9" href="$color_8h.html" title=" " alt="" coords="167,155,272,181"/>
+<area shape="rect" id="node10" title=" " alt="" coords="296,155,375,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="417,453,486,480"/>
+<area shape="rect" id="node5" title=" " alt="" coords="511,453,576,480"/>
+<area shape="rect" id="node6" href="$ctype_8h.html" title=" " alt="" coords="600,453,666,480"/>
+<area shape="rect" id="node8" title=" " alt="" coords="51,229,116,256"/>
+<area shape="rect" id="node12" href="$syscall_8hh.html" title=" " alt="" coords="451,304,578,331"/>
+<area shape="rect" id="node13" href="$include_2trap_8hh.html" title=" " alt="" coords="633,155,740,181"/>
+<area shape="rect" id="node14" href="$string_8hh.html" title=" " alt="" coords="602,304,720,331"/>
+<area shape="rect" id="node15" href="$mmu_8h.html" title=" " alt="" coords="744,304,850,331"/>
+<area shape="rect" id="node16" href="$memlayout_8h.html" title=" " alt="" coords="750,229,892,256"/>
+</map>

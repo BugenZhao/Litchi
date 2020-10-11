@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['gatedesc_278',['GateDesc',['../struct_gate_desc.html',1,'']]],
+  ['gd_5fargs_279',['gd_args',['../struct_gate_desc.html#afd87a019cf3b0e4a9bb1a5f85be81c99',1,'GateDesc']]],
+  ['gd_5fdpl_280',['gd_dpl',['../struct_gate_desc.html#a052af26bf871bfa7d4e18fa51829893f',1,'GateDesc']]],
+  ['gd_5fkd_281',['GD_KD',['../memlayout_8h.html#aa553495eb406bc7d68fb82232a2fb0c8',1,'memlayout.h']]],
+  ['gd_5fkt_282',['GD_KT',['../memlayout_8h.html#a60bae2e00a4e80fb108f6776dd0f8712',1,'memlayout.h']]],
+  ['gd_5foff_5f15_5f0_283',['gd_off_15_0',['../struct_gate_desc.html#ab5f27f744da6196217d03566d2a91a8c',1,'GateDesc']]],
+  ['gd_5foff_5f31_5f16_284',['gd_off_31_16',['../struct_gate_desc.html#ae6c11db7322dc23f77eeb320338c3426',1,'GateDesc']]],
+  ['gd_5fp_285',['gd_p',['../struct_gate_desc.html#a1c9f25d505cb33f1cd479984c5293542',1,'GateDesc']]],
+  ['gd_5frsv1_286',['gd_rsv1',['../struct_gate_desc.html#a3a2e77d2614c7658630dbf485dcd6da4',1,'GateDesc']]],
+  ['gd_5fs_287',['gd_s',['../struct_gate_desc.html#a78f19896e4e3f8968792d935481bc8e5',1,'GateDesc']]],
+  ['gd_5fsel_288',['gd_sel',['../struct_gate_desc.html#ac0864ed9ccd88b3e84a5ccfb05891a1e',1,'GateDesc']]],
+  ['gd_5ftss0_289',['GD_TSS0',['../memlayout_8h.html#a8c3f56ec90f20ccc5b3aa6e75dd430ac',1,'memlayout.h']]],
+  ['gd_5ftype_290',['gd_type',['../struct_gate_desc.html#ae2dd6b69f85f66a6777e2d8b4bc0b3e6',1,'GateDesc']]],
+  ['gd_5fud_291',['GD_UD',['../memlayout_8h.html#ac82ecc4f6d29ae802316d8932c5f1adc',1,'memlayout.h']]],
+  ['gd_5fut_292',['GD_UT',['../memlayout_8h.html#ae3ad88d2319d9a4421ba48266fd6ed70',1,'memlayout.h']]],
+  ['gdt_293',['gdt',['../gdt_8c.html#a04ffa761b7c59150e5f5d0d4459e8ba5',1,'gdt():&#160;gdt.c'],['../trap_8cc.html#a04ffa761b7c59150e5f5d0d4459e8ba5',1,'gdt():&#160;gdt.c']]],
+  ['gdt_2ec_294',['gdt.c',['../gdt_8c.html',1,'']]],
+  ['gdtpd_295',['gdtPD',['../gdt_8c.html#a8eff33e790caee13f1275fbc87fac8d9',1,'gdtPD():&#160;gdt.c'],['../task_8cc.html#a88ca32abfc8e0db5b1dc25a29e36905c',1,'gdtPD():&#160;gdt.c']]],
+  ['getchar_296',['getChar',['../namespaceksyscall.html#addb1a3a62b5782f478e7d609dc29446cad4ff1b73e9ed5d8f9e662942f5455bad',1,'ksyscall::getChar()'],['../namespaceconsole_1_1in.html#a6fc069f2bc57fda183e3b991c31ec5a7',1,'console::in::getChar()'],['../namespaceksyscall.html#abcdaea607723e03ea3fb919c121981ec',1,'ksyscall::getChar()']]],
+  ['gpfault_297',['gpFault',['../namespacetrap.html#a8744d6c64a98f7073e886b14a20e3e0ea632fb3e39d8ec50d195350a3b5c9ab2f',1,'trap']]],
+  ['gray_298',['GRAY',['../color_8h.html#a0a8ef1b5e1941b7257e545cc33405ff1a3fb6c4ad00f4ad98553e01229d1803ac',1,'color.h']]],
+  ['green_299',['GREEN',['../color_8h.html#a0a8ef1b5e1941b7257e545cc33405ff1aa60bd322f93178d68184e30e162571ca',1,'color.h']]]
+];

@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['dark_5fgray_154',['DARK_GRAY',['../color_8h.html#a0a8ef1b5e1941b7257e545cc33405ff1a656c37aed4a972689007d4c9ce88f425',1,'color.h']]],
+  ['deassert_155',['DEASSERT',['../mp_8cc.html#a8b48e10f84b81902cf66c89ac52649b7',1,'mp.cc']]],
+  ['debug_156',['debug',['../namespacetrap_1_1handler.html#aa067cfbe3cae2802d8b48a14d125daa3',1,'trap::handler::debug()'],['../namespacetrap.html#a8744d6c64a98f7073e886b14a20e3e0eaad42f6697b035b7580e4fef93be20b4d',1,'trap::debug()']]],
+  ['dec_157',['DEC',['../_c_make_c_compiler_id_8c.html#ad1280362da42492bbc11aa78cbf776ad',1,'DEC():&#160;CMakeCCompilerId.c'],['../_c_make_c_x_x_compiler_id_8cpp.html#ad1280362da42492bbc11aa78cbf776ad',1,'DEC():&#160;CMakeCXXCompilerId.cpp']]],
+  ['decref_158',['decRef',['../structvmem_1_1_page_info.html#ab39513ff9c9514fd1b59ce0e6a7595bb',1,'vmem::PageInfo']]],
+  ['def_5fback_159',['DEF_BACK',['../color_8h.html#a0a8ef1b5e1941b7257e545cc33405ff1a61d95366202a385ade6029233a0b5b4f',1,'color.h']]],
+  ['def_5ffore_160',['DEF_FORE',['../color_8h.html#a0a8ef1b5e1941b7257e545cc33405ff1ace5411f34b948c2eafc4fe0f31b62415',1,'color.h']]],
+  ['default_5fconfiguration_161',['default_configuration',['../structmp_1_1_f_p_struct.html#a8988ed65ec35568d8a066da93d07f3fd',1,'mp::FPStruct::default_configuration()'],['../mp_8cc.html#a2e8fe3e1366aeb8b8f4fb3680954d93b',1,'default_configuration():&#160;mp.cc']]],
+  ['delay_162',['delay',['../namespaceconsole_1_1serial.html#a6131d23295a91d5c2af27063dab064ad',1,'console::serial']]],
+  ['delivs_163',['DELIVS',['../mp_8cc.html#a5f0b856b460d14d6fac161e35cfdb9d1',1,'mp.cc']]],
+  ['desc_164',['desc',['../structmonitor_1_1_command.html#a62d57cf023fc6b5563a12cc5d29f6096',1,'monitor::Command']]],
+  ['describe_165',['describe',['../namespacetrap.html#acef8324bb6b4e213fd060ebe9f59f0b1',1,'trap::describe()'],['../printfmt_8cc.html#a0e3e484ece5e75b9f5fbe337f0ae8ae3',1,'describe():&#160;printfmt.cc']]],
+  ['destroy_166',['destroy',['../structtask_1_1_task.html#acc107ba9ef939a92f459873765fb73eb',1,'task::Task']]],
+  ['detect_167',['detect',['../namespacevmem.html#a18b5f085011286d242840949c48343b6',1,'vmem']]],
+  ['device_168',['device',['../namespacetrap.html#a8744d6c64a98f7073e886b14a20e3e0ea913f9c49dcb544e2087cee284f4a00b7',1,'trap']]],
+  ['dispatch_169',['dispatch',['../structtrap_1_1_frame.html#ad4d384926899741046177043bbe75c27',1,'trap::Frame::dispatch()'],['../kernel_2trap_8hh.html#a99254641fe590be652c4d3d7e2080ac4',1,'dispatch():&#160;trap.hh']]],
+  ['divide_170',['divide',['../namespacetrap.html#a8744d6c64a98f7073e886b14a20e3e0ea95bd4d656164278daf3f83b7099a8529',1,'trap']]],
+  ['doublefault_171',['doubleFault',['../namespacetrap.html#a8744d6c64a98f7073e886b14a20e3e0ea1bb229de4aae48559645dcf9f15633b7',1,'trap']]],
+  ['ds_172',['ds',['../structtrap_1_1_frame.html#a672c037b88f8ab81da8da8608663f65e',1,'trap::Frame::ds()'],['../kernel_2trap_8hh.html#a1593f2113f73ecbc0e6a92e41fa76d14',1,'ds():&#160;trap.hh']]],
+  ['dumpp_173',['dumpP',['../namespacevmem_1_1utils.html#aa0849015074ec5d9f102fac5a054df22',1,'vmem::utils']]],
+  ['dumpv_174',['dumpV',['../namespacevmem_1_1utils.html#ad7f7376677ebdefd78c092c546a2f7f4',1,'vmem::utils']]],
+  ['dying_175',['dying',['../namespacetask.html#acf9d8eeccf95def6de812c7b2a1ed0faa564202d4005974a8279609ef0f95d43b',1,'task']]]
+];

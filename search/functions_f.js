@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['rand_1105',['rand',['../namespacelrandom.html#abab268ecc19235ea0bb544a19c1b400b',1,'lrandom']]],
+  ['rcr0_1106',['rcr0',['../x86_8h.html#a69d89f57ae905c2df6b747567b621921',1,'x86.h']]],
+  ['rcr2_1107',['rcr2',['../x86_8h.html#a3dc6d9821f5d1882b68147fd25aa11cd',1,'x86.h']]],
+  ['rcr3_1108',['rcr3',['../x86_8h.html#a267f37de82796d0f10831fd17b3be6da',1,'x86.h']]],
+  ['rcr4_1109',['rcr4',['../x86_8h.html#a2745e58249b199af0c5ced5c5a2973ba',1,'x86.h']]],
+  ['rdrand_1110',['rdrand',['../x86_8h.html#ad50d3150700c4b8b5bec58c0108d8a61',1,'x86.h']]],
+  ['read_1111',['read',['../namespacenvram.html#a44880d1bbe939e863adda0302febc9ef',1,'nvram']]],
+  ['read_5febp_1112',['read_ebp',['../x86_8h.html#a663bfaa6d51e77d46a366f2c55767add',1,'x86.h']]],
+  ['read_5feflags_1113',['read_eflags',['../x86_8h.html#a895ef9dc493c64a441395eb3765ee110',1,'x86.h']]],
+  ['read_5fesp_1114',['read_esp',['../x86_8h.html#a3a5591d5247a312546086e48f215ad78',1,'x86.h']]],
+  ['read_5ftsc_1115',['read_tsc',['../x86_8h.html#a4977670e5a3f7a153b0bcb2cb99b3f9b',1,'x86.h']]],
+  ['readline_1116',['readline',['../namespaceconsole_1_1in.html#afa763e7729f2e6fbdcf4c14e44ad7a29',1,'console::in']]],
+  ['readlineva_1117',['readlineVa',['../namespaceconsole_1_1in.html#ac28354dad0498aa6bb0c178b10d62c8a',1,'console::in']]],
+  ['readsect_1118',['readsect',['../main_8c.html#a8bc2062a175b7c74607a2498ac997657',1,'main.c']]],
+  ['readseg_1119',['readseg',['../main_8c.html#a687601dc22e8d4d8407608c91fd325eb',1,'main.c']]],
+  ['reboot_1120',['reboot',['../namespacesys.html#a546f90cd9bc291438e51ac18c09f0203',1,'sys']]],
+  ['regionalloc_1121',['regionAlloc',['../structtask_1_1_task.html#a14ffdb1b5cf0284c29274f560e472954',1,'task::Task']]],
+  ['remove_1122',['remove',['../namespacevmem_1_1pgdir.html#a0fac039ba671f03a7cccf3f4af55cbf5',1,'vmem::pgdir']]],
+  ['run_1123',['run',['../structtask_1_1_task.html#a6951f4d4cd2fdc27300841767b7977c1',1,'task::Task']]],
+  ['runtask_1124',['runtask',['../namespacemonitor.html#a5f749fd96ce189ccccd8ff75c25da641',1,'monitor']]]
+];

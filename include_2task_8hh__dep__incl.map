@@ -1,0 +1,12 @@
+<map id="task.hh" name="task.hh">
+<area shape="rect" id="node1" title=" " alt="" coords="228,5,293,32"/>
+<area shape="rect" id="node2" href="$kernel_2task_8hh.html" title=" " alt="" coords="228,80,293,107"/>
+<area shape="rect" id="node3" href="$init_8cc.html" title=" " alt="" coords="7,229,64,256"/>
+<area shape="rect" id="node4" href="$ksyscall_8cc.html" title=" " alt="" coords="25,155,113,181"/>
+<area shape="rect" id="node5" href="$mp_8hh.html" title=" " alt="" coords="137,155,195,181"/>
+<area shape="rect" id="node7" href="$monitor_8cc.html" title=" " alt="" coords="219,155,302,181"/>
+<area shape="rect" id="node8" href="$task_8cc.html" title=" " alt="" coords="327,155,392,181"/>
+<area shape="rect" id="node9" href="$vmem_8cc.html" title=" " alt="" coords="416,155,492,181"/>
+<area shape="rect" id="node10" href="$trap_8cc.html" title=" " alt="" coords="516,155,579,181"/>
+<area shape="rect" id="node6" href="$mp_8cc.html" title=" " alt="" coords="137,229,195,256"/>
+</map>

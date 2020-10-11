@@ -1,0 +1,13 @@
+<map id="vmem::pgdir::mmioMap" name="vmem::pgdir::mmioMap">
+<area shape="rect" id="node1" title=" " alt="" coords="5,137,164,164"/>
+<area shape="rect" id="node2" href="$namespacevmem_1_1pgdir.html#a07dd6afb36a9efd207d6372a0f0f36e8" title=" " alt="" coords="212,137,371,164"/>
+<area shape="rect" id="node3" href="$namespacevmem_1_1pgdir.html#a933a8f939084dabdb1a4b5401bebf8d7" title=" " alt="" coords="419,100,561,127"/>
+<area shape="rect" id="node10" href="$namespacevmem_1_1pgdir.html#a972bb045d4c58b0ea9c569e05831bbb6" title=" " alt="" coords="609,188,791,215"/>
+<area shape="rect" id="node4" href="$structvmem_1_1_page_info.html#afcdcb7e941219a8ec999353658e3c2aa" title=" " alt="" coords="623,36,777,63"/>
+<area shape="rect" id="node5" href="$namespacemem.html#a981dd0cb1408b798a79443c6245e9c55" title=" " alt="" coords="882,17,969,44"/>
+<area shape="rect" id="node8" href="$structvmem_1_1_page_info.html#afc863f1d364462ddd2c20bf31f588337" title=" " alt="" coords="839,87,1012,113"/>
+<area shape="rect" id="node9" href="$structvmem_1_1_page_info.html#accf2071c7875c29c9aa78a01ef5963a1" title=" " alt="" coords="1060,112,1220,139"/>
+<area shape="rect" id="node6" href="$namespacestr.html#a062221f630647cf300f0dd982c4ed904" title=" " alt="" coords="1268,24,1345,51"/>
+<area shape="rect" id="node7" href="$namespacemem.html#adbaba9127c03fb914f752bfe19d6d089" title=" " alt="" coords="1101,49,1179,76"/>
+<area shape="rect" id="node11" href="$x86_8h.html#a2c1c4c8523ed258a75c563a8f94d1686" title=" " alt="" coords="897,188,953,215"/>
+</map>

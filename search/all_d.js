@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['n_514',['N',['../boot_2_c_make_files_2boot_8elf_8dir_2link_8txt.html#a2c50c55711db0f5b01609a6d3554a1b7',1,'link.txt']]],
+  ['name_515',['name',['../structtask_1_1_task.html#aa5d618e738a11d4d57bf1eb2e5438572',1,'task::Task']]],
+  ['namelength_516',['nameLength',['../structtask_1_1_task.html#a3654261dcf5f8fb81cd5b30252e9ded7',1,'task::Task']]],
+  ['next_517',['next',['../namespacelrandom.html#a4d119f1604e4d28cef9a3c5e7e53cea0',1,'lrandom']]],
+  ['nextfree_518',['nextFree',['../structtask_1_1_task.html#a277e11aca72752d41c8acb66f598bb06',1,'task::Task::nextFree()'],['../structvmem_1_1_page_info.html#acbc983aa32f6eda18951caa8d6953df2',1,'vmem::PageInfo::nextFree()']]],
+  ['nmi_519',['nmi',['../namespacetrap.html#a8744d6c64a98f7073e886b14a20e3e0eabcc0f53fbd0c273d18435941509f4eda',1,'trap']]],
+  ['no_520',['NO',['../pckbd_8c.html#a996bde01ecac342918f0a2c4e7ce7bd5',1,'pckbd.c']]],
+  ['nofreetask_521',['noFreeTask',['../result_8hh.html#aee84581f841e97427a9f6191665e8006a6ad4eb2324d892943e3e7371f7678d7b',1,'result.hh']]],
+  ['nomemory_522',['noMemory',['../result_8hh.html#aee84581f841e97427a9f6191665e8006a29ba025de16c128bcc8108a275aff7ce',1,'result.hh']]],
+  ['normalmap_523',['normalmap',['../pckbd_8c.html#aecaf43d20653affe9dcc677b2cab809d',1,'normalmap():&#160;pckbd.c'],['../pckbd_8h.html#aecaf43d20653affe9dcc677b2cab809d',1,'normalmap():&#160;pckbd.c']]],
+  ['nosuchtask_524',['noSuchTask',['../result_8hh.html#aee84581f841e97427a9f6191665e8006a9cdcf6776c48c29f8d49689b51d3f88c',1,'result.hh']]],
+  ['npages_525',['nPages',['../namespacevmem.html#a72a30461ac174a1e29ae698c8c47bb2b',1,'vmem']]],
+  ['npagesbasemem_526',['nPagesBaseMem',['../namespacevmem.html#a70bc7249ec7dc0cf993e84e0ddd89e5e',1,'vmem']]],
+  ['npdentries_527',['NPDENTRIES',['../mmu_8h.html#af60ee3ecbf249497d0378c97201edfe8',1,'mmu.h']]],
+  ['nptentries_528',['NPTENTRIES',['../mmu_8h.html#a6318b16289e829d7f9719134ba08704f',1,'mmu.h']]],
+  ['null_5ffmt_529',['NULL_FMT',['../printfmt_8cc.html#ae2625d62160cb3e615dcdb6daf3b8507',1,'printfmt.cc']]],
+  ['num_530',['Num',['../namespaceksyscall.html#addb1a3a62b5782f478e7d609dc29446c',1,'ksyscall']]],
+  ['numlock_531',['NUMLOCK',['../pckbd_8c.html#a67aa85b3ef56be57b97e084f52621d4f',1,'pckbd.c']]],
+  ['nvram_532',['nvram',['../namespacenvram.html',1,'']]],
+  ['nvram_5fbasehi_533',['NVRAM_BASEHI',['../vmem_8hh.html#a9e3607f28d0220654b1179a72dcfcfd1',1,'vmem.hh']]],
+  ['nvram_5fbaselo_534',['NVRAM_BASELO',['../vmem_8hh.html#a8c4ecb6aa1946b2e1e72483e05fadb0b',1,'vmem.hh']]],
+  ['nvram_5fext16hi_535',['NVRAM_EXT16HI',['../vmem_8hh.html#a8d4f22fa60e1c5f9b4ae473f6e1e72c4',1,'vmem.hh']]],
+  ['nvram_5fext16lo_536',['NVRAM_EXT16LO',['../vmem_8hh.html#aaba8e5a26f94ef0289dce48b261a2d0f',1,'vmem.hh']]],
+  ['nvram_5fexthi_537',['NVRAM_EXTHI',['../vmem_8hh.html#af519a00ebc78b8e669e0b1d4286aafb7',1,'vmem.hh']]],
+  ['nvram_5fextlo_538',['NVRAM_EXTLO',['../vmem_8hh.html#aea119daa34f5d125d4fe934bcd10ac64',1,'vmem.hh']]]
+];
