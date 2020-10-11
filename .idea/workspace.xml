@@ -20,7 +20,7 @@
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:gh-pages" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
@@ -33,8 +33,8 @@
       <config projectName="Litchi" targetName="cgdb-cli" />
       <config projectName="Litchi" targetName="boot.elf" />
       <config projectName="Litchi" targetName="litchicc" />
-      <config projectName="Litchi" targetName="hello.elf" />
       <config projectName="Litchi" targetName="image" />
+      <config projectName="Litchi" targetName="hello.elf" />
       <config projectName="Litchi" targetName="litchi.elf" />
       <config projectName="Litchi" targetName="qemu-gdb" />
     </generated>
@@ -46,15 +46,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781300a8-ce14-4f71-a9bb-3be10cbf1f21" name="Default Changelist" comment="Updated: str &amp; mem namespace">
-      <change afterPath="$PROJECT_DIR$/conf/Doxyfile.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conf/doxygen.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/build.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/docs.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/docs.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/v0.5.6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/image/litchi.img" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/init.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/init.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kernel/monitor.cc" beforeDir="false" afterPath="$PROJECT_DIR$/kernel/monitor.cc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,19 +106,12 @@
     <property name="cf.advertisement.text.has.clang-format" value="true" />
     <property name="cf.advertisement.text.overridden" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.github/workflows" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/include" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/bootable" />
-      <recent name="$PROJECT_DIR$/inc" />
-      <recent name="$PROJECT_DIR$/kernel" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/docs" />
       <recent name="$PROJECT_DIR$/user/include" />
@@ -132,8 +119,15 @@
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/old_litchis" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.github/workflows" />
+      <recent name="$PROJECT_DIR$/include" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/bootable" />
+      <recent name="$PROJECT_DIR$/inc" />
+    </key>
   </component>
-  <component name="RunManager" selected="CMake Application.doc">
+  <component name="RunManager" selected="CMake Application.boot.elf">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
@@ -221,17 +215,17 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="CMake Application.boot.elf" />
       <item itemvalue="CMake Application.cgdb-cli" />
       <item itemvalue="CMake Application.doc" />
-      <item itemvalue="CMake Application.hello.elf" />
       <item itemvalue="CMake Application.image" />
+      <item itemvalue="CMake Application.qemu" />
+      <item itemvalue="CMake Application.qemu-gdb" />
+      <item itemvalue="CMake Application.qemu-nox" />
+      <item itemvalue="CMake Application.qemu-nox-gdb" />
+      <item itemvalue="CMake Application.boot.elf" />
       <item itemvalue="CMake Application.litchi.elf" />
       <item itemvalue="CMake Application.litchicc" />
-      <item itemvalue="CMake Application.qemu-gdb" />
-      <item itemvalue="CMake Application.qemu-nox-gdb" />
-      <item itemvalue="CMake Application.qemu-nox" />
-      <item itemvalue="CMake Application.qemu" />
+      <item itemvalue="CMake Application.hello.elf" />
       <item itemvalue="GDB Remote Debug.Debug Litchi" />
       <item itemvalue="Python.irq_gen" />
     </list>
@@ -302,21 +296,7 @@
       <workItem from="1598713522377" duration="672000" />
       <workItem from="1598714227200" duration="6000" />
       <workItem from="1598884086933" duration="564000" />
-      <workItem from="1602428296070" duration="7735000" />
-    </task>
-    <task id="LOCAL-00045" summary="Updated 'vmmap' command">
-      <created>1586326606960</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1586326606960</updated>
-    </task>
-    <task id="LOCAL-00046" summary="Serial port output support">
-      <created>1586328417197</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1586328417197</updated>
+      <workItem from="1602428296070" duration="8798000" />
     </task>
     <task id="LOCAL-00047" summary="Serial port color output support">
       <created>1586331454386</created>
@@ -647,7 +627,21 @@
       <option name="project" value="LOCAL" />
       <updated>1595770976843</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="Add: doxygen">
+      <created>1602440552944</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1602440552945</updated>
+    </task>
+    <task id="LOCAL-00095" summary="Add: doxygen GitHub actions">
+      <created>1602441260854</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1602441260854</updated>
+    </task>
+    <option name="localTasksCounter" value="96" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -664,7 +658,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="gh-pages" />
                       </list>
                     </value>
                   </entry>
@@ -681,8 +675,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="Update: run task by command" />
-    <MESSAGE value="Add: trap support" />
     <MESSAGE value="Add: allow task continue" />
     <MESSAGE value="Add: GitHub action" />
     <MESSAGE value="Update: README.md" />
@@ -706,7 +698,9 @@
     <MESSAGE value="Add: local APIC for MP" />
     <MESSAGE value="Add: comments for MP" />
     <MESSAGE value="Update: lambda console out" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update: lambda console out" />
+    <MESSAGE value="Add: doxygen" />
+    <MESSAGE value="Add: doxygen GitHub actions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add: doxygen GitHub actions" />
   </component>
   <component name="WindowStateProjectService">
     <state x="496" y="225" key="#New_File_Extensions" timestamp="1594620112917">
@@ -834,11 +828,12 @@
     </state>
     <state x="556" y="317" key="SettingsEditor/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595754904875" />
     <state x="449" y="334" width="1192" height="722" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1595694341257" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1595770978613">
-      <screen x="0" y="0" width="1792" height="1120" />
+    <state x="709" y="386" key="Vcs.Push.Dialog.v2" timestamp="1602441263597">
+      <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/-1366.0.1366.1024/0.0.1792.1120@0.0.1792.1120" timestamp="1595760329586" />
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1595770978613" />
+    <state x="709" y="386" key="Vcs.Push.Dialog.v2/0.0.2560.1440@0.0.2560.1440" timestamp="1602441263597" />
     <state x="100" y="100" width="1592" height="920" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1595748384983">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
