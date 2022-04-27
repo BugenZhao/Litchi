@@ -1,3 +1,7 @@
+# Notes
+
+Please check [litchi-rs](https://github.com/BugenZhao/litchi-rs), the continuation of this project in **~100% Rust**!
+
 # Litchi ![Build](https://github.com/BugenZhao/Litchi/workflows/Build/badge.svg)
 
 Bugen's toy kernel for x86 systems implemented in modern C++.
